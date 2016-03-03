@@ -12,12 +12,19 @@
 a = [1,2,3]
 b = [4,5,6]
 
+print('0 intuitive way:')
+ab = []
+for i in range(0, len(a)):
+    ab.append(a[i]*b[i])
+print(ab)
+
+print('1 better way:')
 print("a=", a)
 print("b=", b)
 c = [a*b for a,b in zip(a,b)]
 print(c)
 
-print(' other way : use numpy')
+print('2 other way : use numpy')
 import numpy as np
 
 a1 = np.array(a)
