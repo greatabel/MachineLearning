@@ -15,3 +15,8 @@ y = array([10,20,30,40])
 condition = array([True,True,False,False])
 z = where(condition,x,y)
 print(x,"\n",y,"\n",z)
+
+print('transpose function:')
+x1 = array([[1,2],[10,20]])
+y1 = transpose(x1)
+print(x1,"\n",y1)
