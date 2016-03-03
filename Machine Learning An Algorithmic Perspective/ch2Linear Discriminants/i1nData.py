@@ -16,3 +16,10 @@ print("a=", a)
 print("b=", b)
 c = [a*b for a,b in zip(a,b)]
 print(c)
+
+print(' other way : use numpy')
+import numpy as np
+
+a1 = np.array(a)
+b1 = np.array(b)
+print(a1*b1)
