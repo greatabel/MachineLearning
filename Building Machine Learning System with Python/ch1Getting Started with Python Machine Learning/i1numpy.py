@@ -6,4 +6,11 @@ if __name__ == "__main__":
     print('a=',a,'a.ndim=',a.ndim, a.shape)
 
     b = a.reshape((3,2))
-    print('b=',b)
+    print('b=',a,'b.ndim=',b.ndim, b.shape)
+    b[1][0] = 77
+    print('b=',b,'a=',a)
+
+    c = a.reshape((3,2)).copy()
+    print('c=',c)
+    c[0][0] = -99
+    print('c=',c,'a=',a)
