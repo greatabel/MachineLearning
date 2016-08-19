@@ -24,10 +24,17 @@ print('index = np.where(arr > 15) index = ',index)
 new_arr = arr[index]
 print('new_arr = arr[index]  new_arr=',new_arr )
 
-print('delete')
+print(colored('# new_arr = np.delete(arr, index) ','blue'))
 new_arr = np.delete(arr, index)
 print('new_arr =', new_arr)
 print('arr=', arr)
 
+
+
+print(colored('# instead of where: index = arr > 15 ','red'))
+index = arr > 15
+print(index)
+new_arr = arr[index]
+print('new_arr = arr[index] new_arr = ', new_arr)
 
 
