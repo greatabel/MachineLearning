@@ -16,7 +16,7 @@ f.close()
 # was data already existing in the file, it will be overwritten.
 f = open('i10somefile.txt', 'w')
 # Writing data to file 
-newdata = "test"
+newdata = "1 2 3"
 f.writelines(newdata)
 
 # Closing file 
