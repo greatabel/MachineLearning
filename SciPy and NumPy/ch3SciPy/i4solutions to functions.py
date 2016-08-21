@@ -1,4 +1,8 @@
 from termcolor import colored,cprint
 
+from scipy.optimize import fsolve 
 import numpy as np
-from scipy.optimize import curve_fit
+
+line = lambda x: x + 3
+solution = fsolve(line, -2) 
+print(solution)
