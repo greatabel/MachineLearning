@@ -8,6 +8,7 @@ fl = interp1d(x, y, kind='linear')
 fq = interp1d(x, y, kind='quadratic')
 # x.min and x.max are used to make sure we do not # go beyond the boundaries of the data for the
 # interpolation.
-xint = np.linspace(x.min(), x.max(), 1000)
+xint = np.linspace(x.min(), x.max(), 10)
 yintl = fl(xint) 
 yintq = fq(xint)
+print(yintl,'#\n', yintq)
