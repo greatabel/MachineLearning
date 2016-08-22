@@ -11,8 +11,8 @@ func = lambda x: np.cos(np.exp(x)) ** 2
 solution = quad(func, 0, 3)
 print(solution)
 
+print( colored( '-'*30,'green') )
 x = np.linspace(0, 3, 100)
 y = np.cos(np.exp(x))
-
 plt.plot(x,y)
 plt.show()
