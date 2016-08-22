@@ -16,7 +16,7 @@ plt.plot(x, y)
 
 # Interpolating the data
 f = UnivariateSpline(x, y, s=1)
-
+print( colored( ('(f = UnivariateSpline(x, y, s=1) f=',f),'green') )
 # x.min and x.max are used to make sure we do not 
 # go beyond the boundaries of the data for the
 # interpolation.
