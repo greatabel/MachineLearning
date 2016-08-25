@@ -10,4 +10,4 @@ if __name__ == "__main__":
     print('c=', c)
     print(colored( 'np.isnan(c)', 'blue'))
     print(np.isnan(c))
-    print(colored( ('c[~np.isnan(c)]=',c[~np.isnan(c)]=), 'green'))
+    print(colored( ('c[~np.isnan(c)]=',c[~np.isnan(c)]), 'green'))
