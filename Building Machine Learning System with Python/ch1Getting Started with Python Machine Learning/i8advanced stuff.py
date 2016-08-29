@@ -44,5 +44,21 @@ fx = sp.linspace(0,x[-1], 1000)
 # generate X-values for plotting
 plt.plot(fx, f1(fx), linewidth=4)
 plt.legend(["d=%i" % f1.order], loc="upper left")
+
+f2p = sp.polyfit(x, y, 2)
+print('f2p=',f2p)
+f2 = sp.poly1d(f2p)
+print(colored('error=','red'),error(f2,x,y))
+fx2 = sp.linspace(0,x[-1], 1000) 
+# generate X-values for plotting
+plt.plot(fx2, f2(fx2), linewidth=4)
+plt.legend(["d=%i" % f2.order], loc="upper left")
+
+
+
+
+
+
+
 plt.show()
 
