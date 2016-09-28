@@ -107,6 +107,7 @@ def xor_logic(is3d=False):
     print(p.pcnfwd(inputs_bias))
     # calculate it's Confusion matrix
     p.confmat(inputs, targets)
+    
 def main():
     """ Run OR logic functions """
     inputs = np.array([[0,0],[0,1],[1,0],[1,1]])
