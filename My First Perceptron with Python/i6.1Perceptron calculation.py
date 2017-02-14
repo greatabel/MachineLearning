@@ -1,13 +1,28 @@
 import random
 # Array: Memory weights
-Wgt = [0.0, 0.0]
+Wgh = [0.0, 0.0]
 
 Inp = []
+
+# abel hard code:
+Inp = [ [1,2],[10,20],[100, 200]
+        ]
 
 # constants of the rigid parameters
 Thr = 2.0
 
-Wgt[0] = random.uniform(-1.0, 1.0)
-Wgt[1] = random.uniform(-1.0, 1.0)
+Wgh[0] = random.uniform(-1.0, 1.0)
+Wgh[1] = random.uniform(-1.0, 1.0)
 
-print('Wgt:', Wgt)
+print('Wgh:', Wgh)
+
+for i, elem in enumerate(Inp):
+    print('\nindex=', i,Inp[i])
+    # Perceptron caculateion for the case
+    Sum = Inp[i][0] * Wgh[0] + Inp[i][1] * Wgh[1]
+    print('Sum=', Sum)
+    if Sum > Thr:
+        Axn = 1
+    else:
+        Axn = 0
+    print('Axn:', Axn)
