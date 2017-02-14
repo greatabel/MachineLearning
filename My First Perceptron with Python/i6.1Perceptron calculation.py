@@ -5,8 +5,12 @@ Wgh = [0.0, 0.0]
 Inp = []
 
 # abel hard code:
-Inp = [ [1,2],[10,20],[100, 200]
-        ]
+# Inp = [ [1,2],[10,20],[100, 200]
+#         ]
+for i in range(5):
+    Inp.append([random.uniform(-10.0, 10.0), random.uniform(-10.0, 10.0)])
+
+print('Inp=', Inp)
 
 # constants of the rigid parameters
 Thr = 2.0
