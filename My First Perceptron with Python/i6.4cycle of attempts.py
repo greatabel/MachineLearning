@@ -32,25 +32,36 @@ print('Wgh=', Wgh)
 # constants of the rigid parameters
 Thr = 2.0
 
-NEr = 0
-for i, elem in enumerate(Inp):
-    print('\n turn:', i,'Inp=',Inp[i])
+j = 0
+k = 1000
+while True:
+    j += 1
 
-    # Perceptron caculateion for the case
-    Sum = Inp[i][0] * Wgh[0] + Inp[i][1] * Wgh[1]
-    
-    if Sum > Thr:
-        Axn = 1
-    else:
-        Axn = 0
+    NEr = 0
+    for i, elem in enumerate(Inp):
+        print('\n turn:', i,'Inp=',Inp[i])
 
-    Err = Out[i] - Axn
-    print('Sum=', Sum, 'Axn:', Axn, 'Expected Out=', Out[i], 'Err=', Err)
-
-    if Err != 0:
-        NEr += 1
-        Wgh[0] += Proportion_Learning_factor * Err * Inp[i][0]
-        Wgh[1] += Proportion_Learning_factor * Err * Inp[i][1]
-        print('Wgh=', Wgh)
+        # Perceptron caculateion for the case
+        Sum = Inp[i][0] * Wgh[0] + Inp[i][1] * Wgh[1]
         
-    print_bold('-'*10)
+        if Sum > Thr:
+            Axn = 1
+        else:
+            Axn = 0
+
+        Err = Out[i] - Axn
+        print('Sum=', Sum, 'Axn:', Axn, 'Expected Out=', Out[i], 'Err=', Err)
+
+        if Err != 0:
+            NEr += 1
+            Wgh[0] += Proportion_Learning_factor * Err * Inp[i][0]
+            Wgh[1] += Proportion_Learning_factor * Err * Inp[i][1]
+            print('Wgh=', Wgh)
+            
+    print_bold('#'*10 + "j=" + str(j))
+
+    if NEr == 0:
+        break
+
+    if j >= k:
+        break
