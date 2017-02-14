@@ -3,7 +3,7 @@ import random
 Out = []
 
 # Array: Memory weights
-Wgh = [0.0, 0.0]
+Wgh = []
 
 Inp = []
 
@@ -12,21 +12,20 @@ Inp = []
 #         ]
 for i in range(5):
     Inp.append([random.uniform(-10.0, 10.0), random.uniform(-10.0, 10.0)])
+    Wgh.append([random.uniform(-10.0, 10.0), random.uniform(-10.0, 10.0)])
     Out.append(random.choice([True, False]))
 print('Inp=', Inp)
 
 # constants of the rigid parameters
 Thr = 2.0
 
-Wgh[0] = random.uniform(-1.0, 1.0)
-Wgh[1] = random.uniform(-1.0, 1.0)
 
-print('Wgh:', Wgh)
-
+print('\nWgh:', Wgh)
+Sum = 0
 for i, elem in enumerate(Inp):
     print('\nindex=', i,Inp[i])
     # Perceptron caculateion for the case
-    Sum = Inp[i][0] * Wgh[0] + Inp[i][1] * Wgh[1]
+    Sum += Inp[i][0] * Wgh[i][0] + Inp[i][1] * Wgh[i][1]
     print('Sum=', Sum)
     
     if Sum > Thr:
