@@ -25,4 +25,11 @@ class Network(object):
         print('\nbiases=') 
         pp.pprint(self.biases)
         print('\nweights=') 
-        pp.pprint(self.weights)  
+        pp.pprint(self.weights)
+
+
+    def feedforward(self, a):
+        """ return the output of the netwrok if ''a '' is input. """
+        for b , w in zip(self.biases, self.weights):
+            a = sigmoid(np.dot(w,a)+b)
+            return a
