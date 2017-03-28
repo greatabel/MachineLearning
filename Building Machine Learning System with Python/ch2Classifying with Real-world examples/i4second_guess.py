@@ -24,20 +24,26 @@ labels = target_names[target]
 plength = features[:, 2]
 
 # Build an array of booleans:
-is_versicolor= (labels == 'versicolor')
-is_virginica= (labels == 'virginica')
+is_setosa = (labels == 'setosa')
 # print('is_setosa = ', is_setosa)
-max_versicolor = plength[is_versicolor].max()
-# min_non_versicolor = plength[~is_versicolor].min()
+max_setosa = plength[is_setosa].max()
+min_non_setosa = plength[~is_setosa].min()
 
-min_virginica = plength[is_virginica].min()
-# min_non_virginica = plength[~is_virginica].min()
+print('Maximum of setosa: {0}.'.format(max_setosa))
+print('Minimum of others: {0}.'.format(min_non_setosa))
 
-print('Maximum of versicolor: {0}.'.format(max_versicolor))
-# print('Minimum of others: {0}.'.format(min_non_versicolor))
+# ----- i4 ----------------
+# 找出不是setosa之外的
+features = features[~is_setosa]
+labels = labels[~is_setosa]
 
-# print('Maximum of virginica: {0}.'.format(max_virginica))
-print('Minimum of virginica: {0}.'.format(min_virginica))
+# 创建新的目标
+is_virginica = (labels == 'virginica')
 
-if max_versicolor > min_virginica:
-    print('overlap')
+# inialize best_acc to impssibly low values
+best_acc = -1.0
+# print('features=',features)
+for fi in range(features.shape[1]):
+    print('fi=',fi)
+    thresh = features[:,fi]
+    # print('thresh=',thresh)
