@@ -24,10 +24,20 @@ labels = target_names[target]
 plength = features[:, 2]
 
 # Build an array of booleans:
-is_setosa = (labels == 'setosa')
+is_versicolor= (labels == 'versicolor')
+is_virginica= (labels == 'virginica')
 # print('is_setosa = ', is_setosa)
-max_setosa = plength[is_setosa].max()
-min_non_setosa = plength[~is_setosa].min()
+max_versicolor = plength[is_versicolor].max()
+# min_non_versicolor = plength[~is_versicolor].min()
 
-print('Maximum of setosa: {0}.'.format(max_setosa))
-print('Minimum of others: {0}.'.format(min_non_setosa))
+min_virginica = plength[is_virginica].min()
+# min_non_virginica = plength[~is_virginica].min()
+
+print('Maximum of versicolor: {0}.'.format(max_versicolor))
+# print('Minimum of others: {0}.'.format(min_non_versicolor))
+
+# print('Maximum of virginica: {0}.'.format(max_virginica))
+print('Minimum of virginica: {0}.'.format(min_virginica))
+
+if max_versicolor > min_virginica:
+    print('overlap')
