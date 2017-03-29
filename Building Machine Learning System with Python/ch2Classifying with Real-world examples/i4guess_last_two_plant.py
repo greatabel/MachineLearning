@@ -71,5 +71,6 @@ for fi in range(features.shape[1]):
             best_fi = fi
             best_t = t
             best_reverse = reverse
+            
 print('最好积累值:',best_acc,'第几个:',best_fi,'数值:',best_t ,'是否反转:',best_reverse)
     # print('thresh=',thresh)
