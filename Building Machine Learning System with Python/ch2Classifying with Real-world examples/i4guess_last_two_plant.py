@@ -46,10 +46,18 @@ best_acc = -1.0
 for fi in range(features.shape[1]):
     # print('fi=',fi)
     # thresh 是第 fi 个向量
+    # print(colored('fi '*5+str(fi), 'red'))
+
     thresh = features[:,fi]
+
+    # print('thresh=', thresh)
     for t in thresh:
+        # print('t=', t)
         feature_i = features[:,fi]
         pred = (feature_i > t)
+        # print('pred=', pred)
+        # print('is_virginica=',is_virginica)
+        # print('pred == is_virginica',(pred == is_virginica))
         acc = (pred == is_virginica).mean()
         rev_acc = (pred == ~is_virginica).mean()
         if rev_acc > acc:
@@ -63,5 +71,5 @@ for fi in range(features.shape[1]):
             best_fi = fi
             best_t = t
             best_reverse = reverse
-print(best_acc,'第几个:',best_fi,'数值:',best_t ,best_reverse)
+print('最好积累值:',best_acc,'第几个:',best_fi,'数值:',best_t ,'是否反转:',best_reverse)
     # print('thresh=',thresh)
