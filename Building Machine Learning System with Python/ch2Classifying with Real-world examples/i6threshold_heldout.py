@@ -37,3 +37,11 @@ print('len(features[training]):',len(features[training]))
 
 model = fit_model(features[training], is_virginica[training])
 print('model:', model)
+
+train_accuracy = accuracy(features[training], is_virginica[training], model)
+test_accuracy = accuracy(features[testing], is_virginica[testing], model)
+
+print('''\
+Training accuracy was {0:.1%}.
+Testing accuracy was {1:.1%} (N = {2}).
+'''.format(train_accuracy, test_accuracy, testing.sum()))

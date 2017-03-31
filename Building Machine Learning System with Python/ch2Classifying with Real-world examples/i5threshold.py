@@ -37,7 +37,14 @@ def fit_model(features, labels):
 
 
 def predict(model, features):
-    return 0
+    # apply model
+    t, fi, reverse = model
+    if reverse:
+        return features[:, fi] <= t
+    else:
+        return features[:, fi] > t
+
 
 def accuracy(features, labels, model):
-    return 0
+    preds = predict(model, features)
+    return np.mean(preds == labels)
