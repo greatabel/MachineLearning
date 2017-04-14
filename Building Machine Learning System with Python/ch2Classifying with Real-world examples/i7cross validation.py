@@ -54,3 +54,5 @@ for ei in range(len(features)):
     Training accuracy was {0:.1%}.
     Testing accuracy was {1:.1%} (N = {2}).
     '''.format(train_accuracy, test_accuracy, testing.sum()))
+    error += np.sum(test_accuracy != is_virginica[testing])
+print('error=', error)
