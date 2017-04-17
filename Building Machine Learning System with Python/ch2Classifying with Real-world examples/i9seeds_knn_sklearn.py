@@ -3,6 +3,7 @@ import numpy as np
 
 # Import sklearn implementation of KNN
 from sklearn.neighbors import KNeighborsClassifier
+from termcolor import colored
 
 features, labels = load_dataset('seeds')
 # start for test
@@ -19,7 +20,7 @@ for ei in range(n):
     training[ei] = 0
     testing = ~training
     classifier.fit(features[training], labels[training])
-    print('features[ei]=', features[ei])
+    print('features[ei]=', colored(features[ei], 'red'))
     # http://stackoverflow.com/questions/35166146/sci-kit-learn-reshape-your-data-either-using-x-reshape-1-1
     temp = np.array(features[ei]).reshape((1, -1))
     pred = classifier.predict(temp)
