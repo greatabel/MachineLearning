@@ -13,8 +13,8 @@ features = features[:5]
 labels = labels[:5]
 
 # end for test
-g
-print('features=',features, '\nlabels=', labels,'\n')
+
+# print('features=',features, '\nlabels=', labels,'\n')
 classifier = KNeighborsClassifier(n_neighbors=4)
 
 n = len(features)
@@ -33,3 +33,24 @@ for ei in range(n):
     # print('pred=', colored(pred, 'blue'),'labels[ei]=', labels[ei])    
     correct += (pred == labels[ei])
 print('Result of leave-one-out: {}'.format(correct/n))
+
+
+# http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html
+# Import KFold object
+# from sklearn.cross_validation import KFold
+from sklearn.model_selection  import KFold
+
+# means will hold the mean for each fold
+means = []
+
+# kf is a generator of pairs (training,testing) so that each iteration
+# implements a separate fold.
+kf = KFold(len(features), random_state=3, shuffle=True)
+
+for training,testing in kf.split(features):
+    # We learn a model for this fold with `fit` and then apply it to the
+    # testing data with `predict`:
+    print(colored('\ntraining,testing:', 'blue'),training,testing,'\n')
+    print('features[training], labels[training]:',features[training], labels[training])
+    print('features[testing]:',features[testing])
+    
