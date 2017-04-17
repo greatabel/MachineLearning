@@ -9,8 +9,8 @@ features, labels = load_dataset('seeds')
 
 # start for test
 
-features = features[:6]
-labels = labels[:6]
+# features = features[:6]
+# labels = labels[:6]
 
 # end for test
 
@@ -66,6 +66,10 @@ for training,testing in kf.split(features):
     means.append(curmean)
 print('Result of cross-validation using KFold: {}'.format(means))
 
+
+
+
+
 # The function cross_val_score does the same thing as the loop above with a
 # single function call
 
@@ -82,3 +86,20 @@ from sklearn.preprocessing import StandardScaler
 classifier = Pipeline([('norm', StandardScaler()), ('knn', classifier)])
 crossed = cross_val_score(classifier, features, labels)
 print('Result with prescaling: {}'.format(crossed))
+
+
+
+# Now, generate & print a cross-validated confusion matrix for the same result
+from sklearn.metrics import confusion_matrix
+names = list(set(labels))
+labels = np.array([names.index(ell) for ell in labels])
+preds = labels.copy()
+preds[:] = -1
+for train, test in kf.split(features):
+    classifier.fit(features[train], labels[train])
+    preds[test] = classifier.predict(features[test])
+
+cmat = confusion_matrix(labels, preds)
+print()
+print('Confusion matrix: [rows represent true outcome, columns predicted outcome]')
+print(cmat)
