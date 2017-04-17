@@ -9,8 +9,8 @@ features, labels = load_dataset('seeds')
 
 # start for test
 
-features = features[:5]
-labels = labels[:5]
+features = features[:10]
+labels = labels[:10]
 
 # end for test
 
@@ -65,3 +65,20 @@ for training,testing in kf.split(features):
     curmean = np.mean(prediction == labels[testing])
     means.append(curmean)
 print('Result of cross-validation using KFold: {}'.format(means))
+
+# The function cross_val_score does the same thing as the loop above with a
+# single function call
+
+from sklearn.model_selection import cross_val_score
+crossed = cross_val_score(classifier, features, labels)
+print('Result of cross-validation using cross_val_score: {}'.format(crossed))
+
+# The results above use the features as is, which we learned was not optimal
+# except if the features happen to all be in the same scale. We can pre-scale
+# the features as explained in the main text:
+
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+classifier = Pipeline([('norm', StandardScaler()), ('knn', classifier)])
+crossed = cross_val_score(classifier, features, labels)
+print('Result with prescaling: {}'.format(crossed))
