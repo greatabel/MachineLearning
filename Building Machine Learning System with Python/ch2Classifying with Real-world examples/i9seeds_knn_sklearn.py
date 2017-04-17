@@ -9,8 +9,8 @@ features, labels = load_dataset('seeds')
 
 # start for test
 
-features = features[:10]
-labels = labels[:10]
+features = features[:6]
+labels = labels[:6]
 
 # end for test
 
