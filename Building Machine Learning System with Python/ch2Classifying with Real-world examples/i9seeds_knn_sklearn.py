@@ -8,15 +8,11 @@ features, labels = load_dataset('seeds')
 classifier = KNeighborsClassifier(n_neighbors=4)
 
 n = len(features)
-print('n = len(features) n =', n)
-
 correct = 0.0
 for ei in range(n):
     training = np.ones(n, bool)
-    # print('training=', training)
     training[ei] = 0
     testing = ~training
-    # print('#training=', training)
     classifier.fit(features[training], labels[training])
     pred = classifier.predict(features[ei])
     correct += (pred == labels[ei])
