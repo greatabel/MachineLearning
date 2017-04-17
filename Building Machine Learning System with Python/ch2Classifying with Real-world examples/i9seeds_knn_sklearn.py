@@ -19,10 +19,12 @@ for ei in range(n):
     training = np.ones(n, bool)
     training[ei] = 0
     testing = ~training
+    print('features[training], labels[training]=',features[training], labels[training])
     classifier.fit(features[training], labels[training])
-    print('features[ei]=', colored(features[ei], 'red'))
+
     # http://stackoverflow.com/questions/35166146/sci-kit-learn-reshape-your-data-either-using-x-reshape-1-1
     temp = np.array(features[ei]).reshape((1, -1))
+    print('features[ei]=', colored(temp, 'red'))
     pred = classifier.predict(temp)
     correct += (pred == labels[ei])
 print('Result of leave-one-out: {}'.format(correct/n))
