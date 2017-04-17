@@ -19,5 +19,6 @@ def load_dataset(dataset_name):
             tokens = line.strip().split('\t')
             data.append([float(tk) for tk in tokens[:-1]])
             labels.append(tokens[-1])
-    print('data[:10]=',data[:10])
+    print('\n面积A 周长P 紧密度C 谷粒长度 宽度 偏度系数 谷粒槽长度')
+    print('data[:10]=',data[:10],'\n')
     data = np.array(data)
