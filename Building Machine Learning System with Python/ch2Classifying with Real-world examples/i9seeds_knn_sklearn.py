@@ -5,6 +5,11 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
 features, labels = load_dataset('seeds')
+# start for test
+features = features[:10]
+labels = labels[:10]
+# end for test
+
 classifier = KNeighborsClassifier(n_neighbors=4)
 
 n = len(features)
@@ -14,7 +19,7 @@ for ei in range(n):
     training[ei] = 0
     testing = ~training
     classifier.fit(features[training], labels[training])
-    # print('features[ei]=', features[ei])
+    print('features[ei]=', features[ei])
     # http://stackoverflow.com/questions/35166146/sci-kit-learn-reshape-your-data-either-using-x-reshape-1-1
     temp = np.array(features[ei]).reshape((1, -1))
     pred = classifier.predict(temp)
