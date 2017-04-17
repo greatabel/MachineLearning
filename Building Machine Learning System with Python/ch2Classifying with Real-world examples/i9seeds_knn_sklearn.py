@@ -14,6 +14,9 @@ for ei in range(n):
     training[ei] = 0
     testing = ~training
     classifier.fit(features[training], labels[training])
-    pred = classifier.predict(features[ei])
+    # print('features[ei]=', features[ei])
+    # http://stackoverflow.com/questions/35166146/sci-kit-learn-reshape-your-data-either-using-x-reshape-1-1
+    temp = np.array(features[ei]).reshape((1, -1))
+    pred = classifier.predict(temp)
     correct += (pred == labels[ei])
 print('Result of leave-one-out: {}'.format(correct/n))
