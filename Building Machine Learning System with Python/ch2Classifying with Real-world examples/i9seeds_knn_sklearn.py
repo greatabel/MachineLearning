@@ -6,11 +6,15 @@ from sklearn.neighbors import KNeighborsClassifier
 from termcolor import colored
 
 features, labels = load_dataset('seeds')
+
 # start for test
-features = features[:10]
-labels = labels[:10]
+
+features = features[:5]
+labels = labels[:5]
+
 # end for test
 
+print('features=',features, '\nlabels=', labels,'\n')
 classifier = KNeighborsClassifier(n_neighbors=4)
 
 n = len(features)
@@ -26,5 +30,6 @@ for ei in range(n):
     temp = np.array(features[ei]).reshape((1, -1))
     print('features[ei]=', colored(temp, 'red'))
     pred = classifier.predict(temp)
+    print('pred=', colored(pred, 'blue'),'labels[ei]=', labels[ei])    
     correct += (pred == labels[ei])
 print('Result of leave-one-out: {}'.format(correct/n))

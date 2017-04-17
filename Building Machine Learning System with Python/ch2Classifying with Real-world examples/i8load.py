@@ -23,5 +23,5 @@ def load_dataset(dataset_name):
     data = np.array(data)
     labels = np.array(labels)
     print('\n面积A 周长P 紧密度C 谷粒长度 宽度 偏度系数 谷粒槽长度')
-    print('data[:10]=',data[:10],'#'*10, labels[:10],'\n')
+    # print('data[:10]=',data[:10],'#'*10, labels[:10],'\n')
     return data, labels
