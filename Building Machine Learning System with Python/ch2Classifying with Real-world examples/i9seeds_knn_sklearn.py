@@ -13,7 +13,7 @@ features = features[:5]
 labels = labels[:5]
 
 # end for test
-
+g
 print('features=',features, '\nlabels=', labels,'\n')
 classifier = KNeighborsClassifier(n_neighbors=4)
 
@@ -23,13 +23,13 @@ for ei in range(n):
     training = np.ones(n, bool)
     training[ei] = 0
     testing = ~training
-    print('features[training], labels[training]=',features[training], labels[training])
+    # print('features[training], labels[training]=',features[training], labels[training])
     classifier.fit(features[training], labels[training])
 
     # http://stackoverflow.com/questions/35166146/sci-kit-learn-reshape-your-data-either-using-x-reshape-1-1
     temp = np.array(features[ei]).reshape((1, -1))
-    print('features[ei]=', colored(temp, 'red'))
+    # print('features[ei]=', colored(temp, 'red'))
     pred = classifier.predict(temp)
-    print('pred=', colored(pred, 'blue'),'labels[ei]=', labels[ei])    
+    # print('pred=', colored(pred, 'blue'),'labels[ei]=', labels[ei])    
     correct += (pred == labels[ei])
 print('Result of leave-one-out: {}'.format(correct/n))
