@@ -50,7 +50,18 @@ kf = KFold(len(features), random_state=3, shuffle=True)
 for training,testing in kf.split(features):
     # We learn a model for this fold with `fit` and then apply it to the
     # testing data with `predict`:
-    print(colored('\ntraining,testing:', 'blue'),training,testing,'\n')
-    print('features[training], labels[training]:',features[training], labels[training])
-    print('features[testing]:',features[testing])
-    
+
+    # print(colored('\ntraining,testing:', 'blue'),training,testing,'\n')
+    # print('features[training], labels[training]:',features[training], labels[training])
+    # print('features[testing]:',features[testing])
+
+    # We learn a model for this fold with `fit` and then apply it to the
+    # testing data with `predict`:
+    classifier.fit(features[training], labels[training])
+    prediction = classifier.predict(features[testing])
+    # print('prediction=', prediction)
+        # np.mean on an array of booleans returns the fraction of correct decisions
+    # for this fold:
+    curmean = np.mean(prediction == labels[testing])
+    means.append(curmean)
+print('Result of cross-validation using KFold: {}'.format(means))
