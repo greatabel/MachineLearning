@@ -1,4 +1,5 @@
 import numpy as np
+from termcolor import colored
 
 def fit_model(k, features, labels):
     return k, features.copy(), labels.copy()
@@ -21,6 +22,8 @@ def plurality(xs):
 def predict(model, features):
     '''Apply k-nn model'''
     k, train_feats, labels = model
+    print('k=',k,'\ntrain_feats=',train_feats,'\nlabels=', labels)
+    print(colored('-'*10, 'blue'))
     results = []
     for f in features:
         print('f=', f)
