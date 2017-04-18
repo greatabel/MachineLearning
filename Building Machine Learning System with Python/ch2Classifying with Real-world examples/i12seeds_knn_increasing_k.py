@@ -13,6 +13,7 @@ from sklearn.preprocessing import StandardScaler
 features, labels = load_dataset('seeds')
 
 # Values of k to consider: all in 1 .. 160
+# 这里不能设置160，https://github.com/scikit-learn-contrib/imbalanced-learn/issues/27 
 ks = np.arange(1,138)
 
 # We build a classifier object here with the default number of neighbors
