@@ -6,8 +6,8 @@ features, labels = load_dataset('seeds')
 
 # start for test
 
-features = features[:10]
-labels = labels[:10]
+# features = features[:20]
+# labels = labels[:20]
 
 # end for test
 
@@ -25,3 +25,11 @@ def cross_validate(features, labels):
     return error / 10.0
 
 error = cross_validate(features, labels)
+print('Ten fold cross-validated error was {0:.1%}.'.format(error))
+
+# Z-score (whiten) the features
+features -= features.mean(0)
+features /= features.std(0)
+error = cross_validate(features, labels)
+print(
+    'Ten fold cross-validated error after z-scoring was {0:.1%}.'.format(error))

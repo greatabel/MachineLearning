@@ -22,8 +22,8 @@ def plurality(xs):
 def predict(model, features):
     '''Apply k-nn model'''
     k, train_feats, labels = model
-    print('k=',k,'\ntrain_feats=',train_feats,'\nlabels=', labels)
-    print(colored('-'*10, 'blue'))
+    # print('k=',k,'\ntrain_feats=',train_feats,'\nlabels=', labels)
+    print(colored('-'*10, 'red'))
     results = []
     for f in features:
         print('f=', f)
@@ -40,6 +40,7 @@ def predict(model, features):
 
 def accuracy(features, labels, model):
     preds = predict(model, features)
+    print('preds=',preds)
     return np.mean(preds == labels)
 
 # if __name__ == "__main__":
