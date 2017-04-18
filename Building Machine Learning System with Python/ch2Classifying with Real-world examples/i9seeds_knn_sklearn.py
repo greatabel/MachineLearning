@@ -88,7 +88,7 @@ crossed = cross_val_score(classifier, features, labels)
 print('Result with prescaling: {}'.format(crossed))
 
 
-
+# http://blog.csdn.net/CherDW/article/details/55813071 介绍 混淆矩阵
 # Now, generate & print a cross-validated confusion matrix for the same result
 from sklearn.metrics import confusion_matrix
 names = list(set(labels))
