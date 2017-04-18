@@ -23,6 +23,7 @@ def predict(model, features):
     k, train_feats, labels = model
     results = []
     for f in features:
+        print('f=', f)
         label_dist = []
         # Compute all distances:
         for t, ell in zip(train_feats, labels):
