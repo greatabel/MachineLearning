@@ -1,6 +1,5 @@
 import os
 import sys
-from termcolor import colored
 
 
 DATA_DIR = os.path.join(
