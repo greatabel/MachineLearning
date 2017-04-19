@@ -39,6 +39,8 @@ print('计算新帖子和老帖子之间的距离')
 import scipy as sp
 import sys
 
+# https://zh.wikipedia.org/wiki/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E8%B7%9D%E7%A6%BB
+# 欧氏距离
 def dist_raw(v1, v2):
     delta = v1 - v2
     return sp.linalg.norm(delta.toarray())
