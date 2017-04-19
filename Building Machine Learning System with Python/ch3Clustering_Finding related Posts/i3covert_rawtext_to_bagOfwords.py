@@ -57,5 +57,7 @@ for i in range(0, num_samples):
     post_vec = X_train.getrow(i)
     # print('post_vec=', post_vec)
     d = dist(post_vec, new_post_vec)
-    print("=== Post %i with dist= %.2f: %s" % (i, d, post))
+    start = "\033[1m"
+    end = "\033[0;0m"
+    print("=== Post %i with dist= %s: %s" % (i, start + str(d) + end , post))
 
