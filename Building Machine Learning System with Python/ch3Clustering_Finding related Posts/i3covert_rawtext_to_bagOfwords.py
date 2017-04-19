@@ -15,8 +15,8 @@ print(X.toarray().transpose())
 print(colored('*'*25, 'red'))
 
 
-from i2utils import DATA_DIR
 
+from i2utils import DATA_DIR
 TOY_DIR = os.path.join(DATA_DIR, "toy")
 posts = [open(os.path.join(TOY_DIR, f)).read() for f in os.listdir(TOY_DIR)]
 print('posts:', posts)
@@ -32,9 +32,10 @@ new_post_vec = vectorizer.transform([new_post])
 print('new_post_vec =', new_post_vec)
 print('new_post_vec.toarray() =',new_post_vec.toarray())
 
+
+
 print(colored('*'*25, 'magenta'))
 print('计算新帖子和老帖子之间的距离')
-
 import scipy as sp
 import sys
 
@@ -43,6 +44,16 @@ def dist_raw(v1, v2):
     return sp.linalg.norm(delta.toarray())
 
 best_doc = None
-best_dist = sys.maxint
-print('best_dist=', best_dist)
+best_dist = sys.maxsize
+dist = dist_raw
+# print('best_dist=', best_dist)
+for i in range(0, num_samples):
+    post = posts[i]
+    # print('post:', post)
+    if post == new_post:
+        continue
+    post_vec = X_train.getrow(i)
+    # print('post_vec=', post_vec)
+    d = dist(post_vec, new_post_vec)
+    print("=== Post %i with dist= %.2f: %s" % (i, d, post))
 
