@@ -2,6 +2,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from termcolor import colored
 import os
 
+
 vectorizer = CountVectorizer(min_df=1)
 print('dir(vectorizer)=',dir(vectorizer),'\nvectorizer=', vectorizer,'\n')
 
@@ -30,3 +31,18 @@ new_post = "imaging databases"
 new_post_vec = vectorizer.transform([new_post])
 print('new_post_vec =', new_post_vec)
 print('new_post_vec.toarray() =',new_post_vec.toarray())
+
+print(colored('*'*25, 'magenta'))
+print('计算新帖子和老帖子之间的距离')
+
+import scipy as sp
+import sys
+
+def dist_raw(v1, v2):
+    delta = v1 - v2
+    return sp.linalg.norm(delta.toarray())
+
+best_doc = None
+best_dist = sys.maxint
+print('best_dist=', best_dist)
+
