@@ -48,6 +48,8 @@ def dist_raw(v1, v2):
 best_doc = None
 best_dist = sys.maxsize
 dist = dist_raw
+best_i = None
+
 # print('best_dist=', best_dist)
 for i in range(0, num_samples):
     post = posts[i]
@@ -61,3 +63,8 @@ for i in range(0, num_samples):
     end = "\033[0;0m"
     print("=== Post %i with dist= %s: %s" % (i, start + str(d) + end , post))
 
+    if d < best_dist:
+        best_dist = d
+        best_i = i
+        
+print("Best post is %i with dist=%.2f" % (best_i, best_dist))
