@@ -2,10 +2,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from termcolor import colored
 import os
 
-
+# -------start part different from i3covert_rawtext_to_bagOfwords.py ------
 vectorizer = CountVectorizer(min_df=1, stop_words='english')
 
 print(colored(sorted(vectorizer.get_stop_words())[0:20], 'blue'))
+
+
+# ------- end part different from i3covert_rawtext_to_bagOfwords.py ------
 
 print('dir(vectorizer)=',dir(vectorizer),'\nvectorizer=', vectorizer,'\n')
 
