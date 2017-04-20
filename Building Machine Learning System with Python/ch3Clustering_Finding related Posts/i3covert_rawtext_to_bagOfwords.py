@@ -45,9 +45,18 @@ def dist_raw(v1, v2):
     delta = v1 - v2
     return sp.linalg.norm(delta.toarray())
 
+def dist_norm(v1, v2):
+    v1_normalized = v1 / sp.linalg.norm(v1.toarray())
+    v2_normalized = v2 / sp.linalg.norm(v2.toarray())
+
+    delta = v1_normalized - v2_normalized
+
+    return sp.linalg.norm(delta.toarray())
+    
 best_doc = None
 best_dist = sys.maxsize
 dist = dist_raw
+dist = dist_norm
 best_i = None
 
 # print('best_dist=', best_dist)
@@ -66,5 +75,5 @@ for i in range(0, num_samples):
     if d < best_dist:
         best_dist = d
         best_i = i
-        
+
 print("Best post is %i with dist=%.2f" % (best_i, best_dist))
