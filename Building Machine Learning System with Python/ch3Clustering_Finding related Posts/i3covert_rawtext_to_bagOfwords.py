@@ -52,11 +52,13 @@ def dist_norm(v1, v2):
     delta = v1_normalized - v2_normalized
 
     return sp.linalg.norm(delta.toarray())
-    
+
 best_doc = None
 best_dist = sys.maxsize
-dist = dist_raw
+
+# dist = dist_raw
 dist = dist_norm
+
 best_i = None
 
 # print('best_dist=', best_dist)
@@ -68,9 +70,11 @@ for i in range(0, num_samples):
     post_vec = X_train.getrow(i)
     # print('post_vec=', post_vec)
     d = dist(post_vec, new_post_vec)
+    d_raw = dist_raw(post_vec, new_post_vec)
     start = "\033[1m"
     end = "\033[0;0m"
     print("=== Post %i with dist= %s: %s" % (i, start + str(d) + end , post))
+    print("$$$ Post %i with dist_raw = %s: %s" % (i, start + str(d_raw) + end , post))
 
     if d < best_dist:
         best_dist = d
