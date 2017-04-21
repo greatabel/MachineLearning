@@ -1,8 +1,10 @@
-# https://www.youtube.com/watch?v=_aWzGGNrcic
+# K-means演示:  https://www.youtube.com/watch?v=_aWzGGNrcic
 
 import sklearn.datasets
 import scipy as sp
 from termcolor import colored
+import time
+
 
 print('sklearn.datasets.get_data_home()=', sklearn.datasets.get_data_home())
 
@@ -40,9 +42,26 @@ class StemmedTfidfVectorizer(TfidfVectorizer):
 vectorizer = StemmedTfidfVectorizer(min_df=10, max_df=0.5,
                                     stop_words='english', decode_error='ignore'
                                     )
+
+
 for i in range(0,3):
     print(train_data.data[i],'-'*20,i,'-'*20,'\n')
+
+start = time.time()
 vectorized = vectorizer.fit_transform(train_data.data)
 num_samples, num_features = vectorized.shape
 print("#samples: %d, #features: %d" % (num_samples, num_features))
+
+end = time.time()
+print('vectorizer(end - start)=', (end - start))
+start = time.time()
 # print('vectorizer.get_feature_names()=',vectorizer.get_feature_names())
+
+from sklearn.cluster import KMeans
+
+km = KMeans(n_clusters=num_clusters, n_init=1, verbose=1, random_state=3)
+clustered = km.fit(vectorized)
+
+print("km.labels_=%s" % km.labels_)
+end = time.time()
+print('cluster(end - start)=', (end - start))
