@@ -40,7 +40,8 @@ class StemmedTfidfVectorizer(TfidfVectorizer):
 vectorizer = StemmedTfidfVectorizer(min_df=10, max_df=0.5,
                                     stop_words='english', decode_error='ignore'
                                     )
-
+for i in range(0,3):
+    print(train_data.data[i],'-'*20,i,'-'*20,'\n')
 vectorized = vectorizer.fit_transform(train_data.data)
 num_samples, num_features = vectorized.shape
 print("#samples: %d, #features: %d" % (num_samples, num_features))
