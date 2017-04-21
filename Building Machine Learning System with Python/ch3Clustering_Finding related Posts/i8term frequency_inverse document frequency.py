@@ -1,17 +1,19 @@
 import nltk.stem
-from sklearn.feature_extraction.text import CountVectorizer
+
+from sklearn.feature_extraction.text import TfidfVectorizer
 from termcolor import colored
 import os
 
 english_stemmer = nltk.stem.SnowballStemmer('english')
 
-class StemmedCountVectorizer(CountVectorizer):
+class StemmedTfidfVectorizer(TfidfVectorizer):
 
     def build_analyzer(self):
-        analyzer = super(StemmedCountVectorizer, self).build_analyzer()
+        analyzer = super(StemmedTfidfVectorizer, self).build_analyzer()
         return lambda doc: (english_stemmer.stem(w) for w in analyzer(doc))
 
-vectorizer = StemmedCountVectorizer(min_df=1, stop_words='english')
+vectorizer = StemmedTfidfVectorizer(
+    min_df=1, stop_words='english', decode_error='ignore')
 
 
 
