@@ -6,9 +6,10 @@ import os
 english_stemmer = nltk.stem.SnowballStemmer('english')
 
 class StemmedCountVectorizer(CountVectorizer):
-    def build_anlyzer(self):
-        anlyzer = super(StemmedCountVectorizer, self).build_anlyzer()
-        return lambda doc: (english_stemmer.stem(w) for w in anlyzer(doc))
+
+    def build_analyzer(self):
+        analyzer = super(StemmedCountVectorizer, self).build_analyzer()
+        return lambda doc: (english_stemmer.stem(w) for w in analyzer(doc))
 
 vectorizer = StemmedCountVectorizer(min_df=1, stop_words='english')
 
