@@ -53,7 +53,7 @@ num_samples, num_features = vectorized.shape
 print("#samples: %d, #features: %d" % (num_samples, num_features))
 
 end = time.time()
-print('vectorizer(end - start)=', (end - start))
+print(colored('time:vectorizer(end - start)=', 'magenta'), (end - start))
 start = time.time()
 # print('vectorizer.get_feature_names()=',vectorizer.get_feature_names())
 
@@ -63,5 +63,9 @@ km = KMeans(n_clusters=num_clusters, n_init=1, verbose=1, random_state=3)
 clustered = km.fit(vectorized)
 
 print("km.labels_=%s" % km.labels_)
+print("km.labels_.shape=%s" % km.labels_.shape)
+print("km.cluster_centers_=%s" % km.cluster_centers_)
+
+
 end = time.time()
-print('cluster(end - start)=', (end - start))
+print(colored('time:cluster(end - start)=', 'magenta'), (end - start))
