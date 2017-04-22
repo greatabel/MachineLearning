@@ -94,3 +94,31 @@ After 1 year it is working only sporadically now.
 I tried to format it, but now it doesn't boot any more.
 Any ideas? Thanks.
 """
+new_post_vec = vectorizer.transform([new_post])
+new_post_label = km.predict(new_post_vec)[0]
+
+similar_indices = (km.labels_ == new_post_label).nonzero()[0]
+
+similar = []
+for i in similar_indices:
+    dist = sp.linalg.norm((new_post_vec - vectorized[i]).toarray())
+    # print(i, 'dist=', dist)
+    similar.append((dist, train_data.data[i]))
+    
+similar = sorted(similar)
+print("Count similar: %i" % len(similar))
+
+show_at_1 = similar[0]
+show_at_2 = similar[int(len(similar) / 10)]
+show_at_3 = similar[int(len(similar) / 2)]
+
+print("=== #1 ===")
+print(show_at_1)
+print()
+
+print("=== #2 ===")
+print(show_at_2)
+print()
+
+print("=== #3 ===")
+print(show_at_3)
