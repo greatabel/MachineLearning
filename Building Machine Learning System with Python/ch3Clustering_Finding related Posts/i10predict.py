@@ -5,7 +5,7 @@ import scipy as sp
 from termcolor import colored
 import time
 
-
+# --------------start copy from i9k-means_20newsgroup.py -----------
 print('sklearn.datasets.get_data_home()=', sklearn.datasets.get_data_home())
 
 all_data = sklearn.datasets.fetch_20newsgroups(subset="all")
@@ -82,5 +82,15 @@ print("Adjusted Mutual Information: %0.3f" %
 print(("Silhouette Coefficient: %0.3f" %
        metrics.silhouette_score(vectorized, labels, sample_size=1000)))
 
+
 end = time.time()
 print(colored('time:cluster(end - start)=', 'magenta'), (end - start))
+
+# --------------end of copy from i9k-means_20newsgroup.py -----------
+# start i10predict
+new_post = \
+    """Disk drive problems. Hi, I have a problem with my hard disk.
+After 1 year it is working only sporadically now.
+I tried to format it, but now it doesn't boot any more.
+Any ideas? Thanks.
+"""
