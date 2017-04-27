@@ -1,4 +1,6 @@
 import re
+from termcolor import colored
+
 
 #  https://github.com/blei-lab/lda-c/blob/master/readme.txt
 
@@ -14,8 +16,10 @@ with open("./data/ap/ap.dat") as f:
     print(countB)
 
 if countA == countB:
-    print("1. 至少暗示了ap.txt和ap.dat的对应关系！")
-    
+    print("1. 至少暗示了ap.txt和ap.dat的1 <---> 1 对应关系！")
+print(colored('*'*25, 'red'))
+
+
 ap_txt_9 = "Here is a summary of developments in forest and brush fires in Western states:"
 ap_dat_9 = "7 5829:1 4040:1 2891:1 14:1 1783:1 381:1 2693:1"
 print("ap.txt 第9项是:\n" + 
