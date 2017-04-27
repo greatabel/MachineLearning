@@ -26,3 +26,9 @@ print("ap.txt 第9项是:\n" +
         ap_txt_9)
 print("ap.dat 第9项是:\n" +
         ap_dat_9)
+
+ap_dic = {}
+for i in ap_dat_9.split()[1:]:
+    i_split = i.split(':')
+    ap_dic[i_split[0]] = i_split[1]
+print(ap_dic)
