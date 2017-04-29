@@ -4,7 +4,7 @@ from os import path
 from termcolor import colored
 import time
 
-from gensim import corpora, models, similarities
+from gensim import corpora, models, similarities, matutils
 from i2wordcloud import create_cloud
 
 NUM_TOPICS = 100
@@ -44,3 +44,24 @@ for ti in range(model.num_topics):
         output.write("topicid:" + str(ti)+"\n")
         output.write('\n'.join('{}:{}'.format(w, int(1000. * w / tf)) for f, w in words))
         output.write("\n\n\n")
+
+#------------------------------
+# above code is copy from i1Latent Dirichlet Allocation.py
+#------------------------------
+print(colored('*'*25, 'red'))
+# We first identify the most discussed topic, i.e., the one with the
+# highest total weight
+
+topics = matutils.corpus2dense(model[corpus], num_terms=model.num_topics)
+weight = topics.sum(1)
+max_topic = weight.argmax()
+# Get the top 64 words for this topic
+# Without the argument, show_topic would return only 10 words
+words = model.show_topic(max_topic, 64)
+text = ""
+for word, value in words:
+    for i in range(int(value * 10000)):
+        text += " " + word
+create_cloud(text)
+# This function will actually check for the presence of pytagcloud and is otherwise a no-op
+# create_cloud('cloud_blei_lda.png', words)
