@@ -56,16 +56,11 @@ print(colored('*'*25, 'red'))
 # We first identify the most discussed topic, i.e., the one with the
 # highest total weight
 
-topics = matutils.corpus2dense(model[corpus], num_terms=model.num_topics)
-weight = topics.sum(1)
-max_topic = weight.argmax()
-# Get the top 64 words for this topic
-# Without the argument, show_topic would return only 10 words
-words = model.show_topic(max_topic, 64)
-text = ""
-for word, value in words:
-    for i in range(int(value * 10000)):
-        text += " " + word
-create_cloud(text)
-# This function will actually check for the presence of pytagcloud and is otherwise a no-op
-# create_cloud('cloud_blei_lda.png', words)
+num_topics_used = [len(model[doc]) for doc in corpus]
+# print('num_topics_used=', num_topics_used)
+fig,ax = plt.subplots()
+ax.hist(num_topics_used, np.arange(42))
+ax.set_ylabel('Nr of documents')
+ax.set_xlabel('Nr of topics')
+fig.tight_layout()
+fig.savefig('Figure_04_01.png')
