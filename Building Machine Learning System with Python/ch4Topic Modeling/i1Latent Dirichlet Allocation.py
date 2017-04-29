@@ -25,10 +25,21 @@ model = models.ldamodel.LdaModel(
 end = time.time()
 print(colored('time:vectorizer(end - start)=', 'magenta'), (end - start))
 start = time.time()
+
 # Iterate over all the topics in the model
 for ti in range(model.num_topics):
+    # print("ti=", ti)
+    # show_topic(topicid, topn=10)
+    # Return a list of (word, probability) 2-tuples for the most probable words in topic topicid.
+
+    # Only return 2-tuples for the topn most probable words (ignore the rest).
     words = model.show_topic(ti, 64)
+    if ti < 3:
+        print('words=', words,len(words))
     tf = sum(w for f, w in words)
-    with open('temp_topics.txt', 'w') as output:
+    # print('\ntf=', tf)
+
+    with open('temp_topics.txt', 'a+') as output:
+        output.write("topicid:" + str(ti)+"\n")
         output.write('\n'.join('{}:{}'.format(w, int(1000. * w / tf)) for f, w in words))
         output.write("\n\n\n")
