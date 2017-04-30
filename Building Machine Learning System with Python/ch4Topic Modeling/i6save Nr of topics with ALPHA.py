@@ -28,7 +28,7 @@ model = models.ldamodel.LdaModel(
     corpus, num_topics=NUM_TOPICS, id2word=corpus.id2word, alpha=None)
 num_topics_used = [len(model[doc]) for doc in corpus]
 
-
+# ALPHA  = 1.0 是一个较大的值，使得每个文档具有更多主题
 # You can edit the constant below to play around with this parameter
 ALPHA = 1.0
 
@@ -45,6 +45,7 @@ fig,ax = plt.subplots()
 ax.hist([num_topics_used, num_topics_used1], np.arange(42))
 ax.set_ylabel('Nr of documents')
 ax.set_xlabel('Nr of topics')
+
 
 # The coordinates below were fit by trial and error to look good
 ax.text(9, 223, r'default alpha')
