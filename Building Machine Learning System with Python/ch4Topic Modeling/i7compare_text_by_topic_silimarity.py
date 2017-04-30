@@ -33,8 +33,7 @@ except:
     print()
     raise
 
-end = time.time()
-print(colored('time:(end - start)=', 'magenta'), (end - start))
+
 # print(dir(dataset),dataset.DESCR, dataset.filenames, dataset.data[0:2],
 #     dataset.target[0:2], dataset.target_names[0:2])
 otexts = dataset.data
@@ -53,4 +52,16 @@ texts = [map(english_stemmer.stem, t) for t in texts]
 # print('\nlen(texts)=', len(texts),'#'*5, texts[0:2])
 # for i in range(2):
 #     print(list(texts[i]))
+end = time.time()
+print(colored('time:(end - start)=', 'magenta'), (end - start))
+start = time.time()
 
+usage = defaultdict(int)
+for t in texts:
+    for w in set(t):
+        usage[w] += 1
+        
+# end = time.time()
+# print(colored('usage time:(end - start)=', 'red'), (end - start))
+# els = list(usage.items())
+# print(els[0],els[1])
