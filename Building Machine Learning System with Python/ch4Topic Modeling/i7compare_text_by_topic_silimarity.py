@@ -97,16 +97,16 @@ too_common = [w for w in usage if usage[w] > limit]
 too_common = set(too_common)
 # print('len(too_common)=',len(too_common))
 texts = [list(filter(lambda s: s not in too_common, t)) for t in texts]
-# print(texts[0],'@'*5,texts[1])
-# print('english_stemmer.stem=', help(english_stemmer.stem))
-# print('\nlen(texts)=', len(texts),'#'*5, texts[0:2])
+print(texts[0],'@'*5,texts[1])
+print('english_stemmer.stem=', help(english_stemmer.stem))
+print('\nlen(texts)=', len(texts),'#'*5, texts[0:2])
 # for i in range(2):
 #     print(list(texts[i]))
 # print('len(texts)=',len(texts))
 end = time.time()
 print(colored('time:(end - start)=', 'magenta'), (end - start))
 start = time.time()
-print('texts[0]=', texts[0])
+
 
 corpus = DirectText(texts)
 dictionary = corpus.dictionary
