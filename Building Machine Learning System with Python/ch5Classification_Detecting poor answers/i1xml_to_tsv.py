@@ -10,3 +10,16 @@ def parsexml(filename):
     global num_questions, num_answers
 
     counter = 0
+    it = map(itemgetter(1),
+         iter(etree.iterparse(filename, events=('start',))))
+    root = next(it)  # get posts element
+    for elem in it:
+        if counter % 1000 == 0:
+            print("Processed %i <row/> elements" % counter)
+
+        counter += 1
+
+        if elem.tag == 'row':
+            if counter % 100 == 0:
+                print(elem.get('CreationDate'))
+
