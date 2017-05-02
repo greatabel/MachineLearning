@@ -1,4 +1,7 @@
 import os
+
+
+from operator import itemgetter
 from xml.etree import cElementTree as etree
 
 from i0data import DATA_DIR
@@ -12,6 +15,7 @@ def parsexml(filename):
     counter = 0
     it = map(itemgetter(1),
          iter(etree.iterparse(filename, events=('start',))))
+
     root = next(it)  # get posts element
     for elem in it:
         if counter % 1000 == 0:
@@ -22,4 +26,6 @@ def parsexml(filename):
         if elem.tag == 'row':
             if counter % 100 == 0:
                 print(elem.get('CreationDate'))
+    print('counter = ', counter)
 
+parsexml(filename)
