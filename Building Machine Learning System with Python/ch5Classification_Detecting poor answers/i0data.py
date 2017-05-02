@@ -1,3 +1,3 @@
 import os
 
-DATA_DIR = "data"
+DATA_DIR = "data/ai.stackexchange.com"
