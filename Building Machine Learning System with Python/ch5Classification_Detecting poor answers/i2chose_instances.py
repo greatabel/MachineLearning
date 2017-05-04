@@ -5,7 +5,7 @@ except:
     import json
 import sys
 from collections import defaultdict
-from data import chosen, chosen_meta, filtered, filtered_meta
+from i0data import chosen, chosen_meta, filtered, filtered_meta
 
 try:
     # http://stackoverflow.com/questions/3683181/cannot-install-pyenchant-on-osx
@@ -48,8 +48,24 @@ def data(filename, col=None):
     for line in open(filename, "r"):
         data = line.strip().split("\t")
         count += 1
-        if count < 5:
-            print(data)
+        if count <= 5:
+            print(data, '\n')
+                # check format
+        Id, ParentId, IsAccepted, TimeToAnswer, \
+            Score, Text, NumTextTokens, NumCodeLines, \
+            LinkCount, NumImages = data
+
+        if col:
+            yield data[col]
+        else:
+            yield data
+
+with open(chosen, "w") as f:
+    for line in data(filtered):
+        strId, ParentId, IsAccepted, TimeToAnswer, Score, Text,\
+         NumTextTokens, NumCodeLines, LinkCount, NumImages = line
+        Text = Text.strip()
+
 
 if __name__ == "__main__":
     result = misspelled_fraction("1.1 2.2 3.3")
