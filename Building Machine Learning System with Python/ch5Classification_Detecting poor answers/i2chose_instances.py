@@ -187,17 +187,63 @@ for ParentId, posts in filtered_meta.items():
         break
 
 total = 0
+kept = 0
+
+already_written = set()
+chosen_meta_dict = defaultdict(dict)
 
 with open(chosen, "w") as f:
     for line in data(filtered):
-        strId, ParentId, IsAccepted, TimeToAnswer, Score, Text,\
-         NumTextTokens, NumCodeLines, LinkCount, NumImages = line
+        strId, ParentId, IsAccepted, TimeToAnswer, Score, Text, NumTextTokens, NumCodeLines, LinkCount, NumImages = line
         Text = Text.strip()
+
         total += 1
 
         Id = int(strId)
+        if Id in posts_to_keep:
+            if Id in already_written:
+                print(Id, "is already written")
+                continue
 
-print(total)
+            if kept % 100 == 0:
+                print(kept)
+
+            # setting meta info
+            post = chosen_meta_dict[Id]
+            post['ParentId'] = int(ParentId)
+            post['IsAccepted'] = int(IsAccepted)
+            post['TimeToAnswer'] = int(TimeToAnswer)
+            post['Score'] = int(Score)
+            post['NumTextTokens'] = int(NumTextTokens)
+            post['NumCodeLines'] = int(NumCodeLines)
+            post['LinkCount'] = int(LinkCount)
+            post['MisSpelledFraction'] = misspelled_fraction(Text)
+            post['NumImages'] = int(NumImages)
+            post['idx'] = kept  # index into the file
+
+            if int(ParentId) == -1:
+                q = chosen_meta_dict[Id]
+
+                if not 'Answers' in q:
+                    q['Answers'] = []
+
+                if filter_method == "half-half":
+                    q['HasAcceptedAnswer'] = has_q_accepted_a[Id]
+
+            else:
+                q = chosen_meta_dict[int(ParentId)]
+
+                if int(IsAccepted) == 1:
+                    assert 'HasAcceptedAnswer' not in q
+                    q['HasAcceptedAnswer'] = True
+
+                if 'Answers' not in q:
+                    q['Answers'] = [Id]
+                else:
+                    q['Answers'].append(Id)
+
+            f.writelines("%s\t%s\n" % (Id, Text))
+            kept += 1
 
 
 if __name__ == "__main__":
