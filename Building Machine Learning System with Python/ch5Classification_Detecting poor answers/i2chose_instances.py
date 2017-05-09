@@ -194,7 +194,8 @@ chosen_meta_dict = defaultdict(dict)
 
 with open(chosen, "w") as f:
     for line in data(filtered):
-        strId, ParentId, IsAccepted, TimeToAnswer, Score, Text, NumTextTokens, NumCodeLines, LinkCount, NumImages = line
+        strId, ParentId, IsAccepted, TimeToAnswer, Score, Text, NumTextTokens, \
+        NumCodeLines, LinkCount, NumImages = line
         Text = Text.strip()
 
         total += 1
@@ -245,7 +246,12 @@ with open(chosen, "w") as f:
             f.writelines("%s\t%s\n" % (Id, Text))
             kept += 1
 
+with open(chosen_meta, "w") as fm:
+    json.dump(chosen_meta_dict, fm)
 
-if __name__ == "__main__":
-    result = misspelled_fraction("1.1 2.2 3.3")
-    print('result:', result)
+print("total=", total)
+print("kept=", kept)
+
+# if __name__ == "__main__":
+#     result = misspelled_fraction("1.1 2.2 3.3")
+#     print('result:', result)
