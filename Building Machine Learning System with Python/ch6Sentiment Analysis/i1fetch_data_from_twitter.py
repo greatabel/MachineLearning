@@ -50,7 +50,7 @@ at https://github.com/bear/python-twitter, most likely:
 
     sys.exit(1)
 
-from i1twitter_auth import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET
+from i0twitter_auth import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET
 api = twitter.Api(consumer_key=CONSUMER_KEY, consumer_secret=CONSUMER_SECRET,
                   access_token_key=ACCESS_TOKEN_KEY, access_token_secret=ACCESS_TOKEN_SECRET)
 
@@ -183,7 +183,8 @@ def download_tweets(fetch_list, raw_dir):
 
         # New Twitter API 1.1
         try:
-            sec = api.GetSleepTime('/statuses/show/:id')
+            # sec = api.GetSleepTime('/statuses/show/:id')
+            sec = 3
             if sec > 0:
                 print("Sleeping %i seconds to conform to Twitter's rate limiting" % sec)
                 time.sleep(sec)
@@ -214,12 +215,17 @@ def download_tweets(fetch_list, raw_dir):
                     print("Rate limit exceeded. Please lower max_tweets_per_hr.")
                     fatal = True
                     break
+                elif m['code'] == 144:
+                    print("No status found with that ID")
+                    fatal = False
+                    break
                 elif m['code'] == 179:
                     print("Not authorized to view this tweet.")
                     with open(NOT_AUTHORIZED_ID_FILE, "a") as f:
                         f.write(item[2] + "\n")
                     fatal = False
                     break
+
 
             if fatal:
                 raise
@@ -235,7 +241,7 @@ def download_tweets(fetch_list, raw_dir):
 def parse_tweet_json(filename):
 
     # read tweet
-    fp = open(filename, 'rb')
+    fp = open(filename, 'r')
 
     # parse json
     try:
