@@ -1,10 +1,12 @@
 import sys
+from os import environ
 
-CONSUMER_KEY = None
-CONSUMER_SECRET = None
 
-ACCESS_TOKEN_KEY = None
-ACCESS_TOKEN_SECRET = None
+CONSUMER_KEY = environ.get('CONSUMER_KEY')
+CONSUMER_SECRET = environ.get('CONSUMER_SECRET')
+
+ACCESS_TOKEN_KEY = environ.get('ACCESS_TOKEN_KEY')
+ACCESS_TOKEN_SECRET = environ.get('ACCESS_TOKEN_SECRET')
 
 if CONSUMER_KEY is None or CONSUMER_SECRET is None or ACCESS_TOKEN_KEY is None or ACCESS_TOKEN_SECRET is None:
     print("""\
