@@ -54,7 +54,7 @@ from i1twitter_auth import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN_KEY, ACCE
 api = twitter.Api(consumer_key=CONSUMER_KEY, consumer_secret=CONSUMER_SECRET,
                   access_token_key=ACCESS_TOKEN_KEY, access_token_secret=ACCESS_TOKEN_SECRET)
 
-
+print('#'*20, dir(api))
 MAX_TWEETS_PER_HR = 350
 
 DATA_PATH = "data"
@@ -96,7 +96,7 @@ def dump_user_params(user_params):
 def read_total_list(in_filename):
 
     # read total fetch list csv
-    fp = open(in_filename, 'rb')
+    fp = open(in_filename, 'r')
     reader = csv.reader(fp, delimiter=',', quotechar='"')
 
     if os.path.exists(MISSING_ID_FILE):
@@ -254,7 +254,7 @@ def parse_tweet_json(filename):
 def build_output_corpus(out_filename, raw_dir, total_list):
 
     # open csv output file
-    fp = open(out_filename, 'wb')
+    fp = open(out_filename, 'w')
     writer = csv.writer(fp, delimiter=',', quotechar='"', escapechar='\\',
                         quoting=csv.QUOTE_ALL)
 
