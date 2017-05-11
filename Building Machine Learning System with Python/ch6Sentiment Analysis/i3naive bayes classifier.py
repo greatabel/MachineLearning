@@ -1,8 +1,9 @@
 from sklearn.naive_bayes import GaussianNB
 import numpy as np
 
-
+# https://www.youtube.com/watch?v=vlAdYt_8d9A
 # https://www.analyticsvidhya.com/blog/2015/09/naive-bayes-explained/
+# http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html
 def main():
     #assigning predictor and target variables
     X = np.array([[-3,7],[1,5], [1,2], [-2,0],
