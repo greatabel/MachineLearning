@@ -38,10 +38,18 @@ def load_sanders_data(dirname=".", line_count=-1):
             try:
                 tweet = json.load(open(tweet_fn, "r"))
             except IOError:
-                print("Tweet '%s' not found. Skip" %tweet_fn)
+                # print("Tweet '%s' not found. Skip" %tweet_fn)
                 continue
-            if 'text' in tweet and tweet['user']['lang'] == 'en':
-                print(tweet['text'][0:10])
+
+            if 'text' in tweet and tweet['user']['lang'] == "en":
+                topics.append(topic)
+                labels.append(label)
+                tweets.append(tweet['text'])
+    # print(topic,'#'*10, labels, '@'*10, tweets)
+    tweets = np.asarray(tweets)
+    labels = np.asarray(labels)
+
+    return tweets, labels
 
 
 if __name__ == "__main__":
