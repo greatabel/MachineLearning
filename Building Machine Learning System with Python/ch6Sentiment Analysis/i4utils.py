@@ -19,3 +19,30 @@ if not os.path.exists(CHART_DIR):
 
 def load_sanders_data(dirname=".", line_count=-1):
     count = 0
+
+    topics = []
+    labels = []
+    tweets = []
+
+    with open(os.path.join(DATA_DIR, dirname, "corpus.csv"), "r") as csvfile:
+        metareader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        for line in metareader:
+            count += 1
+            if line_count > 0 and count > line_count:
+                break
+            # print(line)
+            topic, label, tweet_id = line
+
+            tweet_fn = os.path.join(
+                DATA_DIR, dirname, 'rawdata', '%s.json' %tweet_id)
+            try:
+                tweet = json.load(open(tweet_fn, "r"))
+            except IOError:
+                print("Tweet '%s' not found. Skip" %tweet_fn)
+                continue
+            if 'text' in tweet and tweet['user']['lang'] == 'en':
+                print(tweet['text'][0:10])
+
+
+if __name__ == "__main__":
+    load_sanders_data()
