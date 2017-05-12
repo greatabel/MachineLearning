@@ -48,7 +48,7 @@ def load_sanders_data(dirname=".", line_count=-1):
     # print(topic,'#'*10, labels, '@'*10, tweets)
     tweets = np.asarray(tweets)
     labels = np.asarray(labels)
-
+    # print(tweets, '#'*20, labels)
     return tweets, labels
 
 

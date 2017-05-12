@@ -11,3 +11,17 @@ if __name__ == "__main__":
     classes = np.unique(Y_orig)
     for c in classes:
         print("#%s: %i" % (c, sum(Y_orig == c)))
+
+    # print(Y_orig)
+    # print('@'*30)
+    # print( "== Pos vs. neg ==" )
+    # print(Y_orig == "positive")
+    # print('\n')
+    # print(Y_orig == "negative")
+    # print('#'*30)
+    
+    # 区分出积极和消极，过滤掉中性
+    pos_neg = np.logical_or(Y_orig == "positive", Y_orig == "negative")
+    # print(pos_neg)
+    X = X_orig[pos_neg]
+    Y = Y_orig[pos_neg]
