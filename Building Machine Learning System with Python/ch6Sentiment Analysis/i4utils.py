@@ -17,6 +17,17 @@ if not os.path.exists(CHART_DIR):
     os.mkdir(CHART_DIR)
 
 
+def tweak_labels(Y, pos_sent_list):
+    pos = Y == pos_sent_list[0]
+    for sent_label in pos_sent_list[1:]:
+        pos |= Y == sent_label
+
+    Y = np.zeros(Y.shape[0])
+    Y[pos] = 1
+    Y = Y.astype(int)
+
+    return Y
+
 def load_sanders_data(dirname=".", line_count=-1):
     count = 0
 
