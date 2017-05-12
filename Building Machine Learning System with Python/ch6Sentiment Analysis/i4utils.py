@@ -18,13 +18,18 @@ if not os.path.exists(CHART_DIR):
 
 
 def tweak_labels(Y, pos_sent_list):
+    # print('pos_sent_list[0]=', pos_sent_list[0])
     pos = Y == pos_sent_list[0]
+    # print('pos=', pos)
+    # print('pos_sent_list[1:]=', pos_sent_list[1:])
     for sent_label in pos_sent_list[1:]:
         pos |= Y == sent_label
 
     Y = np.zeros(Y.shape[0])
     Y[pos] = 1
+    # print('before=',Y)
     Y = Y.astype(int)
+    # print(Y)
 
     return Y
 
