@@ -16,7 +16,7 @@ if not os.path.exists(DATA_DIR):
 if not os.path.exists(CHART_DIR):
     os.mkdir(CHART_DIR)
 
-
+# 把文字或者其他描述性信息 根据条件变成 整形编码
 def tweak_labels(Y, pos_sent_list):
     # print('pos_sent_list[0]=', pos_sent_list[0])
     pos = Y == pos_sent_list[0]
@@ -67,6 +67,21 @@ def load_sanders_data(dirname=".", line_count=-1):
     # print(tweets, '#'*20, labels)
     return tweets, labels
 
+def plot_pr(auc_score, name, phase, precision, recall, label=None):
+    pylab.clf()
+    pylab.figure(num=None, figsize=(5, 4))
+    pylab.grid(True)
+    pylab.fill_between(recall, precision, alpha=0.5)
+    pylab.plot(recall, precision, lw=1)
+    pylab.xlim([0.0, 1.0])
+    pylab.ylim([0.0, 1.0])
+    pylab.xlabel('Recall')
+    pylab.ylabel('Precision')
+    pylab.title('P/R curve (AUC=%0.2f) / %s' % (auc_score, label))
+    filename = name.replace(" ", "_")
+    pylab.savefig(os.path.join(CHART_DIR, "pr_%s_%s.png" %
+                  (filename, phase)), bbox_inches="tight")
+    
 
 if __name__ == "__main__":
     load_sanders_data()

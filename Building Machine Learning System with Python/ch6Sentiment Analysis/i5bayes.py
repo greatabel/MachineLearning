@@ -3,12 +3,13 @@ start_time = time.time()
 
 import numpy as np
 
+from sklearn.metrics import precision_recall_curve, roc_curve, auc
 from sklearn.naive_bayes import MultinomialNB
 # from sklearn.cross_validation import ShuffleSplit
 from sklearn.model_selection import ShuffleSplit
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
-from i4utils import load_sanders_data, tweak_labels
+from i4utils import load_sanders_data, tweak_labels, plot_pr
 
 
 def create_ngram_model():
@@ -50,6 +51,28 @@ def train_model(clf_factory, X, Y, name="NB ngram", plot=False):
         scores.append(test_score)
         proba = clf.predict_proba(X_test)
         # print('proba:', proba)
+        fpr, tpr, roc_thresholds = roc_curve(y_test, proba[:, 1])
+        precision, recall, pr_thresholds = precision_recall_curve(
+            y_test, proba[:, 1])
+
+        pr_scores.append(auc(recall, precision))
+        precisions.append(precision)
+        recalls.append(recall)
+        thresholds.append(pr_thresholds)
+
+    scores_to_sort = pr_scores
+    # print('np.argsort(scores_to_sort):', np.argsort(scores_to_sort),len(scores_to_sort) / 2)
+    median = np.argsort(scores_to_sort)[int(len(scores_to_sort) / 2)]
+
+    if plot:
+        plot_pr(pr_scores[median], name, "01", precisions[median],
+                recalls[median], label=name)
+
+        summary = (np.mean(scores), np.std(scores),
+                   np.mean(pr_scores), np.std(pr_scores))
+        print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
+
+    return np.mean(train_errors), np.mean(test_errors)
 
 
 if __name__ == "__main__":
