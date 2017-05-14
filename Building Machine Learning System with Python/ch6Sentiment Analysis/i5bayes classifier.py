@@ -98,3 +98,5 @@ if __name__ == "__main__":
     Y = tweak_labels(Y, ["positive"])
     # print(Y, len(Y))
     train_model(create_ngram_model, X, Y, name="pos vs neg", plot=True)
+    
+    print("time spent:", time.time() - start_time)
