@@ -2,6 +2,7 @@ import time
 start_time = time.time()
 
 import numpy as np
+from termcolor import colored
 
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
 from sklearn.naive_bayes import MultinomialNB
@@ -96,7 +97,10 @@ if __name__ == "__main__":
     Y = Y_orig[pos_neg]
     # print(Y,len(Y), end='\n')
     Y = tweak_labels(Y, ["positive"])
-    # print(Y, len(Y))
+    for i in X[0:5]:
+        print( colored("X-> ", 'red'), i, end='\n')
+
+    print('#'*10, '\n', Y, len(Y))
     train_model(create_ngram_model, X, Y, name="pos vs neg", plot=True)
     
     print("time spent:", time.time() - start_time)

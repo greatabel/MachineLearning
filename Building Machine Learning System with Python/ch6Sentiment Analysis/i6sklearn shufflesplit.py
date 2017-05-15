@@ -15,4 +15,4 @@ rs = ShuffleSplit(n_splits=3, train_size=0.5, test_size=.25,
                      random_state=0)
 
 for train_index, test_index in rs.split(X):
-    print("TRAIN:", train_index, "TEST:", test_index)
+    print("# TRAIN:", train_index, "TEST:", test_index)
