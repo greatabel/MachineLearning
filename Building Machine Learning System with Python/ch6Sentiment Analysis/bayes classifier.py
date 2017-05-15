@@ -52,7 +52,7 @@ def train_model(clf_factory, X, Y, name="NB ngram", plot=False):
         scores.append(test_score)
         proba = clf.predict_proba(X_test)
         # print('proba:', proba)
-        fpr, tpr, roc_thresholds = roc_curve(y_test, proba[:, 1])
+        # fpr, tpr, roc_thresholds = roc_curve(y_test, proba[:, 1])
         precision, recall, pr_thresholds = precision_recall_curve(
             y_test, proba[:, 1])
 
