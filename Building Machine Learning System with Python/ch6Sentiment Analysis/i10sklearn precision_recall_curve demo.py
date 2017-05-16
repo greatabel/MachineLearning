@@ -5,6 +5,7 @@ from termcolor import colored
 # https://www.zhihu.com/question/19645541
 # http://www.cnblogs.com/aquastone/p/random-classifier.html
 # http://stackoverflow.com/questions/38165273/sklearn-metrics-precision-recall-curve-why-are-the-precision-and-recall-returne
+# http://www.fullstackdevel.com/computer-tec/data-mining-machine-learning/501.html
 
 # y_true = np.array([0, 0, 1, 1])
 # y_scores = np.array([0.1, 0.6, 0.3, 0.5])
