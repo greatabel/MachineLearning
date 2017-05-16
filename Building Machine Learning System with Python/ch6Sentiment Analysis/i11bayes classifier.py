@@ -108,4 +108,14 @@ if __name__ == "__main__":
     Y = tweak_labels(Y_orig, ["positive", "negative"])
     train_model(create_ngram_model, X, Y, name="sent vs rest", plot=True)
 
+    print("== Pos vs. rest ==")
+    X = X_orig
+    Y = tweak_labels(Y_orig, ["positive"])
+    train_model(create_ngram_model, X, Y, name="pos vs rest", plot=True)
+
+    print("== Neg vs. rest ==")
+    X = X_orig
+    Y = tweak_labels(Y_orig, ["negative"])
+    train_model(create_ngram_model, X, Y, name="neg vs rest", plot=True)
+
     print("time spent:", time.time() - start_time)
