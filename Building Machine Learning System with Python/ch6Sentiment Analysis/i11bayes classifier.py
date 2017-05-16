@@ -89,7 +89,7 @@ if __name__ == "__main__":
     # print('\n')
     # print(Y_orig == "negative")
     # print('#'*30)
-
+    print("== Pos vs. neg ==")
     # 区分出积极和消极，过滤掉中性
     pos_neg = np.logical_or(Y_orig == "positive", Y_orig == "negative")
     # print(pos_neg)
@@ -103,4 +103,9 @@ if __name__ == "__main__":
     print('#'*10, '\n', Y, len(Y))
     train_model(create_ngram_model, X, Y, name="pos vs neg", plot=True)
     
+    print("== Pos/neg vs. irrelevant/neutral ==")
+    X = X_orig
+    Y = tweak_labels(Y_orig, ["positive", "negative"])
+    train_model(create_ngram_model, X, Y, name="sent vs rest", plot=True)
+
     print("time spent:", time.time() - start_time)
