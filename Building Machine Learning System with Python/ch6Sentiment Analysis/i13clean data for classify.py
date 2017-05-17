@@ -1,4 +1,5 @@
 import time
+import re
 start_time = time.time()
 
 import numpy as np
@@ -11,13 +12,86 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from i4utils import load_sanders_data, tweak_labels, plot_pr
+from i4utils import load_sent_word_net
 
+
+sent_word_net = load_sent_word_net()
+
+phase = "03"
+
+emo_repl = {
+    # positive emoticons
+    "&lt;3": " good ",
+    ":d": " good ",  # :D in lower case
+    ":dd": " good ",  # :DD in lower case
+    "8)": " good ",
+    ":-)": " good ",
+    ":)": " good ",
+    ";)": " good ",
+    "(-:": " good ",
+    "(:": " good ",
+
+    # negative emoticons:
+    ":/": " bad ",
+    ":&gt;": " sad ",
+    ":')": " sad ",
+    ":-(": " bad ",
+    ":(": " bad ",
+    ":S": " bad ",
+    ":-S": " bad ",
+}
+
+emo_repl_order = [k for (k_len, k) in reversed(
+    sorted([(len(k), k) for k in emo_repl.keys()]))]
+
+re_repl = {
+    r"\br\b": "are",
+    r"\bu\b": "you",
+    r"\bhaha\b": "ha",
+    r"\bhahaha\b": "ha",
+    r"\bdon't\b": "do not",
+    r"\bdoesn't\b": "does not",
+    r"\bdidn't\b": "did not",
+    r"\bhasn't\b": "has not",
+    r"\bhaven't\b": "have not",
+    r"\bhadn't\b": "had not",
+    r"\bwon't\b": "will not",
+    r"\bwouldn't\b": "would not",
+    r"\bcan't\b": "can not",
+    r"\bcannot\b": "can not",
+}
 
 def create_ngram_model():
-    tfidf_ngrams = TfidfVectorizer(ngram_range=(1, 3),
-                                   analyzer="word", binary=False)
+    # clean 结果比较
+    # 0.757   0.046   0.850   0.044   
+    # == Pos vs. rest ==
+    # 0.595   0.064   0.668   0.071   
+    # == Neg vs. rest ==
+    # 0.712   0.044   0.505   0.067   
+    # time spent: 51.199045181274414
+
+
+    # 0.757   0.046   0.837   0.051   
+    # == Pos vs. rest ==
+    # 0.612   0.071   0.670   0.062   
+    # == Neg vs. rest ==
+    # 0.714   0.045   0.573   0.073   
+    # time spent: 5.772912979125977
+    def preprocessor(tweet):
+        global emoticons_replaced
+        tweet = tweet.lower()
+
+        for k in emo_repl_order:
+            tweet = tweet.replace(k, emo_repl[k])
+        for r, repl in re_repl.items():
+            tweet = re.sub(r, repl, tweet)
+
+        return tweet
+
+    tfidf_ngrams = TfidfVectorizer(preprocessor=preprocessor,
+                                   analyzer="word")
     clf = MultinomialNB()
-    pipeline = Pipeline([('vect', tfidf_ngrams), ('clf', clf)])
+    pipeline = Pipeline([('tfidf', tfidf_ngrams), ('clf', clf)])
     return pipeline
 
 

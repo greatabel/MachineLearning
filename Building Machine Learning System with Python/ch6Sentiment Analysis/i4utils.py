@@ -83,5 +83,34 @@ def plot_pr(auc_score, name, phase, precision, recall, label=None):
                   (filename, phase)), bbox_inches="tight")
     
 
+def load_sent_word_net():
+
+    sent_scores = collections.defaultdict(list)
+
+    with open(os.path.join(DATA_DIR, "SentiWordNet_3.0.0_20130122.txt"), "r") as csvfile:
+        reader = csv.reader(csvfile, delimiter='\t', quotechar='"')
+        for line in reader:
+            if line[0].startswith("#"):
+                continue
+            if len(line) == 1:
+                continue
+
+            POS, ID, PosScore, NegScore, SynsetTerms, Gloss = line
+            if len(POS) == 0 or len(ID) == 0:
+                continue
+            # print POS,PosScore,NegScore,SynsetTerms
+            for term in SynsetTerms.split(" "):
+                # drop #number at the end of every term
+                term = term.split("#")[0]
+                term = term.replace("-", " ").replace("_", " ")
+                key = "%s/%s" % (POS, term.split("#")[0])
+                sent_scores[key].append((float(PosScore), float(NegScore)))
+    for key, value in sent_scores.items():
+        sent_scores[key] = np.mean(value, axis=0)
+
+    return sent_scores
+
 if __name__ == "__main__":
-    load_sanders_data()
+    # load_sanders_data()
+    word_data = load_sent_word_net()
+    print(len(word_data))
