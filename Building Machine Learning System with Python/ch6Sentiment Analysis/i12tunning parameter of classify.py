@@ -7,19 +7,68 @@ from termcolor import colored
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
 from sklearn.naive_bayes import MultinomialNB
 # from sklearn.cross_validation import ShuffleSplit
-from sklearn.model_selection import ShuffleSplit
+from sklearn.model_selection import ShuffleSplit, KFold
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
+
+from sklearn.grid_search import GridSearchCV
+from sklearn.metrics import f1_score
+
 from i4utils import load_sanders_data, tweak_labels, plot_pr
 
 
-def create_ngram_model():
+def create_ngram_model(params=None):
     tfidf_ngrams = TfidfVectorizer(ngram_range=(1, 3),
                                    analyzer="word", binary=False)
     clf = MultinomialNB()
+    # 结果比较：
+    # 0.757   0.046   0.850   0.044   
+    # == Pos vs. rest ==
+    # 0.595   0.064   0.668   0.071   
+    # == Neg vs. rest ==
+    # 0.712   0.044   0.505   0.067   
+    # time spent: 51.199045181274414
+
+
+    # 0.771   0.048   0.869   0.053   
+    # == Pos vs. rest ==
+    # 0.614   0.044   0.692   0.048   
+    # == Neg vs. rest ==
+    # 0.748   0.030   0.504   0.069
+    # params1 = {"alpha": 0.05, "class_prior": None, "fit_prior":True}
+    # clf.set_params(**params1)
     pipeline = Pipeline([('vect', tfidf_ngrams), ('clf', clf)])
+
+    if params:
+        pipeline.set_params(**params)
+
     return pipeline
 
+def grid_search_model(clf_factory, X, Y):
+    # cv = ShuffleSplit(
+    #     n_splits=10, test_size=0.3, random_state=0)
+    # cv = ShuffleSplit(
+    #     n=len(X), n_iter=10, test_size=0.3, indices=True, random_state=0)
+    # cv = KFold(n_splits=10, random_state=0, shuffle=True)
+    param_grid = dict(vect__ngram_range=[(1, 1), (1, 2), (1, 3)],
+                  vect__min_df=[1, 2],
+                  vect__stop_words=[None, "english"],
+                  vect__smooth_idf=[False, True],
+                  vect__use_idf=[False, True],
+                  vect__sublinear_tf=[False, True],
+                  vect__binary=[False, True],
+                  clf__alpha=[0, 0.01, 0.05, 0.1, 0.5, 1],
+                  )
+    grid_search = GridSearchCV(clf_factory(),
+                               param_grid=param_grid,
+                               cv=None,
+                               # scoring=f1_score,
+                               verbose=10)
+    grid_search.fit(X, Y)
+    clf = grid_search.best_estimator_
+    print(colored("clf-> ", 'red'), clf)
+
+    return clf    
 
 def train_model(clf_factory, X, Y, name="NB ngram", plot=False):
     # cv = ShuffleSplit(
@@ -106,6 +155,11 @@ if __name__ == "__main__":
     print("== Pos/neg vs. irrelevant/neutral ==")
     X = X_orig
     Y = tweak_labels(Y_orig, ["positive", "negative"])
+
+    # best_clf = grid_search_model(create_ngram_model, X, Y, name="sent vs\
+    #     rest", plot=True)
+    # best_clf = grid_search_model(create_ngram_model, X, Y)
+
     train_model(create_ngram_model, X, Y, name="sent vs rest", plot=True)
 
     print("== Pos vs. rest ==")
