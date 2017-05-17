@@ -16,3 +16,14 @@ lr.fit(x, y)
 # The instance member `residues_` contains the sum of the squared residues
 rmse = np.sqrt(lr.residues_/len(x))
 print('RMSE: {}'.format(rmse))
+
+fig, ax = plt.subplots()
+# Plot a diagonal (for reference):
+ax.plot([0, 50], [0, 50], '-', color=(.9,.3,.3), lw=4)
+
+# Plot the prediction versus real:
+ax.scatter(lr.predict(x), boston.target)
+
+ax.set_xlabel('predicted')
+ax.set_ylabel('real')
+plt.show()
