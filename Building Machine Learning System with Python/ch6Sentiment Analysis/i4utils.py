@@ -110,7 +110,14 @@ def load_sent_word_net():
 
     return sent_scores
 
-if __name__ == "__main__":
+def log_false_positives(clf, X, y, name):
+    with open("FP_" + name.replace(" ", "_") + ".tsv", "w") as f:
+        false_positive = clf.predict(X) != y
+        for tweet, false_class in zip(X[false_positive], y[false_positive]):
+            f.write("%s\t%s\n" %
+                    (false_class, tweet.encode("ascii", "ignore")))
+
+# if __name__ == "__main__":
     # load_sanders_data()
-    word_data = load_sent_word_net()
-    print(len(word_data))
+    # word_data = load_sent_word_net()
+    # print(len(word_data))
