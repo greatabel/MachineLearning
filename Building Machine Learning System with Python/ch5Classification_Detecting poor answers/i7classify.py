@@ -67,7 +67,7 @@ prepare_sent_features()
 
 
 def get_features(aid):
-    return tuple(meta[aid][fn] for fn in feature_names)
+    return tuple(int(meta[aid][fn]) for fn in feature_names)
 
 qa_X = np.asarray([get_features(aid) for aid in all_answers])
 
@@ -84,7 +84,10 @@ else:
     raise Exception("classifying_answer='%s' is not supported" %
                     classifying_answer)
 
+# print('[(qa_X[:, idx], feat)]=', [(qa_X[:, 2], feat)])
 for idx, feat in enumerate(feature_names):
+    # print(idx, feat,"idx, feat")
+    # print('[(qa_X[:, idx], feat)]=', [(qa_X[:, idx], feat)])
     plot_feat_hist([(qa_X[:, idx], feat)])
 
 #plot_feat_hist([(qa_X[:, idx], feature_names[idx]) for idx in [1,0]], 'feat_hist_two.png')
@@ -102,7 +105,7 @@ def measure(clf_class, parameters, name, data_size=None, plot=False):
         X = qa_X[:data_size]
         Y = qa_Y[:data_size]
 
-    cv = KFold(n=len(X), n_folds=10, indices=True)
+    cv = KFold(n_splits=10)
 
     train_errors = []
     test_errors = []
@@ -113,8 +116,9 @@ def measure(clf_class, parameters, name, data_size=None, plot=False):
 
     pr_scores = []
     precisions, recalls, thresholds = [], [], []
-
-    for fold_idx, (train, test) in enumerate(cv):
+    fold_idx = 0
+    for train, test in cv.split(X):
+        fold_idx += 1
         X_train, y_train = X[train], Y[train]
         X_test, y_test = X[test], Y[test]
 
@@ -162,7 +166,7 @@ def measure(clf_class, parameters, name, data_size=None, plot=False):
 
     # get medium clone
     scores_to_sort = pr_scores  # roc_scores
-    medium = np.argsort(scores_to_sort)[len(scores_to_sort) / 2]
+    medium = np.argsort(scores_to_sort)[int(len(scores_to_sort) / 2)]
     print("Medium clone is #%i" % medium)
 
     if plot:
