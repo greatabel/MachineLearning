@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.model_selection import KFold
 
 from sklearn.linear_model import LinearRegression, ElasticNet, Lasso, Ridge
-r2_score
+from sklearn.metrics import r2_score
 from sklearn.datasets import load_boston
 
 boston = load_boston()
