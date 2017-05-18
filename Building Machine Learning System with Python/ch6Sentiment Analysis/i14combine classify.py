@@ -1,5 +1,6 @@
 import time
 import re
+import os
 import nltk
 
 # nltk.download()
@@ -25,10 +26,13 @@ from i4utils import load_sent_word_net, log_false_positives
 start_time = time.time()
 sent_word_net = load_sent_word_net()
 
+DATA_PATH = "data"
+poscache_filename = os.path.join(DATA_PATH, "poscache.json")
+
 phase = "04"
 
 
-poscache_filename = "poscache.json"
+# poscache_filename = "poscache.json"
 try:
     poscache = json.load(open(poscache_filename, "r"))
 except IOError:

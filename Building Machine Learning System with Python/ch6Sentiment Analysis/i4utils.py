@@ -111,7 +111,7 @@ def load_sent_word_net():
     return sent_scores
 
 def log_false_positives(clf, X, y, name):
-    with open("FP_" + name.replace(" ", "_") + ".tsv", "w") as f:
+    with open(os.path.join(DATA_DIR,"FP_" + name.replace(" ", "_") + ".tsv"), "w") as f:
         false_positive = clf.predict(X) != y
         for tweet, false_class in zip(X[false_positive], y[false_positive]):
             f.write("%s\t%s\n" %
