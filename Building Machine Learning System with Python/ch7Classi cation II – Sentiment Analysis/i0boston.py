@@ -13,6 +13,8 @@ print(len(x), len(y),x[0:5], y[0:5])
 lr = LinearRegression()
 lr.fit(x, y)
 
+# 预测值和真实值之间的接近程度 (slope, bias, total_error,_, _) = np.linalg.lstsq(x,y)
+# rmse = np.sqrt(total_error[0]/ len(x))
 # The instance member `residues_` contains the sum of the squared residues
 rmse = np.sqrt(lr.residues_/len(x))
 print('RMSE: {}'.format(rmse))
