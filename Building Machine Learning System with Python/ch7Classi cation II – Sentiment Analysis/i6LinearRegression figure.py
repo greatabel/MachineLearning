@@ -28,6 +28,8 @@ y = boston.target
 lr = LinearRegression(fit_intercept=False)
 lr.fit(x, y)
 
+# set color of plot
+# http://stackoverflow.com/questions/16006572/plotting-different-colors-in-matplotlib
 ax.plot([0, boston.data[:, 5].max() + 1],
-         [0, lr.predict(boston.data[:, 5].max() + 1)], '-', lw=4)
+         [0, lr.predict(boston.data[:, 5].max() + 1)], '-', lw=4, color='b')
 plt.show()
