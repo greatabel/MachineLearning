@@ -38,3 +38,31 @@ ax.plot([0, boston.data[:, 5].max() + 1],
          [0, lr.predict(boston.data[:, 5].max() + 1)], '-', lw=4, color='r')
 # plt.show()
 fig.savefig(os.path.join(CHART_DIR, "Figure1.png"))
+
+mse = mean_squared_error(y, lr.predict(x))
+rmse = np.sqrt(mse)
+print('RMSE (no intercept): {}'.format(rmse))
+
+
+# Repeat, but fitting an intercept this time:
+lr = LinearRegression(fit_intercept=True)
+
+lr.fit(x, y)
+
+fig,ax = plt.subplots()
+ax.set_xlabel("Average number of rooms (RM)")
+ax.set_ylabel("House Price")
+ax.scatter(boston.data[:, 5], boston.target)
+xmin = x.min()
+xmax = x.max()
+ax.plot([xmin, xmax], lr.predict([[xmin], [xmax]]) , '-', lw=4, color='r')
+fig.savefig(os.path.join(CHART_DIR, "Figure2.png"))
+
+mse = mean_squared_error(y, lr.predict(x))
+print("Mean squared error (of training data): {:.3}".format(mse))
+
+rmse = np.sqrt(mse)
+print("Root mean squared error (of training data): {:.3}".format(rmse))
+
+cod = r2_score(y, lr.predict(x))
+print('COD (on training data): {:.2}'.format(cod))
