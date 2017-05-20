@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 from sklearn.datasets import load_boston
 from sklearn.linear_model import LinearRegression
@@ -6,6 +8,8 @@ from matplotlib import pyplot as plt
 
 import warnings
 warnings.filterwarnings(action="ignore", module="scipy", message="^internal gelsd")
+
+CHART_DIR = "charts"
 
 boston = load_boston()
 # boston = boston.data
@@ -31,5 +35,6 @@ lr.fit(x, y)
 # set color of plot
 # http://stackoverflow.com/questions/16006572/plotting-different-colors-in-matplotlib
 ax.plot([0, boston.data[:, 5].max() + 1],
-         [0, lr.predict(boston.data[:, 5].max() + 1)], '-', lw=4, color='b')
-plt.show()
+         [0, lr.predict(boston.data[:, 5].max() + 1)], '-', lw=4, color='r')
+# plt.show()
+fig.savefig(os.path.join(CHART_DIR, "Figure1.png"))
