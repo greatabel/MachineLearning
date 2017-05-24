@@ -58,7 +58,7 @@ def predict(train):
 
 
 def main(transpose_inputs=False):
-    from load_ml100k import get_train_test
+    from i0load_ml100k import get_train_test
     from sklearn import metrics
     train,test = get_train_test(random_state=12)
     if transpose_inputs:
