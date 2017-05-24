@@ -3,6 +3,7 @@ from i0load_ml100k import load
 
 if __name__ == "__main__":
     data = load()
+    # 转置，每行改为user
     data = np.transpose(data)
     # print(data[0:2])
     user1 = data[0]
