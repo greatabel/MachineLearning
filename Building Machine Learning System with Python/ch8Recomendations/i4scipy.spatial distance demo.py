@@ -9,7 +9,10 @@ coords = [(35.0456, -85.2672),
           ]
 
 result = distance.cdist(coords, coords, 'euclidean')
-print(coords, '#'*20,'\n',
+print('coords=', coords, '\ndistance.cdist:\n',
+    result)
+result = distance.cdist(coords, coords, 'correlation')
+print('coords=', coords, '\ncorrelation distance.cdist:\n',
     result)
 
 a = np.array([[0, 0, 0],
