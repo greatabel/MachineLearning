@@ -22,4 +22,8 @@ a = np.array([[0, 0, 0],
               [1, 1, 1]])
 b = np.array([[ 0.1,  0.2,  0.4]])
 result = distance.cdist(a, b, 'cityblock')
-print('\n\n', result)
+print('\n\n', result, type(result))
+
+# https://docs.scipy.org/doc/numpy-1.12.0/reference/generated/numpy.ravel.html
+x = np.array([[1, 2, 3], [4, 5, 6]])
+print(x, '\n', np.ravel(x))
