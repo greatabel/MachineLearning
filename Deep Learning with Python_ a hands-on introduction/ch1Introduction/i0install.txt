@@ -1,5 +1,0 @@
-pip3.5 install Scikit-learn
-pip3.5 install Theano
-pip3.5 install Autograd
-pip3.5 install Keras
-pip3.5 install PyOpenCL
