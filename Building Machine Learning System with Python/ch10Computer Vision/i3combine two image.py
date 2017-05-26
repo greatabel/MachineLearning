@@ -3,8 +3,8 @@ import mahotas as mh
 
 # This little script just builds an image with two examples, side-by-side:
 
-text = mh.imread("SimpleImageDataset/female1.png")
-building = mh.imread("SimpleImageDataset/male1.png")
+text = mh.imread("AbelSimpleImageDataset/female1.png")
+building = mh.imread("AbelSimpleImageDataset/male1.png")
 h, w, _ = text.shape
 print(h,w,'here')
 canvas = np.zeros((h, 2 * w + 128, 3), np.uint8)

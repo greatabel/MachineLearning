@@ -43,7 +43,7 @@ for ax in axes.flat:
     ax.set_xticks([])
     ax.set_yticks([])
 
-for ci,i in enumerate(range(0,90,10)):
+for ci,i in enumerate(range(0,15,10)):
     left = images[i]
     dists_left = dists[i]
     right = dists_left.argsort()
@@ -56,4 +56,4 @@ for ci,i in enumerate(range(0,90,10)):
     axes[1, ci].imshow(right)
 
 fig.tight_layout()
-fig.savefig('figure_neighbors.png', dpi=300)
+fig.savefig('data/figure_neighbors.png', dpi=300)

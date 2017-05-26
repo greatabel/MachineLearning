@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # Load image & convert to B&W
-image = mh.imread('SimpleImageDataset/1.jpg')
+image = mh.imread('AbelSimpleImageDataset/1.jpg')
 image = mh.colors.rgb2grey(image, dtype=np.uint8)
 plt.imshow(image)
 plt.gray()
