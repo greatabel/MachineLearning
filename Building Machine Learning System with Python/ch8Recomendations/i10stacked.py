@@ -1,18 +1,18 @@
 import numpy as np
 import i0load_ml100k
 import i8regression
-import corrneighbours
+import i7correlation_neighhbours
 from sklearn import linear_model, metrics
 import i6norm
 
 def predict(train):
-    tr_train,tr_test = load_ml100k.get_train_test(train, random_state=34)
-    tr_predicted0 = regression.predict(tr_train)
-    tr_predicted1 = regression.predict(tr_train.T).T
-    tr_predicted2 = corrneighbours.predict(tr_train)
-    tr_predicted3 = corrneighbours.predict(tr_train.T).T
-    tr_predicted4 = norm.predict(tr_train)
-    tr_predicted5 = norm.predict(tr_train.T).T
+    tr_train,tr_test = i0load_ml100k.get_train_test(train, random_state=34)
+    tr_predicted0 = i8regression.predict(tr_train)
+    tr_predicted1 = i8regression.predict(tr_train.T).T
+    tr_predicted2 = i7correlation_neighhbours.predict(tr_train)
+    tr_predicted3 = i7correlation_neighhbours.predict(tr_train.T).T
+    tr_predicted4 = i6norm.predict(tr_train)
+    tr_predicted5 = i6norm.predict(tr_train.T).T
     stack_tr = np.array([
         tr_predicted0[tr_test > 0],
         tr_predicted1[tr_test > 0],
@@ -38,7 +38,7 @@ def predict(train):
 
 
 def main():
-    train,test = load_ml100k.get_train_test(random_state=12)
+    train,test = i0load_ml100k.get_train_test(random_state=12)
     predicted = predict(train)
     r2 = metrics.r2_score(test[test > 0], predicted[test > 0])
     print('R2 stacked: {:.2%}'.format(r2))
