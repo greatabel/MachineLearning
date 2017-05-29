@@ -27,10 +27,11 @@ def abel_model(degree):
         predicted[0:80])))
     test_rmse1 = numpy.sqrt(numpy.sum(numpy.dot(y[80:] - predicted[80:], y[80:] -
         predicted[80:])))
-    print("Train RMSE (Degree = 1)", train_rmse1)
-    print("Test RMSE (Degree = 1)", test_rmse1)
+    print("Train RMSE (Degree = "+ str(degree - 1) +")", train_rmse1)
+    print("Test RMSE (Degree = " + str(degree - 1)+ ")", test_rmse1)
 
 abel_model(2)
 abel_model(3)
+abel_model(9)
 
 pylab.show()
