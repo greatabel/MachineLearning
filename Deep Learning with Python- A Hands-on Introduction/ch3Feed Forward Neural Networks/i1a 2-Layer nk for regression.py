@@ -50,6 +50,7 @@ epochs = 10
 print("RMSE before training:", sklearn.metrics.mean_squared_error(D[1],neural_network(D[0],
     theta)))
 rmse = []
+
 for i in range(0, epochs):
     for j in range(0, examples):
         delta = grad_objective(theta, j)
