@@ -21,6 +21,7 @@ theta = (w1, b1, w2, b2)
 # Define the loss function
 def squared_loss(y, y_hat):
     return np.dot((y - y_hat),(y - y_hat))
+
 # Output Layer
 def binary_cross_entropy(y, y_hat):
     return np.sum(-((y * np.log(y_hat)) + ((1-y) * np.log(1 - y_hat))))
@@ -29,9 +30,11 @@ def binary_cross_entropy(y, y_hat):
 def neural_network(x, theta):
     w1, b1, w2, b2 = theta
     return np.tanh(np.dot((np.tanh(np.dot(x,w1) + b1)), w2) + b2)
+
 # Wrapper around the objective function to be optimised
 def objective(theta, idx):
     return squared_loss(D[1][idx], neural_network(D[0][idx], theta))
+    
 # Update
 def update_theta(theta, delta, alpha):
     w1, b1, w2, b2 = theta
