@@ -1,6 +1,7 @@
 import autograd.numpy as np   # Thinly-wrapped version of Numpy
 from autograd import grad
 
+# https://github.com/HIPS/autograd/blob/master/docs/tutorial.md
 def taylor_sine(x):  # Taylor approximation to sine function
     ans = currterm = x
     i = 0
