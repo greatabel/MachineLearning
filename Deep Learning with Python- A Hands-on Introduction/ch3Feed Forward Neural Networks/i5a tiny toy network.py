@@ -1,7 +1,9 @@
 import numpy as np
 
-# http://iamtrask.github.io/2015/07/12/basic-python-network/
+'''
+http://iamtrask.github.io/2015/07/12/basic-python-network/
 
+'''
 
 # sigmoid function
 def nonlin(x,deriv=False):
@@ -31,7 +33,7 @@ np.random.seed(1)
 syn0 = 2*np.random.random((3,1)) - 1
  
 
-for iter in range(10000):
+for iter in range(1000):
     # forward propagation
     l0 = X
     l1 = nonlin(np.dot(l0,syn0))   
@@ -43,6 +45,6 @@ for iter in range(10000):
     # update weights
     syn0 += np.dot(l0.T,l1_delta) 
 
-print("Output After Training:",
+print("Output After Training:\n",
      l1,"\nsyn0:", syn0)
 
