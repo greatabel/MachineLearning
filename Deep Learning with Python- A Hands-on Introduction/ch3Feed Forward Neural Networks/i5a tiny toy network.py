@@ -2,7 +2,7 @@ import numpy as np
 
 '''
 http://iamtrask.github.io/2015/07/12/basic-python-network/
-
+https://medium.com/technology-invention-and-more/how-to-build-a-simple-neural-network-in-9-lines-of-python-code-cc8f23647ca1
 '''
 
 # sigmoid function
@@ -12,6 +12,12 @@ def nonlin(x,deriv=False):
 
     return 1/(1+np.exp(-x))
 
+print('nonlin-->\n')
+print(nonlin(-4.6))
+print(nonlin(4.8))
+print(nonlin(5))
+print(nonlin(-4.8))
+print(nonlin(9.6))
 # input dataset
 
 X = np.array([  [0,0,1],
@@ -33,7 +39,7 @@ np.random.seed(1)
 syn0 = 2*np.random.random((3,1)) - 1
  
 
-for iter in range(1000):
+for iter in range(10000):
     # forward propagation
     l0 = X
     l1 = nonlin(np.dot(l0,syn0))   

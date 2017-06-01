@@ -16,6 +16,10 @@ print(n1)
 n2 =npr.rand(10, 2)
 print(n2)
 
+t = np.random.random((3,1))
+syn0 = 2*t - 1
+print('np.random.random((3,1)) :',t,'\nsysn0:', syn0)
+
 print('before numpy.random.seed(100)')
 c = np.random.rand(4)
 print(c)

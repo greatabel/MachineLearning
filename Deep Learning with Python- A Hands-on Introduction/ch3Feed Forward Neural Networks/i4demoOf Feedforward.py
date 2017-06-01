@@ -2,7 +2,9 @@ import math
 import random
 import numpy as np
 
-# https://databoys.github.io/Feedforward/
+'''
+https://databoys.github.io/Feedforward/
+'''
 
 np.seterr(all = 'ignore')
 
