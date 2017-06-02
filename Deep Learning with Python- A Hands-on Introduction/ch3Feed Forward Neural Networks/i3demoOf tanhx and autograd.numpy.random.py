@@ -38,3 +38,7 @@ print(c)
 np.random.seed(100)
 c = np.random.rand(4)
 print(c)
+
+d = np.array([[1,2,3]])
+e = np.array([[10,100,300]])
+print('d*e=', d * e)
