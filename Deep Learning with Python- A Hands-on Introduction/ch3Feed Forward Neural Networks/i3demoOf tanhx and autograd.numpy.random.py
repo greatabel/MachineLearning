@@ -42,3 +42,14 @@ print(c)
 d = np.array([[1,2,3]])
 e = np.array([[10,100,300]])
 print('d*e=', d * e)
+
+print('demo of np.dot:')
+f = np.array([
+    [1,2,3]
+    ])
+g = np.array([
+    [1],
+    [10],
+    [100]
+    ])
+print(f,g, np.dot(f,g))
