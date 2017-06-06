@@ -3,6 +3,7 @@ import numpy as np
 '''
 http://iamtrask.github.io/2015/07/12/basic-python-network/
 https://medium.com/technology-invention-and-more/how-to-build-a-simple-neural-network-in-9-lines-of-python-code-cc8f23647ca1
+https://yjango.gitbooks.io/superorganism/content/ren_gong_shen_jing_wang_luo.html
 '''
 
 # sigmoid function
