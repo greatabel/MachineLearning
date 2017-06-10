@@ -27,3 +27,20 @@ print("Categroical Cross Entropy [[0.01,0.01,0.01]],[[0.99,0.99,0.01]]:",
             [[0.99,0.99,0.01]]
                  ) 
         )
+
+# squared error
+def squared_error(x, y):
+    return T.sum((x - y) ** 2)
+
+c1 = T.dmatrix('c1')
+c2 = T.dmatrix('c2')
+
+f_c = squared_error(c1, c2)
+f_squared_error = function([c1, c2], [f_c])
+
+print("Squared Error  [[0.01,0.01,0.01]],[[0.99,0.99,0.01]]:",
+        f_squared_error(
+            [[0.01,0.01,0.01]],
+            [[0.99,0.99,0.01]]
+                 ) 
+        )
