@@ -3,7 +3,6 @@ import theano
 import theano.tensor as T
 import sklearn.metrics
 
-
 def l2(x):
     return T.sum(x**2)
 
