@@ -7,6 +7,9 @@ from keras.utils import np_utils
 # from keras.utils.visualize_util import plot
 from keras.utils.vis_utils import plot_model
 
+#  rm ~/.keras/datasets/*
+
+
 # Image Size
 img_rows, img_cols = 28, 28
 # Filter
