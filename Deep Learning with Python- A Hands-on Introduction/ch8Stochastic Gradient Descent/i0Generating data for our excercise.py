@@ -66,5 +66,30 @@ for tm, vm in opt.iterate(train, valid, patience=10000):
     # Record the training and validation loss
     train_loss.append(tm['loss'])
     validation_loss.append(vm['loss'])
-    if iterations > 10000:
+    if iterations > 1000:
         break
+
+def build_model(algo):
+    loss_value = []
+    W1.set_value(W1_val)
+    b1.set_value(b1_val)
+    W2.set_value(W2_val)
+    b2.set_value(b2_val)
+    opt = downhill.build(algo, loss=loss)
+    train = downhill.Dataset([train_X[:-1000], train_y_onehot[:-1000]], batch_size=1,
+    iteration_size=1)
+    valid = downhill.Dataset([train_X[-1000:], train_y_onehot[-1000:]])
+    iterations = 0
+    for tm, vm in opt.iterate(train, valid, patience=1000):
+        iterations += 1
+        loss_value.append(vm['loss'])
+        if iterations > 1000:
+            break
+    return loss_value
+    
+algo_names = ['adadelta', 'adagrad', 'adam', 'nag', 'rmsprop', 'rprop', 'sgd']
+losses = []
+for algo_name in algo_names:
+    print(algo_name)
+    vloss = build_model(algo_name)
+    losses.append(numpy.array(vloss))
