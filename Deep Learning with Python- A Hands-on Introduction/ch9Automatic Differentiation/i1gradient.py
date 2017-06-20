@@ -17,3 +17,15 @@ print( g_x1_f(1,2) )
 #Evaluate and print the value of the gradient w.r.t x2 at x1=1, x2=2
 print( g_x2_f(1,2) )
 #Produces 0.89
+
+
+from autograd.util import quick_grad_check
+#Define the function
+def f(x1, x2): return numpy.sqrt(x1 * x1 + x2 * x2)
+#Computes and checks the gradient for the given values
+quick_grad_check(f,1.0,extra_args=[2.0])
+#Output
+#
+#Checking gradient of <function f at 0x10504bed8> at 1.0
+#Gradient projection OK
+#(numeric grad: 0.447213595409, analytic grad: 0.
