@@ -12,3 +12,6 @@ at folder "02My First Perceptron with Python"
 # Building Machine Learning Systems with Python
 https://book.douban.com/subject/26359180/
 at folder "04Building Machine Learning System with Python"
+
+# Deep Learning with Python
+https://book.douban.com/subject/27030685/
