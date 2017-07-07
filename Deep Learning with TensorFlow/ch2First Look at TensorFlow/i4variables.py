@@ -12,7 +12,7 @@ initialize_var = tf.global_variables_initializer()
 
 with tf.Session() as sess:
     sess.run(initialize_var)
-    print('init', sess.run(value))
+    print('init ->', sess.run(value))
     for _ in range(10):
         sess.run(update_value)
         print(sess.run(value))
