@@ -21,3 +21,10 @@ tensor_3d = tf.convert_to_tensor(tensor_3d, dtype=tf.float64)
 with tf.Session() as sess:
     print(tensor_3d.get_shape())
     print(sess.run(tensor_3d))
+
+
+interactive_session = tf.InteractiveSession()
+tensor = np.array([1, 2, 3, 4, 5])
+tensor = tf.constant(tensor)
+print(tensor.eval())
+interactive_session.close()
