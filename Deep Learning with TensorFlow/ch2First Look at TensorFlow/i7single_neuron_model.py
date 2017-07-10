@@ -1,6 +1,8 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import tensorflow as tf
+# tensorboard 在osx 安装问题 -》
+# pip3.5 install tensorflow --ignore-installed
 
 weight = tf.Variable(1.0, name="weight")
 input_value = tf.constant(0.5, name="input_value")
