@@ -2,6 +2,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 #  https://superuser.com/questions/836832/how-can-i-enable-webgl-in-my-browser
+# cd 到 log_mnist_softmax 文件夹, 然后 run by: tensorboard --logdir='log_simple_stats_softmax'
 
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
@@ -13,8 +14,8 @@ logs_path = 'log_mnist_softmax'
 batch_size = 100
 learning_rate = 0.5
 training_epochs = 10
-mypath = "./MNIST_data/"
-mnist = input_data.read_data_sets(mypath, one_hot=True)
+my_mnist_data = "MNIST_data"
+mnist = input_data.read_data_sets(my_mnist_data, one_hot=True)
 
 
 X = tf.placeholder(tf.float32, [None, 784])
@@ -59,5 +60,5 @@ with tf.Session() as sess:
     print('Real label is:', np.argmax(mnist.test.labels[num]))
 
     saver = tf.train.Saver()
-    save_path = saver.save(sess, "saved_mnist_cnn.ckpt")
+    save_path = saver.save(sess, my_mnist_data + "/saved_mnist_cnn.ckpt")
     print("Model saved to %s" % save_path)
