@@ -24,8 +24,8 @@ try:
     image_b = mnist.test.images[100]
 
     result = sess.run(y_conv, feed_dict={x:[image_b]})
-    print(result)
-    print(sess.run(tf.argmax(result, 1)))
+    print('result-->',result)
+    print('sess.run(tf.argmax(result, 1))->', sess.run(tf.argmax(result, 1)))
 
     plt.imshow(image_b.reshape([28, 28]), cmap='Greys')
     plt.show()
