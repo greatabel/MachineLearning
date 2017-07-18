@@ -19,9 +19,11 @@ tf.get_default_graph().as_graph_def()
 
 try:
     x = sess.graph.get_tensor_by_name("input:0")
+    # x = tf.transpose(x)
     y_conv = sess.graph.get_tensor_by_name("output:0")
     image_b = mnist.test.images[100]
-    result = sess.run(y_conv, feed_dict={x:image_b})
+
+    result = sess.run(y_conv, feed_dict={x:[image_b]})
     print(result)
     print(sess.run(tf.argmax(result, 1)))
 
