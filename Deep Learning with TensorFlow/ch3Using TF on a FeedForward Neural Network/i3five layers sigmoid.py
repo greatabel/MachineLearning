@@ -5,6 +5,8 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 import math
 
+# Tensorboard --logdir='log_simple_stats_5_layers_sigmoid'
+
 logs_path = 'log_simple_stats_5_layers_sigmoid'
 batch_size = 100
 learning_rate = 0.5
