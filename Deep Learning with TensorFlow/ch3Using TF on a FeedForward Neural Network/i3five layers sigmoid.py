@@ -37,3 +37,14 @@ Y3 = tf.nn.sigmoid(tf.matmul(Y2, W3) + B3)
 Y4 = tf.nn.sigmoid(tf.matmul(Y3, W4) + B4)
 Ylogits = tf.matmul(Y4, W5) + B5
 Y = tf.nn.softmax(Ylogits)
+
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits(Ylogits, Y_)
+cross_entropy = tf.reduce_mean(cross_entropy)*100
+correct_prediction = tf.equal(tf.argmax(Y, 1), tf.argmax(Y_, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+learning_rate = 0.003
+train_step = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
+tf.scalar_summary("cost", cross_entropy)
+tf.scalar_summary("accuracy", accuracy)
+summary_op = tf.merge_all_summaries()
+
