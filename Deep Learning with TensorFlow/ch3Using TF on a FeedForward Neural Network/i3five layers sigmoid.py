@@ -29,3 +29,11 @@ W4 = tf.Variable(tf.truncated_normal([N, O], stddev=0.1))
 B4 = tf.Variable(tf.zeros([O]))
 W5 = tf.Variable(tf.truncated_normal([O, 10], stddev=0.1))
 B5 = tf.Variable(tf.zeros([10]))
+
+XX = tf.reshape(X, [-1, 784])
+Y1 = tf.nn.sigmoid(tf.matmul(XX, W1) + B1)
+Y2 = tf.nn.sigmoid(tf.matmul(Y1, W2) + B2)
+Y3 = tf.nn.sigmoid(tf.matmul(Y2, W3) + B3)
+Y4 = tf.nn.sigmoid(tf.matmul(Y3, W4) + B4)
+Ylogits = tf.matmul(Y4, W5) + B5
+Y = tf.nn.softmax(Ylogits)
