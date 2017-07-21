@@ -12,7 +12,6 @@ learning_rate = 0.5
 training_epochs = 10
 
 
-
 # mnist = input_data.read_data_sets("data")
 
 
