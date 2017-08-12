@@ -111,7 +111,7 @@ with tf.Session() as sess:
         {X: mnist.test.images[:examples_to_show]})
     # Compare original images with their reconstructions
     f, a = plt.subplots(2, 10, figsize=(10, 5))
-    print('a[0]=',a[0])
+    # print('a[0]=',a[0])
     for i in range(examples_to_show):
         a[0][i].imshow(np.reshape(mnist.test.images[i], (28, 28)))
         a[1][i].imshow(np.reshape(encode_decode[i], (28, 28)))
