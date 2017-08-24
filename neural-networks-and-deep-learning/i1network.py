@@ -1,3 +1,7 @@
+import random
+import numpy as np
+
+
 class Network(object):
 
     def __init__(self, sizes):
@@ -7,6 +11,12 @@ class Network(object):
         self.weights = [np.random.randn(y, x) 
                         for x, y in zip(sizes[:-1], sizes[1:])]
 
+    def abel_print(self):
+        print("num_layers = ", self.num_layers)
+        print("sizes = ", self.sizes)
+        print("biases = ", self.biases)
+        print("weights = ", self.weights)
+        
     def feedforward(self, a):
         """Return the output of the network if ``a`` is input."""
         for b, w in zip(self.biases, self.weights):
