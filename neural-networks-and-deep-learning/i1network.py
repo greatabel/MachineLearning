@@ -23,6 +23,15 @@ class Network(object):
             a = sigmoid(np.dot(w, a)+b)
         return a
 
+    def SGD(self, training_data, epochs, mini_batch_size, eta,
+        test_data=None):
+        training_data = list(training_data)
+        n = len(training_data)
+
+    def update_mini_batch(self, mini_batch, eta):
+        nabla_b = [np.zeros(b.shape) for b in self.biases]
+        nabla_w = [np.zeros(w.shape) for w in self.weights]
+
 def sigmoid(z):
     """The sigmoid function."""
     return 1.0/(1.0+np.exp(-z))
