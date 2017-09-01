@@ -5,8 +5,11 @@ import i2mnist_loader
 def main():
     training_data, validation_data, test_data = i2mnist_loader.load_data()
     avgs = avg_darkness(training_data)
-    print(avgs)
-    return ""
+
+    num_correct = sum(int(guess_digit(image, avgs) == digit)
+                      for image, digit in zip(test_data[0], test_data[1]))
+    print("Baseline classifier using average darkness of image.")
+    print("{0} of {1} values correct.".format(num_correct, len(test_data[1])))
 
 def avg_darkness(training_data):
     digit_counts = defaultdict(int)
@@ -20,7 +23,9 @@ def avg_darkness(training_data):
     return avgs
 
 def guess_digit(image, avgs):
-    return ""
+    darkness = sum(image)
+    distances = {k: abs(v-darkness) for k, v in avgs.items()}
+    return min(distances, key=distances.get)
 
 if __name__ == "__main__":
     main()
