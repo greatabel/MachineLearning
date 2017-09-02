@@ -12,13 +12,14 @@ def load_data():
 
 def load_data_wrapper():
     tr_d, va_d, te_d = load_data()
-    
+
     # print('-'*20, len(tr_d[0]), len(tr_d[1]))
     # print('*'*20, len(va_d[0]), len(va_d[1]))
     # print('@'*20, len(te_d[0]), len(te_d[1]))
     # print(tr_d[0][0],'\n', len(tr_d[0][0]),'^-^'*10, tr_d[1][0])
 
     training_inputs = [np.reshape(x, (784, 1)) for x in tr_d[0]]
+    # print(training_inputs[0],'\n','*'*20, len(training_inputs[0]))
     training_results = [vectorized_result(y) for y in tr_d[1]]
     training_data = zip(training_inputs, training_results)
     validation_inputs = [np.reshape(x, (784, 1)) for x in va_d[0]]
@@ -36,5 +37,5 @@ def vectorized_result(j):
     e[j] = 1.0
     return e
 
-if __name__ == "__main__":
-    load_data_wrapper()
+# if __name__ == "__main__":
+#     load_data_wrapper()

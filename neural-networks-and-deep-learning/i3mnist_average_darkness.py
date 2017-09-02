@@ -25,6 +25,8 @@ def avg_darkness(training_data):
 def guess_digit(image, avgs):
     darkness = sum(image)
     distances = {k: abs(v-darkness) for k, v in avgs.items()}
+    # print('distances=', distances)
+    # print('min(distances, key=distances.get)=', min(distances, key=distances.get))
     return min(distances, key=distances.get)
 
 if __name__ == "__main__":
