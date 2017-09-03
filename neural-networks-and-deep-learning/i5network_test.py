@@ -1,8 +1,8 @@
 from  i1network  import Network, sigmoid
 
-net = Network([2,3,1])
-net.abel_print()
-print('sigmoid(10)=', sigmoid(10))
+# net = Network([2,3,1])
+# net.abel_print()
+# print('sigmoid(10)=', sigmoid(10))
 
 import i2mnist_loader
 training_data, validation_data, test_data = i2mnist_loader.load_data_wrapper()
@@ -25,3 +25,6 @@ net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
 
 toc = time.clock()
 print("time=",toc - tic)
+
+# Epoch 28 : 9507 / 10000
+# Epoch 29 : 9474 / 10000
