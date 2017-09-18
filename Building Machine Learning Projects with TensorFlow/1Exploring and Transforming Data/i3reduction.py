@@ -21,6 +21,10 @@ print(tf.reduce_min(x, reduction_indices=1).eval() )# reduce mi
 print("\ntf.reduce_max(x, reduction_indices=1).eval()")# reduce ma
 print(tf.reduce_max(x, reduction_indices=1).eval() )# reduce ma
 
+print("\ntf.reduce_mean(x, reduction_indices=1).eval() ")# reduce mea
 print(tf.reduce_mean(x, reduction_indices=1).eval() )# reduce mea
+
+print("\ntf.reduce_all(boolean_tensor, reduction_indices=1).eval() ")# reduce al
 print(tf.reduce_all(boolean_tensor, reduction_indices=1).eval() )# reduce al
+
 print(tf.reduce_any(boolean_tensor, reduction_indices=1).eval() )# reduce any 
