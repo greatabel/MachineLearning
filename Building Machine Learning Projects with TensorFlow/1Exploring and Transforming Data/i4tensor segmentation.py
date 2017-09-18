@@ -14,11 +14,15 @@ tens1 = tf.constant([[2, 5, 3, -5],
                  [6, 1, 4,  0], 
                  [6, 1, 4,  0]])  # A sample constant m
 
-print('seg_ids->', seg_ids.eval())
+print('\nseg_ids->', seg_ids.eval())
 print('tens1->', tens1.eval())
 
-tf.segment_sum(tens1, seg_ids).eval()   # Sum segmen
-tf.segment_prod(tens1, seg_ids).eval() # Product segmen
-tf.segment_min(tens1, seg_ids).eval() # minimun value goes to
-tf.segment_max(tens1, seg_ids).eval() # maximum value goes to
-tf.segment_mean(tens1, seg_ids).eval() # mean value goes to group 
+print("\ntf.segment_sum(tens1, seg_ids).eval() ")   # Sum segmen
+print(tf.segment_sum(tens1, seg_ids).eval() )   # Sum segmen
+
+print("\ntf.segment_prod(tens1, seg_ids).eval() ") # Product segmen
+print(tf.segment_prod(tens1, seg_ids).eval() ) # Product segmen
+
+print(tf.segment_min(tens1, seg_ids).eval() ) # minimun value goes to
+print(tf.segment_max(tens1, seg_ids).eval() ) # maximum value goes to
+print(tf.segment_mean(tens1, seg_ids).eval() ) # mean value goes to group 
