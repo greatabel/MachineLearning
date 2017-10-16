@@ -17,6 +17,7 @@ def main():
     print('training_data[0] ->', training_data[0])
     print('type(training_data[0][0]) =>', type(training_data[0][0]),len(training_data[0][0]))
     print('type(training_data[0][1]) =>', type(training_data[0][1]),len(training_data[0][1]))
+    
 def test_zip():
     print('-'*10,'test_zip','-'*10)
     a = [1,2,3,4]
