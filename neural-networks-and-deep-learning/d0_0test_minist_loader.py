@@ -6,6 +6,7 @@ def main():
     training_data, validation_data, test_data = i2mnist_loader.load_data()
     print('type(training_data) ->', type(training_data),len(training_data))
     print('training_data[0][1] ->', training_data[0][1],'training_data[1][1] ->', training_data[1][1])
+    print('training_data[0].shape =>', training_data[0].shape)
     
 def test_zip():
     print('-'*10,'test_zip','-'*10)

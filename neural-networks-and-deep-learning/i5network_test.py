@@ -19,7 +19,7 @@ import i1network
 import time
 
 tic = time.clock()
-net = i1network.Network([784, 30, 10])
+net = i1network.Network([28*28, 30, 10])
 
 net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
 
