@@ -25,7 +25,7 @@ def single_perceptron(x):
 def main():
     for i in range(10):
         print('#'*10, i)
-        x = np.random.randint(2, size=5) * 10
+        x = np.random.randint(3, size=5) * 100
         single_perceptron(x)
 
 
