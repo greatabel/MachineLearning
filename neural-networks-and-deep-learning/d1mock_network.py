@@ -2,11 +2,11 @@ import random
 import numpy as np
 from termcolor import colored
 
-def demo_shuffle():
-    arr = np.arange(10)
-    print('arr->', arr)
-    np.random.shuffle(arr)
-    print('arr->', arr)
+# def demo_shuffle():
+#     arr = np.arange(10)
+#     print('arr->', arr)
+#     np.random.shuffle(arr)
+#     print('arr->', arr)
 
 def mock_data():
     result = []
