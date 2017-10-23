@@ -11,7 +11,9 @@ class Node(object):
 
         w = w.T
         isum = np.dot(x, w)
-        result = 1 if isum + self.threshold > 0 else 0
+        # result = 1 if isum + self.threshold > 0 else 0
+        z = isum + self.threshold
+        result = sigmoid(z)
         self.output = result
 
 # sigmoid = S字形的, 反曲式的
