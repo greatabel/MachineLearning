@@ -3,22 +3,31 @@ from termcolor import colored
 
 class Node(object):
 
-    def __init__(self, threshold):
+    def __init__(self, id, threshold):
+        self.id = id
         self.threshold = threshold
-        self.output = None
 
     def input(self, x):
         result = 1 if sum(x) + self.threshold > 0 else 0
         self.output = result
 
 def main():
-    t = Node(3)
-    x = [-2, -2]
-    t.input(x)
-    print(t.threshold,'#', t.output)
-    x = [-2, 0]
-    t.input(x)
-    print(t.threshold,'#', t.output)
+    # t = Node(3)
+    # x = [-2, -2]
+    # t.input(x)
+    # print(t.threshold,'#', t.output)
+    # x = [-2, 0]
+    # t.input(x)
+    # print(t.threshold,'#', t.output)
+    threshold = 3
+    weight = -2
+    nodelist = [Node(i, threshold) for i in range(4)]
+    for x1 in (0, 1):
+        for x2 in (0, 1):
+
+            nodelist[0].input([x1 * weight, x2 * weight])
+            n0 = nodelist[0].output
+            print('x1, x2 =>',x1, x2, 'n0=>', n0)
     
 
 if __name__ == "__main__":
