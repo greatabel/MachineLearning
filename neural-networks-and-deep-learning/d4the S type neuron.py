@@ -8,8 +8,7 @@ class Node(object):
         self.threshold = threshold
 
     def input(self, w, x):
-        w = np.array(w)
-        x = np.array(x)
+
         w = w.T
         isum = np.dot(x, w)
         result = 1 if isum + self.threshold > 0 else 0
@@ -23,6 +22,8 @@ def main():
     t = Node('id1', -10)
     x = [0, 1, 1]
     w = [3, 3, 10]
+    w = np.array(w)
+    x = np.array(x)
     t.input(w, x)
     print(t.threshold,'#', t.output)
 
