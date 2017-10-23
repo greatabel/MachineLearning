@@ -15,10 +15,14 @@ class Node(object):
         result = 1 if isum + self.threshold > 0 else 0
         self.output = result
 
+# sigmoid = S字形的, 反曲式的
+def sigmoid(z):
+    return 1.0/(1.0 + np.exp(-z))
+
 def main():
-    t = Node('id1', 10)
-    x = [-2, -2, -2]
-    w = [3, 3, 3]
+    t = Node('id1', -10)
+    x = [0, 1, 1]
+    w = [3, 3, 10]
     t.input(w, x)
     print(t.threshold,'#', t.output)
 
