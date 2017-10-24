@@ -1,5 +1,7 @@
 import numpy as np
 from termcolor import colored
+import matplotlib.pyplot as plt
+
 
 class Node(object):
 
@@ -20,7 +22,20 @@ class Node(object):
 def sigmoid(z):
     return 1.0/(1.0 + np.exp(-z))
 
+def test_sigmoid():
+    x = []
+    y = []
+    for i  in range(-20,20):
+        x.append(i)
+        y.append(sigmoid(i))
+    plt.plot(x, y)
+    plt.show()
+
+
 def main():
+    print('#'*10, 'begin test_sigmoid')
+    test_sigmoid()
+    print('#'*10, 'end test_sigmoid')
     t = Node('id1', -10)
     x = [0, 1, 1]
     w = [3, 3, 10]
