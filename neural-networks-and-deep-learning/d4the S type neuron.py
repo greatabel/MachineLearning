@@ -1,6 +1,7 @@
 import numpy as np
 from termcolor import colored
 import matplotlib.pyplot as plt
+# https://matplotlib.org/users/pyplot_tutorial.html
 
 
 class Node(object):
