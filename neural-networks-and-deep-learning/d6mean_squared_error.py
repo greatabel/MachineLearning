@@ -1,18 +1,26 @@
 import numpy as np
 from termcolor import colored
 
+
+a = 2
+b = 10
+
 def mse(y, y_pred):
     mse = np.mean((y - y_pred)**2)
+    return mse
+
 
 def generate_test_data():
-    a = 2
-    b = 3
     x = np.random.randn(10, 1)
-    print(x, type(x))
     f = a * x + b
-def main():
+    return x, f
 
-    print(colored('result =>', 'red'))
+def main():
+    x, y_pred = generate_test_data()
+
+    fitting_functions = [ a * x + b, a * x**2 + b, a * x -b]
+    for y in fitting_functions:
+        print(colored(' mse(y, y_pred) =>', 'red'),  mse(y, y_pred))
 
 if __name__ == "__main__":
     main()
