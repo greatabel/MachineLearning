@@ -15,7 +15,8 @@ def main():
     a = 2
     b = 3
     noise = a / 10.0
-    for scope in [10, 100, 1000, 10000]:
+    # 2.5e2 = 2.5 x 102 = 250
+    for scope in [10, 100, 1000, int(1e4), int(1e5), int(1e6)]:
         print(colored('scope =>', 'blue'), scope )
         data_size = scope
         # print('noise=>', noise)
