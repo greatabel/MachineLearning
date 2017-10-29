@@ -34,7 +34,7 @@ def main():
     Z = z_func(X, Y) # evaluation of the function on the grid
     plot(X, Y, Z)
     # print(x,'y>',y,'X>',X, 'Y>',Y,'Z>',Z)
-    # print(colored(' mse(y, y_pred) =>', 'red'))
+    # print(colored(' x =>', 'red'), X.shape)
 
 if __name__ == "__main__":
     main()
