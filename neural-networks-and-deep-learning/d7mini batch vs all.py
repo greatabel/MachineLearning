@@ -23,15 +23,19 @@ def main():
         x, y_pred = generate_test_data(a + noise, b + noise, data_size)
         y = a * x + b
         all_mse = mse(y, y_pred)
-        print(colored(' mse(y, y_pred) =>', 'red'), all_mse )
+        print(colored(' mse(y, y_pred) =>', 'red'), "{0:.0f}%".format(100 * all_mse ))
         batch_size = data_size // 5
 
         y_group = batch(y, batch_size)
         y_pred_group = batch(y_pred, batch_size)
+        batch_mses = 0
         for i in range(len(y_group)):
             batch_mse = mse(y_group[i], y_pred_group[i])
+            batch_mses += batch_mse
             print(colored(' batch_mse[' + str(i) + '] =>', 'red'), 
                     batch_mse, "{0:.0f}%".format(100 * abs(batch_mse - all_mse)/ all_mse))
+        batch_mses /= len(y_group)
+        print('avg=>', "{0:.0f}%".format(100 *batch_mses))
 
 if __name__ == "__main__":
     main()
