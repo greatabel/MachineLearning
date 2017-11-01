@@ -2,6 +2,8 @@ import i2mnist_loader
 import numpy as np
 from termcolor import colored
 
+def show(text):
+    return colored(text,'magenta',attrs=['reverse', 'blink'])
 
 def main():
     training_data, validation_data, test_data = i2mnist_loader.load_data()
@@ -15,6 +17,7 @@ def main():
     training_data = list(training_data)
     print('len(training_data ->', len(training_data))
     print('training_data[0] ->', training_data[0])
+    print(show('training_data[0][1].shape >'), training_data[0][1].shape)
     print('type(training_data[0][0]) =>', type(training_data[0][0]),len(training_data[0][0]))
     print('type(training_data[0][1]) =>', type(training_data[0][1]),len(training_data[0][1]))
     
@@ -25,6 +28,7 @@ def test_zip():
     c = zip(a,b)
     d = list(c)
     print(a,b,type(c),d, 'd[0]=',d[0])
+
 
 if __name__ == "__main__":
     test_zip()
