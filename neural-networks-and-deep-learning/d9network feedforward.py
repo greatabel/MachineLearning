@@ -1,16 +1,17 @@
 import numpy as np
 from termcolor import colored
 
-
+def show(text):
+    return colored(text,'magenta',attrs=['reverse', 'blink'])
 sizes = [2, 3, 1]
 biases = [np.random.randn(y, 1) for y in sizes[1:]]
 weights = [np.random.randn(y, x)
             for x, y in zip(sizes[:-1], sizes[1:])]
 
-def test_np_argmax():
-    a = np.arange(6).reshape(2,3)
-    print(a, colored('np.argmax=','blue'),np.argmax(a))
-test_np_argmax()
+# def test_np_argmax():
+#     a = np.arange(6).reshape(2,3)
+#     print(a, colored('np.argmax=','blue'),np.argmax(a))
+# test_np_argmax()
 
 def sigmoid(z):
     """The sigmoid function."""
@@ -26,7 +27,7 @@ def feedforward(a):
         t = t0+b
         print('(t0+b)=', t, t.shape)
         a = sigmoid(t)
-        print('feedforward a>', a)
+        print(show('out a>'), a)
     return a
 
 print('biases>', biases)   
