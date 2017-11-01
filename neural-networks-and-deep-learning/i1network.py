@@ -29,8 +29,10 @@ class Network(object):
 
     def feedforward(self, a):
         """Return the output of the network if ``a`` is input."""
+        # print('#'*10,'before a=', a.shape)
         for b, w in zip(self.biases, self.weights):
             a = sigmoid(np.dot(w, a)+b)
+            # print('@'*10,'a=', a.shape)
         return a
 
     def SGD(self, training_data, epochs, mini_batch_size, eta,
