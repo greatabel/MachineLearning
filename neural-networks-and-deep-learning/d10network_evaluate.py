@@ -19,21 +19,30 @@ def feedforward(a):
     for b, w in zip(biases, weights):
         # print('b, w>', b, w, b.shape, w.shape)
         a = sigmoid(np.dot(w, a)+b)
-    print(show('a='), a)
+    # print(show('a='), a)
     return a
 
 
 
 #----end of code not relevant to d10 -------#
+def mock_data(mock_count):
+    datas = []
+    for i in range(mock_count):
+        a = np.random.randn(2, 1)
+        b = np.random.randn(3, 1)
+        datas.append((a,b))
+    # print('list(result[9])=',c,list(result[9]))
+    return datas
 
-t1 = np.array([[10],[20]])
-t2 = np.array([[0],[0],[1]])
+test_data = mock_data(100)
+hits = 0
+for item in test_data:
 
-
-
-# print(np.argmax(feedforward(t1)))
-test_results = [(np.argmax(feedforward(t1)), np.argmax(t2))]
-print('test_results =', test_results)
-final = sum(int(x == y) for (x, y) in test_results)          
-
-print(show('final='), final)
+    t1 = item[0]
+    t2 = item[1]
+    # print(np.argmax(feedforward(t1)))
+    test_results = [(np.argmax(feedforward(t1)), np.argmax(t2))]
+    print('test_results=', test_results)
+    hit = sum(int(x == y) for (x, y) in test_results)          
+    hits += hit
+print(show('hits='), hits)
