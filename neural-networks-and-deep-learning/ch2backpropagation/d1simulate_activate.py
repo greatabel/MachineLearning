@@ -24,3 +24,11 @@ weights = [np.random.randn(y, x)
 
 print('biases=', biases)
 print('weights=', weights)
+
+activates = [np.array([1,2]), np.array([3,4]), np.array([5,6])]
+print('activates=', activates)
+s0 = weights[0] * activates 
+s1 = np.transpose(s0)
+s2 = s1[0] + s1[1]
+
+print(s0, s0.shape, type(s0), s1, s2)
