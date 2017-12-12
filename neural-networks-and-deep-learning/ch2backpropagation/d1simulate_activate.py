@@ -22,13 +22,17 @@ biases = [np.random.randn(y, 1)
 weights = [np.random.randn(y, x)
             for x, y in zip(sizes[:-1], sizes[1:])]
 
-print('biases=', biases)
+
+
+
 print('weights=', weights)
 
 activates = [np.array([1,2]), np.array([3,4]), np.array([5,6])]
-print('activates=', activates)
+
 s0 = weights[0] * activates 
 s1 = np.transpose(s0)
 s2 = s1[0] + s1[1]
+b0 = np.concatenate((biases[0][0], biases[0][1],biases[0][2]))
+s3 = s2 + b0
 
-print(s0, s0.shape, type(s0), s1, s2)
+print('a1=', sigmoid(s3))
