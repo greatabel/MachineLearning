@@ -14,7 +14,7 @@ logs_path = 'log_mnist_softmax'
 batch_size = 100
 learning_rate = 0.5
 training_epochs = 10
-my_mnist_data = "MNIST_data"
+mypath = "../../DataSet/MNIST_data/"
 mnist = input_data.read_data_sets(my_mnist_data, one_hot=True)
 
 

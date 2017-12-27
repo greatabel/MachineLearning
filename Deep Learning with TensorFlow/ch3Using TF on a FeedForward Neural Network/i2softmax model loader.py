@@ -8,7 +8,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 
 
 # logs_path = 'log_mnist_softmax'
-mypath = "MNIST_data"
+mypath = "../../DataSet/MNIST_data/"
 mnist = input_data.read_data_sets(mypath, one_hot=True)
 
 sess = tf.InteractiveSession()
