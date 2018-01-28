@@ -1,7 +1,7 @@
-pip3 install --upgrade -r requirements.txt
-
 # MachineLearning
-------------------
+Sometimes it is the people who no one imagines anything of, that do the things that no one can imagine.
+
+pip3 install --upgrade -r requirements.txt
 
 # SciPy and NumPy 
 https://book.douban.com/subject/10561724/ :
