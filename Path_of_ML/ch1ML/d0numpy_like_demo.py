@@ -7,6 +7,10 @@ def show(s, color="green"):
     show = colored(s, color, attrs=['reverse', 'blink'])
     print(show)
 
+def softmax(s):
+    """softmax函数"""
+    return np.exp(s) / np.sum(np.exp(s), axis=0)
+
 x = np.arange(6)
 x = x.reshape((2,3))
 
@@ -28,10 +32,6 @@ print('@'*6, x_one)
 print('@'*6, 0.2*x_one)
 x_vs = np.vstack([x, x_one, 0.2*x_one])
 print('@'*9, x_vs)
-
-def softmax(s):
-    """softmax函数"""
-    return np.exp(s) / np.sum(np.exp(s), axis=0)
 
 show('第3部分', 'yellow')
 print('x=', x)
