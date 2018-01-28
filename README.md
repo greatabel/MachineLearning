@@ -1,5 +1,6 @@
 # MachineLearning
 Sometimes it is the people who no one imagines anything of, that do the things that no one can imagine.
+The purpose of coding machine-learning system is insight，not others.
 
 pip3 install --upgrade -r requirements.txt
 
