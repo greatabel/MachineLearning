@@ -31,3 +31,30 @@ def set_cabin_type(p_df):
     p_df.loc[(p_df.Cabin.isnull()), 'Cabin'] = "No"
     return p_df
 df = set_cabin_type(df)
+
+dummies_pclass = pd.get_dummies(data_train['Pclass'], prefix='Pclass')
+ph3 = dummies_pclass.head(3)
+print('ph3=', ph3)
+
+dummies_embarked = pd.get_dummies(data_train['Embarked'], prefix='Embarked')
+dummies_sex = pd.get_dummies(data_train['Sex'], prefix='Sex')
+
+df = pd.concat([df, dummies_embarked, dummies_sex, dummies_pclass], axis=1)
+
+# noinspection PyUnresolvedReferences
+df.drop(['Pclass', 'Name', 'Sex', 'Ticket', 'Cabin', 'Embarked'], axis=1, inplace=True)
+
+# 选择哪些特征作为训练特征
+train_df = df.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*')
+print(train_df.head(1))
+
+train_np = train_df.as_matrix()
+y = train_np[:, 0]
+x = train_np[:, 1:]
+
+from abupy import AbuML
+titanic = AbuML(x, y, train_df)
+
+titanic.estimator.logistic_classifier()
+s = titanic.cross_val_accuracy_score()
+print(s)
