@@ -32,3 +32,4 @@ x = SignalInput('视觉信号', '一只猫在卖萌!')
 print(Neuron('视觉信号').spike(x))
 x = SignalInput('听觉信号', '洒水车🎵响起!')
 print(Neuron('听觉信号').spike(x))
+
