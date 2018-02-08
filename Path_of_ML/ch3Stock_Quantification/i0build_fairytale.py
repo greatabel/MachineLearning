@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from abupy import ABuSymbolPd
 
 
@@ -96,3 +97,17 @@ for symbol in choice_symbols:
 # 表10-1所示
 show1 = another_word_dict['usNOAH'].head()
 print(show1)
+
+import itertools
+# 4 ＊ 2
+_, axs = plt.subplots(nrows=4, ncols=2, figsize=(20, 15))
+# 将画布序列拉平
+axs_list = list(itertools.chain.from_iterable(axs))
+
+for symbol, ax in zip(choice_symbols, axs_list):
+    # 绘制猪老三世界的股价走势
+    another_word_dict[symbol].close.plot(ax=ax)
+    # 同样的股票在真实世界的股价走势
+    real_dict[symbol].close.plot(ax=ax)
+    ax.set_title(symbol)
+# plt.show()
