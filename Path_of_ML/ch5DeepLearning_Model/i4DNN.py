@@ -20,3 +20,23 @@ X_test = X_test.reshape(y_test.shape[0], img_size).astype('float32') / 255
 # One-Hot编码标签，将如[3,2,...] 编码成[[0,0,0,1,0,0,0,0,0,0], [0,0,1,0,0,0,0,0,0,0],...]
 Y_train = np_utils.to_categorical(y_train, nb_classes)
 Y_test = np_utils.to_categorical(y_test, nb_classes)
+
+# 创建模型，增加一层包含128个神经元节点的隐层
+model = Sequential([
+Dense(128, input_shape=(img_size,), activation='relu'),
+Dense(10, input_shape=(128,), activation='softmax'),
+])
+
+# 编译模型
+model.compile(optimizer='rmsprop',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+
+# 训练
+model.fit(X_train, Y_train,
+          batch_size=batch_size, epochs=epochs,
+          verbose=1, validation_data=(X_test, Y_test))
+
+# 测试
+score = model.evaluate(X_test, Y_test, verbose=0)
+print('accuracy: {}'.format(score[1]))
