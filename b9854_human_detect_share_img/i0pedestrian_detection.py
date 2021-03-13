@@ -16,6 +16,10 @@ from matplotlib import pyplot as plt
 import webcolors
 from sklearn.cluster import KMeans
 import os
+from PIL import Image
+from datetime import datetime, timedelta
+
+import i1client 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train YOLO networks with random input shape.')
@@ -36,7 +40,13 @@ def parse_args():
 
 
 def image_put(q, user, pwd, ip, channel=1):
+    # 1. 调用笔记本内置摄像头，
+    # cap=cv2.VideoCapture(0)
+
+    # 2. 调用读取视频测试
     cap = cv2.VideoCapture("test.mp4" )
+
+    # 3. 调取真实枪机摄像头
     # if cap.isOpened():
     #     print('HIKVISION')
     # else:
@@ -258,28 +268,29 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
                 bcolor, min(int(scale), 5), lineType=cv2.LINE_AA)
                 # print('#'*20)
 
-        from PIL import Image
-        from datetime import datetime, timedelta
 
+        flag = False
         d = datetime.now()
+        d_str =  d.strftime("%Y-%m-%d-%H-%M-%S")
         global last_save_time
         if last_save_time != None:
             z = d - last_save_time
             # 检测到就保存照片就太多了，15秒间隔才保存一张
             if z.total_seconds() > 15:
-                new_img = Image.fromarray(source_img, 'RGB')
-                plt.imshow(new_img)
-                # plt.show()        
-                plt.axis('off')
-                plt.savefig('detected_images/'+ str(d) + '.png',bbox_inches='tight', pad_inches=0)
-                last_save_time = d
+                flag = True
+            else:
+                flag = False
         else:
+            flag = True
+
+        if flag == True:
             new_img = Image.fromarray(source_img, 'RGB')
             plt.imshow(new_img)
             # plt.show()        
             plt.axis('off')
-            plt.savefig('detected_images/'+ str(d) + '.png',bbox_inches='tight', pad_inches=0)
-            last_save_time = d     
+            plt.savefig('detected_images/'+ d_str + '.jpg',bbox_inches='tight', pad_inches=0)
+            i1client.send_file_to_server('detected_images/'+ d_str + '.jpg')
+            last_save_time = d
 
 
     return img
