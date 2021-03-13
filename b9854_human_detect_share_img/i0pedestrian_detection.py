@@ -36,17 +36,19 @@ def parse_args():
 
 
 def image_put(q, user, pwd, ip, channel=1):
-    cap = cv2.VideoCapture("many_men.mp4" )
+    cap = cv2.VideoCapture("test.mp4" )
     # if cap.isOpened():
     #     print('HIKVISION')
     # else:
     #     cap = cv2.VideoCapture("rtsp://%s:%s@%s/cam/realmonitor?channel=%d&subtype=0" % (user, pwd, ip, channel))
     #     print('DaHua')
-
+    count = 0
     while True:
-        q.put(cap.read()[1])
-        #q.get() if q.qsize() > 1 else time.sleep(0.01)
-        q.get() if q.qsize() > 5 else time.sleep(0.01)
+        if count % 15 == 0:
+            q.put(cap.read()[1])
+        count += 1
+        # q.get() if q.qsize() > 1 else time.sleep(0.01)
+        # q.get() if q.qsize() > 5 else time.sleep(0.01)
 
 
 # def render_as_image(a):
@@ -78,7 +80,7 @@ def closest_colour(requested_colour):
 # def color_difference (color1, color2):
 #     return sum([abs(component1-component2) for component1, component2 in zip(color1, color2)])
 
-
+last_save_time = None
 #  fork from : https://gluon-cv.mxnet.io/_modules/gluoncv/utils/viz/bbox.html
 def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.5,
                  class_names=None, colors=None,
@@ -117,7 +119,7 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
 
     """
     
-
+    source_img = img.copy()
 
     if labels is not None and not len(bboxes) == len(labels):
         raise ValueError('The length of labels and bboxes mismatch, {} vs {}'
@@ -227,9 +229,7 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
 
         # # ----
         # bcolor = [x * 255 for x in colors[cls_id]]
-        bcolor = (255, 255, 255) 
-        # 默认设置为黄色，根据视频
-        bcolor = (255,255,0)
+
         
 
         # cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
@@ -240,55 +240,48 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
             class_name = str(cls_id) if cls_id >= 0 else ''
         score = '{:d}%'.format(int(scores.flat[i]*100)) if scores is not None else ''
 
-        if class_name == 'person':
-            #天蓝色
-            bcolor =(0, 255, 255)
-            if scores.flat[i] > 0.71:
-                
-                warning_signal = 'without-hat-in-area'
-                
-                cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
-                y = ymin - 15 if ymin - 15 > 15 else ymin + 15
-                cv2.putText(img, '{:s} {:s}'.format(class_name, score),
-                    (xmin, y), cv2.FONT_HERSHEY_SIMPLEX, min(scale/2, 2),
-                    bcolor, min(int(scale), 5), lineType=cv2.LINE_AA)
+        #天蓝色
+        bcolor =(0, 255, 255)
+        if scores.flat[i] > 0.41:
+            
+            warning_signal = 'without-hat-in-area'
+            
+            cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
+            y = ymin - 15 if ymin - 15 > 15 else ymin + 15
 
-        elif class_name == 'hat':
-            print(scores.flat[i], '^'*20)
-            bcolor = (255,255,0)
-            if scores.flat[i] > 0.65:
-                if colorname in ('olivedrab', 'yellow', 'sienna','goldenrod', 'gold','palegoldenrod',
-                 'darkgoldenrod','greenyellow','khaki','darkkhaki','blanchedalmond', 'wheat'):               
-                    # 黄色
-                    bcolor = (255,255,0)
-                    # 警告音 
-                    # duration = 0.5  # seconds
-                    # freq = 660  # Hz
-                    # os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
-                    # logger.log(logging.CRITICAL, 'yellow-hat-in-area')
 
-               
-                    warning_signal = 'yellow-hat-in-area'
-                    print('yhat', '@'*30)
-                    # print('#'*10)
 
-                elif colorname in ('saddlebrown', 'red', 'maroon','darkred','indianred','firebrick','brown','crimson'):
-                    # 红色
-                    bcolor =  (0, 0, 255)
-                    # 警告音 
-                    # duration = 1  # seconds
-                    # freq = 440  # Hz
-                    # os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
-                    # logger.log(logging.CRITICAL, 'red-hat-in-area')
-                    
-                    warning_signal = 'red-hat-in-area'
-
-                cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
-                y = ymin - 15 if ymin - 15 > 15 else ymin + 15
-                cv2.putText(img, '{:s} {:s}'.format(class_name, score),
-                    (xmin, y), cv2.FONT_HERSHEY_SIMPLEX, min(scale/2, 2),
-                    bcolor, min(int(scale), 5), lineType=cv2.LINE_AA)
+            # cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
+            # y = ymin - 15 if ymin - 15 > 15 else ymin + 15
+            cv2.putText(img, '{:s} {:s}'.format('person', score),
+                (xmin, y), cv2.FONT_HERSHEY_SIMPLEX, min(scale/2, 2),
+                bcolor, min(int(scale), 5), lineType=cv2.LINE_AA)
                 # print('#'*20)
+
+        from PIL import Image
+        from datetime import datetime, timedelta
+
+        d = datetime.now()
+        global last_save_time
+        if last_save_time != None:
+            z = d - last_save_time
+            # 检测到就保存照片就太多了，15秒间隔才保存一张
+            if z.total_seconds() > 15:
+                new_img = Image.fromarray(source_img, 'RGB')
+                plt.imshow(new_img)
+                # plt.show()        
+                plt.axis('off')
+                plt.savefig('detected_images/'+ str(d) + '.png',bbox_inches='tight', pad_inches=0)
+                last_save_time = d
+        else:
+            new_img = Image.fromarray(source_img, 'RGB')
+            plt.imshow(new_img)
+            # plt.show()        
+            plt.axis('off')
+            plt.savefig('detected_images/'+ str(d) + '.png',bbox_inches='tight', pad_inches=0)
+            last_save_time = d     
+
+
     return img
 
 def image_get(q, window_name):
@@ -297,6 +290,7 @@ def image_get(q, window_name):
 
 
     args = parse_args()
+    print('args=', args)
     print('是否使用GPU:', args.gpu)
     if args.gpu:
         ctx = mx.gpu()
@@ -471,7 +465,7 @@ def run_multi_camera():
         
 
 if __name__ == '__main__':
-    # python3 i3rstp_color_video.py --gpu=True --network=yolo3_darknet53_voc
+    # python3 i0pedestrian_detection.py  --network=yolo3_mobilenet0.25_voc
     run_single_camera()
 
     pass
