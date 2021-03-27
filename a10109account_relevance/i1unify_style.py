@@ -24,7 +24,7 @@ images = []
 ext = (".jpeg", ".jpg", ".png")
 
 for (dirpath, dirnames, filenames) in walk(input_dir):
-  for filename in filenames:
+    for filename in filenames:
         if filename.endswith(ext):
             images.append(os.path.join(dirpath, filename))
             print(filename)
@@ -53,7 +53,14 @@ for image in images:
 
     scaled_img = cv2.resize(img, (w, h), interpolation=interp)
     padded_img = cv2.copyMakeBorder(
-        scaled_img,0,pad_bottom,0,pad_right,borderType=cv2.BORDER_CONSTANT,value=[0,0,0])
+        scaled_img,
+        0,
+        pad_bottom,
+        0,
+        pad_right,
+        borderType=cv2.BORDER_CONSTANT,
+        value=[0, 0, 0],
+    )
 
     cv2.imwrite(os.path.join(out_dir, os.path.basename(image)), padded_img)
 
