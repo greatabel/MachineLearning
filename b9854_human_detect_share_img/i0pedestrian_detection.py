@@ -54,7 +54,7 @@ def image_put(q, user, pwd, ip, channel=1):
     #     print('DaHua')
     count = 0
     while True:
-        if count % 15 == 0:
+        if count % 25 == 0:
             q.put(cap.read()[1])
         count += 1
         # q.get() if q.qsize() > 1 else time.sleep(0.01)
