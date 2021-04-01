@@ -97,14 +97,16 @@ def scp5(index_id=""):
         j = 0
         for i in matched_ids:
 
-            x = w_rows[i]
+            x = w_rows[i-1]
+            print(x)
             x.append(scores[j])
-            t_rows.append(w_rows[i])
+            t_rows.append(x)
             j += 1
         
 
         # print('scores=', scores)
         print(colored('scores'+'-'*30, 'red'),scores)
+        print(t_rows)
     r = make_response(
         render_template('scp5.html', query_value=query_value,index=index, 
             t_rows=t_rows)
