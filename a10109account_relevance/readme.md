@@ -31,3 +31,16 @@ weibo尺寸是固定的，豆瓣是不统一，我们为了方便，把豆瓣头
 python3 i1unify_style.py  180 180  'data/img_douban' 'data/processed_douban'
 
 7.
+比较用户的用户名，用户简介相似度：
+python3 i2compare.py
+
+8.
+比较用户的头像相似度：
+进入i3perceptual_similarity 后执行：
+python3 i3avatar_compare.py
+
+9.
+运行预测网站
+进入i4api_and_website ,执行
+python3 app.py
+然后浏览器访问：http://127.0.0.1:5000/find_connect/
