@@ -34,10 +34,10 @@ def compare(source_record, target_list):
 		b1 = round(b1, 4)
 		b2 = jellyfish.damerau_levenshtein_distance(s_bio, t_bio)
 		b3 = jellyfish.hamming_distance(s_bio, t_bio)
-		print('target index=', i,'name-silimarity=', c0, c1, c2,c3,
-			 '\n',colored('bio-silimarity = ', 'red'), b0, b1, b2, b3)
+		# print('target index=', i,'name-silimarity=', c0, c1, c2,c3,
+		# 	 '\n',colored('bio-silimarity = ', 'red'), b0, b1, b2, b3)
 		# 为生成实验数据，平时注释
-		# print(i, c0, c1, c2,c3,b0, b1, b2, b3)
+		print('['+ str(c0)+','+ str(c1)+','+ str(c2)+','+str(c3)+','+ str(b0)+','+ str(b1)+','+ str(b2)+','+ str(b3)+','+ ' 0.999 ]')
 
 if __name__ == "__main__":
 	d_rows = load('data/douban.csv')

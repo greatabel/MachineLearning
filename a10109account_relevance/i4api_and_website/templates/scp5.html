@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>demo.html</title>
+    <!-- <script type="text/javascript" src="http://d3js.org/d3.v5.min.js"></script> -->
+    <meta name="description" content="placelist">
+    <meta name="content-type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  // https://www.stirworld.com/see-features-foster-partners-commence-work-on-icone-a-new-office-building-in-luxembourg
+
+</script>
+ <link rel="stylesheet" href="/static/game-frame-styles.css" />
+<style type="text/css">
+
+img {
+width: 200px;
+height: 100px;
+}
+
+h1 { font-size: 12pt; }
+
+</style>
+  </head>
+
+ 
+<body id="level1">
+  <img src="/static/scp2.jpg" class="img-fluid" alt="Responsive image">
+      <div>
+      <form action="" method="GET">
+      <input id="query" name="query" value="输入豆瓣id" style="width:300px;"
+
+        onfocus="this.value=''">
+      <span>目标平台：weibo/微博</span>
+      <input id="button" type="submit" class="btn btn-warning" value="找出不同平台关联用户" >
+      <br/>
+      <span>输入示例: krugman / zhangjiawei </span>
+    </form>
+
+      <p style="font-weight: bold;color: blue;">豆瓣源数据:<br/> {{index}}</p>
+      <div style="font-weight: bold;color: green;padding-left: 20px;">weibo匹配数据:<br/> 
+
+
+    <table style="width:80%;", border="1">
+        {% for item in t_rows %}    
+        <tr>               
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>                            
+            <td>{{item[3]}}</td>                            
+            <td>{{item[4]}}</td>                            
+            <td>{{item[5]}}</td>                            
+        </tr>
+        {% endfor %}    
+    </table>
+
+      </div>
+
+      <!-- <a href="{{ query_value }}">click here</a> -->
+  </div>
+
+
+  </body>
+</html>
