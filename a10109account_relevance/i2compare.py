@@ -24,12 +24,14 @@ def compare(source_record, target_list):
 		t_bio = target[4]
 		c0 = jellyfish.levenshtein_distance(sname, tname)
 		c1 = jellyfish.jaro_distance(sname, tname)
+		c1 = round(c1, 4)
 		c2 = jellyfish.damerau_levenshtein_distance(sname, tname)
 		# https://en.wikipedia.org/wiki/Hamming_distance
 		c3 = jellyfish.hamming_distance(sname, tname)
 
 		b0 = jellyfish.levenshtein_distance(s_bio, t_bio)
 		b1 = jellyfish.jaro_distance(s_bio, t_bio)
+		b1 = round(b1, 4)
 		b2 = jellyfish.damerau_levenshtein_distance(s_bio, t_bio)
 		b3 = jellyfish.hamming_distance(s_bio, t_bio)
 		print('target index=', i,'name-silimarity=', c0, c1, c2,c3,
