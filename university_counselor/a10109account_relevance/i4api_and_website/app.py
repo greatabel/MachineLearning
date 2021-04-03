@@ -92,7 +92,7 @@ def scp5(index_id=""):
 
         # hardcode 
         matched_ids = [2, 1, 3, 4, 5]
-        scores = [0.89, 0.72, 0.71, 0.21, 0.19, 0.21]
+        scores = [0.89, 0.72, 0.71, 0.51, 0.59, 0.41]
         t_rows = []
         j = 0
         for i in matched_ids:
