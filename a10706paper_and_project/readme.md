@@ -1,7 +1,10 @@
 1. 
+安装 python3 on (测试过的系统: macbook / ubuntu)
 whole project based on python3
 (project should work at all versons above python3.5 [include python3.5] )
 
+1.1
+（可选项，最好做下，可以不做）
 create virtual environment
 at Unix/MacOS run:
 python3 -m venv  mlsystem-env
@@ -15,6 +18,7 @@ mlsystem-env\Scripts\activate.bat
 
 Unix/MacOS run:
 source mlsystem-env/bin/activate
+
 
 
 2. 
