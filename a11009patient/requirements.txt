@@ -1,0 +1,5 @@
+termcolor
+Flask
+Flask-SQLAlchemy
+requests
+
