@@ -46,9 +46,10 @@ def create_figure():
     # axis.plot(xs, ys)
 
     # 二次拟合
-    coef = np.polyfit(xs, ys, 2)
-    y_fit = np.polyval(coef, xs)
-    axis.plot(xs, y_fit, 'g')
+    if len(xs) > 0 and len(ys) > 0:
+        coef = np.polyfit(xs, ys, 2)
+        y_fit = np.polyval(coef, xs)
+        axis.plot(xs, y_fit, 'g')
 
     return fig
 
