@@ -2,4 +2,5 @@ termcolor
 Flask
 Flask-SQLAlchemy
 requests
+jellyfish
 

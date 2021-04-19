@@ -1,5 +1,4 @@
-检测部分推荐部署ubuntu或者其他linux，
-其他代码可以部署到其他操作系统平台
+测试是在osx平台，实际可以在（windows/osx/linux系统上运行）
 
 1.
 安装python3.6 以上版本
