@@ -1,14 +1,24 @@
 from flask import Flask, url_for, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 
-from i1disease_treatment import process, process_symptom
+from i1disease_treatment import process, process_symptom,process_drugday_age
 import jellyfish
+
+import io
+import random
+from flask import Response
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+import numpy as np
+
 
 app = Flask(__name__)
 app.debug = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
+xs = []
+ys = []
 
 class User(db.Model):
     """ Create user table"""
@@ -20,9 +30,32 @@ class User(db.Model):
         self.username = username
         self.password = password
 
+@app.route('/plot.png')
+def plot_png():
+    fig = create_figure()
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
+
+def create_figure():
+    global xs, ys
+    fig = Figure()
+    axis = fig.add_subplot(2, 1, 1)
+    # xs = range(100)
+    # ys = [random.randint(1, 50) for x in xs]
+    # axis.plot(xs, ys)
+
+    # 二次拟合
+    coef = np.polyfit(xs, ys, 2)
+    y_fit = np.polyval(coef, xs)
+    axis.plot(xs, y_fit, 'g')
+
+    return fig
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    global xs, ys
     """ Session control"""
     if not session.get('logged_in'):
         return render_template('index.html')
@@ -34,6 +67,8 @@ def home():
             print('#'*20, 'mysymptom_dict=', mysymptom_dict)
             disename = request.form['disename']
             symptom = request.form['symptom']
+            prescrptinfo = request.form['prescrptinfo']
+
             data = None
             if disename != '':
                 if disename in mydict:
@@ -57,9 +92,11 @@ def home():
                         if c1 > 0.7:
                             print('#'*10, sname, '*'*10)
                             data = mysymptom_dict[sname]
-
+            if prescrptinfo != '':
+                xs, ys = process_drugday_age(prescrptinfo)
             return render_template('index.html', data=data)
         return render_template('index.html')
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -99,6 +136,9 @@ def logout():
     """Logout Form"""
     session['logged_in'] = False
     return redirect(url_for('home'))
+
+
+
 
 
 if __name__ == '__main__':
