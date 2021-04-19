@@ -1,8 +1,7 @@
-"""Flask Login Example and instagram fallowing find"""
-
 from flask import Flask, url_for, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 
+from i1disease_treatment import process, process_symptom
 
 
 app = Flask(__name__)
@@ -29,8 +28,14 @@ def home():
         return render_template('index.html')
     else:
         if request.method == 'POST':
-            username = 'usernmae'
-            return render_template('index.html', data='data_test')
+            mydict = process()
+            print('#'*20, mydict)
+            mysymptom_dict = process_symptom()
+
+            disename = request.form['disename']
+            symptom = request.form['symptom']
+            data = mydict[disename]
+            return render_template('index.html', data=data)
         return render_template('index.html')
 
 
@@ -48,9 +53,9 @@ def login():
                 session['logged_in'] = True
                 return redirect(url_for('home'))
             else:
-                return 'Dont Login'
+                return 'Not Login'
         except:
-            return "Dont Login"
+            return "Not Login"
 
 
 @app.route('/register/', methods=['GET', 'POST'])

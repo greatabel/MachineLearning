@@ -8,8 +8,22 @@
 
 	<a href="/logout">Logout</a> <br> <br>
 	<form action="" method="POST">
-	  <input type="username" name="username" placeholder="test">
+	  <span>搜索方式1:</span>
+	  <br/>
+	  <input type="disename" name="disename" placeholder="病名">
 	  <input type="submit" value="Finds">
+	  <br/>
+	  <span>例如: 湿阻/痹症</span>
+	  <hr/>
+	  <br/>
+	  <span>搜索方式2:</span>
+	  <br/>
+
+
+	  <textarea name="symptom" cols="40" rows="5" placeholder="症状"></textarea>
+	  <input type="submit" value="Finds">
+	  <br/>
+
 	</form>
 	{% endif %}
 
