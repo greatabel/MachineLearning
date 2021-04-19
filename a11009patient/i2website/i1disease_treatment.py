@@ -50,15 +50,16 @@ def process_symptom():
 	# show the dataframe
 	print('-'*30)
 	for index, row in df.iterrows():
-		# if index < 50:
-		if row["Symptom"] != '' and row["PrescrptInfo"] != '':
-			print(row["Symptom"], '#'*10, row["PrescrptInfo"])
-			if row["Symptom"] not in mysymptom_dict:
-				mysymptom_dict[row["Symptom"]] = [row["PrescrptInfo"]]
-			else:
-				new_list = mysymptom_dict[row["Symptom"]]
-				new_list.append(row["PrescrptInfo"])
-				mysymptom_dict[row["Symptom"]] = new_list
+		# 为了比较效率
+		if index < 100:
+			if row["Symptom"] != '' and row["PrescrptInfo"] != '':
+				print(row["Symptom"], '#'*10, row["PrescrptInfo"])
+				if row["Symptom"] not in mysymptom_dict:
+					mysymptom_dict[row["Symptom"]] = [row["PrescrptInfo"]]
+				else:
+					new_list = mysymptom_dict[row["Symptom"]]
+					new_list.append(row["PrescrptInfo"])
+					mysymptom_dict[row["Symptom"]] = new_list
 
 	print(mysymptom_dict)
 	return mysymptom_dict

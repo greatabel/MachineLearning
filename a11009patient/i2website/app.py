@@ -2,7 +2,7 @@ from flask import Flask, url_for, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 
 from i1disease_treatment import process, process_symptom
-
+import jellyfish
 
 app = Flask(__name__)
 app.debug = True
@@ -29,12 +29,34 @@ def home():
     else:
         if request.method == 'POST':
             mydict = process()
-            print('#'*20, mydict)
+            
             mysymptom_dict = process_symptom()
-
+            print('#'*20, 'mysymptom_dict=', mysymptom_dict)
             disename = request.form['disename']
             symptom = request.form['symptom']
-            data = mydict[disename]
+            data = None
+            if disename != '':
+                if disename in mydict:
+                    data = mydict[disename]
+            if symptom != '':
+                print('symptom=', symptom, '#'*10)
+                if symptom in mysymptom_dict:
+                    data = mysymptom_dict[symptom]
+                else:
+                    for key, value in mysymptom_dict.items():
+                        sname = key
+                        tname = symptom
+                        c0 = jellyfish.levenshtein_distance(sname, tname)
+                        c1 = jellyfish.jaro_distance(sname, tname)
+                        c1 = round(c1, 4)
+                        c2 = jellyfish.damerau_levenshtein_distance(sname, tname)
+                        # https://en.wikipedia.org/wiki/Hamming_distance
+                        c3 = jellyfish.hamming_distance(sname, tname)
+                        print(c0, c1, c2, c3)
+                        if c1 > 0.7:
+                            print('#'*10, sname, '*'*10)
+                            data = mysymptom_dict[sname]
+
             return render_template('index.html', data=data)
         return render_template('index.html')
 
