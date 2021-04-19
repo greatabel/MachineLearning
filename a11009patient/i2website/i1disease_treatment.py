@@ -27,7 +27,8 @@ def process():
 				mydict[row["DiseName"]] = [row["PrescrptInfo"]]
 			else:
 				new_list = mydict[row["DiseName"]]
-				new_list.append(row["PrescrptInfo"])
+				if row["PrescrptInfo"] not in new_list:
+					new_list.append(row["PrescrptInfo"])
 				mydict[row["DiseName"]] = new_list
 
 	print(mydict)
@@ -58,7 +59,8 @@ def process_symptom():
 					mysymptom_dict[row["Symptom"]] = [row["PrescrptInfo"]]
 				else:
 					new_list = mysymptom_dict[row["Symptom"]]
-					new_list.append(row["PrescrptInfo"])
+					if row["PrescrptInfo"] not in new_list:
+						new_list.append(row["PrescrptInfo"])
 					mysymptom_dict[row["Symptom"]] = new_list
 
 	print(mysymptom_dict)

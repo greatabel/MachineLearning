@@ -53,6 +53,7 @@ def home():
                         # https://en.wikipedia.org/wiki/Hamming_distance
                         c3 = jellyfish.hamming_distance(sname, tname)
                         print(c0, c1, c2, c3)
+                        # 我们可以更换所有模型，目前使用jaro_distance
                         if c1 > 0.7:
                             print('#'*10, sname, '*'*10)
                             data = mysymptom_dict[sname]
