@@ -28,11 +28,10 @@ Unix/MacOS run:
 source movie-env/bin/activate
 
 6.
-Ubuntu 18.04 安装 RabbitMQ 和配置：
-https://wangxin1248.github.io/linux/2020/03/ubuntu-install-rabbitmq.html
-根据博客链接完成第六步的rabgitMQ server运行起来
 
-7.
 新开一个命令行，进入虚拟环境，进入a11009patient/i2website下，运行
 python3 app.py
 
+
+7.
+浏览器访问 http://127.0.0.1:8000/
