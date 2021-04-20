@@ -121,7 +121,7 @@ def home():
             symptom = request.form["symptom"]
             prescrptinfo = request.form["prescrptinfo"]
 
-            data = None
+            data = []
             if disename != "":
                 if disename in mydict:
                     data = mydict[disename]
