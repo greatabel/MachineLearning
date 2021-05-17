@@ -25,3 +25,8 @@ pip3 install --upgrade -r requirements.txt
 9.
 
 然后浏览器访问：http://localhost:8888/notebooks/i1deep-learning-for-sentiment-analysis.ipynb
+
+10.
+另外开一个命令行，进入i3sentiment_predict_web
+进入虚拟环境
+执行：app.py
