@@ -4,6 +4,11 @@
 1.
 安装python3.6 以上版本
 
+1.1
+安装
+brew link libpng
+（否则requirements.txt中的zlib安装会有问题）
+
 2. 
 安装pip3 
 
@@ -22,10 +27,8 @@ pip3 install --upgrade -r requirements.txt
 运行：jupyter notebook i1deep-learning-for-sentiment-analysis.ipynb 
 
 
-9.
 
-
-10.
+6.
 另外开一个命令行，进入i3sentiment_predict_web
 进入虚拟环境
 执行：app.py
