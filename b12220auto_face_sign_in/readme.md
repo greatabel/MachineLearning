@@ -32,3 +32,7 @@ pip3 install --upgrade -r requirements.txt
 另外开一个命令行，进入i3sentiment_predict_web
 进入虚拟环境
 执行：app.py
+
+7.
+访问：
+https://127.0.0.1:5000/
