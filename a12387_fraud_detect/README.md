@@ -21,12 +21,23 @@ pip3 install --upgrade -r requirements.txt
 5.
 terminal 里面cd 到 a12387_fraud_detect文件夹
 
+创建虚拟环境：
+
+create virtual environment:
+python3 -m venv  movie-env
+
+进入虚拟环境
 then enter virtual environment:
 Windows run:
 movie-env\Scripts\activate.bat
 
 Unix/MacOS run:
 source movie-env/bin/activate
+
+5.1
+打开后端服务:
+在命令行下执行：cd i2predict 后：
+python3 app.py
 
 6.
 打开浏览器访问：
