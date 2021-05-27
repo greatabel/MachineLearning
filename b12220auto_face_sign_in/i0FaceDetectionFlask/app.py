@@ -10,6 +10,7 @@ import face_recognition
 from flask_script import Manager
 import train
 
+import flask_login
 
 app = Flask(__name__)
 # manager = Manager(app)
@@ -17,8 +18,18 @@ app.config["secret_key"] = "abelTest"
 train.init()
 app.debug = True
 
+
+login_manager = flask_login.LoginManager(app)
+
+
 signed_users = []
 
+#-------start 注册登录 ---------
+@app.route("/home")
+def home():
+    return render_template("home.html")
+
+#-------end   注册登录 ---------
 
 @app.route("/")
 def index():
@@ -112,7 +123,7 @@ def vido_handler():
     print("#" * 30, str(name) + "-" + str(locations))
     if name != "somebody" and name not in signed_users:
         signed_users.append(name)
-        
+
     return str(name) + "-" + str(locations)
 
 
