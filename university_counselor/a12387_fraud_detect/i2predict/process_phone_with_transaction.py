@@ -40,7 +40,7 @@ def create_phone():
 
 
 # 生成手机号
-num = 47
+num = 247
 for i in range(0, num):
     phone = create_phone()
     print(phone)
