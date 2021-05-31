@@ -50,6 +50,32 @@ def get_signed_users():
     return jsonify(results = signed_users)
 
 
+@app.route("/save_meeting")
+def save_meeting_to_db():
+    global signed_users
+
+    historys = user_pass.get('meeting_history', None)
+    print('historys=', historys, '#'*10)
+    from time import gmtime, strftime
+    nowdt = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+    record = (session['username'], signed_users, nowdt)
+
+    if historys is None:
+        historys = []
+        print('historys is emppty' )        
+        user_pass['meeting_history'] = [record]
+    else:
+        import copy
+        new_historys = copy.deepcopy(historys)
+        # new_historys.append(record)
+        new_historys.insert(0,record)
+        user_pass['meeting_history'] = new_historys
+    print('save_meeting')
+    return jsonify(results ='ok'), 200
+
+
+
+
 @login_manager.user_loader
 def load_user(email):
     return user_pass.get(email, None)
@@ -152,7 +178,8 @@ def logout():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    historys = user_pass.get('meeting_history', None)
+    return render_template("home.html", historys=historys)
 
 
 # -------end   注册登录 ---------
@@ -262,7 +289,7 @@ def vido_handler():
     # 单人情况
         if name != "somebody" and name not in signed_users:
             signed_users.append(name)
-            
+
     return str(name) + "-" + str(locations)
 
 

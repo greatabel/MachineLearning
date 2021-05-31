@@ -66,6 +66,10 @@
                 <h4>当前已签到用户：
                 <span id='signed_users_Div'  style="color:blue"/>
                 </h4>
+                <div id="saveResult"></div>
+                <div> 
+<button type="button" class="btn btn-primary" id='btnSave'>保存本次会议</button>
+                 </div>
                 </div>
 
                 <div id="img_contanier">
@@ -127,7 +131,7 @@
 
 
 
-
+// 轮询查看签到用户
 (function worker() {
   $.ajax({
     url: '/get_signed_users', 
@@ -146,6 +150,33 @@
     }
   });
 })();
+
+
+$(document).ready(function() {
+    $("#btnSave").click(function(){
+          $.ajax({
+    url: '/save_meeting', 
+    success: function(data) 
+        { 
+            var result = data['results'];
+            console.log(result);
+            if(result=='ok'){
+
+            }
+            $("#saveResult").text('保存成功');
+            // alert('data: ' + signed_users); 
+        },
+    contentType: "application/json",
+    dataType: 'json',
+    complete: function() {
+      // Schedule the next request when the current one's complete
+      console.log('btnsave')
+    }
+  });
+
+
+    }); 
+});
 
 
     //调用摄像头时改变状态,人头按钮

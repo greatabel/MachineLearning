@@ -200,20 +200,50 @@ div[class*="release_year"] {
        </div>
        </div> -->
       <!-- Example row of columns -->
+      <div class="row" style="font-weight: bold;color:blue">
+         <div class="col-md-4">
+
+            <div>会议管理员 </div>  
+
+        </div>
+         <div class="col-md-4">
+
+            <div>参会人员 </div>  
+
+        </div>
+         <div class="col-md-4">
+
+            <div>参会时间 </div>  
+
+        </div>
+      </div>
+      <hr/>
+       {% for h in historys %}
       <div class="row">
 
 
     
 
+         
 
+        <div class="col-md-4">
 
-<!--         <div class="col-md-4">
-          <h2>Cost effective</h2>
-          <p>No need to buy hardware either for your tables or for your kitchen. Management and usage all directly from this page.</p>
-       </div> -->
+            <div>{{ h[0] }} </div>  
+
+        </div>
+        <div class="col-md-4">
+
+            <div>{{ h[1] }} </div>  
+
+        </div>
+        <div class="col-md-4">
+
+            <div>{{ h[2] }} </div>  
+
+        </div>
 
       </div>
-
+           {% endfor %}
       <hr>
 
 <div id="chart"> 
