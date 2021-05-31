@@ -2,6 +2,7 @@ from datetime import date, datetime
 from typing import List, Iterable
 from flask_login import UserMixin
 
+
 class User(UserMixin):
     def __init__(self, user_name: str, password: str):
         if user_name == "" or type(user_name) is not str:

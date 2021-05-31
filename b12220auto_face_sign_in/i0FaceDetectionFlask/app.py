@@ -7,8 +7,8 @@ from flask import Flask, render_template, request
 from flask import url_for
 from flask import redirect
 
-from flask import  Response, session
-from flask import Blueprint,  jsonify
+from flask import Response, session
+from flask import Blueprint, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 import flask_login
@@ -21,7 +21,6 @@ import face_recognition
 from model import User
 
 
-
 app = Flask(__name__)
 # manager = Manager(app)
 app.config["secret_key"] = "abelTest"
@@ -30,26 +29,25 @@ train.init()
 app.debug = True
 
 
-
-
 signed_users = []
 
-#-------start 注册登录 ---------
+# -------start 注册登录 ---------
 
 stored_user = None
 login_manager = flask_login.LoginManager(app)
 
 # https://pypi.org/project/sqlitedict/
-user_pass = SqliteDict('my_db.sqlite', autocommit=True)
+user_pass = SqliteDict("my_db.sqlite", autocommit=True)
 
 """
 使用 https://flask-login.readthedocs.io/en/0.3.1/ 
 库进行用户登录凭证的验证
 """
+
+
 @login_manager.user_loader
 def load_user(email):
     return user_pass.get(email, None)
-
 
 
 """
@@ -61,7 +59,7 @@ def load_user(email):
 def login():
     """login function
 
-    login function 
+    login function
 
     Args:
         email, password
@@ -76,7 +74,7 @@ def login():
     if stored_user and password == stored_user.password:
 
         flask_login.login_user(stored_user)
-        session['username'] =stored_user.user_name
+        session["username"] = stored_user.user_name
         print(stored_user.is_active, "login")
         return redirect(url_for("index"))
     else:
@@ -98,8 +96,8 @@ def register():
 
     | args | nullable | type | remark |
     |--------|--------|--------|--------|
-    |    email    |    password    |    password2   
-   
+    |    email    |    password    |    password2
+
     #### return
     - ##### json
     > redirect(url_for("home_bp.home", pagenum=1))
@@ -109,7 +107,7 @@ def register():
     pw1 = request.form.get("password")
     pw2 = request.form.get("password2")
     if not pw1 == pw2:
-        session['username'] = email
+        session["username"] = email
         return redirect(url_for("home", pagenum=1))
     # if DB.get_user(email):
     if email in user_pass:
@@ -137,7 +135,7 @@ def logout():
     #### args
 
 
-   
+
     #### return
     - ##### json
     > redirect(url_for("home_bp.home", pagenum=1))
@@ -151,7 +149,9 @@ def logout():
 def home():
     return render_template("home.html")
 
-#-------end   注册登录 ---------
+
+# -------end   注册登录 ---------
+
 
 @app.route("/index")
 def index():
@@ -201,7 +201,7 @@ def update():
     print("need_to_update:", name_list)
     for name in name_list:  # * 为内容未改变
         if name != "*":
-            #  known_encoding = face_recognition.face_encodings(known_image)[name_list.index(name)]  
+            #  known_encoding = face_recognition.face_encodings(known_image)[name_list.index(name)]
             # 对改变名字的脸部信息编码
             face_location = face_recognition.face_locations(known_image)[
                 name_list.index(name)
