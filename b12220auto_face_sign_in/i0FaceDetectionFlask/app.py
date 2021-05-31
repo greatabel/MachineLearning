@@ -8,7 +8,7 @@ from flask import url_for
 from flask import redirect
 
 from flask import Response, session
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify,make_response
 from flask_sqlalchemy import SQLAlchemy
 
 import flask_login
@@ -43,6 +43,11 @@ user_pass = SqliteDict("my_db.sqlite", autocommit=True)
 使用 https://flask-login.readthedocs.io/en/0.3.1/ 
 库进行用户登录凭证的验证
 """
+@app.route("/get_signed_users")
+def get_signed_users():
+    global signed_users
+    print('in signed_users func', signed_users)
+    return jsonify(results = signed_users)
 
 
 @login_manager.user_loader
@@ -155,6 +160,8 @@ def home():
 
 @app.route("/index")
 def index():
+    global signed_users
+    # print(signed_users, '#'*10, 'index')
     return render_template("index.html")
 
 
@@ -221,6 +228,7 @@ def update():
 
 @app.route("/vidohandler", methods=["get", "post"])
 def vido_handler():
+    global signed_users
     name = ""
     locations = ""
     pic_data_url = request.form.get("picdata")
@@ -244,9 +252,17 @@ def vido_handler():
             locations = str(locations) + ";" + str(i)
 
     print("#" * 30, str(name) + "-" + str(locations))
-    if name != "somebody" and name not in signed_users:
-        signed_users.append(name)
-
+    # 代表多人的情况
+    if ',' in name:
+        names = name.split(',')
+        for n in names:
+            if n != "somebody" and n not in signed_users:
+                signed_users.append(n)
+    else:
+    # 单人情况
+        if name != "somebody" and name not in signed_users:
+            signed_users.append(name)
+            
     return str(name) + "-" + str(locations)
 
 

@@ -14,3 +14,5 @@ MarkupSafe
 numpy
 Pillow
 Werkzeug
+sqlitedict
+Flask-Docs
