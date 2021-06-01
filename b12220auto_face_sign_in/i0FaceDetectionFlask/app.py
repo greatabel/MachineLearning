@@ -182,6 +182,32 @@ def home():
     return render_template("home.html", historys=historys)
 
 
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+# android端调用api
+@app.route("/uploadhc/<name>", methods=['POST'])
+def uploadhc(name):
+    print('in uploadhc', '>'*10, name)
+    target = os.path.join(APP_ROOT, "trained_images/"+name)
+
+
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    print('#'*20, ' in uploadhc ', target, '#'*5,request.files)
+    # if 'file' not in request.files:
+    #     error = "Missing data source!"
+    #     return jsonify({'error': error})
+
+
+    file = request.files['uploadImg1']
+    fileName = "testha.jpg"
+    destination = '/'.join([target, fileName])
+    file.save(destination)
+
+
+    success = "Success!"
+    return jsonify({'file': success})
+
+
 # -------end   注册登录 ---------
 
 
@@ -231,7 +257,7 @@ def update():
     with open("temp.jpg", "wb") as f:  # 把上传图片保存为文件，！！！有待优化
         f.write(imgdata)
     known_image = face_recognition.load_image_file("temp.jpg")
-    name_list = request.form.get("picinfo").split(",")  # 上传名字
+    name_list = request.form.get("name").split(",")  # 上传名字
     print("need_to_update:", name_list)
     for name in name_list:  # * 为内容未改变
         if name != "*":
@@ -305,4 +331,5 @@ def testjpg():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port="5000", ssl_context="adhoc")
+    # app.run(host="127.0.0.1", port="5000", ssl_context="adhoc")
+    app.run(host="127.0.0.1", port="5000")

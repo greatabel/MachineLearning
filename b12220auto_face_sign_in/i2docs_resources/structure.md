@@ -1,3 +1,29 @@
+Flask
+Flask是一个使用 Python 编写的轻量级 Web 应用框架
+https://baike.baidu.com/item/flask
+
+bootstrap
+目前最受欢迎的HTML、CSS和JS框架，用于开发响应式布局、移动设备有限的WEB项目
+https://www.bootcss.com/
+
+jquery
+jQuery已经成为最流行的javascript库，在世界前10000个访问最多的网站中，有超过55%在使用jQuery
+https://www.jianshu.com/p/bee37db6c85b
+
+
+Android Stuido
+是Google推出，专门为Android“量身订做”的，是Google大力支持的一款基于IntelliJ IDEA改造的IDE
+https://www.kancloud.cn/bodhixu/androidstudio/266704
+
+
+Java API 框架 (android 开放)
+您可通过以 Java 语言编写的 API 使用 Android OS 的整个功能集
+https://developer.android.com/guide/platform?hl=zh-cn
+
+人脸识别：从传统方法到深度学习
+https://zhuanlan.zhihu.com/p/110214422
+
+本工程特色
 人脸识别关键问题：
 找出所有人脸
 在不同光线和方向下识别出同一人脸

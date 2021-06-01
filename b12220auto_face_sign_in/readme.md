@@ -35,4 +35,16 @@ pip3 install --upgrade -r requirements.txt
 
 7.
 访问：
-https://127.0.0.1:5000/
+http://127.0.0.1:5000/home
+
+8.
+实际使用工程，请将i0FaceDetectionFlask 部署在公共云平台（至少需要公开的ip和端口，提供给其他端访问）
+
+9.
+（可选）
+方法1:使用andriod studiao打开 i1android_app 工程
+然后编译到自己手机上
+方法2:使用b12220auto_face_sign_in/i1android_app/app/build/outputs/apk/debug/app-debug.apk 
+传到自己手机上
+（ 如果需要修改后端地址，可以更新b12220auto_face_sign_in/i1android_app/app/src/main/assets/test.html 
+的28行)
