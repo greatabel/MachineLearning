@@ -10,6 +10,7 @@ from flask import redirect
 from flask import Response, session
 from flask import Blueprint, jsonify,make_response
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 import flask_login
 from sqlitedict import SqliteDict
@@ -22,6 +23,10 @@ from model import User
 
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meeting.db'
+db = SQLAlchemy(app)
+
 # manager = Manager(app)
 app.config["secret_key"] = "abelTest"
 app.secret_key = "abelTest"
@@ -30,6 +35,76 @@ app.debug = True
 
 
 signed_users = []
+
+
+# -------start 会议管理 ---------
+
+
+class Meeting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    participants = db.Column(db.String(80), nullable=True)
+    host = db.Column(db.String(80), nullable=True)
+    created_at = db.Column(db.DateTime, nullable=False,
+                           default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Meeting %r>' % self.name
+
+
+@app.route('/meetinglist', methods=['GET', 'POST'])
+def meeting_list():
+    if request.method == 'POST':
+        name = request.form['name']
+        participants = request.form['participants']
+        host = request.form['host']
+        new_stuff = Meeting(name=name, participants=participants, host=host)
+
+        try:
+            db.session.add(new_stuff)
+            db.session.commit()
+            return redirect('/meetinglist')
+        except:
+            return "There was a problem adding new stuff."
+
+    else:
+        groceries = Meeting.query.order_by(Meeting.created_at).all()
+        return render_template('list.html', groceries=groceries)
+
+
+@app.route('/meeting_delete/<int:id>')
+def meeting_delete(id):
+    meeting = Meeting.query.get_or_404(id)
+
+    try:
+        db.session.delete(meeting)
+        db.session.commit()
+        return redirect('/meetinglist')
+    except:
+        return "There was a problem deleting data."
+
+
+@app.route('/meeting_update/<int:id>', methods=['GET', 'POST'])
+def meeting_update(id):
+    meeting = Meeting.query.get_or_404(id)
+
+    if request.method == 'POST':
+        meeting.name = request.form['name']
+        meeting.participants = request.form['participants']
+        meeting.host = request.form['host']
+
+        try:
+            db.session.commit()
+            return redirect('/meetinglist')
+        except:
+            return "There was a problem updating data."
+
+    else:
+        title = "Update Data"
+        return render_template('update.html', title=title, meeting=meeting)
+
+# -------end   会议管理 ---------
+
 
 # -------start 注册登录 ---------
 
