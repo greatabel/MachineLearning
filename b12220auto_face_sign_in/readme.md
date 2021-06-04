@@ -5,9 +5,12 @@
 安装python3.6 以上版本
 
 1.1
-安装
+在osx上安装
 brew link libpng
-（否则requirements.txt中的zlib安装会有问题）
+（否则requirements.txt中的dlib安装会有问题）
+
+在ubuntu也是提前安装dlib:
+https://www.jianshu.com/p/44469d7d86b3
 
 2. 
 安装pip3 

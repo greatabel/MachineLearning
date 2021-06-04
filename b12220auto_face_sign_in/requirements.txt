@@ -5,7 +5,6 @@ Flask==1.1.2
 Flask-Script
 flask-wtf==0.14.2
 Click
-dlib
 face-recognition
 face-recognition-models
 itsdangerous
