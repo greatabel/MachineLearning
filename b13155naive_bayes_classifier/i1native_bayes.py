@@ -8,6 +8,7 @@ import jieba
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
+from i0preprocessing import csv_writer_list_to_local
 
 
 jieba.load_userdict("data/i1userdict.txt")
@@ -96,3 +97,18 @@ mnbc_clf.fit(content_train, sentiment_train)
 # 测试集准确率
 print("测试集准确率： {:0.2f}".format(mnbc_clf.score(content_test, sentiment_test)))
 
+# 收集测试集结果
+a = mnbc_clf.predict(content_test).tolist()
+my_pedict_list = []
+for i in range(len(content_test)):
+    data = {'sentiment': '', 'content': '', 'predict':''}
+
+    data['sentiment'] = sentiment_test[i]
+    data['content'] = content_test[i]
+    data['predict'] = a[i]
+
+    my_pedict_list.append(data)
+
+print('--保存预测结果--')
+print(len(my_pedict_list), my_pedict_list[1:3])
+csv_writer_list_to_local('data/i1my_pedict_list.csv', my_pedict_list)
