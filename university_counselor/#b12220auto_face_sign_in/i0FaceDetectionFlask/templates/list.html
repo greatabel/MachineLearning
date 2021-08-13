@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1 class="my-4">会议管理系统(点击链接update)</h1>
+  {% if groceries|length < 1 %}
+  <p>There is nothing to buy for now.</p>
+  {% else %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>会议名称</th>
+        <th>参与者</th>
+        <th>会议主持人</th>
+        <th>会议创建时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for grocery in groceries %}
+      <tr>
+        <td><a href="/meeting_update/{{ grocery.id }}">{{ grocery.name }}</a></td>
+        <td>{{ grocery.participants }}</td>
+        <td>{{ grocery.host }}</td>
+        <td>{{ grocery.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        <td class="text-right"><a class="btn btn-danger btn-sm" href="/meeting_delete/{{ grocery.id }}" role="button">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  {% include 'snippets/form.html' %}
+</div>
+{% endblock content %}
