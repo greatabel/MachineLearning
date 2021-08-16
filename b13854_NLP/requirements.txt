@@ -1,3 +1,5 @@
+fasttext
+gensim
 numpy
 pandas
 tqdm

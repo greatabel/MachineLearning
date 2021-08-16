@@ -20,7 +20,7 @@ plt.figure(figsize=(12, 6))
 sns.distplot(doc_text_words.values, kde=True, hist=False).set_title(
     "Distribution of text word count of 100 docs"
 )
-plt.savefig("i2.png")
+plt.savefig("reports/i2.png")
 
 print("---- 3. let us check the first document in the dataset ----")
 
@@ -64,7 +64,7 @@ plt.figure(figsize=(8, 6))
 sns.barplot(x=short_dist.index, y=short_dist.values).set_title(
     "Distribution of short answers in answerable questions"
 )
-plt.savefig("i5.png")
+plt.savefig("reports/i5.png")
 
 
 print("---- 6. multiple short answers to a question ----")
@@ -91,4 +91,4 @@ plt.figure(figsize=(12, 6))
 sns.barplot(x=short_size_dist_pretty.index, y=short_size_dist_pretty.values).set_title(
     "Distribution of Number of Short Answers in answerable questions"
 )
-plt.savefig("i6.png")
+plt.savefig("reports/i6.png")
