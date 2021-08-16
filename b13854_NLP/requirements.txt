@@ -1,1 +1,5 @@
-otree
+numpy
+pandas
+tqdm
+sklearn
+seaborn

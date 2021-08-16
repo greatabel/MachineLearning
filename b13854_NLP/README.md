@@ -5,7 +5,7 @@
 安装pip3 
 
 3.
-可选（创建python3虚拟目录，隔绝不同版本库之间相互影响）
+可选  可以不做（创建python3虚拟目录，隔绝不同版本库之间相互影响）
 https://docs.python.org/zh-cn/3/tutorial/venv.html
 
 4.
@@ -14,5 +14,10 @@ pip install --upgrade -r requirements.txt
 
 
 5.
+
+5.1
+ i0.py 不用执行，我已经处理了
+5.2
+可以执行 i1data_explore.py 进行数据探索，为模型提供思路
 terminal底下运行：
-Enter "cd guess_number" to move inside the project folder, then start the server with "otree devserver".
+python3 i1data_explore.py
