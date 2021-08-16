@@ -14,7 +14,7 @@ from tqdm import tqdm_notebook as tqdm
 import fasttext
 
 
-def build_train(train_path, n_rows=200000, sampling_rate=15):
+def my_build_train(train_path, n_rows=200000, sampling_rate=15):
     with open(train_path) as f:
         processed_rows = []
 
@@ -79,7 +79,7 @@ directory = 'data/'
 train_path = directory + 'mytrain.jsonl'
 test_path = directory + 'mytest.jsonl'
 
-train = build_train(train_path)
+train = my_build_train(train_path)
 test = build_test(test_path)
 
 print(train.head())
@@ -121,7 +121,10 @@ def build_embedding_matrix(tokenizer, path):
     for word, i in tokenizer.word_index.items():
         if i >= tokenizer.num_words - 1:
             break
-        embedding_matrix[i] = ft_model.get_word_vector(word)
+        # embedding_matrix[i] = ft_model.get_word_vector(word)
+        if word in ft_model:
+        	r = ft_model[word]
+        	embedding_matrix[i] = r
     
     return embedding_matrix
 
