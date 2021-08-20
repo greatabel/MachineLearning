@@ -39,4 +39,3 @@ def read_sample(
                 [dataset, series.to_frame().T], axis="rows", ignore_index=True
             )
     return dataset
-

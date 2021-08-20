@@ -5,6 +5,7 @@ with open("data/simplified-nq-train.jsonl", "r") as json_file:
     json_list = list(json_file)
 
 # print('@'*20, len(json_list))
+
 length = len(json_list)
 
 # for json_str in json_list[0:1]:
