@@ -6,3 +6,5 @@ __pycache__/
 *.train
 
 *.params
+
+university_counselor/b13854_NLP/data/
