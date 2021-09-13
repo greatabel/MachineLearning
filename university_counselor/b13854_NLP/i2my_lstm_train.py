@@ -122,7 +122,7 @@ def compute_text_and_questions(train, test, tokenizer):
 def build_embedding_matrix(tokenizer, path):
     embedding_matrix = np.zeros((tokenizer.num_words + 1, 300))
 
-    # 新版本千万注意，这样才可以
+    # only this way worked in new version
     ft_model = gensim.models.KeyedVectors.load_word2vec_format(path, binary=False)
 
     # ft_model = fasttext.load_model(path)
