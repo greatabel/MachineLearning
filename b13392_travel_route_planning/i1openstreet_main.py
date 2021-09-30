@@ -19,9 +19,22 @@ def folim_create(start_coords):
     #     ]
     # ).add_to(m)
     tooltip ='click me to see more'
-    folium.Marker([51.5205898, -0.1424225], popup='ondon Central Hostel',tooltip=tooltip).add_to(m)
-    folium.Marker([51.503324, -0.119543], popup='Coca-Cola London Eye',tooltip=tooltip).add_to(m)
-    folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip).add_to(m)
+    ic0 = plugins.BeautifyIcon(border_color='#00ABDC',
+                           text_color='#00ABDC',
+                           number=0,
+                           inner_icon_style='margin-top:0;')
+    ic1 = plugins.BeautifyIcon(border_color='#00ABDC',
+                           text_color='#00ABDC',
+                           number=1,
+                           inner_icon_style='margin-top:0;')
+    ic2 = plugins.BeautifyIcon(border_color='#00ABDC',
+                           text_color='#00ABDC',
+                           number=2,
+                           inner_icon_style='margin-top:0;')
+    # folium.Marker([51.5205898, -0.1424225], popup='ondon Central Hostel',tooltip=tooltip,icon=folium.Icon(color='red')).add_to(m)
+    folium.Marker([51.5205898, -0.1424225],popup='ondon Central Hostel',tooltip=tooltip, icon=ic0).add_to(m)
+    folium.Marker([51.503324, -0.119543], popup='Coca-Cola London Eye',tooltip=tooltip,icon=ic1).add_to(m)
+    folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip,icon=ic2).add_to(m)
     folium.Marker([51.5128019, -0.0834833], popup='Leadenhall Market',tooltip=tooltip).add_to(m)
     folium.Marker([51.508929 , -0.128299], popup='The National Gallery',tooltip=tooltip).add_to(m)
 
