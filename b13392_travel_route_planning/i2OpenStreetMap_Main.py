@@ -4,7 +4,7 @@ import folium
 from folium import plugins
 
 def folim_create(start_coords):
-    m = folium.Map(location=start_coords, width='100%', height='70%', zoom_start=14)
+    m = folium.Map(location=start_coords, width='100%', height='70%', zoom_start=13)
 
 
 
@@ -18,12 +18,6 @@ def folim_create(start_coords):
     #         [28.65203063, 76.81640625],
     #     ]
     # ).add_to(m)
-    tooltip ='click me to see more'
-    folium.Marker([51.5205898, -0.1424225], popup='ondon Central Hostel',tooltip=tooltip).add_to(m)
-    folium.Marker([51.503324, -0.119543], popup='Coca-Cola London Eye',tooltip=tooltip).add_to(m)
-    folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip).add_to(m)
-    folium.Marker([51.5128019, -0.0834833], popup='Leadenhall Market',tooltip=tooltip).add_to(m)
-    folium.Marker([51.508929 , -0.128299], popup='The National Gallery',tooltip=tooltip).add_to(m)
 
     line_to_new_delhi = folium.PolyLine(
         [
@@ -32,8 +26,7 @@ def folim_create(start_coords):
             [51.5138453, -0.0983506],
             [51.5128019, -0.0834833],
             [51.508929 , -0.128299],
-        ],
-        color='red'
+        ]
     ).add_to(m)
 
 
@@ -59,7 +52,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    start_coords = (51.503324, -0.119543)
+    start_coords = (51.5205898, -0.1424225)
     # folium_map = folium.Map(location=start_coords, zoom_start=14)
     folium_map = folim_create(start_coords)
     return folium_map._repr_html_()
