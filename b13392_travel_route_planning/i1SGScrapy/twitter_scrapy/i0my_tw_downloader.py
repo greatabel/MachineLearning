@@ -10,7 +10,7 @@ def jobone():
     # choose username (optional)
     # c.Username = ""
     # choose search term (optional)
-    c.Search = "eth"
+    c.Search = "London Eye"
     # c.Search = "#eth"
     # choose beginning time (narrow results)
     c.Since = "2021-01-01"
@@ -20,7 +20,7 @@ def jobone():
     c.Store_csv = True
 
     # change the name of the csv file
-    c.Output = "../downloads/#eth.csv"
+    c.Output = "../downloads/01.csv"
     mytwint.run.Search(c)
 
 

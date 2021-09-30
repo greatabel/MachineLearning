@@ -1,0 +1,17 @@
+termcolor
+pandas
+tensorflow
+torch>=0.4.0
+torchvision>=0.2.1
+numpy
+nltk
+keras
+scikit-learn
+scipy>=1.0.1
+scikit-image>=0.13.0
+matplotlib>=1.5.1
+tqdm>=4.28.1
+jupyter
+jellyfish
+Flask==1.1.2
+flask-wtf==0.14.2
