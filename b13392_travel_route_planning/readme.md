@@ -25,3 +25,13 @@ python3 i4openstreetmap_main.py
 6.
 浏览器访问：
 
+http://localhost:5000/home
+
+已经注册好的账号 可以直接登录：
+greatabel1@126.com  abel
+你也可以自己注册和登录
+
+7.
+修改编辑地点的后台管理页：
+
+http://localhost:5000/blogs
