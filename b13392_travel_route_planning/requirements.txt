@@ -1,6 +1,7 @@
 folium
 termcolor
 googlemaps
+google
 gmaps
 python-google-places
 textblob

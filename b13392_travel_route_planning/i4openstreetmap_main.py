@@ -144,7 +144,7 @@ sentiment_dict = {
 
 additonal_information = [fever_dict, sentiment_dict]
 
-def haversine_distance(lat1, lon1, lat2, lon2):
+def my_haversine_distance(lat1, lon1, lat2, lon2):
    r = 6371
    phi1 = np.radians(lat1)
    phi2 = np.radians(lat2)
@@ -187,7 +187,7 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
         distances_km = []
         for row in lat_logs:
            distances_km.append(
-               haversine_distance(source[0], source[1], row[0], row[1])
+               my_haversine_distance(source[0], source[1], row[0], row[1])
            )
         total_km.append(distances_km)
     print('total_km=', total_km)
