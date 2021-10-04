@@ -157,7 +157,7 @@ def my_haversine_distance(lat1, lon1, lat2, lon2):
    return np.round(res, 2)
 
 
-def sentiment_improve(base, vote):
+def hotness_sentiment_improve(base, vote):
     M = math.e*base*100
     upper = 50
     down = 30
@@ -165,7 +165,7 @@ def sentiment_improve(base, vote):
     b = M + math.log(math.e ** 1)
 
     r = a *1.5/ b
-    print('sentiment_improve a,b=',a, b, 'result=', r)
+    print('hotness_sentiment_improve a,b=',a, b, 'result=', r)
     return r
 
 
@@ -202,7 +202,7 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
         new_values = []
         for i in range(0, len(distances_sum)):
             print(i)
-            r = sentiment_improve(fever_dict[i], sentiment_dict[i][0])
+            r = hotness_sentiment_improve(fever_dict[i], sentiment_dict[i][0])
             p = distances_sum[i] * r
             new_values.append(p)
 
