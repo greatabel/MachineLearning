@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Movie-Recommandation machine learning by HuaXin</title>
+    <title>Movie-Recommandation machine learning by Sunshine</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -80,7 +80,7 @@ div[class*="release_year"] {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Movie-Recommandation machine learning by HuaXin</h1>
+        <h1>Movie-Recommandation machine learning by Sunshine</h1>
         <p>You can view/search movie on our website</p>
       </div>
     </div>
@@ -94,80 +94,59 @@ div[class*="release_year"] {
 
         <div class="col-md-8">
 
-        <img src="/static/images/demo.png" class="img-fluid" >
+        <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
         Accoriding to data above, 
         We recommend for user[Toby] such movie according by <b>Collaborative Filtering Algorithm</b>:
 
-                  {% for c in choosed %}
+                 
 
-
-            <div class="release_year"> {{ c|safe }}</div>  
-
-
-           {% endfor %}
-        </div>
-
-
-
-
-
-    
-
-
-
-<!--         <div class="col-md-4">
-          <h2>Cost effective</h2>
-          <p>No need to buy hardware either for your tables or for your kitchen. Management and usage all directly from this page.</p>
-       </div> -->
-<!--         <div class="col-md-4">
-          <h2>add now</h2>
-             <form class="form-horizontal" action="/review" method="POST">
-                   <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="movie_id" id="movie_id" placeholder="movie_id" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="movie_name" id="movie_name" placeholder="movie_name" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="rtext" id="rtext" placeholder="review text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" name="rating" id="rating" placeholder="review rating" class="form-control">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="submit" value="submit" class="btn btn-primary btn-block">
-                    </div>
-                </div>
-            </form> 
-        </div> 
+          </div>
       </div>
 
-        <div class="container">
 
-            <br/>
 
-            <ul class="pagination">
+
+          
+<div class="col-md-12 table-responsive">
+          {% for c in choosed %}
+      <div class="row">
+        <div class="col-md-12">
+        <span>{{ c|safe }}</span> 
+        
+     
+            <div name="title"> </div>  
+          
+         </div>
+      </div>
+           {% endfor %}
+
+  </div>
+    
+
+    <div class="container">
+      <div class="row">
+
+          {% for r in [0, 1, 2, 3, 4] %}
+
+        <div class="col-md-4">
  
+        <figure>
+          <img src="/static/recommend/{{ r }}.png" class="img-fluid" style="height:150px;width:100px;">
+        </figure>
+            <div name="title"> </div>  
+
+        </div>
+
+          {% endfor %}
+    </div>
+</div>
 
 
-          </ul>
-
-        </div> <!-- ./container -->
 
       <hr>
 
       <footer>
-        <p>&copy; HuaXin 2021</p>
+        <p>&copy; Sunshine 2021</p>
       </footer>
     </div> <!-- /container -->
 

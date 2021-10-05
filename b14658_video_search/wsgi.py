@@ -76,6 +76,18 @@ def picture_search():
     else:
         return rt("picture_search.html")
 
+@app.route("/recommend", methods=["GET", "POST"])
+def recommend():
+    choosed = []
+    with open('recommend.txt') as f:
+        choosed = f.readlines()
+    print(choosed)
+    return rt(
+        'recommend.html',
+        choosed=choosed
+        
+    )
+
 
 # ---start  数据库 ---
 
@@ -121,33 +133,33 @@ class Blog(db.Model):
         self.text = text
 
 
-# 老师当前布置作业的表
-class TeacherWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
-    detail = db.Column(db.String(500))
-    answer = db.Column(db.String(5000))
-    course_id = db.Column(db.Integer)
 
-    def __init__(self, title, detail, answer, course_id):
-        self.title = title
-        self.detail = detail
-        self.answer = answer
-        self.course_id = course_id
+# class TeacherWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     title = db.Column(db.String(80), unique=True)
+#     detail = db.Column(db.String(500))
+#     answer = db.Column(db.String(5000))
+#     course_id = db.Column(db.Integer)
+
+#     def __init__(self, title, detail, answer, course_id):
+#         self.title = title
+#         self.detail = detail
+#         self.answer = answer
+#         self.course_id = course_id
 
 
-class StudentWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer)
-    answer = db.Column(db.String(5000))
-    score = db.Column(db.DECIMAL(10, 2))
-    course_id = db.Column(db.Integer)
+# class StudentWork(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     userid = db.Column(db.Integer)
+#     answer = db.Column(db.String(5000))
+#     score = db.Column(db.DECIMAL(10, 2))
+#     course_id = db.Column(db.Integer)
 
-    def __init__(self, userid, answer, score, course_id):
-        self.userid = userid
-        self.answer = answer
-        self.score = score
-        self.course_id = course_id
+#     def __init__(self, userid, answer, score, course_id):
+#         self.userid = userid
+#         self.answer = answer
+#         self.score = score
+#         self.course_id = course_id
 
 
 ### -------------start of home
