@@ -17,25 +17,26 @@ from flask import Flask, Response
 from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
+from csv_operation import csv_reader, write_to_csv
 
+import jellyfish
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
 # from common import set_js_file
+
+
 
 app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
 CORS(app)
 # --- total requirement ----
-# 1. 应该实现一个flask 的web服务和 redis等非关系型数据库通讯，
-# 存储原来的地点之间键值对关系，存储以前的临接点相邻边的存储结构
-# 2. 实现flask web 封装api ：上面的 键值对和临界点边结果进行（新增，修改，删除）操作
-# 3. 编写web 界面UI 调用第2步的api，可以让有权限的用户进行上面的操作
-# 4. 网站管理员和普通用户权限管理，登录功能
-# 5. 修改原有jspath的手机app，原有的在线data.js功能修改成 js库后台请求 http request api的方式实时更新数据
-# 6. 还有一个图片服务，flask端还要实现图片的上传、存储和对path 进行关联
-# 7. 手机jspath的所有图片服务改成从 后端请求
+# 1. 提供一个后台案例库系统，根据买家整理的带有解决措施和故障等级的案例库csv的中案例和部件描述，我们做好索引检索各种功能
+# 2.  用户新的需要匹配的csv上传功能
+# 3. 读取和分析用户上传的csv新案例库（和原来的相比，只是缺少解决措施和故障等级）内容
+# 4. 检索平台在搜索结果页，根据内容相似度算法，找到最匹配的案例，然后相关解决措施和故障等级作为用户上传csv中各条故障描述的 推荐。
+# 5. 一个正常的案例库系统web平台注册、登陆、登出功能
 
 
 # ---start  数据库 ---
@@ -411,7 +412,7 @@ def logout():
     return redirect(url_for("home", pagenum=1))
 
 
-reviews = []
+compare_results = []
 
 
 
@@ -423,20 +424,20 @@ def unauthorized_handler():
 
 
 # --------------------------
-@app.route("/assignwork", methods=["GET"])
-def assignwork():
-    return rt("index.html")
+# @app.route("/assignwork", methods=["GET"])
+# def assignwork():
+#     return rt("index.html")
 
 
-@app.route("/teacher_work", methods=["POST"])
-def teacher_work():
+# @app.route("/teacher_work", methods=["POST"])
+# def teacher_work():
 
-    detail = request.form.get("detail")
-    print("#" * 20, detail, "@" * 20)
-    with open("movie/static/data.js", "w") as file:
-        file.write(detail)
+#     detail = request.form.get("detail")
+#     print("#" * 20, detail, "@" * 20)
+#     with open("movie/static/data.js", "w") as file:
+#         file.write(detail)
 
-    return redirect(url_for("assignwork"))
+#     return redirect(url_for("assignwork"))
 
 
 @app.route("/student_work", methods=["POST"])
@@ -444,7 +445,7 @@ def student_work():
     return redirect(url_for("student_index"))
 
 
-@app.route("/student_index", methods=["GET"])
+@app.route("/student_index", methods=["GET", "POST"])
 def student_index():
     return rt("student_index.html")
 
@@ -484,14 +485,39 @@ def upload_success():  # 按序读出分片内容，并写入新文件
             chunk += 1
             os.remove(filename)  # 删除该分片，节约空间
 
+    # 上传成功，进行2个缺陷csv的比较的逻辑
+    print('########################### start compare ###########################')
+    source = csv_reader('source_demo.csv')
+    target = csv_reader('upload/'+target_filename)
+    print(len(source), source[0], source[1])
+    print('-'*20)
+    print(len(target), target[0], target[1])
+    for t in target:
+        tname = t[2]
+        for s in source:
+            sname = s[2]
+            c0 = jellyfish.levenshtein_distance(sname, tname)
+            c1 = jellyfish.jaro_distance(sname, tname)
+            c1 = round(c1, 4)
+            c2 = jellyfish.damerau_levenshtein_distance(sname, tname)
+            # https://en.wikipedia.org/wiki/Hamming_distance
+            c3 = jellyfish.hamming_distance(sname, tname)
+            print(c0, c1, c2, c3)
+            # 我们可以更换所有模型，目前使用jaro_distance
+            if c1 > 0.75:
+                print('target=', tname, "#" * 10, 'most likely to be:', sname)
+                compare_results.append([tname, sname, c1, s[3], s[4]])
+    print('########################### end compare ###########################')
+    write_to_csv('results/results.csv', compare_results)
     return rt("index.html")
 
 
 @app.route("/file/list", methods=["GET"])
 def file_list():
-    files = os.listdir("./upload/")  # 获取文件目录
+    files = os.listdir("./results/")  # 获取文件目录
     # print(type(files))
-    files.remove(".DS_Store")
+    if ".DS_Store" in files:
+        files.remove(".DS_Store")
     # files = map(lambda x: x if isinstance(x, unicode) else x.decode('utf-8'), files)  # 注意编码
     return rt("list.html", files=files)
 
@@ -499,7 +525,7 @@ def file_list():
 @app.route("/file/download/<filename>", methods=["GET"])
 def file_download(filename):
     def send_chunk():  # 流式读取
-        store_path = "./upload/%s" % filename
+        store_path = "./results/%s" % filename
         print("store_path=", store_path)
         with open(store_path, "rb") as target_file:
             while True:
@@ -512,13 +538,13 @@ def file_download(filename):
 
 
 # Custom static data
-@app.route("/cdn/<path:filename>")
-def custom_static(filename):
-    print("#" * 20, filename, " in custom_static", app.root_path)
-    return send_from_directory(
-        "/Users/abel/Downloads/AbelProject/FlaskRepository/b13596campus_navigation/upload/",
-        filename,
-    )
+# @app.route("/cdn/<path:filename>")
+# def custom_static(filename):
+#     print("#" * 20, filename, " in custom_static", app.root_path)
+#     return send_from_directory(
+#         "/Users/abel/Downloads/AbelProject/FlaskRepository/b13596campus_navigation/upload/",
+#         filename,
+#     )
 
 
 # --------------------------

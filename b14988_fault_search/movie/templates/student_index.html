@@ -35,7 +35,7 @@
     </div>
     <div class="col-sm-8">
            <div >
-        <div id="picker" style="float:left;">upload-correct-answer</div>
+        <div id="picker" style="float:left;">上传故障文件csv</div>
         <div id="progress" class="progress" style="width:500px;float:left;margin:10px 0 0 20px;">
             <div class="progress-bar progress-bar-striped active" role="progressbar" style="width:0%;"></div>
         </div>
@@ -51,7 +51,7 @@
       <div class="row">
     <div class="col-sm-6">
 
-<button type="submit"  class="btn btn-primary" onclick="student_index()">submit</button>
+<button type="button"  class="btn btn-primary" onclick="jump_to_download()">查看下载结果</button>
     </div>
     <div class="col-sm-6">
 
@@ -127,12 +127,15 @@
         function back()
 {
      location.href = "http://localhost:5000/home";
+     
 }
 
-        function student_index()
+        function jump_to_download()
 {
-     location.href = "http://localhost:5000/student_index";
+     location.href = "http://localhost:5000/file/list";
 }
+
+
     </script>
 </body>
 </html>

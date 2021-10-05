@@ -40,18 +40,15 @@ python3 wsgi.py
 本机测试
 浏览器访问首页: http://127.0.0.1:5000/home
 
-如果提供接口给外部访问，确保操作系统防火墙运行了权限和5000端口等，
-然后让用户访问 http://服务器ip:5000/home
+
 
 8.
 设置了默认管理员账号：admin@126.com 密码：admin
-只有管理员账号才可以分配作业
+买家也可以自己注册，然后登录
 
 默认place的封面图片 的folder在：upload/ 下面
 默认path的folder在：upload/paths
 
 数据库使用sqlchemy使用sqlite3，位于：
-b13227_htmlsimilarity/movie/campus_data.db
+movie/campus_data.db
 
-9.
-wsgi.py的570行 需改成本地自己的绝对路径
