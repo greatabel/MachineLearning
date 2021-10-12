@@ -17,21 +17,3 @@ terminal底下进入工程目录下，在requirements.txt同级目录下运行�
 pip3 install --upgrade -r requirements.txt
 
 
-5.
-
-cmd/terminal进入文件夹 后执行：
-python3 i4openstreetmap_main.py
-
-6.
-浏览器访问：
-
-http://localhost:5000/home
-
-已经注册好的账号 可以直接登录：
-greatabel1@126.com  abel
-你也可以自己注册和登录
-
-7.
-修改编辑地点的后台管理页：
-
-http://localhost:5000/blogs

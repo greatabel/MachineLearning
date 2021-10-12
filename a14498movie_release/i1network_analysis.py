@@ -5,20 +5,27 @@ import numpy
 import numpy as np
 
 # 自行替换
-file_path = "i1SGScrapy/downloads/04.csv"
+file_path = "i1SGScrapy/downloads/Nezha.csv"
 with open(file_path, "r") as f:
     rt_time = []
     for line in f:
-        time = line.strip().split(",")[-1]
+        # print(line, '#'*20)
+        items = line.strip().split("\t")
+        print(items)
+        time = items[2]
         # print time
-        day = time[1:5] + time[6:8] + time[9:11]
+        # day = time[1:5] + time[6:8] + time[9:11]
+        day = items[3].replace("-", "")
         # print day
-
+        hm = items[4].replace(":", "")
         # hms= time[9:17].replace(':', '')
-        hm = time[12:17].replace(":", "")
-        time = int(day + hm)
+        # hm = time[12:17].replace(":", "")
+        # time = int(day + hm)
+        time = int(hm)
 
         rt_time.append(time)
+print(rt_time, '@'*10)
+# time.sleep(10)
 # 计算转发时间的先后顺序
 array = numpy.array(rt_time)
 order = array.argsort()
@@ -27,7 +34,9 @@ ranks = order.argsort()
 G = nx.Graph()
 with open(file_path, "r") as f:
     for position, line in enumerate(f):
-        uid, rtuid = line.strip().split(",")[:-1]
+        items = line.strip().split("\t")
+        uid = items[6]
+        rtuid = items[-6]
         G.add_edge(uid, rtuid, time=ranks[position])
 edges, colors = zip(*nx.get_edge_attributes(G, "time").items())
 
@@ -60,5 +69,5 @@ nx.draw_networkx(
     edge_color="blue",
 )
 
-plt.savefig("pualg.png")
+plt.savefig("Nezha.png")
 plt.show()

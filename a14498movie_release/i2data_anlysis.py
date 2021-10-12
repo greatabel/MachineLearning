@@ -1,8 +1,7 @@
 from csv_operation import csv_reader
 from sentiment import anlaysis
 
-# twint -s "senkaku islands" --since 2021-08-01  -o senkaku.csv --csv
-# twint -s "south China sea" --since 2021-08-01  -o southchinasea.csv --csv
+
 tweets_list = ["%.2d" % i for i in range(5)]
 print(tweets_list)
 
