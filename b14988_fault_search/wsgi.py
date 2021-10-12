@@ -65,25 +65,37 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    课程数据模型
+    缺陷数据模型
     """
 
     # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # 课程标题
-    title = db.Column(db.String(100))
-    # 课程正文
-    text = db.Column(db.Text)
+    # 缺陷标题
+    line = db.Column(db.String(100))
+    device_type = db.Column(db.String(100))
+    device_part = db.Column(db.String(100))
+    # 缺陷正文
+    fault_content = db.Column(db.Text)
 
-    def __init__(self, title, text):
+    fault_level = db.Column(db.String(100))
+    response = db.Column(db.String(100))
+
+
+
+    def __init__(self, line, device_type, device_part, fault_content, fault_level, response):
         """
         初始化方法
         """
-        self.title = title
-        self.text = text
+        self.line = line
+        self.device_type = device_type
+        self.device_part = device_part
+
+        self.fault_content = fault_content
+        self.fault_level = fault_level
+        self.response = response
 
 
-# 老师当前布置作业的表
+# 老师当前布置缺陷的表
 class TeacherWork(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
@@ -173,71 +185,89 @@ def home(pagenum=1):
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建课程文章
+    创建缺陷文章        
+        self.line = line
+        self.device_type = device_type
+        self.device_part = device_part
+
+        self.fault_content = fault_content
+        self.fault_level = fault_level
+        self.response = response
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
         return rt("create_blog.html")
     else:
         # 从表单请求体中获取请求数据
-        title = request.form["title"]
-        text = request.form["text"]
+        line = request.form["line"]
+        device_type = request.form["device_type"]
+        device_part = request.form["device_part"]
+        fault_content = request.form["fault_content"]
+        fault_level = request.form["fault_level"]
+        response = request.form["response"]
 
-        # 创建一个课程对象
-        blog = Blog(title=title, text=text)
+        # 创建一个缺陷对象
+        blog = Blog(line=line, device_type=device_type, device_part=device_part,
+                    fault_content=fault_content, fault_level=fault_level, response=response)
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到课程列表页面
+        # 创建完成之后重定向到缺陷列表页面
         return redirect("/blogs")
 
 
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询课程列表
+    查询缺陷列表
     """
     blogs = Blog.query.all()
-    # 渲染课程列表页面目标文件，传入blogs参数
+    # 渲染缺陷列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
 
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新课程
+    更新缺陷
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询缺陷详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_blog.html", blog=blog)
     else:
-        # 获取请求的课程标题和正文
-        title = request.form["title"]
-        text = request.form["text"]
+        # 获取请求的缺陷标题和正文
+        line = request.form["line"]
+        device_type = request.form["device_type"]
+        device_part = request.form["device_part"]
+        fault_content = request.form["fault_content"]
+        fault_level = request.form["fault_level"]
+        response = request.form["response"]
 
-        # 更新课程
-        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
+        # 更新缺陷
+        blog = Blog.query.filter_by(id=id).update({"line": line, "device_type": device_type,
+            "device_part": device_part, "fault_content": fault_content,
+            "fault_level": fault_level,"response": response })
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到缺陷详情页面
         return redirect("/blogs/{id}".format(id=id))
 
 
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询课程详情、删除课程
+    查询缺陷详情、删除缺陷
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询缺陷详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染缺陷详情页面
         return rt("query_blog.html", blog=blog)
     else:
-        # 删除课程
+        # 删除缺陷
         blog = Blog.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -254,20 +284,20 @@ def query_note(id):
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询课程详情、删除课程
+    查询缺陷详情、删除缺陷
     """
 
     id = session["userid"]
 
     if request.method == "GET":
 
-        # 到数据库查询课程详情
+        # 到数据库查询缺陷详情
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
-        # 渲染课程详情页面
+        # 渲染缺陷详情页面
         return rt("profile.html", user=user)
     else:
-        # 删除课程
+        # 删除缺陷
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -278,21 +308,21 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新课程
+    更新缺陷
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询缺陷详情
         user = User.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_profile.html", user=user)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的缺陷标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
 
-        # 更新课程
+        # 更新缺陷
         user = User.query.filter_by(id=id).update(
             {
                 "password": password,
@@ -303,7 +333,7 @@ def update_profile(id):
         )
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到缺陷详情页面
         return redirect("/profile")
 
 
@@ -313,14 +343,14 @@ def update_profile(id):
 @app.route("/course/<id>", methods=["GET"])
 def course_home(id):
     """
-    查询课程详情、删除课程
+    查询缺陷详情、删除缺陷
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询缺陷详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         teacherWork = TeacherWork.query.filter_by(course_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染缺陷详情页面
         return rt("course.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204

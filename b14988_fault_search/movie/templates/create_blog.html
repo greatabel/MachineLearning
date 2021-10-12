@@ -1,11 +1,30 @@
-<h1>Add place</h1>
+<h1>Add fault</h1>
 <!-- HTML表单 -->
 <form action="/blogs/create" method="POST">
-    <label>title：</label>
-    <input type="text" name="title">
+    <label>line:</label>
+    <input type="text" name="line">
     <br><br>
-    <label>place content:</label>
-    <input type="text" name="text">
+    <label>device_type:</label>
+    <input type="text" name="device_type">
     <br><br>
+    <label>device_part:</label>
+    <input type="text" name="device_part">
+    <br><br>
+
+    <label>fault_content:</label>
+    <input type="text" name="fault_content">
+    <br><br>
+
+    <label>fault_level:</label>
+    <input type="text" name="fault_level">
+    <br><br>
+
+
+    <label>response:</label>
+    <input type="text" name="response">
+    <br><br>
+
+
+
     <input type="submit" value="create">
 </form>

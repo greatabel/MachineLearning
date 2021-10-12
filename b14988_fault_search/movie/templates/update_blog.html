@@ -1,11 +1,27 @@
 <h1>update place</h1>
 <!-- HTML表单 -->
 <form action="/blogs/update/{{blog.id}}" method="POST">
-    <label>title：</label>
-    <input type="text" name="title" value="{{blog.title}}">
+    <label>line:</label>
+    <input type="text" name="line" value="{{blog.line}}">
     <br><br>
-    <label>detail：</label>
-    <input type="text" name="text" value="{{blog.text}}">
+    <label>device_type:</label>
+    <input type="text" name="device_type" value="{{blog.device_type}}">
+    <br><br>
+    <label>device_part:</label>
+    <input type="text" name="device_part" value="{{blog.device_part}}">
+    <br><br>
+
+    <label>fault_content:</label>
+    <input type="text" name="fault_content" value="{{blog.fault_content}}">
+    <br><br>
+
+    <label>fault_level:</label>
+    <input type="text" name="fault_level" value="{{blog.fault_level}}">
+    <br><br>
+
+
+    <label>response:</label>
+    <input type="text" name="response" value="{{blog.response}}">
     <br><br>
     <input type="submit" value="提交">
 </form>
