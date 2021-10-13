@@ -12,6 +12,47 @@
 
 <body>
 
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" 
+  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item active">
+        <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
+
+                <div class="form-group">
+                  <input type="text" name="keyword" placeholder="search" class="form-control" autofocus>&nbsp;
+                 
+                </div>
+          
+              <input type="submit" value="Search" class="btn btn-success">
+        </form>
+      </li>
+
+      <li class="nav-item active">
+         {% if  session['logged_in'] %}
+         <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
+
+  {% endif %}
+      </li>
+
+
+    </ul>
+
+  </div>
+</nav>
+
+
+
 <!--            <div style="margin:50px 0 0 50px;">
         <div id="picker" style="float:left;">upload-correct-answer</div>
         <div id="progress" class="progress" style="width:500px;float:left;margin:10px 0 0 20px;">
@@ -61,6 +102,54 @@
 
 
 </div>
+
+
+<!--     <div class="container">
+       <div class="row">
+       <div class="col-md-8"> <div class="release_year">缺陷查找结果：</div>
+       </div>
+       </div>
+
+          
+
+          {% for r in compare_results %}
+      <div class="row">
+        <div class="col-md-12">
+        <span>{{ r[0] }}</span> &nbsp;
+        <span>{{ r[1] }}</span> &nbsp;  
+        <span>{{ r[2] }}</span> &nbsp;  
+        <span>{{ r[3] }}</span> &nbsp;  
+
+        </div>
+        </div>
+           {% endfor %}
+
+</div> -->
+
+
+<table  class="table table-striped">
+    <thead>
+      <tr>
+        <th>target</th>
+        <th>source</th>
+        <th>simliary-score</th>
+        <th>fault level</th>
+        <th>response</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for r in compare_results %}
+        <tr>
+          <td>{{ r[0] }}</td>
+          <td>{{ r[1] }}</td>
+          <td>{{ r[2] }}</td>
+          <td>{{ r[3] }}</td>
+          <td>{{ r[4] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 
 </form>
 
@@ -132,7 +221,7 @@
 
         function jump_to_download()
 {
-     location.href = "http://localhost:5000/file/list";
+     location.href = "http://localhost:5000/student_index";
 }
 
 

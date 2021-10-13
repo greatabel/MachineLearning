@@ -48,6 +48,7 @@ db = SQLAlchemy(app)
 admin_list = ["admin@126.com"]
 
 
+
 class User(db.Model):
     """Create user table"""
 
@@ -477,7 +478,9 @@ def student_work():
 
 @app.route("/student_index", methods=["GET", "POST"])
 def student_index():
-    return rt("student_index.html")
+    global compare_results
+    print(len(compare_results), 'in student_index')
+    return rt("student_index.html", compare_results=compare_results)
 
 
 # @app.route("/", methods=["GET"])
@@ -498,7 +501,7 @@ def upload_part():  # 接收前端上传的一个分片
 
 @app.route("/file/merge", methods=["GET"])
 def upload_success():  # 按序读出分片内容，并写入新文件
-
+    global compare_results
     target_filename = request.args.get("filename")  # 获取上传文件的文件名
     task = request.args.get("task_id")  # 获取文件的唯一标识符
     chunk = 0  # 分片序号
@@ -517,15 +520,17 @@ def upload_success():  # 按序读出分片内容，并写入新文件
 
     # 上传成功，进行2个缺陷csv的比较的逻辑
     print('########################### start compare ###########################')
-    source = csv_reader('source_demo.csv')
+    # source = csv_reader('source_demo.csv')
+    source = Blog.query.all()
+
     target = csv_reader('upload/'+target_filename)
     print(len(source), source[0], source[1])
     print('-'*20)
     print(len(target), target[0], target[1])
     for t in target:
-        tname = t[2]
-        for s in source:
-            sname = s[2]
+        tname = t[3]
+        for blog in source:
+            sname = blog.fault_content
             c0 = jellyfish.levenshtein_distance(sname, tname)
             c1 = jellyfish.jaro_distance(sname, tname)
             c1 = round(c1, 4)
@@ -536,10 +541,10 @@ def upload_success():  # 按序读出分片内容，并写入新文件
             # 我们可以更换所有模型，目前使用jaro_distance
             if c1 > 0.75:
                 print('target=', tname, "#" * 10, 'most likely to be:', sname)
-                compare_results.append([tname, sname, c1, s[3], s[4]])
+                compare_results.append([tname, sname, c1, blog.fault_level, blog.response])
     print('########################### end compare ###########################')
-    write_to_csv('results/results.csv', compare_results)
-    return rt("index.html")
+    # write_to_csv('results/results.csv', compare_results)
+    return rt("student_index.html", compare_results=compare_results)
 
 
 @app.route("/file/list", methods=["GET"])
