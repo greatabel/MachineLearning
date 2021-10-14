@@ -11,7 +11,7 @@ while(cap.isOpened()):
     if ret == False:
         break
     if i % 50 == 0:
-    	cv2.imwrite('static/img/source/'+movie_name+'_'+str(i)+'.jpg',frame)
+    	cv2.imwrite('movie/static/img/source/'+movie_name+'_'+str(i)+'.jpg',frame)
     i+=1
  
 cap.release()

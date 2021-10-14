@@ -502,6 +502,7 @@ def upload_part():  # 接收前端上传的一个分片
 @app.route("/file/merge", methods=["GET"])
 def upload_success():  # 按序读出分片内容，并写入新文件
     global compare_results
+    compare_results = []
     target_filename = request.args.get("filename")  # 获取上传文件的文件名
     task = request.args.get("task_id")  # 获取文件的唯一标识符
     chunk = 0  # 分片序号
