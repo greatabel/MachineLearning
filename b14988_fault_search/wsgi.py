@@ -542,7 +542,7 @@ def upload_success():  # 按序读出分片内容，并写入新文件
             # 我们可以更换所有模型，目前使用jaro_distance
             if c1 > 0.75:
                 print('target=', tname, "#" * 10, 'most likely to be:', sname)
-                compare_results.append([tname, sname, c1, blog.fault_level, blog.response])
+                compare_results.append([blog.line, blog.device_type, tname, sname, c1, blog.fault_level, blog.response])
     print('########################### end compare ###########################')
     # write_to_csv('results/results.csv', compare_results)
     return rt("student_index.html", compare_results=compare_results)

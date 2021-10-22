@@ -1,7 +1,18 @@
-<h1>Add fault</h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script src="/static/jquery-3.5.1.min.js"></script>
+    <script src="./static/bootstrap-4.5.2-dist/js/bootstrap.min.js"></script>
+    <script src="./static/webuploader/webuploader.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/webuploader/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+
 <!-- HTML表单 -->
 <form action="/blogs/create" method="POST">
-    <label>line:</label>
+<!--     <label>line:</label>
     <input type="text" name="line">
     <br><br>
     <label>device_type:</label>
@@ -26,5 +37,48 @@
 
 
 
-    <input type="submit" value="create">
+    <input type="submit" value="create"> -->
+
+    <table  class="table table-striped">
+    <thead>
+      <tr>
+        <th> <h1>Add fault</h1> </th>
+
+      </tr>
+    </thead>
+    <tbody>
+   
+        <tr>
+          <td>  <label>line:</label>  </td>
+          <td>  <input type="text" name="line"> </td>
+        </tr>
+       <tr>
+          <td>  <label>device_type:</label>  </td>
+          <td>  <input type="text" name="device_type"> </td>
+        </tr>
+       <tr>
+          <td>  <label>device_part:</label>  </td>
+          <td>  <input type="text" name="device_part"> </td>
+        </tr>
+       <tr>
+          <td>  <label>fault_content:</label>  </td>
+          <td>  <input type="text" name="fault_content"> </td>
+        </tr>
+       <tr>
+          <td>  <label>fault_level:</label>  </td>
+          <td>  <input type="text" name="fault_level"> </td>
+        </tr>
+       <tr>
+          <td>  <label>response:</label>  </td>
+          <td>  <input type="text" name="response"> </td>
+        </tr>
+       <tr>
+          <td>  <label>提交:</label>  </td>
+          <td>  <input type="submit" value="create"> </td>
+        </tr>
+
+    </tbody>
+  </table>
+
+
 </form>
