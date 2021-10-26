@@ -1,0 +1,10 @@
+fasttext
+gensim
+numpy
+pandas
+tqdm
+sklearn
+seaborn
+tensorflow-gpu
+#osx 用下面的，带cuda的用上面的，tensorflow22以前的话
+#tensorflow
