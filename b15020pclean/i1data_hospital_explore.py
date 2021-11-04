@@ -8,7 +8,7 @@ import json
 
 
 print("---- 1. let us check the first document in the dataset ----")
-df = pd.read_csv('datasets/hospital_dirty.csv')  
+df = pd.read_csv("datasets/hospital_dirty.csv")
 print(df.head())
 
 
