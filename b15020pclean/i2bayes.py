@@ -1,6 +1,6 @@
 import re, collections
 
-from common import get_words, probability_model
+from common import get_words, probability_model, filterTheDict
 
 import pandas as pd 
 
@@ -13,6 +13,7 @@ import pandas as pd
 '''
 orginal_txt = ''
 df = pd.read_csv("datasets/hospital_clean.csv")
+# df = pd.read_csv("datasets/hospital_dirty.csv")
 for index, row in df.iterrows():
     orginal_txt += ' ' + row['HospitalName']
     orginal_txt += ' ' + row['Address1']
@@ -23,6 +24,11 @@ r = get_words(orginal_txt)
 dictionary = probability_model(
     r
 )  # all the words in the language model
+
+# 提高错误和正确区分阀值
+dictionary = filterTheDict(dictionary, lambda elem: elem[1] > 10)
+print(dictionary)
+
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 
 

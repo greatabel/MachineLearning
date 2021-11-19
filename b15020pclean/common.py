@@ -21,3 +21,11 @@ def valid_telephone_number(inp):
 
 
 
+def filterTheDict(dictObj, callback):
+    newDict = dict()
+    # Iterate over all the items in dictionary
+    for (key, value) in dictObj.items():
+        # Check if item satisfies the given condition then add to new dict
+        if callback((key, value)):
+            newDict[key] = value
+    return newDict
