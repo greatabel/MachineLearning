@@ -25,7 +25,7 @@ python3 wsgi.py
 6.
 浏览器访问：
 
-http://localhost:5000/home
+http://localhost:5000/picture_search
 
 默认账号 greatabel1@126.com ps:abel
 自己也可以正常注册
