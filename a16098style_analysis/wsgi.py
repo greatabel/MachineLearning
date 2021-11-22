@@ -41,7 +41,7 @@ fe = FeatureExtractor()
 features = []
 img_paths = []
 for feature_path in Path("movie/static/feature").glob("*.npy"):
-    features.append(np.load(feature_path))
+    features.append(np.load(feature_path, allow_pickle=True))
     img_paths.append(Path("static/img") / (feature_path.stem + ".jpg"))
 features = np.array(features)
 
@@ -79,7 +79,7 @@ def picture_search():
         for i in range(0, 3):
             s = scores[i][0]
             p = (1 / s ** 5) / mysum
-            p = round(p, 1) * 100
+            p = round(p, 2) * 100
 
             print("-" * 10, p)
             scores[i] = list(scores[i])
