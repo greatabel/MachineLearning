@@ -16,8 +16,8 @@
             {% for score in scores %}
             <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
                 <img src="{{ score[1] }}" height="200px">
-                <span>Style categories from : {{ (score[1]|string()).rsplit('/', 1)[-1] }}</span>
-                <figcaption>{{ score[0] }}</figcaption>
+                <span>Style categories from : {{ (score[1]|string()).rsplit('/', 1)[-1].replace('_1.jpg', '').replace('_0.jpg', '') }}</span>
+                <figcaption>{{ score[0] }} %</figcaption>
             </figure>
             {% endfor %}
         </div>

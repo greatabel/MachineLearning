@@ -64,29 +64,42 @@ def picture_search():
         # Run search
         query = fe.extract(img)
         dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
-        ids = np.argsort(dists)[:10]  # Top 10 likely
+        ids = np.argsort(dists)[:3]  # Top 10 likely
         # print('ids=', ids)
         # print(np.array(img_paths)[ids])
         scores = [(dists[id], img_paths[id]) for id in ids]
-        uploaded_img_path = uploaded_img_path.replace('movie/','')
-        print('uploaded_img_path', uploaded_img_path)
-        return rt(
-            "picture_search.html", query_path=uploaded_img_path, scores=scores
-        )
+        print("scores====", scores)
+
+        mysum = 0
+        for score in scores:
+            s = score[0]
+            print(s, 1 / s ** 5)
+            mysum += 1 / s ** 5
+        print("mysum=", mysum)
+        for i in range(0, 3):
+            s = scores[i][0]
+            p = (1 / s ** 5) / mysum
+            p = round(p, 1) * 100
+
+            print("-" * 10, p)
+            scores[i] = list(scores[i])
+            scores[i][0] = p
+            scores[i] = tuple(scores[i])
+
+        uploaded_img_path = uploaded_img_path.replace("movie/", "")
+        print("uploaded_img_path", uploaded_img_path)
+        return rt("picture_search.html", query_path=uploaded_img_path, scores=scores)
     else:
         return rt("picture_search.html")
+
 
 @app.route("/recommend", methods=["GET", "POST"])
 def recommend():
     choosed = []
-    with open('recommend.txt') as f:
+    with open("recommend.txt") as f:
         choosed = f.readlines()
     print(choosed)
-    return rt(
-        'recommend.html',
-        choosed=choosed
-        
-    )
+    return rt("recommend.html", choosed=choosed)
 
 
 # ---start  数据库 ---
@@ -131,7 +144,6 @@ class Blog(db.Model):
         """
         self.title = title
         self.text = text
-
 
 
 # class TeacherWork(db.Model):
@@ -463,9 +475,6 @@ def logout():
 
 
 reviews = []
-
-
-
 
 
 @login_manager.unauthorized_handler
