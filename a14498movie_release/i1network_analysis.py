@@ -39,7 +39,7 @@ with open(file_path, "r") as f:
         items = line.strip().split("\t")
         uid = items[6]
         obj = items[-1]
-
+        rtuid = items[-6]
         print('obj=', obj, type(obj))
         if obj is not None:
             obj = literal_eval(obj)
@@ -50,8 +50,8 @@ with open(file_path, "r") as f:
                     print('#'*20, rtuid)
             # rtuid = items[-6]
                     print('uid=', uid, 'rtuid=',rtuid)
-                    if rtuid is not None:
-                        G.add_edge(uid, rtuid, time=ranks[position])
+
+        G.add_edge(uid, rtuid, time=ranks[position])
 edges, colors = zip(*nx.get_edge_attributes(G, "time").items())
 
 print("-" * 10)
