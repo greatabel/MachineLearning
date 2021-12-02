@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy
 import numpy as np
+import json
+from ast import literal_eval
 
 # 自行替换
 file_path = "i1SGScrapy/downloads/Nezha.csv"
@@ -36,8 +38,20 @@ with open(file_path, "r") as f:
     for position, line in enumerate(f):
         items = line.strip().split("\t")
         uid = items[6]
-        rtuid = items[-6]
-        G.add_edge(uid, rtuid, time=ranks[position])
+        obj = items[-1]
+
+        print('obj=', obj, type(obj))
+        if obj is not None:
+            obj = literal_eval(obj)
+            print('obj====', obj, type(obj))
+            if len(obj) >= 1:
+                if not isinstance(obj[0], str):
+                    rtuid = obj[0]['id']
+                    print('#'*20, rtuid)
+            # rtuid = items[-6]
+                    print('uid=', uid, 'rtuid=',rtuid)
+                    if rtuid is not None:
+                        G.add_edge(uid, rtuid, time=ranks[position])
 edges, colors = zip(*nx.get_edge_attributes(G, "time").items())
 
 print("-" * 10)
