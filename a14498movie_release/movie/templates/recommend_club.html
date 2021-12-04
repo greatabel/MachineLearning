@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Movie-Recommandation machine learning</title>
+    <title>根据个人喜好的社团推荐</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -80,8 +80,8 @@ div[class*="release_year"] {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Movie-Recommandation machine learning</h1>
-        <p>You can view/search movie on our website</p>
+        <h1>根据个人喜好的社团推荐</h1>
+        <p>Content-Based Recommendations</p>
       </div>
     </div>
 
@@ -94,17 +94,17 @@ div[class*="release_year"] {
 
         <div class="col-md-8">
 
-        <img src="/static/images/demo.png" class="img-fluid" >
-        Accoriding to data above, 
-        We recommend for user[Abel] such movie according by <b>Collaborative Filtering Algorithm</b>:
+        <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
+        根据情绪爱好的基于内容的推荐算法，我们推荐社团:
+        <span style="color:blue">  {{max_title }}</span>
 
-                  {% for c in choosed %}
-
-
-            <div class="release_year"> {{ c|safe }}</div>  
+                 
 
 
-           {% endfor %}
+            <!-- <div class="release_year"> </div>   -->
+
+
+
         </div>
 
 

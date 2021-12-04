@@ -3,7 +3,7 @@ import os
 import sys
 import json
 
-import math
+import django
 
 import flask_login
 from flask_cors import CORS
@@ -19,297 +19,30 @@ from flask import Flask, Response
 from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
-# from flask import Flask
 
-import folium
-from folium import plugins
-import numpy as np
-from weather import wheather_R
+import recommandation
+import jellyfish
 
-print('#'*20, wheather_R)
+import datetime
+# from movie.domain.model import Director, Review, Movie
+
+# from html_similarity import style_similarity, structural_similarity, similarity
+# from common import set_js_file
+
 app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
 CORS(app)
-
 # --- total requirement ----
 
 
 # ---start  数据库 ---
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mr_data.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
 db = SQLAlchemy(app)
 
 # --- end   数据库 ---
 admin_list = ["admin@126.com"]
-
-def folim_create(start_coords, orginal=True):
-    m = folium.Map(location=start_coords, width='100%', height='70%', zoom_start=14)
-
-
-
-
-    # line_to_new_delhi = folium.PolyLine(
-    #     [
-    #         [46.67959447, 3.33984375],
-    #         [46.5588603, 29.53125],
-    #         [42.29356419, 51.328125],
-    #         [35.74651226, 68.5546875],
-    #         [28.65203063, 76.81640625],
-    #     ]
-    # ).add_to(m)
-    tooltip ='click me to see more'
-
-    ic0 = plugins.BeautifyIcon(border_color='#00ABDC',
-                           text_color='#00ABDC',
-                           number=0,
-                           inner_icon_style='margin-top:0;')
-    ic1 = plugins.BeautifyIcon(border_color='#00ABDC',
-                           text_color='#00ABDC',
-                           number=1,
-                           inner_icon_style='margin-top:0;')
-    ic2 = plugins.BeautifyIcon(border_color='#00ABDC',
-                           text_color='#00ABDC',
-                           number=2,
-                           inner_icon_style='margin-top:0;')
-    ic3 = plugins.BeautifyIcon(border_color='#00ABDC',
-                           text_color='#00ABDC',
-                           number=3,
-                           inner_icon_style='margin-top:0;')
-    ic4 = plugins.BeautifyIcon(border_color='#00ABDC',
-                           text_color='#00ABDC',
-                           number=4,
-                           inner_icon_style='margin-top:0;')
-
-    if orginal != True:
-        # folium.Marker([51.5205898, -0.1424225], popup='ondon Central Hostel',tooltip=tooltip,icon=folium.Icon(color='red')).add_to(m)
-        folium.Marker([51.5205898, -0.1424225],popup='London Central Hostel',tooltip=tooltip, icon=ic0).add_to(m)
-        folium.Marker([51.503324, -0.119543], popup='Coca-Cola London Eye',tooltip=tooltip,icon=ic1).add_to(m)
-        folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip,icon=ic2).add_to(m)
-        folium.Marker([51.5128019, -0.0834833], popup='Leadenhall Market',tooltip=tooltip,icon=ic3).add_to(m)
-        folium.Marker([51.508929 , -0.128299], popup='The National Gallery',tooltip=tooltip,icon=ic4).add_to(m)
-        line_to_new_delhi = folium.PolyLine(
-            [
-                [51.5205898, -0.1424225],
-                [51.503324, -0.119543],
-                [51.5138453, -0.0983506],
-                [51.5128019, -0.0834833],
-                [51.508929 , -0.128299],
-            ],
-            color='red'
-        ).add_to(m)
-        plugins.PolyLineTextPath(line_to_new_delhi, "London Tour", offset=-25).add_to(m)
-    else:
-        folium.Marker([51.5205898, -0.1424225],popup='London Central Hostel',tooltip=tooltip).add_to(m)
-        folium.Marker([51.503324, -0.119543], popup='Coca-Cola London Eye',tooltip=tooltip).add_to(m)
-        folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip).add_to(m)
-        folium.Marker([51.5128019, -0.0834833], popup='Leadenhall Market',tooltip=tooltip).add_to(m)
-        folium.Marker([51.508929 , -0.128299], popup='The National Gallery',tooltip=tooltip).add_to(m)
-    # line_to_hanoi = folium.PolyLine(
-    #     [
-    #         [28.76765911, 77.60742188],
-    #         [27.83907609, 88.72558594],
-    #         [25.68113734, 97.3828125],
-    #         [21.24842224, 105.77636719],
-    #     ]
-    # ).add_to(m)
-
-
-    
-
-
-    # plugins.PolyLineTextPath(line_to_hanoi, "To Hanoi", offset=-5).add_to(m)
-    return m
-
-'''
-get from i3data_visualization
-
-'''
-fever_dict = {
-    0: 3,
-    1: 640,
-    2: 322,
-    3: 52,
-    4: 1607
-}
-'''
-get from i3data_visualization and i2sentimanet_analys
-
-'''
-sentiment_dict = {
-    0: [3, 0, 0],
-    1: [202, 404, 101],
-    2: [0, 303, 101],
-    3: [0, 101, 0],
-    4: [808, 606, 202]
-}
-
-additonal_information = [fever_dict, sentiment_dict]
-
-def my_haversine_distance(lat1, lon1, lat2, lon2):
-   r = 6371
-   phi1 = np.radians(lat1)
-   phi2 = np.radians(lat2)
-   delta_phi = np.radians(lat2 - lat1)
-   delta_lambda = np.radians(lon2 - lon1)
-   a = np.sin(delta_phi / 2)**2 + np.cos(phi1) * np.cos(phi2) *  np.sin(delta_lambda / 2)**2
-   res = r * (2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a)))
-   return np.round(res, 2)
-
-
-def hotness_sentiment_improve(base, vote):
-    M = math.e*base*100
-    upper = 50
-    down = 30
-    a = M + math.log(math.e **(vote/2)) 
-    b = M + math.log(math.e ** 1)
-
-    r = a *1.5/ b
-    print('hotness_sentiment_improve a,b=',a, b, 'result=', r)
-    return r
-
-
-def advanced_folim_create(start_coords, additonal_information=additonal_information):
-    global wheather_R
-    fever_dict = additonal_information[0]
-    sentiment_dict = additonal_information[1]
-
-    total_km = []
-    
-    lat_logs = [
-                [51.5205898, -0.1424225],
-                [51.503324, -0.119543],
-                [51.5138453, -0.0983506],
-                [51.5128019, -0.0834833],
-                [51.508929 , -0.128299],
-            ]
-    places = ['YHA London Central Hostel', 'Coca-Cola London Eye', 
-            'St. Paul\'s Cathedral', 'Leadenhall Market', 'The National Gallery']
-    if not 'rain' in wheather_R and not 'snow' in wheather_R:
-        for source in lat_logs:
-            distances_km = []
-            for row in lat_logs:
-               distances_km.append(
-                   my_haversine_distance(source[0], source[1], row[0], row[1])
-               )
-            total_km.append(distances_km)
-        print('total_km=', total_km)
-        distances_sum = []
-        for idx, val in enumerate(total_km):
-            print(idx, sum(val))
-            distances_sum.append(sum(val))
-        print(distances_sum)
-        new_values = []
-        for i in range(0, len(distances_sum)):
-            print(i)
-            r = hotness_sentiment_improve(fever_dict[i], sentiment_dict[i][0])
-            p = distances_sum[i] * r
-            new_values.append(p)
-
-        print('#'*20, new_values)
-        orders = np.argsort(new_values)
-        print('order=', orders)
-        sorted_places = np.array(lat_logs)[orders]
-        sorted_placenames = np.array(places)[orders]
-        print('sorted_places=', sorted_places)
-        print('sorted_placenames=', sorted_placenames)
-        m = folium.Map(location=start_coords, width='100%', height='70%', zoom_start=14)
-
-
-
-
-        # line_to_new_delhi = folium.PolyLine(
-        #     [
-        #         [46.67959447, 3.33984375],
-        #         [46.5588603, 29.53125],
-        #         [42.29356419, 51.328125],
-        #         [35.74651226, 68.5546875],
-        #         [28.65203063, 76.81640625],
-        #     ]
-        # ).add_to(m)
-        tooltip ='click me to see more'
-
-        ic0 = plugins.BeautifyIcon(border_color='#00ABDC',
-                               text_color='#00ABDC',
-                               number=0,
-                               inner_icon_style='margin-top:0;')
-        ic1 = plugins.BeautifyIcon(border_color='#00ABDC',
-                               text_color='#00ABDC',
-                               number=1,
-                               inner_icon_style='margin-top:0;')
-        ic2 = plugins.BeautifyIcon(border_color='#00ABDC',
-                               text_color='#00ABDC',
-                               number=2,
-                               inner_icon_style='margin-top:0;')
-        ic3 = plugins.BeautifyIcon(border_color='#00ABDC',
-                               text_color='#00ABDC',
-                               number=3,
-                               inner_icon_style='margin-top:0;')
-        ic4 = plugins.BeautifyIcon(border_color='#00ABDC',
-                               text_color='#00ABDC',
-                               number=4,
-                               inner_icon_style='margin-top:0;')
-
-        index = 0
-        for p, name in zip(sorted_places, sorted_placenames):
-            print(p[0], p[1], '#'*10, name)
-            myic = plugins.BeautifyIcon(border_color='#00ABDC',
-                               text_color='#00ABDC',
-                               number=index,
-                               inner_icon_style='margin-top:0;')
-            # folium.Marker([51.5205898, -0.1424225], popup='ondon Central Hostel',tooltip=tooltip,icon=folium.Icon(color='red')).add_to(m)
-            folium.Marker([p[0], p[1]], popup=name,tooltip=tooltip, icon=myic).add_to(m)
-            index += 1
-        # folium.Marker([51.503324, -0.119543], popup='Coca-Cola London Eye',tooltip=tooltip,icon=ic1).add_to(m)
-        # folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip,icon=ic2).add_to(m)
-        # folium.Marker([51.5128019, -0.0834833], popup='Leadenhall Market',tooltip=tooltip,icon=ic3).add_to(m)
-        # folium.Marker([51.508929 , -0.128299], popup='The National Gallery',tooltip=tooltip,icon=ic4).add_to(m)
-        line_to_new_delhi = folium.PolyLine(
-            sorted_places,
-            color='red'
-        ).add_to(m)
-        plugins.PolyLineTextPath(line_to_new_delhi, "London Tour", offset=-25).add_to(m)
-
-        # line_to_hanoi = folium.PolyLine(
-        #     [
-        #         [28.76765911, 77.60742188],
-        #         [27.83907609, 88.72558594],
-        #         [25.68113734, 97.3828125],
-        #         [21.24842224, 105.77636719],
-        #     ]
-        # ).add_to(m)
-
-
-        
-
-
-        # plugins.PolyLineTextPath(line_to_hanoi, "To Hanoi", offset=-5).add_to(m)
-        return m
-
-
-@app.route('/orginal')
-def orginal():
-    start_coords = (51.503324, -0.119543)
-    # folium_map = folium.Map(location=start_coords, zoom_start=14)
-    folium_map = folim_create(start_coords, orginal=True)
-    return folium_map._repr_html_()
-
-
-
-@app.route('/path')
-def index():
-    start_coords = (51.503324, -0.119543)
-    # folium_map = folium.Map(location=start_coords, zoom_start=14)
-    folium_map = folim_create(start_coords, orginal=False)
-    return folium_map._repr_html_()
-
-@app.route('/advanced_path')
-def advance_path():
-    start_coords = (51.503324, -0.119543)
-    # folium_map = folium.Map(location=start_coords, zoom_start=14)
-    folium_map = advanced_folim_create(start_coords, additonal_information)
-    return folium_map._repr_html_()
-
 
 
 class User(db.Model):
@@ -321,6 +54,7 @@ class User(db.Model):
     nickname = db.Column(db.String(80))
     school_class = db.Column(db.String(80))
     school_grade = db.Column(db.String(80))
+    personal_hobby = db.Column(db.String(300))
 
     def __init__(self, username, password):
         self.username = username
@@ -329,14 +63,14 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    课程数据模型
+    社团内容数据模型
     """
 
     # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # 课程标题
+    # 社团标题
     title = db.Column(db.String(100))
-    # 课程正文
+    # 社团内容
     text = db.Column(db.Text)
 
     def __init__(self, title, text):
@@ -347,7 +81,7 @@ class Blog(db.Model):
         self.text = text
 
 
-# 老师当前布置作业的表
+
 class TeacherWork(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
@@ -377,10 +111,22 @@ class StudentWork(db.Model):
 
 
 ### -------------start of home
+@app.context_processor
+def inject_today_date():
+    return {'today_date': datetime.date.today()}
+    
+def replace_html_tag(text, word):
+    new_word = '<font color="red">' + word + "</font>"
+    len_w = len(word)
+    len_t = len(text)
+    for i in range(len_t - len_w, -1, -1):
+        if text[i : i + len_w] == word:
+            text = text[:i] + new_word + text[i + len_w :]
+    return text
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=10):
+    def __init__(self, data, page=1, number=2):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
@@ -399,6 +145,8 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
+
+
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
@@ -415,29 +163,43 @@ def home(pagenum=1):
         keyword = request.form["keyword"]
         print("keyword=", keyword, "-" * 10)
         if keyword is not None:
-            for movie in notice_list:
-                if movie.director.director_full_name == keyword:
-                    search_list.append(movie)
+            for blog in blogs:
+                if keyword in blog.title or keyword in blog.text:
+                    blog.title = replace_html_tag(blog.title, keyword)
+                    print(blog.title)
+                    blog.text = replace_html_tag(blog.text, keyword)
 
-                for actor in movie.actors:
-                    if actor.actor_full_name == keyword:
-                        search_list.append(movie)
-                        break
+                    search_list.append(blog)
+            # for movie in notice_list:
+            #     if movie.director.director_full_name == keyword:
+            #         search_list.append(movie)
 
-                for gene in movie.genres:
-                    if gene.genre_name == keyword:
-                        search_list.append(movie)
-                        break
-        print("search_list=", search_list, "#" * 5)
-        return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
+            #     for actor in movie.actors:
+            #         if actor.actor_full_name == keyword:
+            #             search_list.append(movie)
+            #             break
+
+            #     for gene in movie.genres:
+            #         if gene.genre_name == keyword:
+            #             search_list.append(movie)
+            #             break
+        print("search_list=", search_list, "=>" * 5)
+        return rt(
+            "home.html",
+            listing=PageResult(search_list, pagenum, 10),
+            user=user,
+            keyword=keyword,
+        )
+        # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
+
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建课程文章
+    创建社团文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -447,61 +209,61 @@ def create_blog():
         title = request.form["title"]
         text = request.form["text"]
 
-        # 创建一个课程对象
+        # 创建一个社团对象
         blog = Blog(title=title, text=text)
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到课程列表页面
+        # 创建完成之后重定向到社团列表页面
         return redirect("/blogs")
 
 
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询课程列表
+    查询社团列表
     """
     blogs = Blog.query.all()
-    # 渲染课程列表页面目标文件，传入blogs参数
+    # 渲染社团列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
 
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新课程
+    更新社团
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询社团详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_blog.html", blog=blog)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的社团标题和正文
         title = request.form["title"]
         text = request.form["text"]
 
-        # 更新课程
+        # 更新社团
         blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到社团详情页面
         return redirect("/blogs/{id}".format(id=id))
 
 
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询社团详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染社团详情页面
         return rt("query_blog.html", blog=blog)
     else:
-        # 删除课程
+        # 删除社团
         blog = Blog.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -511,27 +273,68 @@ def query_note(id):
 
 ### -------------end of home
 
+@app.route("/recommend", methods=["GET", "DELETE"])
+def recommend():
+    """
+    查询社团详情、删除社团
+    """
+    if request.method == "GET":
+        choosed = recommandation.main()
+        print('给予离线交互数据进行协同推荐')
+        print(choosed, '#'*20)
+        print('给予离线交互数据进行协同推荐')
+        return rt("recommend.html", choosed=choosed)
 
+
+@app.route("/recommend_club", methods=["GET", "DELETE"])
+def recommend_club():
+    """
+    基于内容的推荐，根据文本相似度levenshtein_distance各种距离尽显比较
+    """
+    if request.method == "GET":
+        id = session["userid"]
+        user = User.query.filter_by(id=id).first_or_404()
+        tname = user.personal_hobby
+        source = Blog.query.all()
+        max_c1 = 0
+        max_title = ''
+        for blog in source:
+            sname = blog.text
+
+            c0 = jellyfish.levenshtein_distance(sname, tname)
+            c1 = jellyfish.jaro_distance(sname, tname)
+            c1 = round(c1, 4)
+            c2 = jellyfish.damerau_levenshtein_distance(sname, tname)
+            # https://en.wikipedia.org/wiki/Hamming_distance
+            c3 = jellyfish.hamming_distance(sname, tname)
+            print(c0, c1, c2, c3, '@'*10)
+            if c1 > max_c1:
+                max_c1 = c1
+                max_title = blog.title
+
+        print('@'*20, max_title)
+        # 渲染社团详情页面
+        return rt("recommend_club.html", max_title=max_title)
 ### -------------start of profile
 
 
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
 
     id = session["userid"]
 
     if request.method == "GET":
 
-        # 到数据库查询课程详情
+        # 到数据库查询社团详情
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
-        # 渲染课程详情页面
+        # 渲染社团详情页面
         return rt("profile.html", user=user)
     else:
-        # 删除课程
+        # 删除社团
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -542,32 +345,34 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新课程
+    更新社团
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询社团详情
         user = User.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_profile.html", user=user)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的社团标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
+        personal_hobby = request.form["personal_hobby"]
 
-        # 更新课程
+        # 更新社团
         user = User.query.filter_by(id=id).update(
             {
                 "password": password,
                 "nickname": nickname,
                 "school_class": school_class,
                 "school_grade": school_grade,
+                "personal_hobby": personal_hobby,
             }
         )
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到社团详情页面
         return redirect("/profile")
 
 
@@ -577,14 +382,14 @@ def update_profile(id):
 @app.route("/course/<id>", methods=["GET"])
 def course_home(id):
     """
-    查询课程详情、删除课程
+    查询社团详情、删除社团
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询社团详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         teacherWork = TeacherWork.query.filter_by(course_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染社团详情页面
         return rt("course.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204
@@ -607,7 +412,17 @@ def relationship():
     with open(filename) as test_file:
         d = json.load(test_file)
     print(type(d), "#" * 10, d)
-    return d
+    return jsonify(d)
+
+
+@app.route("/index_a/")
+def index():
+    return rt("index-A.html")
+
+
+@app.route("/index_b/")
+def index_b():
+    return rt("index-B.html")
 
 
 @login_manager.user_loader
@@ -629,6 +444,8 @@ def login():
 
             if email in admin_list:
                 session["isadmin"] = True
+            else:
+                session["isadmin"] = False
             session["userid"] = data.id
 
             print("login sucess", "#" * 20, session["logged_in"])
@@ -679,15 +496,36 @@ def logout():
 reviews = []
 
 
-
-
-
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return "Unauthorized"
 
 
 # --------------------------
+@app.route("/assignwork", methods=["GET"])
+def assignwork():
+    return rt("index.html")
+
+
+@app.route("/teacher_work", methods=["POST"])
+def teacher_work():
+
+    detail = request.form.get("detail")
+    print("#" * 20, detail, "@" * 20)
+    with open("movie/static/data.js", "w") as file:
+        file.write(detail)
+
+    return redirect(url_for("assignwork"))
+
+
+@app.route("/student_work", methods=["POST"])
+def student_work():
+    return redirect(url_for("student_index"))
+
+
+@app.route("/student_index", methods=["GET"])
+def student_index():
+    return rt("student_index.html")
 
 
 # @app.route("/", methods=["GET"])

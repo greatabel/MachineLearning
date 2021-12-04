@@ -1,8 +1,8 @@
 <h3><a href="/home">< home</a></h3>
-<h1>地点列表</h1>
+<h1>社团列表</h1>
 <!-- Jinja模板语法 -->
 
-<h5><a href="/blogs/create">add place</a></h5>
+<h5><a href="/blogs/create">add club</a></h5>
 
 <hr/>
 {% if blogs %}
@@ -10,6 +10,6 @@
         <h3><a href="/blogs/{{blog.id}}">{{blog.title}}</a></h3>
     {% endfor %}
 {% else %}
-    <p>no place, let's create place~</p>
-    <a href="/blogs/create">to create place</a>
+    <p>no doc, let's create doc~</p>
+    <a href="/blogs/create">to create club</a>
 {% endif %}
