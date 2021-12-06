@@ -7,7 +7,8 @@ import json
 from ast import literal_eval
 
 # 自行替换
-file_path = "i1SGScrapy/downloads/Nezha.csv"
+file_path = "i1SGScrapy/downloads/nezha_processed.csv"
+# file_path = "i1SGScrapy/downloads/wandering_earth_processed.csv"
 with open(file_path, "r") as f:
     rt_time = []
     for line in f:
@@ -23,9 +24,10 @@ with open(file_path, "r") as f:
         # hms= time[9:17].replace(':', '')
         # hm = time[12:17].replace(":", "")
         # time = int(day + hm)
-        time = int(hm)
+        if hm != 'time':
+            time = int(hm)
 
-        rt_time.append(time)
+            rt_time.append(time)
 print(rt_time, '@'*10)
 # time.sleep(10)
 # 计算转发时间的先后顺序
@@ -37,11 +39,13 @@ G = nx.Graph()
 with open(file_path, "r") as f:
     for position, line in enumerate(f):
         items = line.strip().split("\t")
+
+
         uid = items[6]
         obj = items[-1]
         rtuid = items[-6]
         print('obj=', obj, type(obj))
-        if obj is not None:
+        if obj is not None and obj!= 'trans_dest':
             obj = literal_eval(obj)
             print('obj====', obj, type(obj))
             if len(obj) >= 1:
@@ -83,5 +87,5 @@ nx.draw_networkx(
     edge_color="blue",
 )
 
-plt.savefig("Nezha.png")
+plt.savefig("nezha_shortime.png")
 plt.show()
