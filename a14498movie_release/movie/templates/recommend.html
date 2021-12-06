@@ -80,8 +80,8 @@ div[class*="release_year"] {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Movie-Recommandation machine learning</h1>
-        <p>You can view/search movie on our website</p>
+        <h1>Social network communication analysis </h1>
+        <p>short term / long term / per movie</p>
       </div>
     </div>
 
@@ -93,18 +93,16 @@ div[class*="release_year"] {
 
 
         <div class="col-md-8">
+        <span>nezha_shorttime_processed</span>
+        <img src="/static/images/docs/nezha_shorttime_processed.png" class="img-fluid" >
+        <span>wandering_earth_shorttime_processed</span>
+        <img src="/static/images/docs/wandering_earth_shorttime_processed.png" class="img-fluid" >
+        <span>nezha_total_processed</span>
+        <img src="/static/images/docs/nezha.png" class="img-fluid" >
+        <span>wandering_earth_total_processed</span>
+        <img src="/static/images/docs/wandering_earth.png" class="img-fluid" >
 
-        <img src="/static/images/demo.png" class="img-fluid" >
-        Accoriding to data above, 
-        We recommend for user[Abel] such movie according by <b>Collaborative Filtering Algorithm</b>:
 
-                  {% for c in choosed %}
-
-
-            <div class="release_year"> {{ c|safe }}</div>  
-
-
-           {% endfor %}
         </div>
 
 

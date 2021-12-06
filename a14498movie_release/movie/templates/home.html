@@ -72,13 +72,13 @@ div[class*="release_year"] {
         <a class="nav-link" href="/profile"> Profile <span class="sr-only">(current)</span></a>
       </li>
 
-      <li class="nav-item active">
+<!--       <li class="nav-item active">
         <a class="nav-link" href="/recommend"> 电影内活动分析 <span class="sr-only">(current)</span></a>
       </li>
 
       <li class="nav-item active">
         <a class="nav-link" href="/recommend_club"> 电影分析 <span class="sr-only">(current)</span></a>
-      </li>
+      </li> -->
         {% if session['isadmin'] %}
       <li class="nav-item active">
         <a class="nav-link" href="/blogs"> 电影管理 <span class="sr-only">(current)</span></a>
@@ -173,12 +173,16 @@ div[class*="release_year"] {
 
        <div class="row">
          <div class="col-md-3">  </div>
-         <div class="col-md-3">  </div>
+         <div class="col-md-3">  
+              <span style="text-align:center;"> <a href="/recommend"><font color="blue">social_network structure </font> </a>
+         </span>
+         </div>
 
 
  
 
-         <div class="col-md-3"> <span style="text-align:center;"> <a href="/index_a"><font color="chartreuse">查看知识图谱 </font> </a>
+         <div class="col-md-3"> 
+          <span style="text-align:center;"> <a href="/index_a"><font color="chartreuse">查看知识图谱 </font> </a>
          </span>
 
           </div>

@@ -281,11 +281,8 @@ def recommend():
     查询社团详情、删除社团
     """
     if request.method == "GET":
-        choosed = recommandation.main()
-        print('给予离线交互数据进行协同推荐')
-        print(choosed, '#'*20)
-        print('给予离线交互数据进行协同推荐')
-        return rt("recommend.html", choosed=choosed)
+
+        return rt("recommend.html")
 
 
 @app.route("/recommend_club", methods=["GET", "DELETE"])
