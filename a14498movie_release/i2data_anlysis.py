@@ -2,7 +2,7 @@ from csv_operation import csv_reader
 from sentiment import anlaysis
 
 
-tweets_list = ["%.2d" % i for i in range(5)]
+tweets_list = ["%.2d" % i for i in range(2)]
 print(tweets_list)
 
 for target in tweets_list:
@@ -22,7 +22,7 @@ for target in tweets_list:
     '''
 
     print("\n1. Heat comparison")
-    print(len(data2020), " VS ", 0)
+    print(len(data2020), " VS ", 2)
 
     compare_txt = "'data2021':" + str(len(data2020)) + ", 'data2020': 0" 
     js_txt += compare_txt
@@ -45,7 +45,7 @@ for target in tweets_list:
 
     usernamefreq = {}
 
-    split = 101
+    split = 20
     # pick_twlist = data2020full[0::split]
     pick_twlist = data2020full[0::split]
     for tw in pick_twlist:
@@ -64,6 +64,7 @@ for target in tweets_list:
         # print('words=', words)
         for raw_word in words:
             word = raw_word.strip(unwanted_chars)
+            print('-'*20, word)
             if word not in wordfreq:
                 if word not in black_list:
                     wordfreq[word] = 0
