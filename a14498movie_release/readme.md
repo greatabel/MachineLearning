@@ -36,3 +36,14 @@ password: abel
 如果想自己进行分析，可以运行：
 python3 i1network_analysis.py
 (分析不同电影，自行修改i1network_analysis.py的第10行和第90行中对应的文件名字)
+
+8.
+（可选项）
+虽然我已经分析了近期数据社交网络可视化部分，
+如果想自己进行分析，可以运行：
+python3 i2data_anlysis.py
+如果想要替换网站的可视化结果，需要把生成的i3data_visialization文件夹替换网站中对应的文件夹
+
+
+
+
