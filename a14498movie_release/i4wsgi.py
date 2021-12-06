@@ -24,6 +24,7 @@ import recommandation
 import jellyfish
 
 import datetime
+from dateutil.relativedelta import relativedelta
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -113,7 +114,8 @@ class StudentWork(db.Model):
 ### -------------start of home
 @app.context_processor
 def inject_today_date():
-    return {'today_date': datetime.date.today()}
+    years_ago = datetime.datetime.today() - relativedelta(years=2)
+    return {'today_date': years_ago}
     
 def replace_html_tag(text, word):
     new_word = '<font color="red">' + word + "</font>"
