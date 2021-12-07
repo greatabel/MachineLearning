@@ -44,6 +44,14 @@ python3 i1network_analysis.py
 python3 i2data_anlysis.py
 如果想要替换网站的可视化结果，需要把生成的i3data_visialization文件夹替换网站中对应的文件夹
 
+9.
+（可选项)
+i2sentiment_analysis
+和
+i1SGScrapy 已经下载和训练完毕。
+如果将来需要运行，单独参考其中的readme.md文件
+进入i2sentiment_analysis然后运行：jupyter notebook i2deep-learning-for-sentiment-analysis.ipynb
+然后浏览器访问：http://localhost:8888/notebooks/i1deep-learning-for-sentiment-analysis.ipynb
 
 
 
