@@ -12,6 +12,8 @@ import math
 import time
 import datetime
 import pickle
+# https://www.boxofficemojo.com/
+# datasource
 
 def sentiment_improve(base, vote):
     M = math.e*base*100

@@ -68,7 +68,7 @@
 function group_chart(inputdata){
 let data = {
     "2020": inputdata.data2020,
-    "2021"  : inputdata.data2021
+    "2019"  : inputdata.data2021
 };
 let margin = {top: 30, right: 20, bottom: 30, left: 40};
 let svgWidth = 720, svgHeight = 300;
@@ -265,7 +265,7 @@ svg.append("text")
     .attr("x", width*3/7)
     .attr("y", 0 - (margin.top / 3))
     .attr("text-anchor", "middle")
-    .text("place 2021 Related-Words");  
+    .text("place 2019 Related-Words");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)
@@ -343,7 +343,7 @@ svg.append("text")
     .attr("x", width*3/7)
     .attr("y", 0 - (margin.top * 4/ 7))
     .attr("text-anchor", "middle")
-    .text("place 2021 Who Tweets Most");  
+    .text("place 2019 Who Tweets Most");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)
