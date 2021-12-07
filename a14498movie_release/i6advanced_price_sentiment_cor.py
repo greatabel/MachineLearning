@@ -1,3 +1,5 @@
+# https://www.boxofficemojo.com/
+# datasource
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
@@ -12,8 +14,7 @@ import math
 import time
 import datetime
 import pickle
-# https://www.boxofficemojo.com/
-# datasource
+
 
 def sentiment_improve(base, vote):
     M = math.e*base*100
