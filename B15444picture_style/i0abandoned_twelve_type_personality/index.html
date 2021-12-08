@@ -72,8 +72,17 @@
 							<input class="fs-mark fs-anim-lower" id="q5" name="q5" type="number" placeholder="1000" step="100" min="100"/>
 						</li> -->
 					</ol><!-- /fs-fields -->
-					<button class="fs-submit" type="submit">提交问卷</button>
+					<img style="display:none;" id="bigpic" src="" />
+					
+					<!-- <button class="fs-submit" type="submit" onclick="showPicture()">提交问卷</button> -->
 				</form><!-- /fs-form -->
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		
+				<button class="fs-submit"  onclick="showPicture()">提交问卷</button>
 			</div><!-- /fs-form-wrap -->
 
 		</div><!-- /container -->
@@ -81,6 +90,14 @@
 		<script src="js/selectFx.js"></script>
 		<script src="js/fullscreenForm.js"></script>
 		<script>
+			function showPicture() {
+				// alert('h')
+  var sourceOfPicture = "02_1300.jpg";
+  var img = document.getElementById('bigpic')
+  img.src = sourceOfPicture.replace('90x90', '225x225');
+  img.style.display = "block";
+} 
+
 			(function() {
 				var formWrap = document.getElementById( 'fs-form-wrap' );
 
