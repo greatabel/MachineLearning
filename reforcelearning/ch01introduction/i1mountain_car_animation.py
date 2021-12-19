@@ -6,9 +6,7 @@ import matplotlib.pyplot as plt
 import time
 
 
-env = gym.make('MountainCar-v0')
-
-
+env = gym.make("MountainCar-v0")
 
 
 # print('观测空间 = {}'.format(env.observation_space))
@@ -19,13 +17,13 @@ env = gym.make('MountainCar-v0')
 
 env.reset()
 for s in range(1000):
-	print('step=', s)
-	####
-	plt.imshow(env.render(mode='rgb_array'))
-	display.display(plt.gcf())
-	display.clear_output(wait=True)
-	action = env.action_space.sample()
-	####
-	env.step(action)
+    print("step=", s)
+    ####
+    plt.imshow(env.render(mode="rgb_array"))
+    display.display(plt.gcf())
+    display.clear_output(wait=True)
+    action = env.action_space.sample()
+    ####
+    env.step(action)
 
 env.close()
