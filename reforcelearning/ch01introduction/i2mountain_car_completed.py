@@ -34,8 +34,11 @@ agent = BespokeAgent(env)
 def play_montecarlo(env, agent, render=False, train=False):
     episode_reward = 0. # 记录回合总奖励，初始化为0
     observation = env.reset() # 重置游戏环境，开始新回合
+    print('重置游戏环境，开始新回合')
+    time.sleep(0.1)
     while True: # 不断循环，直到回合结束
-        if render: # 判断是否显示
+       	print('render=', render)
+       	if render: # 判断是否显示
             env.render() # 显示图形界面，图形界面可以用 env.close() 语句关闭
         action = agent.decide(observation)
         next_observation, reward, done, _ = env.step(action) # 执行动作
@@ -65,6 +68,7 @@ env.close() # 此语句可关闭图形界面
 #     ####
 #     env.step(action)
 episode_rewards = [play_montecarlo(env, agent) for _ in range(100)]
+# episode_rewards = [play_montecarlo(env, agent, render=True) for _ in range(100)]
 print('平均回合奖励 = {}'.format(np.mean(episode_rewards)))
 
 
