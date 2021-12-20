@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 import time
 
 
-env = gym.make("MountainCar-v0")
-
 
 class BespokeAgent:
     def __init__(self, env):
@@ -16,6 +14,7 @@ class BespokeAgent:
     
     def decide(self, observation): # 决策
         position, velocity = observation
+        print('position, velocity=', position, velocity)
         lb = min(-0.09 * (position + 0.25) ** 2 + 0.03,
                 0.3 * (position + 0.9) ** 4 - 0.008)
         ub = -0.07 * (position + 0.38) ** 2 + 0.07
@@ -27,6 +26,8 @@ class BespokeAgent:
 
     def learn(self, *args): # 学习
         pass
+
+env = gym.make("MountainCar-v0")
 
 agent = BespokeAgent(env)
 
