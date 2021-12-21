@@ -1,4 +1,4 @@
-风格检测部分部署ubuntu或者其他linux，或者osx等类unix系统
+负载调优模拟部分部署ubuntu或者其他linux，或者osx等类unix系统
 其他系统没有经过充分测试
 
 1.
@@ -20,24 +20,16 @@ pip3 install --upgrade -r requirements.txt
 5.
 
 cmd/terminal进入文件夹 后执行：
-python3 wsgi.py
+python3 i0simulate_edge_compute.py
 
 6.
-浏览器访问：
+cpu_timecounsume_compare.png
+heat_heavy_compare.png
+是对比图，分值越高越好
 
-http://localhost:5000/picture_search
-
-默认账号 greatabel1@126.com ps:abel
-自己也可以正常注册
-
-7.
-下载 vgg16_weights_tf_dim_ordering_tf_kernels.h5
-到 ~/.keras/models/ 目录（mac/linux路径如下）
--(具体参考 https://keras.io/zh/applications/ )
--
-
-8.
-如果想自己训练以图搜图：(在安装有库的环境或者虚拟环境)
-图片自己根据分类放在static/image/source下 ，修改图片名称，根据已有图片分类
-python3 i1offine_train.py
+i1heuristic_algorithm_cpu_timecounsume.png
+i1heuristic_algorithm_heat_heavy.png
+i2qlearning_cpu_timecounsume.png
+i2qlearning_heat_heavy.png
+是强化学习阶段学习过程图
 
