@@ -1,3 +1,8 @@
+ipython
+gym
+matplotlib
+numpy
+pandas
 Pillow
 Flask
 tensorflow>=2.0.0
