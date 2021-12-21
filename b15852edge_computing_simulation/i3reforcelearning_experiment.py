@@ -11,7 +11,10 @@ import time
 from i1heuristic_algorithm import SARSAAgent, play_sarsa
 from i2Qlearning import ExpectedSARSAAgent, play_qlearning
 
-
+'''
+不同GPU功耗（以占有率作为指标）/时延（以API的起始时间为指标）为不同条件
+比较不同调度算法下进行对比，进行可视化
+'''
 
 print('-'*20, 'step 0')
 env = gym.make("Taxi-v3")
