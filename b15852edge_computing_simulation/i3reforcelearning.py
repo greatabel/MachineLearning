@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import time
 
 from i1heuristic_algorithm import SARSAAgent, play_sarsa
+from i2Qlearning import ExpectedSARSAAgent, play_qlearning
+
 
 
 print('-'*20, 'step 0')
@@ -51,15 +53,15 @@ print('启发式算法模拟')
 agent = SARSAAgent(env)
 
 # 训练
-episodes = 300
+episodes = 5000
 episode_rewards = []
 for episode in range(episodes):
     episode_reward = play_sarsa(env, agent, train=True)
     episode_rewards.append(episode_reward)
     
 plt.plot(episode_rewards)
-plt.show()
-
+plt.savefig('i1sars.png')
+plt.clf()
 # 测试
 agent.epsilon = 0. # 取消探索
 
@@ -67,3 +69,24 @@ episode_rewards = [play_sarsa(env, agent) for _ in range(100)]
 print('平均回合奖励 = {} / {} = {}'.format(sum(episode_rewards),
         len(episode_rewards), np.mean(episode_rewards)))
 
+
+print('--------------------', 'step 4')
+print('QLearning算法模拟')
+agent = ExpectedSARSAAgent(env)
+
+# 训练
+episodes = 5000
+episode_rewards = []
+for episode in range(episodes):
+    episode_reward = play_qlearning(env, agent, train=True)
+    episode_rewards.append(episode_reward)
+    
+plt.plot(episode_rewards)
+plt.savefig('i2qlearning.png')
+
+# 测试
+agent.epsilon = 0. # 取消探索
+
+episode_rewards = [play_qlearning(env, agent) for _ in range(100)]
+print('平均回合奖励 = {} / {} = {}'.format(sum(episode_rewards),
+        len(episode_rewards), np.mean(episode_rewards)))
