@@ -60,7 +60,8 @@ for episode in range(episodes):
     episode_rewards.append(episode_reward)
     
 plt.plot(episode_rewards)
-plt.savefig('i1sars.png')
+plt.savefig('i1heuristic_algorithm.png')
+#清理绘图为下一个算法做准备
 plt.clf()
 # 测试
 agent.epsilon = 0. # 取消探索
