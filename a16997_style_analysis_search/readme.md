@@ -31,13 +31,12 @@ http://localhost:5000/picture_search
 自己也可以正常注册
 
 7.
-下载 vgg16_weights_tf_dim_ordering_tf_kernels.h5
-到 ~/.keras/models/ 目录（mac/linux路径如下）
--(具体参考 https://keras.io/zh/applications/ )
--
+访问：http://127.0.0.1:5000/home
 
-8.
-如果想自己训练以图搜图：(在安装有库的环境或者虚拟环境)
-图片自己根据分类放在static/image/source下 ，修改图片名称，根据已有图片分类
-python3 i1offine_train.py
-
+输入: 
+featherlite ladies long sleeve stain  
+womens unique 100 cotton
+featherlite ladies moisture
+american rag ceramic v neck top size
+...
+之类进行搜索

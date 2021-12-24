@@ -19,14 +19,14 @@ from flask_cors import CORS
 from movie import create_app
 
 import numpy as np
-import pandas as pd
-
 from PIL import Image
-from feature_extractor import FeatureExtractor
 from datetime import datetime
 
 from pathlib import Path
 
+
+import numpy as np
+import pandas as pd
 
 # from movie.domain.model import Director, Review, Movie
 
@@ -38,61 +38,54 @@ app.secret_key = "ABCabc123"
 app.debug = True
 CORS(app)
 # --- total requirement ----
-# Read image features
-fe = FeatureExtractor()
-features = []
-img_paths = []
-for feature_path in Path("movie/static/feature").glob("*.npy"):
-    features.append(np.load(feature_path, allow_pickle=True))
-    img_paths.append(Path("static/img") / (feature_path.stem + ".jpg"))
-features = np.array(features)
 
 
-@app.route("/picture_search", methods=["GET", "POST"])
-def picture_search():
-    if request.method == "POST":
-        file = request.files["query_img"]
 
-        # Save query image
-        img = Image.open(file.stream)  # PIL image
-        uploaded_img_path = (
-            "movie/static/uploaded/"
-            + datetime.now().isoformat().replace(":", ".")
-            + "_"
-            + file.filename
-        )
-        img.save(uploaded_img_path)
+# @app.route("/picture_search", methods=["GET", "POST"])
+# def picture_search():
+#     if request.method == "POST":
+#         file = request.files["query_img"]
 
-        # Run search
-        query = fe.extract(img)
-        dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
-        ids = np.argsort(dists)[:3]  # Top 10 likely
-        # print('ids=', ids)
-        # print(np.array(img_paths)[ids])
-        scores = [(dists[id], img_paths[id]) for id in ids]
-        print("scores====", scores)
+#         # Save query image
+#         img = Image.open(file.stream)  # PIL image
+#         uploaded_img_path = (
+#             "movie/static/uploaded/"
+#             + datetime.now().isoformat().replace(":", ".")
+#             + "_"
+#             + file.filename
+#         )
+#         img.save(uploaded_img_path)
 
-        mysum = 0
-        for score in scores:
-            s = score[0]
-            print(s, 1 / s ** 5)
-            mysum += 1 / s ** 5
-        print("mysum=", mysum)
-        for i in range(0, 3):
-            s = scores[i][0]
-            p = (1 / s ** 5) / mysum
-            p = round(p, 2) * 100
+#         # Run search
+#         query = fe.extract(img)
+#         dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
+#         ids = np.argsort(dists)[:3]  # Top 10 likely
+#         # print('ids=', ids)
+#         # print(np.array(img_paths)[ids])
+#         scores = [(dists[id], img_paths[id]) for id in ids]
+#         print("scores====", scores)
 
-            print("-" * 10, p)
-            scores[i] = list(scores[i])
-            scores[i][0] = p
-            scores[i] = tuple(scores[i])
+#         mysum = 0
+#         for score in scores:
+#             s = score[0]
+#             print(s, 1 / s ** 5)
+#             mysum += 1 / s ** 5
+#         print("mysum=", mysum)
+#         for i in range(0, 3):
+#             s = scores[i][0]
+#             p = (1 / s ** 5) / mysum
+#             p = round(p, 2) * 100
 
-        uploaded_img_path = uploaded_img_path.replace("movie/", "")
-        print("uploaded_img_path", uploaded_img_path)
-        return rt("picture_search.html", query_path=uploaded_img_path, scores=scores)
-    else:
-        return rt("picture_search.html")
+#             print("-" * 10, p)
+#             scores[i] = list(scores[i])
+#             scores[i][0] = p
+#             scores[i] = tuple(scores[i])
+
+#         uploaded_img_path = uploaded_img_path.replace("movie/", "")
+#         print("uploaded_img_path", uploaded_img_path)
+#         return rt("picture_search.html", query_path=uploaded_img_path, scores=scores)
+#     else:
+#         return rt("picture_search.html")
 
 
 @app.route("/recommend", methods=["GET", "POST"])
@@ -203,7 +196,8 @@ class PageResult:
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
     print("home " * 10)
-    blogs = Blog.query.all()
+    # blogs = Blog.query.all()
+    blogs = []
     user = None
     if "userid" in session:
         user = User.query.filter_by(id=session["userid"]).first()
@@ -214,22 +208,32 @@ def home(pagenum=1):
         search_list = []
         keyword = request.form["keyword"]
         print("keyword=", keyword, "-" * 10)
+        data = pd.read_pickle('part_data_preprocessed')
+        print(len(data), 'part_data_preprocessed', '#'*20)
+
         if keyword is not None:
-            for movie in notice_list:
-                if movie.director.director_full_name == keyword:
-                    search_list.append(movie)
+            for index, row in data[0:1000].iterrows():
+                print(row["title"],  row["medium_image_url"], row["formatted_price"])
+                if keyword in row["title"]:
+                    title = row["title"] + " #price:" + row["formatted_price"]
+                    blog = Blog(title=title, text=row["medium_image_url"])
+                    if len(search_list) < 3:
+                        search_list.append(blog)
+            # for movie in notice_list:
+            #     if movie.director.director_full_name == keyword:
+            #         search_list.append(movie)
 
-                for actor in movie.actors:
-                    if actor.actor_full_name == keyword:
-                        search_list.append(movie)
-                        break
+                # for actor in movie.actors:
+                #     if actor.actor_full_name == keyword:
+                #         search_list.append(movie)
+                #         break
 
-                for gene in movie.genres:
-                    if gene.genre_name == keyword:
-                        search_list.append(movie)
-                        break
+                # for gene in movie.genres:
+                #     if gene.genre_name == keyword:
+                #         search_list.append(movie)
+                #         break
         print("search_list=", search_list, "#" * 5)
-        return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
+        return rt("home.html", listing=PageResult(search_list, pagenum, 3), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
