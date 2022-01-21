@@ -240,7 +240,7 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
         #天蓝色
         bcolor =(0, 255, 255)
         if scores.flat[i] > 0.41:
-            
+            all_false_flag = True
             warning_signal = 'without-hat-in-area'
             
             cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
