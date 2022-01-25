@@ -9,7 +9,7 @@ from IPython.display import display
 
 print("1.", "------------------------", "\n")
 v_hungry, v_full = symbols("v_hungry v_full")
-print(v_hungry, v_full)
+print("v_hungry, v_full=", v_hungry, v_full)
 
 
 q_hungry_eat, q_hungry_none, q_full_eat, q_full_none = symbols(
@@ -28,6 +28,10 @@ system = sympy.Matrix(
         (0, -gamma, 0, 0, 0, 1, 1),
     )
 )
+
+print("2.", "------------------------", "\n")
+print('system=', system)
+
 sympy.solve_linear_system(
     system, v_hungry, v_full, q_hungry_none, q_hungry_eat, q_full_none, q_full_eat
 )
