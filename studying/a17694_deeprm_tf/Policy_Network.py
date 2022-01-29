@@ -29,9 +29,7 @@ class PolicyGradient:
         self.saver = tf.train.Saver()
 
         if output_graph:
-            # $ tensorboard --logdir=logs
-            # http://0.0.0.0:6006/
-            # tf.train.SummaryWriter soon be deprecated, use following
+
             tf.summary.FileWriter("logs/", self.sess.graph)
 
         self.sess.run(tf.global_variables_initializer())
@@ -55,42 +53,35 @@ class PolicyGradient:
                 ],
                 name="actions_value",
             )
-        # fc1
+        # 构建传入数据第1层
         layer = tf.layers.dense(
             inputs=self.tf_obs,
             units=10,
             activation=tf.nn.tanh,  # tanh activation
             kernel_initializer=tf.random_normal_initializer(mean=0, stddev=0.3),
             bias_initializer=tf.constant_initializer(0.1),
-            # name='fc1'
+
         )
-        # fc2
+        # 构建传入数据第2层
         all_act = tf.layers.dense(
             inputs=layer,
             units=self.n_actions,
             activation=None,
             kernel_initializer=tf.random_normal_initializer(mean=0, stddev=0.3),
             bias_initializer=tf.constant_initializer(0.1),
-            # name='fc2'
-        )
 
+        )
+        # 使用softmax转换为概率
         self.all_act_prob = tf.nn.softmax(
             all_act, name="act_prob"
-        )  # use softmax to convert to probability
+        )  
 
         with tf.name_scope("loss"):
-            # to maximize total reward (log_p * R) is to minimize -(log_p * R), and the tf only have minimize(loss)
+            # 最大化总奖励（log_p * R）是最小化-（log_p * R），并且tf只有minimize（loss）
             neg_log_prob = tf.nn.sparse_softmax_cross_entropy_with_logits(
                 logits=all_act, labels=self.tf_acts
-            )  # this is negative log of chosen action
-            # or in this way:
-            # neg_log_prob = tf.reduce_sum(-tf.log(self.all_act_prob)*tf.one_hot(self.tf_acts, self.n_actions), axis=1)
-            # self.log = -tf.log(self.all_act_prob)
-            # self.one_hot = tf.one_hot(self.tf_acts, self.n_actions)
-            # self.reduce_sum = self.log * self.one_hot
-            # self.neg_log_prob = tf.reduce_sum(self.reduce_sum, axis=1)
-            # self.mean = self.neg_log_prob * self.tf_vt
-            # self.loss = tf.reduce_mean(self.mean)  # reward guided loss
+            )  
+
             self.loss = tf.reduce_mean(neg_log_prob * self.tf_vt)  # reward guided loss
 
         with tf.name_scope("train"):
@@ -100,9 +91,10 @@ class PolicyGradient:
         prob_weights = self.sess.run(
             self.all_act_prob, feed_dict={self.tf_obs: observation}
         )
+        # 选择动作 w.r.t 动作概率
         action = np.random.choice(
             range(prob_weights.shape[1]), p=prob_weights.ravel()
-        )  # select action w.r.t the actions prob
+        )  
         return action
 
     def store_ob(self, s):
@@ -115,23 +107,11 @@ class PolicyGradient:
         self.ep_rs.append(r)
 
     def learn(self, all_ob, all_action, all_adv):
-        # discount and normalize episode reward
-        # discounted_ep_rs_norm = self._discount_and_norm_rewards()
 
-        # train on episode
-        # _, loss, log, one_hot, reduce_sum, neg_log_prob, mean = self.sess.run([self.train_op, self.loss,
-        # self.log,
-        # self.one_hot,
-        # self.reduce_sum,
-        # self.neg_log_prob,
-        # self.mean],
-        # feed_dict={
         _, loss = self.sess.run(
             [self.train_op, self.loss],
             feed_dict={
-                # self.tf_obs: np.vstack(self.ep_obs),  # shape=[None, n_obs]
-                # self.tf_acts: np.array(self.ep_as),  # shape=[None, ]
-                # self.tf_vt: discounted_ep_rs_norm,  # shape=[None, ]
+
                 self.tf_obs: np.array(all_ob),  # shape=[None, n_obs]
                 self.tf_acts: np.array(all_action),  # shape=[None, ]
                 self.tf_vt: np.array(all_adv),  # shape=[None, ]
@@ -142,18 +122,10 @@ class PolicyGradient:
         return loss
 
     def _discount_and_norm_rewards(self):
-        # discount episode rewards
-        # discounted_ep_rs = np.zeros_like(self.ep_rs)
+
         discounted_ep_rs = np.fabs(np.array(self.ep_rs))
 
-        # running_add = 0
-        # for t in reversed(range(0, len(self.ep_rs))):
-        # running_add = running_add * self.gamma + self.ep_rs[t]
-        # discounted_ep_rs[t] = running_add
 
-        # normalize episode rewards
-        # discounted_ep_rs -= np.mean(discounted_ep_rs)
-        # discounted_ep_rs /= np.std(discounted_ep_rs)
         return discounted_ep_rs
 
     def save_data(self, pg_resume):
