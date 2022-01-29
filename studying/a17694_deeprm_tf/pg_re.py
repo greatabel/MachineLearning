@@ -334,7 +334,6 @@ def launch(pa, pg_resume=None, render=False, repre="image", end="no_new_job"):
 
                 ex_counter = 0
 
-
         timer_end = time.time()
 
         print("-----------------")
@@ -362,7 +361,7 @@ def launch(pa, pg_resume=None, render=False, repre="image", end="no_new_job"):
             pa.unseen = True
 
             pa.unseen = False
-            print('real test on real data', '-'*20)
+            print("real test on real data", "-" * 20)
 
             plot_lr_curve(
                 pa.output_filename,

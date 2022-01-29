@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+
 np.random.seed(1)
 tf.set_random_seed(1)
 
@@ -18,7 +19,7 @@ class PolicyGradient:
         self.n_actions = n_actions
         self.n_features = n_features
         self.lr = learning_rate
-        self.gamma = 0.95
+        self.gamma = 0.96
 
         self.ep_obs, self.ep_as, self.ep_rs = [], [], []
 
@@ -59,7 +60,6 @@ class PolicyGradient:
             activation=tf.nn.tanh,  # tanh activation
             kernel_initializer=tf.random_normal_initializer(mean=0, stddev=0.3),
             bias_initializer=tf.constant_initializer(0.1),
-
         )
         # 构建传入数据第2层
         all_act = tf.layers.dense(
@@ -68,18 +68,15 @@ class PolicyGradient:
             activation=None,
             kernel_initializer=tf.random_normal_initializer(mean=0, stddev=0.3),
             bias_initializer=tf.constant_initializer(0.1),
-
         )
         # 使用softmax转换为概率
-        self.all_act_prob = tf.nn.softmax(
-            all_act, name="act_prob"
-        )  
+        self.all_act_prob = tf.nn.softmax(all_act, name="act_prob")
 
         with tf.name_scope("loss"):
             # 最大化总奖励（log_p * R）是最小化-（log_p * R），并且tf只有minimize（loss）
             neg_log_prob = tf.nn.sparse_softmax_cross_entropy_with_logits(
                 logits=all_act, labels=self.tf_acts
-            )  
+            )
 
             self.loss = tf.reduce_mean(neg_log_prob * self.tf_vt)  # reward guided loss
 
@@ -91,9 +88,7 @@ class PolicyGradient:
             self.all_act_prob, feed_dict={self.tf_obs: observation}
         )
         # 选择动作 w.r.t 动作概率
-        action = np.random.choice(
-            range(prob_weights.shape[1]), p=prob_weights.ravel()
-        )  
+        action = np.random.choice(range(prob_weights.shape[1]), p=prob_weights.ravel())
         return action
 
     def store_ob(self, s):
@@ -110,7 +105,6 @@ class PolicyGradient:
         _, loss = self.sess.run(
             [self.train_op, self.loss],
             feed_dict={
-
                 self.tf_obs: np.array(all_ob),  # shape=[None, n_obs]
                 self.tf_acts: np.array(all_action),  # shape=[None, ]
                 self.tf_vt: np.array(all_adv),  # shape=[None, ]
@@ -123,7 +117,6 @@ class PolicyGradient:
     def _discount_and_norm_rewards(self):
 
         discounted_ep_rs = np.fabs(np.array(self.ep_rs))
-
 
         return discounted_ep_rs
 
