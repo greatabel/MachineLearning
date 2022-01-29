@@ -1,3 +1,8 @@
+# 新修改运行：
+python3 launcher.py --exp_type=pg_re --simu_len=5 --num_ex=10 --ofile=data/pg_re --out_freq=10
+
+# 旧readme.md
+
 # DeepRM
 HotNets'16 http://people.csail.mit.edu/hongzi/content/publications/DeepRM-HotNets16.pdf
 
@@ -63,3 +68,4 @@ Example:
   ```
   python launcher.py --exp_type=test --simu_len=50 --num_ex=10 --pg_re=data/pg_re_1600.pkl --unseen=True
   ```
+

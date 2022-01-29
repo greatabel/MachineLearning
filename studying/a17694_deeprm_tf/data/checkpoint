@@ -1,0 +1,6 @@
+model_checkpoint_path: "pg_re_200.ckpt"
+all_model_checkpoint_paths: "pg_re_160.ckpt"
+all_model_checkpoint_paths: "pg_re_170.ckpt"
+all_model_checkpoint_paths: "pg_re_180.ckpt"
+all_model_checkpoint_paths: "pg_re_190.ckpt"
+all_model_checkpoint_paths: "pg_re_200.ckpt"
