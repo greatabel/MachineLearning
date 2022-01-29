@@ -201,7 +201,7 @@ def main():
     pa.new_job_rate = 0.3
     pa.discount = 1
 
-    pa.episode_max_length = 20000  # 2000
+    pa.episode_max_length = 2000  # 2000
 
     pa.compute_dependent_parameters()
 
