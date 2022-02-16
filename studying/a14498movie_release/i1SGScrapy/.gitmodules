@@ -1,4 +1,0 @@
-[submodule "twint"]
-	path = twint
-	url = https://github.com/greatabel/twint
-	branch = master
