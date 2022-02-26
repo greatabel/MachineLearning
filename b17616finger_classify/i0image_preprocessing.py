@@ -16,7 +16,7 @@ for filename in os.listdir(path_s):
     # file_path =  path_n + '/' +filename
     # print(file_path)
     im = cv2.imread(file_path)
-    # 截取需要的部分，排除干扰，去掉指甲部分，去掉背景黑色部分，只留下静脉区
+    # 截取需要的部分，排除干扰，去掉指甲部分，去掉背景黑色部分，只留下静脉区值得分析的
     im_0 = im[180:310, 0:600]
     print(im.shape, "#", im_0.shape)
 

@@ -11,7 +11,7 @@ save_path = "data"
 
 demo_path = "data/train/s/1_右食指_u_b_20210416081256.bmp"
 
-img_size = 150
+
 labels = ["n", "s"]
 
 
@@ -69,6 +69,17 @@ show_threshold(gray, 140)
 
 # Otsu 的方法用于执行自动图像阈值处理。 在最简单的形式中，
 # 该算法返回一个单一的强度阈值，将像素分为前景和背景两类。
+'''
+在计算机视觉和图像处理中，大津二值化法用来自动对基于聚类的图像进行二值化，[1] 或者说，
+将一个灰度图像退化为二值图像。该算法以大津展之命名。算法假定该图像根据双模直方图（前景像素和背景像素）把包含两类像素，
+于是它要计算能将两类分开的最佳阈值，使得它们的类内方差最小；由于两两平方距离恒定，
+所以即它们的类间方差最大。[2] 因此，大津二值化法粗略的来说就是一维Fisher判别分析的离散化模拟。
+
+原始方法的多级阈值扩展称为多大津算法
+
+理解和原理写入论文，可以看： https://zhuanlan.zhihu.com/p/95034826
+
+'''
 value, img_otsu = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 plt.imshow(cv2.cvtColor(img_otsu, cv2.COLOR_BGR2RGB), cmap='gray')
 plt.title(f"Otsu's method")

@@ -7,6 +7,10 @@ from matplotlib import pyplot as plt
 
 labels = ["n", "s"]
 
+'''
+加载数据集到numpy中
+
+'''
 def get_training_data(data_dir):
     data = list()
     for label in labels:
