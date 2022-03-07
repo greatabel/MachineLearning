@@ -78,7 +78,8 @@ def rel_change(a, b):
    print(x)
    return x
  
-def main(videopath):
+def main(movie_name):
+    videopath = 'demo_video/'+ movie_name + '.mp4'
     print(sys.executable)
     #Setting fixed threshold criteria
     USE_THRESH = False
@@ -94,7 +95,7 @@ def main(videopath):
     #Video path of the source file
     # videopath = 'demo_video/blue_earth2.mp4'
     #Directory to store the processed frames
-    dir = 'extract_result/'
+    dir = 'movie/static/img/source/'
     #smoothing window size
     len_window = int(50)
     
@@ -149,7 +150,7 @@ def main(videopath):
         # plt.locator_params(numticks=100)
         plt.locator_params(axis='both', nbins=10)
         plt.stem(sm_diff_array)
-        plt.savefig(dir + 'plot.png')
+        plt.savefig(dir + movie_name + '_plot.png')
     
     # save all keyframes as image
     cap = cv2.VideoCapture(str(videopath))
@@ -159,7 +160,7 @@ def main(videopath):
     idx = 0
     while(success):
         if idx in keyframe_id_set:
-            name = "keyframe_" + str(idx) + ".jpg"
+            name = movie_name +"_keyframe_" + str(idx) + ".jpg"
             cv2.imwrite(dir + name, frame)
             keyframe_id_set.remove(idx)
         idx = idx + 1
@@ -167,4 +168,5 @@ def main(videopath):
     cap.release()
 
 if __name__ == "__main__":
-    main( 'demo_video/blue_earth2.mp4')
+
+    main('blue_earth2')

@@ -1,9 +1,9 @@
 """Flask configuration variables."""
 from os import environ, path, getenv
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Load environment variables from file .env, stored in this directory.
-load_dotenv()
+#load_dotenv()
 
 
 class Config:
