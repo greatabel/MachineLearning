@@ -27,6 +27,7 @@ from pathlib import Path
 
 import i2keyframes_extract_diff 
 import i1offline_train
+from pathlib import Path
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -499,6 +500,21 @@ def student_work():
 @app.route("/student_index", methods=["GET"])
 def student_index():
     return rt("student_index.html")
+
+
+@app.route("/show_keyframes", methods=["POST"])
+def show_keyframes():
+
+    title = request.form.get("title")
+    print("show_keyframes", "#" * 20, title, "@" * 20)
+    # return rt("show_keyframes.html", blogs=blogs)
+    image_paths = []
+    source_image_folder = "movie/static/img/source"
+    for img_path in sorted(Path(source_image_folder).glob(title+"*.jpg")):
+        img_path1 = str(img_path).replace("movie/", "")
+        image_paths.append(img_path1)
+        print(img_path1, '@'*10)  # e.g., ./static/img/xxx.jpg
+    return rt("show_keyframes.html",image_paths=image_paths)
 
 
 @app.route("/", methods=["GET"])
