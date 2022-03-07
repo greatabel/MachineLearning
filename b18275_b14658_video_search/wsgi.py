@@ -25,7 +25,7 @@ from datetime import datetime
 
 from pathlib import Path
 
-
+import i2keyframes_extract_diff 
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -500,9 +500,9 @@ def student_index():
     return rt("student_index.html")
 
 
-# @app.route("/", methods=["GET"])
-# def index():
-#     return rt("index.html")
+@app.route("/", methods=["GET"])
+def index():
+    return rt("index.html")
 
 
 @app.route("/file/upload", methods=["POST"])
@@ -534,7 +534,10 @@ def upload_success():  # 按序读出分片内容，并写入新文件
 
             chunk += 1
             os.remove(filename)  # 删除该分片，节约空间
-
+    print('1.upload_success target_filename ====>', target_filename)
+    video_name = target_filename[:target_filename.index(".")]
+    print(video_name)
+    i2keyframes_extract_diff.main(video_name)
     return rt("index.html")
 
 

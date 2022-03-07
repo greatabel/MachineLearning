@@ -31,7 +31,12 @@
 import cv2
 import operator
 import numpy as np
+
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
+# import matplotlib.pyplot as plt
 import sys
 from scipy.signal import argrelextrema
 
@@ -79,7 +84,11 @@ def rel_change(a, b):
    return x
  
 def main(movie_name):
-    videopath = 'demo_video/'+ movie_name + '.mp4'
+    # 测试模块时候使用
+    # videopath = 'demo_video/'+ movie_name + '.mp4'
+
+    # 实际网站环境使用
+    videopath = 'upload/'+ movie_name + '.mp4'
     print(sys.executable)
     #Setting fixed threshold criteria
     USE_THRESH = False
