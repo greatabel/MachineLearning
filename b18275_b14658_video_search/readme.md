@@ -30,11 +30,13 @@ http://localhost:5000/home
 默认账号 greatabel1@126.com ps:abel
 自己也可以正常注册
 
-7.
+mock账号 jack@126.com ps:jack 可以用来测试协同推荐
+
+<!-- 7.
 如果想自己训练以图搜图：(在安装有库的环境或者虚拟环境)
 python3 i1offine_train.py
 
 8.
 协同推荐也可以自己重新训练,自己运行
 moive/adapter/collaborative_filtering.py
-数据集你也可以自己添加到ml-1m
+数据集你也可以自己添加到ml-1m -->

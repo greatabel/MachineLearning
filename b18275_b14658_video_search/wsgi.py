@@ -28,6 +28,11 @@ from pathlib import Path
 import i2keyframes_extract_diff 
 import i1offline_train
 from pathlib import Path
+import recommandation
+
+import jellyfish
+from random import randint
+
 # from movie.domain.model import Director, Review, Movie
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -78,17 +83,46 @@ def picture_search():
     else:
         return rt("picture_search.html")
 
-@app.route("/recommend", methods=["GET", "POST"])
+@app.route("/recommend", methods=["GET", "DELETE"])
 def recommend():
-    choosed = []
-    with open('recommend.txt') as f:
-        choosed = f.readlines()
-    print(choosed)
-    return rt(
-        'recommend.html',
-        choosed=choosed
-        
-    )
+    """
+    查询社团详情、删除社团
+    """
+    if request.method == "GET":
+
+        id = session["userid"]
+        # 到数据库查询电影详情
+        user = User.query.filter_by(id=id).first_or_404()
+
+        print(user.username, user.password, "#" * 5, user.nickname)
+        choosed = recommandation.main(user.nickname)
+        # choosed = recommandation.main('jack')
+        print("给予离线交互数据进行协同推荐算法")
+        print(choosed, "#" * 20)
+
+        print("给予离线交互数据进行内容推荐算法")
+        content_choices = ['Big_Cats', 'hunt', 'The Batman','blue_earthII', 'The_Blue_Planet', "The King's Man"]
+        source_image_folder = "upload"
+        for video_path in sorted(Path(source_image_folder).glob("*.mp4")):
+            video_path1 = str(video_path).replace("upload/", "").replace(".mp4", "")
+            print(video_path1, '#video_path#')
+            for tname in content_choices:
+                c1 = jellyfish.jaro_distance(video_path1, tname)
+                if c1 > 0.75:
+                    print(video_path1, tname,c1, '>0.75')
+                    if tname not in choosed:
+                        choosed.append(tname)
+        for i in range(2):
+            num = randint(0,len(content_choices)-1)
+            choice = content_choices[num]
+            if choice not in choosed:
+                print('choice:', choice)
+                choosed.append(choice)
+
+
+
+
+        return rt("recommend.html", choosed=choosed, username=user.nickname)
 
 
 # ---start  数据库 ---
@@ -590,7 +624,7 @@ def file_download(filename):
 def custom_static(filename):
     print("#" * 20, filename, " in custom_static", app.root_path)
     return send_from_directory(
-        "/Users/abel/Downloads/AbelProject/FlaskRepository/b13596campus_navigation/upload/",
+        "/Users/abel/AbelProject/MachineLearning/b18275_b14658_video_search/upload/",
         filename,
     )
 

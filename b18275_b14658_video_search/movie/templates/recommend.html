@@ -96,7 +96,7 @@ div[class*="release_year"] {
 
         <!-- <img src="/static/images/demo.png" class="img-fluid" > -->
         Accoriding to data above, 
-        We recommend for user[Toby] such movie according by <b>Collaborative Filtering Algorithm</b>:
+        We recommend for user[ {{ username }} ] such movie according by <b>Collaborative Filtering Algorithm and Content Algorithm</b>:
 
                  
 
@@ -113,7 +113,9 @@ div[class*="release_year"] {
         <div class="col-md-12">
         <span>{{ c|safe }}</span> 
         
-     
+           <figure>
+          <img src="/static/recommend/{{ c }}.png" class="img-fluid" style="height:350px;width:250px;">
+        </figure>
             <div name="title"> </div>  
           
          </div>
@@ -126,13 +128,11 @@ div[class*="release_year"] {
     <div class="container">
       <div class="row">
 
-          {% for r in [0, 1, 2, 3, 4] %}
+          {% for c in choosed %}
 
         <div class="col-md-4">
  
-        <figure>
-          <img src="/static/recommend/{{ r }}.png" class="img-fluid" style="height:150px;width:100px;">
-        </figure>
+  
             <div name="title"> </div>  
 
         </div>
