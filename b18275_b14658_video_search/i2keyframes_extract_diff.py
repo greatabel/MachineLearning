@@ -31,7 +31,8 @@
 import cv2
 import operator
 import numpy as np
-
+# 这块必须如此
+# https://stackoverflow.com/questions/49921721/runtimeerror-main-thread-is-not-in-main-loop-with-matplotlib-and-flask
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt

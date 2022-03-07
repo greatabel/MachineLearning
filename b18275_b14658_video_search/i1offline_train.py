@@ -3,7 +3,8 @@ from feature_extractor import FeatureExtractor
 from pathlib import Path
 import numpy as np
 
-if __name__ == "__main__":
+
+def  main():
     fe = FeatureExtractor()
 
     source_image_folder = "movie/static/img/source"
@@ -14,3 +15,6 @@ if __name__ == "__main__":
             img_path.stem + ".npy"
         )  # e.g., ./static/feature/xxx.npy
         np.save(feature_path, feature)
+
+if __name__ == "__main__":
+    main()
