@@ -13,7 +13,7 @@ def jobone():
     c.Search = "London Eye"
     # c.Search = "#eth"
     # choose beginning time (narrow results)
-    c.Since = "2021-01-01"
+    c.Since = "2022-01-01"
     # set limit on total tweets
     c.Limit = 1000
     # no idea, but makes the csv format properly
