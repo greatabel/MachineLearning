@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 
 
 labels = ["n", "s"]
+mysize = 130
 
 '''
 加载数据集到numpy中
@@ -19,7 +20,7 @@ def get_training_data(data_dir):
         for img in os.listdir(path):
             try:
                 img_arr = cv2.imread(os.path.join(path, img), cv2.IMREAD_GRAYSCALE)
-                # resized_arr = cv2.resize(img_arr, (img_size, img_size))
+                resized_arr = cv2.resize(img_arr, (mysize, mysize))
                 data.append([img_arr, class_num])
                 # data.append([resized_arr, class_num])
             except Exception as e:

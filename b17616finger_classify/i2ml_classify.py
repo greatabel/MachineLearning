@@ -8,11 +8,11 @@ from common import get_training_data
 
 save_path = "data"
 
-demo_path = "data/train/s/1_右食指_u_b_20210416081256.bmp"
+demo_path = "data/train/s/1_右食指_u_b_20210416081253.bmp"
 
 
 labels = ["n", "s"]
-
+mysize = 130
 
 def cross_validation(dataset):
     X_, y_= list(), list()
@@ -69,7 +69,7 @@ def get_model(img_size):
 def get_callback():
     callbacks_list = [
             keras.callbacks.ModelCheckpoint(
-                filepath='lstmchar256256128test.h5',
+                filepath='test.h5',
                 monitor='val_loss',
                 save_best_only=True
             ),
@@ -94,8 +94,8 @@ X_test, y_test = cross_validation(test)
 X_train = normalize(X_train)
 X_test = normalize(X_test)
 
-X_train, y_train = reshape(X_train, y_train, (130, 130))
-X_test, y_test = reshape(X_test, y_test, (130, 130))
+X_train, y_train = reshape(X_train, y_train, (mysize, mysize))
+X_test, y_test = reshape(X_test, y_test, (mysize, mysize))
 
 datagenerator = data_argumentation(None)
 datagenerator.fit(X_train)
