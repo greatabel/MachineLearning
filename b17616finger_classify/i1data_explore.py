@@ -19,13 +19,24 @@ from common import get_training_data
 # mysize = 145
 
 # ----------- 性别设置 -----------
-save_path = "data_gender"
+# save_path = "data_gender"
 
-demo_path = save_path + "/train/female/1_右食指_u_b_20210416081253.bmp"
+# demo_path = save_path + "/train/female/1_右食指_u_b_20210416081253.bmp"
 
-labels = ["male", "female"]
+# labels = ["male", "female"]
+
+# mysize = 145
+
+# ----------- 民族设置 -----------
+save_path = "data_nationality"
+
+demo_path = save_path + "/train/han/17_右食指_u_b_20210418094411.bmp"
+
+labels = ["han", "tibetan"]
 
 mysize = 145
+
+# -------- end of setting -----
 
 
 train = get_training_data(save_path + "/train",labels, mysize)
