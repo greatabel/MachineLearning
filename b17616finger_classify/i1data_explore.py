@@ -7,16 +7,29 @@ from matplotlib import pyplot as plt
 
 from common import get_training_data
 
-save_path = "data"
+# ----------- 地域设置 -----------
 
-demo_path = "data/train/s/1_右食指_u_b_20210416081256.bmp"
+# save_path = "data"
+
+# demo_path = "data/train/s/1_右食指_u_b_20210416081256.bmp"
 
 
-labels = ["n", "s"]
+# labels = ["n", "s"]
+
+# mysize = 145
+
+# ----------- 性别设置 -----------
+save_path = "data_gender"
+
+demo_path = save_path + "/train/female/1_右食指_u_b_20210416081253.bmp"
+
+labels = ["male", "female"]
+
+mysize = 145
 
 
-train = get_training_data(save_path + "/train")
-test = get_training_data(save_path + "/test")
+train = get_training_data(save_path + "/train",labels, mysize)
+test = get_training_data(save_path + "/test", labels, mysize)
 print(f"Train: {len(train)}, Test: {len(test)}")
 
 

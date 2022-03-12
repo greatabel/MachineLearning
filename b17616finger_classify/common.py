@@ -5,8 +5,8 @@ import pandas as pd
 from matplotlib import pyplot as plt
 
 
-labels = ["n", "s"]
-mysize = 145
+# labels = ["n", "s"]
+# mysize = 145
 
 
 """
@@ -15,7 +15,7 @@ mysize = 145
 """
 
 
-def get_training_data(data_dir):
+def get_training_data(data_dir, labels, mysize):
     data = list()
     for label in labels:
         path = os.path.join(data_dir, label)
