@@ -26,3 +26,12 @@ python3 i0image_preprocessing.py
 6.
 进行数据探索和展示
 python3 i1data_explore.py
+
+7.
+进行数据深度学习训练分类
+python3 i2ml_classify.py
+
+8.
+(可选)
+对预测结果进行可视化比较
+python3 i3result_to_img.py
