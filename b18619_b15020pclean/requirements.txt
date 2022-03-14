@@ -1,4 +1,5 @@
 termcolor
 numpy
 pandas
-libpgm
+pgmpy==0.1.13
+graphviz==0.19.1
