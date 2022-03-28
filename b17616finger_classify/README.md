@@ -35,3 +35,7 @@ python3 i2ml_classify.py
 (可选)
 对预测结果进行可视化比较
 python3 i3result_to_img.py
+
+8.
+查看残差深度神经网络的工程可以，另外新建一个窗口，然后执行：
+jupyter notebook i4ml_calassify_finger_resnets.ipynb
