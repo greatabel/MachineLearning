@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 
 
 names = ["img-processing", "cnn", "morphological-CNN-combine"]
+names = [ "morphological-CNN-combine", "finger_restnet"]
 # values = [87, 92, 95]
 # gender
 # values = [54, 55, 67]
 # nationality
-values = [76, 75, 80]
+values = [69, 73]
 
 plt.figure(figsize=(9, 3))
 
