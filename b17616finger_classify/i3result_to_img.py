@@ -2,13 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-names = ["img-processing", "cnn", "morphological-CNN-combine"]
-names = [ "morphological-CNN-combine", "finger_restnet"]
+names = ["hua-n", "hua-s", "hua-middle", "hua-east"]
+# names = [ "morphological-CNN-combine", "finger_restnet"]
 # values = [87, 92, 95]
 # gender
 # values = [54, 55, 67]
 # nationality
-values = [69, 73]
+values = [69, 73, 74, 68]
 
 plt.figure(figsize=(9, 3))
 
@@ -22,6 +22,6 @@ plt.plot(names, values)
 
 # plt.suptitle("area accuracy compare")
 # plt.suptitle("gender accuracy compare")
-plt.suptitle("nationality accuracy compare")
+plt.suptitle("subdivision accuracy")
 
 plt.show()

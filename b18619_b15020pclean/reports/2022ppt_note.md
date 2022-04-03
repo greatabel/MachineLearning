@@ -34,6 +34,12 @@ TfidfVectorizer背后调用的cosine_similarity就是计算L2归一化的向量�
 具体可以看：
 https://stackoverflow.com/questions/12118720/python-tf-idf-cosine-to-find-document-similarity
 
+
+12图：
+12页图的数字：cluster_centers_：向量，[n_clusters, n_features]
+Coordinates of cluster centers (每个簇中心的坐标），数学角度就是斜方差矩阵
+
+
 scikit-learn 是一个基于Python的Machine Learning模块，
 里面给出了很多Machine Learning相关的算法实现，其中就包括K-Means算法。
 在做K-Means聚类之前，我们首先需要对将文本转化成向量的形式，转换文本的第一步，自然是分词，

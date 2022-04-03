@@ -5,10 +5,11 @@ import cv2
 # ------------  地域预处理 ------------
 
 # path_n = "orignal_data/n/1/指背"
-path_s = "original_data_area_segmentation/hua_s"
+# path_s = "original_data_area_segmentation/hua_s"
+path_s = "original_data_area_segmentation2/hua_z"
 
 # save_path = "data/n"
-save_path = "data_area_segmentation/s"
+save_path = "data_area_segmentation2/s"
 
 for filename in os.listdir(path_s):
     # for filename in os.listdir(path_n):
