@@ -10,3 +10,13 @@ __pycache__/
 university_counselor/b13854_NLP/data/
 
 data/
+
+university_counselor/b17616finger_classify/data_area_segmentation/
+university_counselor/b17616finger_classify/data_gender/
+university_counselor/b17616finger_classify/data_nationality/
+university_counselor/b17616finger_classify/docs/
+university_counselor/b17616finger_classify/original_data_area_segmentation/
+university_counselor/b17616finger_classify/original_data_gender/
+university_counselor/b17616finger_classify/original_data_nationality/
+university_counselor/b17616finger_classify/orignal_data/
+university_counselor/b17616finger_classify/results/
