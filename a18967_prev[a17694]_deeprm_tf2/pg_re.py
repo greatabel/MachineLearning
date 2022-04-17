@@ -160,14 +160,14 @@ def plot_lr_curve(
     # ax.set_color_cycle([cm(1. * i / num_colors) for i in range(num_colors)])
     ax.set_prop_cycle(color=["red", "green", "blue", "pink", "yellow"])
 
-    ax.plot(mean_rew_lr_curve, linewidth=2, label="PG mean")
+    ax.plot(mean_rew_lr_curve, linewidth=2, label="DQN mean")
     for k in ref_discount_rews:
         ax.plot(
             np.tile(np.average(ref_discount_rews[k]), len(mean_rew_lr_curve)),
             linewidth=2,
             label=k,
         )
-    ax.plot(max_rew_lr_curve, linewidth=2, label="PG max")
+    ax.plot(max_rew_lr_curve, linewidth=2, label="DQN max")
 
     plt.legend(loc=4)
     plt.xlabel("Iteration", fontsize=20)
@@ -176,7 +176,7 @@ def plot_lr_curve(
     ax = fig.add_subplot(122)
     # ax.set_color_cycle([cm(1. * i / num_colors) for i in range(num_colors)])
     ax.set_prop_cycle(color=["red", "green", "blue", "pink", "yellow"])
-    ax.plot(slow_down_lr_curve, linewidth=2, label="PG mean")
+    ax.plot(slow_down_lr_curve, linewidth=2, label="DQN mean")
     for k in ref_discount_rews:
         ax.plot(
             np.tile(

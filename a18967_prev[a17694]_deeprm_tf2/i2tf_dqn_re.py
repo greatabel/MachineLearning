@@ -212,7 +212,7 @@ def main():
     pa.num_nw = 5
     pa.num_seq_per_batch = 10
     pa.output_freq = 50
-    # pa.output_freq = 5
+    pa.output_freq = 5
     pa.batch_size = 10
     pa.output_filename = "dqn_data/tmp"
 
@@ -223,7 +223,7 @@ def main():
     pa.episode_max_length = 2000  # 2000
 
     # pa.num_epochs = 202
-    pa.num_epochs = 302
+    pa.num_epochs = 1002
     pa.lr_rate = 0.02
 
     pa.compute_dependent_parameters()
