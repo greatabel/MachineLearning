@@ -103,7 +103,7 @@ def launch_dqn(pa, pg_resume=None, render=False, repre="image", end="no_new_job"
 
     print("-prepare for worker-")
 
-    rl = DQN_Network.DeepQNetwork(
+    rl = DeepQNetwork(
         n_actions=pa.network_output_dim,
         n_features=pa.network_input_height * pa.network_input_width,
         learning_rate=pa.lr_rate,
