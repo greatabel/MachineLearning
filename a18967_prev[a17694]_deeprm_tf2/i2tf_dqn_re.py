@@ -252,7 +252,7 @@ def main():
     # pa.job_len = 5
     pa.new_job_rate = 0.3
 
-    pa.episode_max_length = 20000  # 2000
+    pa.episode_max_length = 2000  # 2000
 
     pa.num_epochs = 202
     pa.lr_rate = 0.02
