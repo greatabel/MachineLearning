@@ -25,6 +25,7 @@ def rmsprop_updates_outside(grads, params, accums, stepsize, rho=0.9, epsilon=1e
         params[dim] += stepsize * grads[dim] / np.sqrt(accums[dim] + epsilon)
 
 
+
 def discount(x, gamma):
     """
     Given vector x, computes a vector y such that

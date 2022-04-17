@@ -6,7 +6,6 @@ np.random.seed(1)
 tf.set_random_seed(1)
 
 
-# Deep Q Network off-policy
 class DeepQNetwork:
     def __init__(
         self,
@@ -56,7 +55,7 @@ class DeepQNetwork:
         self.cost_his = []
 
     def _build_net(self):
-        # ------------------ build evaluate_net ------------------
+        # ------------------ 构造评估网络 ------------------
         self.s = tf.placeholder(tf.float32, [None, self.n_features], name="s")  # input
         self.q_target = tf.placeholder(
             tf.float32, [None, self.n_actions], name="Q_target"
@@ -70,7 +69,7 @@ class DeepQNetwork:
                 tf.constant_initializer(0.1),
             )  # config of layers
 
-            # first layer. collections is used later when assign to target net
+
             with tf.variable_scope("l1"):
                 w1 = tf.get_variable(
                     "w1",
@@ -83,7 +82,7 @@ class DeepQNetwork:
                 )
                 l1 = tf.nn.relu(tf.matmul(self.s, w1) + b1)
 
-            # second layer. collections is used later when assign to target net
+
             with tf.variable_scope("l2"):
                 w2 = tf.get_variable(
                     "w2",
@@ -106,7 +105,7 @@ class DeepQNetwork:
         with tf.variable_scope("train"):
             self._train_op = tf.train.RMSPropOptimizer(self.lr).minimize(self.loss)
 
-        # ------------------ build target_net ------------------
+        # 构建目标网络
         self.s_ = tf.placeholder(
             tf.float32, [None, self.n_features], name="s_"
         )  # input
@@ -114,7 +113,7 @@ class DeepQNetwork:
             # c_names(collections_names) are the collections to store variables
             c_names = ["target_net_params", tf.GraphKeys.GLOBAL_VARIABLES]
 
-            # first layer. collections is used later when assign to target net
+
             with tf.variable_scope("l1"):
                 w1 = tf.get_variable(
                     "w1",
@@ -127,7 +126,7 @@ class DeepQNetwork:
                 )
                 l1 = tf.nn.relu(tf.matmul(self.s_, w1) + b1)
 
-            # second layer. collections is used later when assign to target net
+
             with tf.variable_scope("l2"):
                 w2 = tf.get_variable(
                     "w2",
@@ -163,8 +162,6 @@ class DeepQNetwork:
         self.memory_counter += 1
 
     def choose_action(self, observation):
-        # to have batch dimension when feed into tf placeholder
-        # observation = observation[np.newaxis, :]
 
         if np.random.uniform() < self.epsilon:
             # forward feed the observation and get q value for every actions
@@ -210,31 +207,6 @@ class DeepQNetwork:
             q_next, axis=1
         )
 
-        """
-        For example in this batch I have 2 samples and 3 actions:
-        q_eval =
-        [[1, 2, 3],
-         [4, 5, 6]]
-
-        q_target = q_eval =
-        [[1, 2, 3],
-         [4, 5, 6]]
-
-        Then change q_target with the real q_target value w.r.t the q_eval's action.
-        For example in:
-            sample 0, I took action 0, and the max q_target value is -1;
-            sample 1, I took action 2, and the max q_target value is -2:
-        q_target =
-        [[-1, 2, 3],
-         [4, 5, -2]]
-
-        So the (q_target - q_eval) becomes:
-        [[(-1)-(1), 0, 0],
-         [0, 0, (-2)-(6)]]
-
-        We then backpropagate this error w.r.t the corresponding action to network,
-        leave other action as error=0 cause we didn't choose it.
-        """
 
         # train eval network
         _, self.cost = self.sess.run(

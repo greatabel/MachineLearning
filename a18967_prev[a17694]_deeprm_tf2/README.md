@@ -31,6 +31,13 @@ python3 launcher.py --exp_type=pg_re --simu_len=5 --num_ex=10 --ofile=data/pg_re
 4. 在新的1，2，3 运行园项目的discounted reward和slowd的对比图，表明效果的改善（比如slowdown 均工作放缓时间比theano版本改进了）
     （新对比图在data/pg_re_lr_curve.pdf）
 
+6.
+dqn版本【4月份】新开一个terminal，然后在命令行种运行:
+
+python3 i2tf_dqn_re.py
+
+（新对比图在dqn_data文件夹中)
+
 
 # ------------------------------------------------------------------------
 

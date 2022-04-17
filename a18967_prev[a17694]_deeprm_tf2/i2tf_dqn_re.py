@@ -3,10 +3,7 @@ from pg_re import *
 
 
 def get_dqn_traj(rl, env, episode_max_length):
-    """
-    Run agent-environment loop for one whole episode (trajectory)
-    Return dictionary of results
-    """
+
     env.reset()
     obs = []
     acts = []
@@ -119,15 +116,7 @@ def launch_dqn(pa, pg_resume=None, render=False, repre="image", end="no_new_job"
     print("Preparing for reference data...")
     # --------------------------------------
 
-    # ref_discount_rews, ref_slow_down = slow_down_cdf.launch_with_env(
-    #     pa=pa,
-    #     env=envs[0],
-    #     pg_resume=None,
-    #     render=render,
-    #     plot=False,
-    #     repre=repre,
-    #     end=end,
-    # )
+
     ref_discount_rews, ref_slow_down = slow_down_cdf.launch(
         pa, pg_resume=None, render=False, plot=False, repre=repre, end=end
     )
@@ -175,26 +164,7 @@ def launch_dqn(pa, pg_resume=None, render=False, repre="image", end="no_new_job"
 
                 ex_counter = 0
 
-                # all_eprews.extend([r["all_eprews"] for r in result])
 
-                # eprews.extend(np.concatenate([r["all_eprews"] for r in result]))  # episode total rewards
-                # eplens.extend(np.concatenate([r["all_eplens"] for r in result]))  # episode lengths
-
-                # all_slowdown.extend(np.concatenate([r["all_slowdown"] for r in result]))
-
-                # assemble gradients
-                # grads = grads_all[0]
-                # for i in range(1, len(grads_all)):
-                # for j in range(len(grads)):
-                # grads[j] += grads_all[i][j]
-
-                # propagate network parameters to others
-                # params = pg_learners[pa.batch_size].get_params()
-
-                # rmsprop_updates_outside(grads, params, accums, pa.lr_rate, pa.rms_rho, pa.rms_eps)
-
-                # for i in range(pa.batch_size + 1):
-                # pg_learners[i].set_net_params(params)
 
         timer_end = time.time()
 
@@ -202,8 +172,6 @@ def launch_dqn(pa, pg_resume=None, render=False, repre="image", end="no_new_job"
         print("Iteration: \t %i" % iteration)
         print("NumTrajs: \t %i" % len(eprewlist))
         print("NumTimesteps: \t %i" % np.sum(eplenlist))
-        # print("MaxRew: \t %s" % np.average([np.max(rew) for rew in eprewlist]))
-        # print("MeanRew: \t %s +- %s" % (np.mean(eprewlist), np.std(eprewlist)))
         print("MeanSlowdown: \t %s" % np.mean([np.mean(sd) for sd in slowdownlist]))
         print("MeanLen: \t %s +- %s" % (np.mean(eplenlist), np.std(eplenlist)))
         print("Elapsed time\t %s" % (timer_end - timer_start), "seconds")
@@ -220,8 +188,7 @@ def launch_dqn(pa, pg_resume=None, render=False, repre="image", end="no_new_job"
             rl.save_data(pa.output_filename + "_" + str(iteration))
 
             pa.unseen = True
-            # slow_down_cdf.launch(pa, pa.output_filename + '_' + str(iteration) + '.ckpt',
-            # render=False, plot=True, repre=repre, end=end)
+
             pa.unseen = False
             # test on unseen examples
             print("real test on real data", "-" * 20)
@@ -262,7 +229,7 @@ def main():
     pa.compute_dependent_parameters()
 
     pg_resume = None
-    # pg_resume = 'data/tmp_3500.ckpt'
+    # pg_resume = 'data/tmp_450.pkl'
 
     render = False
 
