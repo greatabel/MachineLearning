@@ -224,7 +224,7 @@ def launch_dqn(pa, pg_resume=None, render=False, repre="image", end="no_new_job"
             # render=False, plot=True, repre=repre, end=end)
             pa.unseen = False
             # test on unseen examples
-
+            print("real test on real data", "-" * 20)
             plot_lr_curve(
                 pa.output_filename,
                 max_rew_lr_curve,

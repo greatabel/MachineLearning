@@ -390,7 +390,8 @@ def main():
     # pa.job_len = 5
     pa.new_job_rate = 0.3
 
-    pa.episode_max_length = 2000  # 2000
+    # pa.episode_max_length = 2000  # 2000
+    pa.episode_max_length = 20  # 2000
 
     pa.compute_dependent_parameters()
 
