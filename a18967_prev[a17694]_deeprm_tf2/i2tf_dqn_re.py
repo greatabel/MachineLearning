@@ -244,7 +244,8 @@ def main():
     pa.num_ex = 10  # 100
     pa.num_nw = 5
     pa.num_seq_per_batch = 10
-    pa.output_freq = 50
+    # pa.output_freq = 50
+    pa.output_freq = 5
     pa.batch_size = 10
     pa.output_filename = "dqn_data2_relu_under_zero/tmp"
 
