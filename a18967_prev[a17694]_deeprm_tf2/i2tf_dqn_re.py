@@ -1,4 +1,4 @@
-import i1dqn_network
+from i1dqn_network import DeepQNetwork
 from pg_re import *
 
 
