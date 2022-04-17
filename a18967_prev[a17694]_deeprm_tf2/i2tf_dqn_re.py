@@ -119,14 +119,17 @@ def launch_dqn(pa, pg_resume=None, render=False, repre="image", end="no_new_job"
     print("Preparing for reference data...")
     # --------------------------------------
 
-    ref_discount_rews, ref_slow_down = slow_down_cdf.launch_with_env(
-        pa=pa,
-        env=envs[0],
-        pg_resume=None,
-        render=render,
-        plot=False,
-        repre=repre,
-        end=end,
+    # ref_discount_rews, ref_slow_down = slow_down_cdf.launch_with_env(
+    #     pa=pa,
+    #     env=envs[0],
+    #     pg_resume=None,
+    #     render=render,
+    #     plot=False,
+    #     repre=repre,
+    #     end=end,
+    # )
+    ref_discount_rews, ref_slow_down = slow_down_cdf.launch(
+        pa, pg_resume=None, render=False, plot=False, repre=repre, end=end
     )
     mean_rew_lr_curve = []
     max_rew_lr_curve = []
