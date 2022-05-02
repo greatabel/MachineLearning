@@ -1,6 +1,0 @@
-termcolor
-numpy
-pandas
-pgmpy==0.1.13
-graphviz==0.19.1
-sklearn
