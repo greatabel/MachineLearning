@@ -1,0 +1,1167 @@
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:471: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:472: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:473: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:474: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:475: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+Preparing for workers...
+-prepare for env- 0
+-prepare for env- 1
+-prepare for env- 2
+-prepare for env- 3
+-prepare for env- 4
+-prepare for env- 5
+-prepare for env- 6
+-prepare for env- 7
+-prepare for env- 8
+-prepare for env- 9
+-prepare for env- 10
+-prepare for env- 11
+-prepare for env- 12
+-prepare for env- 13
+-prepare for env- 14
+-prepare for env- 15
+-prepare for env- 16
+-prepare for env- 17
+-prepare for env- 18
+-prepare for env- 19
+-prepare for env- 20
+-prepare for env- 21
+-prepare for env- 22
+-prepare for env- 23
+-prepare for env- 24
+-prepare for env- 25
+-prepare for env- 26
+-prepare for env- 27
+-prepare for env- 28
+-prepare for env- 29
+-prepare for env- 30
+-prepare for env- 31
+-prepare for env- 32
+-prepare for env- 33
+-prepare for env- 34
+-prepare for env- 35
+-prepare for env- 36
+-prepare for env- 37
+-prepare for env- 38
+-prepare for env- 39
+-prepare for env- 40
+-prepare for env- 41
+-prepare for env- 42
+-prepare for env- 43
+-prepare for env- 44
+-prepare for env- 45
+-prepare for env- 46
+-prepare for env- 47
+-prepare for env- 48
+-prepare for env- 49
+-prepare for env- 50
+-prepare for env- 51
+-prepare for env- 52
+-prepare for env- 53
+-prepare for env- 54
+-prepare for env- 55
+-prepare for env- 56
+-prepare for env- 57
+-prepare for env- 58
+-prepare for env- 59
+-prepare for env- 60
+-prepare for env- 61
+-prepare for env- 62
+-prepare for env- 63
+-prepare for env- 64
+-prepare for env- 65
+-prepare for env- 66
+-prepare for env- 67
+-prepare for env- 68
+-prepare for env- 69
+-prepare for env- 70
+-prepare for env- 71
+-prepare for env- 72
+-prepare for env- 73
+-prepare for env- 74
+-prepare for env- 75
+-prepare for env- 76
+-prepare for env- 77
+-prepare for env- 78
+-prepare for env- 79
+-prepare for env- 80
+-prepare for env- 81
+-prepare for env- 82
+-prepare for env- 83
+-prepare for env- 84
+-prepare for env- 85
+-prepare for env- 86
+-prepare for env- 87
+-prepare for env- 88
+-prepare for env- 89
+-prepare for env- 90
+-prepare for env- 91
+-prepare for env- 92
+-prepare for env- 93
+-prepare for env- 94
+-prepare for env- 95
+-prepare for env- 96
+-prepare for env- 97
+-prepare for env- 98
+-prepare for env- 99
+-prepare for worker-
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+policy network params count:  44931
+Preparing for reference data...
+Load on # 0 resource dimension is 0.898445
+Load on # 1 resource dimension is 0.9051
+
+
+
+=============== 0 ===============
+---------- Tetris -----------
+total discount reward : 	 -1981.3275391275406
+---------- SJF -----------
+total discount reward : 	 -655.2625041625056
+---------- Random -----------
+total discount reward : 	 -1099.9783050283038
+
+
+
+=============== 1 ===============
+---------- Tetris -----------
+total discount reward : 	 -1324.1001831501817
+---------- SJF -----------
+total discount reward : 	 -370.17535797535777
+---------- Random -----------
+total discount reward : 	 -870.5514818514825
+
+
+
+=============== 2 ===============
+---------- Tetris -----------
+total discount reward : 	 -1396.6104895104902
+---------- SJF -----------
+total discount reward : 	 -320.24738594738614
+---------- Random -----------
+total discount reward : 	 -991.9055611055614
+
+
+
+=============== 3 ===============
+---------- Tetris -----------
+total discount reward : 	 -2285.6659007659055
+---------- SJF -----------
+total discount reward : 	 -1178.260789210791
+---------- Random -----------
+total discount reward : 	 -2056.7740426240457
+
+
+
+=============== 4 ===============
+---------- Tetris -----------
+total discount reward : 	 -2017.527672327672
+---------- SJF -----------
+total discount reward : 	 -717.9142357642347
+---------- Random -----------
+total discount reward : 	 -1205.9439560439566
+
+
+
+=============== 5 ===============
+---------- Tetris -----------
+total discount reward : 	 -2226.3905594405574
+---------- SJF -----------
+total discount reward : 	 -831.3595238095238
+---------- Random -----------
+total discount reward : 	 -1105.6543623043626
+
+
+
+=============== 6 ===============
+---------- Tetris -----------
+total discount reward : 	 -649.2145354645352
+---------- SJF -----------
+total discount reward : 	 -375.9568764568771
+---------- Random -----------
+total discount reward : 	 -766.2978021977999
+
+
+
+=============== 7 ===============
+---------- Tetris -----------
+total discount reward : 	 -2944.130053280052
+---------- SJF -----------
+total discount reward : 	 -1395.297585747587
+---------- Random -----------
+total discount reward : 	 -1766.9872627372654
+
+
+
+=============== 8 ===============
+---------- Tetris -----------
+total discount reward : 	 -2212.9941891441904
+---------- SJF -----------
+total discount reward : 	 -949.9441558441564
+---------- Random -----------
+total discount reward : 	 -1328.6008158508146
+
+
+
+=============== 9 ===============
+---------- Tetris -----------
+total discount reward : 	 -512.0142857142857
+---------- SJF -----------
+total discount reward : 	 -311.62424242424237
+---------- Random -----------
+total discount reward : 	 -730.8111222111222
+
+
+
+=============== 10 ===============
+---------- Tetris -----------
+total discount reward : 	 -1650.5306526806498
+---------- SJF -----------
+total discount reward : 	 -731.0153180153173
+---------- Random -----------
+total discount reward : 	 -1157.5667998667996
+
+
+
+=============== 11 ===============
+---------- Tetris -----------
+total discount reward : 	 -3450.246603396607
+---------- SJF -----------
+total discount reward : 	 -1114.2389776889786
+---------- Random -----------
+total discount reward : 	 -1483.8518648018646
+
+
+
+=============== 12 ===============
+---------- Tetris -----------
+total discount reward : 	 -2220.5906093906096
+---------- SJF -----------
+total discount reward : 	 -1370.1244089244085
+---------- Random -----------
+total discount reward : 	 -1420.3958541458528
+
+
+
+=============== 13 ===============
+---------- Tetris -----------
+total discount reward : 	 -3133.009207459201
+---------- SJF -----------
+total discount reward : 	 -1177.9471195471174
+---------- Random -----------
+total discount reward : 	 -1667.5685148185123
+
+
+
+=============== 14 ===============
+---------- Tetris -----------
+total discount reward : 	 -1121.639194139193
+---------- SJF -----------
+total discount reward : 	 -409.82545787545774
+---------- Random -----------
+total discount reward : 	 -888.2327505827504
+
+
+
+=============== 15 ===============
+---------- Tetris -----------
+total discount reward : 	 -1512.2568764568757
+---------- SJF -----------
+total discount reward : 	 -787.4768731268736
+---------- Random -----------
+total discount reward : 	 -1042.9952047952047
+
+
+
+=============== 16 ===============
+---------- Tetris -----------
+total discount reward : 	 -1700.7021978021996
+---------- SJF -----------
+total discount reward : 	 -749.2763736263746
+---------- Random -----------
+total discount reward : 	 -1114.4445054945038
+
+
+
+=============== 17 ===============
+---------- Tetris -----------
+total discount reward : 	 -4458.308275058273
+---------- SJF -----------
+total discount reward : 	 -1691.8364468864454
+---------- Random -----------
+total discount reward : 	 -2654.262903762902
+
+
+
+=============== 18 ===============
+---------- Tetris -----------
+total discount reward : 	 -3788.5749250749254
+---------- SJF -----------
+total discount reward : 	 -895.276356976357
+---------- Random -----------
+total discount reward : 	 -1642.9953379953347
+
+
+
+=============== 19 ===============
+---------- Tetris -----------
+total discount reward : 	 -2340.416000665999
+---------- SJF -----------
+total discount reward : 	 -841.6862803862821
+---------- Random -----------
+total discount reward : 	 -1204.2578255078238
+
+
+
+=============== 20 ===============
+---------- Tetris -----------
+total discount reward : 	 -2085.5721445221448
+---------- SJF -----------
+total discount reward : 	 -818.7318181818183
+---------- Random -----------
+total discount reward : 	 -1085.902564102564
+
+
+
+=============== 21 ===============
+---------- Tetris -----------
+total discount reward : 	 -3649.3549950049955
+---------- SJF -----------
+total discount reward : 	 -1659.7997668997655
+---------- Random -----------
+total discount reward : 	 -2090.0995837495807
+
+
+
+=============== 22 ===============
+---------- Tetris -----------
+total discount reward : 	 -1311.154528804527
+---------- SJF -----------
+total discount reward : 	 -480.08333333333394
+---------- Random -----------
+total discount reward : 	 -1011.1851148851149
+
+
+
+=============== 23 ===============
+---------- Tetris -----------
+total discount reward : 	 -1011.1302197802198
+---------- SJF -----------
+total discount reward : 	 -311.7522810522806
+---------- Random -----------
+total discount reward : 	 -952.1866799866793
+
+
+
+=============== 24 ===============
+---------- Tetris -----------
+total discount reward : 	 -3164.9363636363614
+---------- SJF -----------
+total discount reward : 	 -1117.3240093240079
+---------- Random -----------
+total discount reward : 	 -1523.2332334332343
+
+
+
+=============== 25 ===============
+---------- Tetris -----------
+total discount reward : 	 -2254.3006493506473
+---------- SJF -----------
+total discount reward : 	 -552.1138528138528
+---------- Random -----------
+total discount reward : 	 -1134.7417748917742
+
+
+
+=============== 26 ===============
+---------- Tetris -----------
+total discount reward : 	 -1261.4772560772572
+---------- SJF -----------
+total discount reward : 	 -510.0577589077591
+---------- Random -----------
+total discount reward : 	 -920.0445887445891
+
+
+
+=============== 27 ===============
+---------- Tetris -----------
+total discount reward : 	 -2521.276839826846
+---------- SJF -----------
+total discount reward : 	 -755.505311355312
+---------- Random -----------
+total discount reward : 	 -1442.8634698634667
+
+
+
+=============== 28 ===============
+---------- Tetris -----------
+total discount reward : 	 -4660.351548451553
+---------- SJF -----------
+total discount reward : 	 -1363.8496836496852
+---------- Random -----------
+total discount reward : 	 -2436.7609723609717
+
+
+
+=============== 29 ===============
+---------- Tetris -----------
+total discount reward : 	 -2364.823676323676
+---------- SJF -----------
+total discount reward : 	 -1107.769347319347
+---------- Random -----------
+total discount reward : 	 -1504.5698801198778
+
+
+
+=============== 30 ===============
+---------- Tetris -----------
+total discount reward : 	 -2257.3520146520123
+---------- SJF -----------
+total discount reward : 	 -651.6366300366299
+---------- Random -----------
+total discount reward : 	 -1003.8714285714278
+
+
+
+=============== 31 ===============
+---------- Tetris -----------
+total discount reward : 	 -727.7475191475198
+---------- SJF -----------
+total discount reward : 	 -576.5471195471198
+---------- Random -----------
+total discount reward : 	 -728.0651348651353
+
+
+
+=============== 32 ===============
+---------- Tetris -----------
+total discount reward : 	 -1511.6563436563445
+---------- SJF -----------
+total discount reward : 	 -581.942374292375
+---------- Random -----------
+total discount reward : 	 -1053.7898268398253
+
+
+
+=============== 33 ===============
+---------- Tetris -----------
+total discount reward : 	 -1120.5347319347325
+---------- SJF -----------
+total discount reward : 	 -541.5821178821171
+---------- Random -----------
+total discount reward : 	 -1010.1257742257732
+
+
+
+=============== 34 ===============
+---------- Tetris -----------
+total discount reward : 	 -1999.197785547785
+---------- SJF -----------
+total discount reward : 	 -533.4391275391274
+---------- Random -----------
+total discount reward : 	 -954.0662171162163
+
+
+
+=============== 35 ===============
+---------- Tetris -----------
+total discount reward : 	 -2365.5977189477203
+---------- SJF -----------
+total discount reward : 	 -728.4668331668331
+---------- Random -----------
+total discount reward : 	 -1374.2116716616692
+
+
+
+=============== 36 ===============
+---------- Tetris -----------
+total discount reward : 	 -1575.4281218781223
+---------- SJF -----------
+total discount reward : 	 -511.70760905760943
+---------- Random -----------
+total discount reward : 	 -995.8215451215437
+
+
+
+=============== 37 ===============
+---------- Tetris -----------
+total discount reward : 	 -643.5543623043617
+---------- SJF -----------
+total discount reward : 	 -424.3561105561104
+---------- Random -----------
+total discount reward : 	 -757.759457209458
+
+
+
+=============== 38 ===============
+---------- Tetris -----------
+total discount reward : 	 -1464.219696969699
+---------- SJF -----------
+total discount reward : 	 -468.0941058941058
+---------- Random -----------
+total discount reward : 	 -885.006876456877
+
+
+
+=============== 39 ===============
+---------- Tetris -----------
+total discount reward : 	 -2900.684015984015
+---------- SJF -----------
+total discount reward : 	 -1110.4604728604745
+---------- Random -----------
+total discount reward : 	 -1339.072777222779
+
+
+
+=============== 40 ===============
+---------- Tetris -----------
+total discount reward : 	 -823.891441891441
+---------- SJF -----------
+total discount reward : 	 -409.5871461871469
+---------- Random -----------
+total discount reward : 	 -904.1227938727944
+
+
+
+=============== 41 ===============
+---------- Tetris -----------
+total discount reward : 	 -2346.9845820845826
+---------- SJF -----------
+total discount reward : 	 -495.97349317349324
+---------- Random -----------
+total discount reward : 	 -999.9084748584752
+
+
+
+=============== 42 ===============
+---------- Tetris -----------
+total discount reward : 	 -410.79307359307336
+---------- SJF -----------
+total discount reward : 	 -307.340909090909
+---------- Random -----------
+total discount reward : 	 -753.8008658008656
+
+
+
+=============== 43 ===============
+---------- Tetris -----------
+total discount reward : 	 -834.6852314352326
+---------- SJF -----------
+total discount reward : 	 -417.91721611721607
+---------- Random -----------
+total discount reward : 	 -921.0643523143532
+
+
+
+=============== 44 ===============
+---------- Tetris -----------
+total discount reward : 	 -1345.3525974025983
+---------- SJF -----------
+total discount reward : 	 -412.0969696969702
+---------- Random -----------
+total discount reward : 	 -898.1106060606079
+
+
+
+=============== 45 ===============
+---------- Tetris -----------
+total discount reward : 	 -2972.163636363635
+---------- SJF -----------
+total discount reward : 	 -1112.1961038961033
+---------- Random -----------
+total discount reward : 	 -1405.526623376621
+
+
+
+=============== 46 ===============
+---------- Tetris -----------
+total discount reward : 	 -936.2250915750908
+---------- SJF -----------
+total discount reward : 	 -453.4857142857143
+---------- Random -----------
+total discount reward : 	 -901.8230769230751
+
+
+
+=============== 47 ===============
+---------- Tetris -----------
+total discount reward : 	 -1529.0967865467858
+---------- SJF -----------
+total discount reward : 	 -412.1176989676991
+---------- Random -----------
+total discount reward : 	 -859.3724109224125
+
+
+
+=============== 48 ===============
+---------- Tetris -----------
+total discount reward : 	 -3785.997236097233
+---------- SJF -----------
+total discount reward : 	 -993.5719280719279
+---------- Random -----------
+total discount reward : 	 -1628.6937728937712
+
+
+
+=============== 49 ===============
+---------- Tetris -----------
+total discount reward : 	 -1572.5180819180835
+---------- SJF -----------
+total discount reward : 	 -584.881684981685
+---------- Random -----------
+total discount reward : 	 -1148.4238761238778
+
+
+
+=============== 50 ===============
+---------- Tetris -----------
+total discount reward : 	 -1669.181868131866
+---------- SJF -----------
+total discount reward : 	 -509.62917082917045
+---------- Random -----------
+total discount reward : 	 -794.5466866466861
+
+
+
+=============== 51 ===============
+---------- Tetris -----------
+total discount reward : 	 -2044.922577422578
+---------- SJF -----------
+total discount reward : 	 -844.2842324342315
+---------- Random -----------
+total discount reward : 	 -1063.312720612721
+
+
+
+=============== 52 ===============
+---------- Tetris -----------
+total discount reward : 	 -794.2402597402609
+---------- SJF -----------
+total discount reward : 	 -335.25559440559465
+---------- Random -----------
+total discount reward : 	 -717.9672161172149
+
+
+
+=============== 53 ===============
+---------- Tetris -----------
+total discount reward : 	 -2350.709257409257
+---------- SJF -----------
+total discount reward : 	 -545.4711455211448
+---------- Random -----------
+total discount reward : 	 -1108.9015984015987
+
+
+
+=============== 54 ===============
+---------- Tetris -----------
+total discount reward : 	 -1206.7751248751247
+---------- SJF -----------
+total discount reward : 	 -452.67539127539123
+---------- Random -----------
+total discount reward : 	 -1280.6086913086892
+
+
+
+=============== 55 ===============
+---------- Tetris -----------
+total discount reward : 	 -3538.4931235431236
+---------- SJF -----------
+total discount reward : 	 -578.122377622378
+---------- Random -----------
+total discount reward : 	 -1712.7389776889786
+
+
+
+=============== 56 ===============
+---------- Tetris -----------
+total discount reward : 	 -2076.582967032967
+---------- SJF -----------
+total discount reward : 	 -981.7575591075589
+---------- Random -----------
+total discount reward : 	 -951.7087912087907
+
+
+
+=============== 57 ===============
+---------- Tetris -----------
+total discount reward : 	 -1901.3672827172825
+---------- SJF -----------
+total discount reward : 	 -817.9778055278056
+---------- Random -----------
+total discount reward : 	 -1015.7403929403946
+
+
+
+=============== 58 ===============
+---------- Tetris -----------
+total discount reward : 	 -2417.1991341991356
+---------- SJF -----------
+total discount reward : 	 -886.7624875124889
+---------- Random -----------
+total discount reward : 	 -1619.7305028305004
+
+
+
+=============== 59 ===============
+---------- Tetris -----------
+total discount reward : 	 -1421.7480519480534
+---------- SJF -----------
+total discount reward : 	 -405.917998667999
+---------- Random -----------
+total discount reward : 	 -834.481285381285
+
+
+
+=============== 60 ===============
+---------- Tetris -----------
+total discount reward : 	 -2373.827256077259
+---------- SJF -----------
+total discount reward : 	 -841.5792873792881
+---------- Random -----------
+total discount reward : 	 -1164.2736430236428
+
+
+
+=============== 61 ===============
+---------- Tetris -----------
+total discount reward : 	 -2435.4966366966314
+---------- SJF -----------
+total discount reward : 	 -1038.9811854811885
+---------- Random -----------
+total discount reward : 	 -1647.0700965700958
+
+
+
+=============== 62 ===============
+---------- Tetris -----------
+total discount reward : 	 -1710.8148851148826
+---------- SJF -----------
+total discount reward : 	 -550.4714452214452
+---------- Random -----------
+total discount reward : 	 -1040.5306526806517
+
+
+
+=============== 63 ===============
+---------- Tetris -----------
+total discount reward : 	 -2300.792690642691
+---------- SJF -----------
+total discount reward : 	 -445.00146520146563
+---------- Random -----------
+total discount reward : 	 -992.5628704628698
+
+
+
+=============== 64 ===============
+---------- Tetris -----------
+total discount reward : 	 -2597.0247918747964
+---------- SJF -----------
+total discount reward : 	 -940.0509990009987
+---------- Random -----------
+total discount reward : 	 -1485.6097402597397
+
+
+
+=============== 65 ===============
+---------- Tetris -----------
+total discount reward : 	 -2399.433000332997
+---------- SJF -----------
+total discount reward : 	 -464.430303030303
+---------- Random -----------
+total discount reward : 	 -1031.8223276723272
+
+
+
+=============== 66 ===============
+---------- Tetris -----------
+total discount reward : 	 -1967.3331168831194
+---------- SJF -----------
+total discount reward : 	 -627.3696969696972
+---------- Random -----------
+total discount reward : 	 -1268.4967532467542
+
+
+
+=============== 67 ===============
+---------- Tetris -----------
+total discount reward : 	 -2448.871511821514
+---------- SJF -----------
+total discount reward : 	 -787.0987345987353
+---------- Random -----------
+total discount reward : 	 -1367.2213786213806
+
+
+
+=============== 68 ===============
+---------- Tetris -----------
+total discount reward : 	 -2923.1796370296333
+---------- SJF -----------
+total discount reward : 	 -1217.4022144522141
+---------- Random -----------
+total discount reward : 	 -1323.9344322344332
+
+
+
+=============== 69 ===============
+---------- Tetris -----------
+total discount reward : 	 -962.2191641691647
+---------- SJF -----------
+total discount reward : 	 -445.8235597735597
+---------- Random -----------
+total discount reward : 	 -1072.1679487179483
+
+
+
+=============== 70 ===============
+---------- Tetris -----------
+total discount reward : 	 -1984.4298534798502
+---------- SJF -----------
+total discount reward : 	 -490.16521811521824
+---------- Random -----------
+total discount reward : 	 -1042.4855977355978
+
+
+
+=============== 71 ===============
+---------- Tetris -----------
+total discount reward : 	 -3629.233000333001
+---------- SJF -----------
+total discount reward : 	 -1036.9151182151172
+---------- Random -----------
+total discount reward : 	 -2003.6500333000322
+
+
+
+=============== 72 ===============
+---------- Tetris -----------
+total discount reward : 	 -1383.5806360306356
+---------- SJF -----------
+total discount reward : 	 -550.5553779553784
+---------- Random -----------
+total discount reward : 	 -1117.6798867798905
+
+
+
+=============== 73 ===============
+---------- Tetris -----------
+total discount reward : 	 -3162.2981518481515
+---------- SJF -----------
+total discount reward : 	 -1770.2678321678316
+---------- Random -----------
+total discount reward : 	 -1932.224891774892
+
+
+
+=============== 74 ===============
+---------- Tetris -----------
+total discount reward : 	 -1512.1122377622373
+---------- SJF -----------
+total discount reward : 	 -443.3130536130536
+---------- Random -----------
+total discount reward : 	 -1053.4703962703963
+
+
+
+=============== 75 ===============
+---------- Tetris -----------
+total discount reward : 	 -2334.291741591743
+---------- SJF -----------
+total discount reward : 	 -552.6538461538466
+---------- Random -----------
+total discount reward : 	 -916.810722610721
+
+
+
+=============== 76 ===============
+---------- Tetris -----------
+total discount reward : 	 -2065.0615551115557
+---------- SJF -----------
+total discount reward : 	 -541.4323676323676
+---------- Random -----------
+total discount reward : 	 -1287.0181318681314
+
+
+
+=============== 77 ===============
+---------- Tetris -----------
+total discount reward : 	 -2838.0388777888784
+---------- SJF -----------
+total discount reward : 	 -1737.752214452216
+---------- Random -----------
+total discount reward : 	 -1831.9372793872797
+
+
+
+=============== 78 ===============
+---------- Tetris -----------
+total discount reward : 	 -1636.2384282384278
+---------- SJF -----------
+total discount reward : 	 -432.6494172494169
+---------- Random -----------
+total discount reward : 	 -944.5106726606734
+
+
+
+=============== 79 ===============
+---------- Tetris -----------
+total discount reward : 	 -1336.8228604728627
+---------- SJF -----------
+total discount reward : 	 -279.3636197136197
+---------- Random -----------
+total discount reward : 	 -812.3917915417921
+
+
+
+=============== 80 ===============
+---------- Tetris -----------
+total discount reward : 	 -1572.3027972027974
+---------- SJF -----------
+total discount reward : 	 -359.46163836163765
+---------- Random -----------
+total discount reward : 	 -856.7344322344318
+
+
+
+=============== 81 ===============
+---------- Tetris -----------
+total discount reward : 	 -1311.7989177489208
+---------- SJF -----------
+total discount reward : 	 -542.8560606060607
+---------- Random -----------
+total discount reward : 	 -959.2956709956702
+
+
+
+=============== 82 ===============
+---------- Tetris -----------
+total discount reward : 	 -2266.485131535131
+---------- SJF -----------
+total discount reward : 	 -401.6004828504828
+---------- Random -----------
+total discount reward : 	 -942.8959540459533
+
+
+
+=============== 83 ===============
+---------- Tetris -----------
+total discount reward : 	 -2599.1696470196457
+---------- SJF -----------
+total discount reward : 	 -810.2556110556106
+---------- Random -----------
+total discount reward : 	 -1435.108874458875
+
+
+
+=============== 84 ===============
+---------- Tetris -----------
+total discount reward : 	 -1459.9646686646663
+---------- SJF -----------
+total discount reward : 	 -424.6884781884784
+---------- Random -----------
+total discount reward : 	 -1114.8591575091582
+
+
+
+=============== 85 ===============
+---------- Tetris -----------
+total discount reward : 	 -2702.7260572760583
+---------- SJF -----------
+total discount reward : 	 -809.2931901431924
+---------- Random -----------
+total discount reward : 	 -1072.1449383949382
+
+
+
+=============== 86 ===============
+---------- Tetris -----------
+total discount reward : 	 -1607.0144022644008
+---------- SJF -----------
+total discount reward : 	 -418.0184315684313
+---------- Random -----------
+total discount reward : 	 -941.516916416915
+
+
+
+=============== 87 ===============
+---------- Tetris -----------
+total discount reward : 	 -2515.850432900432
+---------- SJF -----------
+total discount reward : 	 -781.3725108225094
+---------- Random -----------
+total discount reward : 	 -992.0357142857133
+
+
+
+=============== 88 ===============
+---------- Tetris -----------
+total discount reward : 	 -2274.4072594072577
+---------- SJF -----------
+total discount reward : 	 -593.1732267732273
+---------- Random -----------
+total discount reward : 	 -1037.0968364968369
+
+
+
+=============== 89 ===============
+---------- Tetris -----------
+total discount reward : 	 -2643.527056277055
+---------- SJF -----------
+total discount reward : 	 -664.6090909090916
+---------- Random -----------
+total discount reward : 	 -1195.1770562770566
+
+
+
+=============== 90 ===============
+---------- Tetris -----------
+total discount reward : 	 -1550.953613053614
+---------- SJF -----------
+total discount reward : 	 -413.21944721944715
+---------- Random -----------
+total discount reward : 	 -864.8226107226097
+
+
+
+=============== 91 ===============
+---------- Tetris -----------
+total discount reward : 	 -2529.011122211125
+---------- SJF -----------
+total discount reward : 	 -682.4553280053287
+---------- Random -----------
+total discount reward : 	 -1534.9257908757909
+
+
+
+=============== 92 ===============
+---------- Tetris -----------
+total discount reward : 	 -1271.6579753579742
+---------- SJF -----------
+total discount reward : 	 -653.3899766899774
+---------- Random -----------
+total discount reward : 	 -863.1163503163502
+
+
+
+=============== 93 ===============
+---------- Tetris -----------
+total discount reward : 	 -2736.4751748251733
+---------- SJF -----------
+total discount reward : 	 -1105.6812853812858
+---------- Random -----------
+total discount reward : 	 -1367.1283216783243
+
+
+
+=============== 94 ===============
+---------- Tetris -----------
+total discount reward : 	 -1319.468664668664
+---------- SJF -----------
+total discount reward : 	 -618.4167166167177
+---------- Random -----------
+total discount reward : 	 -936.4607392607397
+
+
+
+=============== 95 ===============
+---------- Tetris -----------
+total discount reward : 	 -1168.466400266399
+---------- SJF -----------
+total discount reward : 	 -721.7063270063276
+---------- Random -----------
+total discount reward : 	 -779.199134199134
+
+
+
+=============== 96 ===============
+---------- Tetris -----------
+total discount reward : 	 -1276.8690975690988
+---------- SJF -----------
+total discount reward : 	 -503.0647019647021
+---------- Random -----------
+total discount reward : 	 -974.8398934398926
+
+
+
+=============== 97 ===============
+---------- Tetris -----------
+total discount reward : 	 -1795.7067099567114
+---------- SJF -----------
+total discount reward : 	 -330.17374292374296
+---------- Random -----------
+total discount reward : 	 -854.563103563105
+
+
+
+=============== 98 ===============
+---------- Tetris -----------
+total discount reward : 	 -1041.5222777222773
+---------- SJF -----------
+total discount reward : 	 -478.64157509157485
+---------- Random -----------
+total discount reward : 	 -883.6548118548102
+
+
+
+=============== 99 ===============
+---------- Tetris -----------
+total discount reward : 	 -1129.3088578088566
+---------- SJF -----------
+total discount reward : 	 -438.08434898434894
+---------- Random -----------
+total discount reward : 	 -871.1219613719613
+Start training...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------
+Iteration: 	 1
+NumTrajs: 	 100
+NumTimesteps: 	 860263
+Loss:     	 0.59012747
+MaxRew: 	 -1004.3683178488177
+MeanRew: 	 -1246.257154320679 +- 417.90127355191635
+MeanSlowdown: 	 12.438708517479116
+MeanLen: 	 430.1315 +- 63.97306626815695
+Elapsed time	 827.62743973732 seconds
+-----------------
+
+
+

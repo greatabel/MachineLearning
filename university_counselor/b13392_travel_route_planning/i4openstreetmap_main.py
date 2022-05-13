@@ -118,6 +118,7 @@ def folim_create(start_coords, orginal=True):
         ).add_to(m)
         folium.Marker(
             [51.508929, -0.128299],
+            # [31.508929, 120.128299],
             popup="The National Gallery",
             tooltip=tooltip,
             icon=ic4,

@@ -1,0 +1,2127 @@
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:471: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:472: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:473: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:474: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/abel/.virtualenvs/tf0/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:475: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+Preparing for workers...
+-prepare for env- 0
+-prepare for env- 1
+-prepare for env- 2
+-prepare for env- 3
+-prepare for env- 4
+-prepare for env- 5
+-prepare for env- 6
+-prepare for env- 7
+-prepare for env- 8
+-prepare for env- 9
+-prepare for env- 10
+-prepare for env- 11
+-prepare for env- 12
+-prepare for env- 13
+-prepare for env- 14
+-prepare for env- 15
+-prepare for env- 16
+-prepare for env- 17
+-prepare for env- 18
+-prepare for env- 19
+-prepare for env- 20
+-prepare for env- 21
+-prepare for env- 22
+-prepare for env- 23
+-prepare for env- 24
+-prepare for env- 25
+-prepare for env- 26
+-prepare for env- 27
+-prepare for env- 28
+-prepare for env- 29
+-prepare for env- 30
+-prepare for env- 31
+-prepare for env- 32
+-prepare for env- 33
+-prepare for env- 34
+-prepare for env- 35
+-prepare for env- 36
+-prepare for env- 37
+-prepare for env- 38
+-prepare for env- 39
+-prepare for env- 40
+-prepare for env- 41
+-prepare for env- 42
+-prepare for env- 43
+-prepare for env- 44
+-prepare for env- 45
+-prepare for env- 46
+-prepare for env- 47
+-prepare for env- 48
+-prepare for env- 49
+-prepare for env- 50
+-prepare for env- 51
+-prepare for env- 52
+-prepare for env- 53
+-prepare for env- 54
+-prepare for env- 55
+-prepare for env- 56
+-prepare for env- 57
+-prepare for env- 58
+-prepare for env- 59
+-prepare for env- 60
+-prepare for env- 61
+-prepare for env- 62
+-prepare for env- 63
+-prepare for env- 64
+-prepare for env- 65
+-prepare for env- 66
+-prepare for env- 67
+-prepare for env- 68
+-prepare for env- 69
+-prepare for env- 70
+-prepare for env- 71
+-prepare for env- 72
+-prepare for env- 73
+-prepare for env- 74
+-prepare for env- 75
+-prepare for env- 76
+-prepare for env- 77
+-prepare for env- 78
+-prepare for env- 79
+-prepare for env- 80
+-prepare for env- 81
+-prepare for env- 82
+-prepare for env- 83
+-prepare for env- 84
+-prepare for env- 85
+-prepare for env- 86
+-prepare for env- 87
+-prepare for env- 88
+-prepare for env- 89
+-prepare for env- 90
+-prepare for env- 91
+-prepare for env- 92
+-prepare for env- 93
+-prepare for env- 94
+-prepare for env- 95
+-prepare for env- 96
+-prepare for env- 97
+-prepare for env- 98
+-prepare for env- 99
+-prepare for worker-
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+policy network params count:  44931
+Preparing for reference data...
+Load on # 0 resource dimension is 1.31559
+Load on # 1 resource dimension is 1.3103
+
+
+
+=============== 0 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7944.8575091575085
+---------- SJF -----------
+total discount reward : 	 -5213.283732933737
+---------- Random -----------
+total discount reward : 	 -6116.161921411929
+
+
+
+=============== 1 ===============
+---------- Tetris -----------
+total discount reward : 	 -5723.520046620041
+---------- SJF -----------
+total discount reward : 	 -2896.4812021311973
+---------- Random -----------
+total discount reward : 	 -3952.044272394272
+
+
+
+=============== 2 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7403.839543789544
+---------- SJF -----------
+total discount reward : 	 -5531.291292041296
+Backlog is full.
+Backlog is full.
+---------- Random -----------
+total discount reward : 	 -6841.10494505495
+
+
+
+=============== 3 ===============
+---------- Tetris -----------
+total discount reward : 	 -6538.821595071601
+---------- SJF -----------
+total discount reward : 	 -3862.779587079587
+---------- Random -----------
+total discount reward : 	 -4541.491958041962
+
+
+
+=============== 4 ===============
+---------- Tetris -----------
+total discount reward : 	 -6298.077472527467
+---------- SJF -----------
+total discount reward : 	 -2301.8611388611353
+---------- Random -----------
+total discount reward : 	 -3366.002564102561
+
+
+
+=============== 5 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7007.84317349317
+---------- SJF -----------
+total discount reward : 	 -4033.5945054945005
+---------- Random -----------
+total discount reward : 	 -4678.341092241092
+
+
+
+=============== 6 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7841.18394938395
+Backlog is full.
+Backlog is full.
+---------- SJF -----------
+total discount reward : 	 -5435.194788544777
+---------- Random -----------
+total discount reward : 	 -5208.605161505174
+
+
+
+=============== 7 ===============
+---------- Tetris -----------
+total discount reward : 	 -2981.1361971362035
+---------- SJF -----------
+total discount reward : 	 -1285.500749250751
+---------- Random -----------
+total discount reward : 	 -1703.7266067266066
+
+
+
+=============== 8 ===============
+---------- Tetris -----------
+total discount reward : 	 -5563.5644189144305
+---------- SJF -----------
+total discount reward : 	 -2526.9617382617434
+---------- Random -----------
+total discount reward : 	 -2968.0959706959707
+
+
+
+=============== 9 ===============
+---------- Tetris -----------
+total discount reward : 	 -5170.085148185147
+---------- SJF -----------
+total discount reward : 	 -2694.745254745258
+---------- Random -----------
+total discount reward : 	 -3296.5020979020974
+
+
+
+=============== 10 ===============
+---------- Tetris -----------
+total discount reward : 	 -5871.506626706615
+---------- SJF -----------
+total discount reward : 	 -4415.971678321678
+---------- Random -----------
+total discount reward : 	 -5436.203246753244
+
+
+
+=============== 11 ===============
+---------- Tetris -----------
+total discount reward : 	 -4823.391741591736
+---------- SJF -----------
+total discount reward : 	 -1950.3712620712622
+---------- Random -----------
+total discount reward : 	 -2538.0194805194824
+
+
+
+=============== 12 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6856.7598901098745
+---------- SJF -----------
+total discount reward : 	 -2930.52815517816
+---------- Random -----------
+total discount reward : 	 -4670.709407259409
+
+
+
+=============== 13 ===============
+---------- Tetris -----------
+total discount reward : 	 -4019.634915084913
+---------- SJF -----------
+total discount reward : 	 -2016.1138694638705
+---------- Random -----------
+total discount reward : 	 -2597.1905427905454
+
+
+
+=============== 14 ===============
+---------- Tetris -----------
+total discount reward : 	 -6852.5234099234185
+---------- SJF -----------
+total discount reward : 	 -3619.2398268398247
+---------- Random -----------
+total discount reward : 	 -3930.3911754911755
+
+
+
+=============== 15 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6932.414002664
+---------- SJF -----------
+total discount reward : 	 -3250.531918081918
+---------- Random -----------
+total discount reward : 	 -4636.616400266407
+
+
+
+=============== 16 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -5318.458374958367
+---------- SJF -----------
+total discount reward : 	 -4399.852297702291
+---------- Random -----------
+total discount reward : 	 -4742.698334998333
+
+
+
+=============== 17 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7233.647735597736
+---------- SJF -----------
+total discount reward : 	 -4927.325541125539
+---------- Random -----------
+total discount reward : 	 -5953.493922743922
+
+
+
+=============== 18 ===============
+---------- Tetris -----------
+total discount reward : 	 -4098.522377622378
+---------- SJF -----------
+total discount reward : 	 -2266.82713952714
+---------- Random -----------
+total discount reward : 	 -2802.9347319347307
+
+
+
+=============== 19 ===============
+---------- Tetris -----------
+total discount reward : 	 -6914.09205794206
+---------- SJF -----------
+total discount reward : 	 -3061.8849650349666
+---------- Random -----------
+total discount reward : 	 -4667.8916083916065
+
+
+
+=============== 20 ===============
+---------- Tetris -----------
+total discount reward : 	 -6160.645654345657
+---------- SJF -----------
+total discount reward : 	 -3280.217815517818
+---------- Random -----------
+total discount reward : 	 -4647.4333999333985
+
+
+
+=============== 21 ===============
+---------- Tetris -----------
+total discount reward : 	 -5583.9067099567055
+---------- SJF -----------
+total discount reward : 	 -3479.5601565101597
+---------- Random -----------
+total discount reward : 	 -3829.794505494508
+
+
+
+=============== 22 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7376.981002331012
+---------- SJF -----------
+total discount reward : 	 -3716.2123543123553
+---------- Random -----------
+total discount reward : 	 -4934.700033300035
+
+
+
+=============== 23 ===============
+---------- Tetris -----------
+total discount reward : 	 -6561.203213453211
+---------- SJF -----------
+total discount reward : 	 -2785.636763236763
+---------- Random -----------
+total discount reward : 	 -3613.6382117882085
+
+
+
+=============== 24 ===============
+---------- Tetris -----------
+total discount reward : 	 -4805.526290376291
+---------- SJF -----------
+total discount reward : 	 -1731.604428904429
+---------- Random -----------
+total discount reward : 	 -3077.9549117549104
+
+
+
+=============== 25 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6422.9866133866135
+---------- SJF -----------
+total discount reward : 	 -4088.204329004328
+---------- Random -----------
+total discount reward : 	 -5585.684165834163
+
+
+
+=============== 26 ===============
+---------- Tetris -----------
+total discount reward : 	 -4140.103230103225
+---------- SJF -----------
+total discount reward : 	 -2556.2643023643045
+---------- Random -----------
+total discount reward : 	 -3088.937329337327
+
+
+
+=============== 27 ===============
+---------- Tetris -----------
+total discount reward : 	 -5706.2240426240505
+---------- SJF -----------
+total discount reward : 	 -2485.6943889443933
+---------- Random -----------
+total discount reward : 	 -3864.043240093243
+
+
+
+=============== 28 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7730.895571095578
+---------- SJF -----------
+total discount reward : 	 -5284.121744921744
+Backlog is full.
+---------- Random -----------
+total discount reward : 	 -6793.640692640704
+
+
+
+=============== 29 ===============
+---------- Tetris -----------
+total discount reward : 	 -3739.2940892440897
+---------- SJF -----------
+total discount reward : 	 -2384.749250749256
+---------- Random -----------
+total discount reward : 	 -2375.3012487512465
+
+
+
+=============== 30 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7175.491641691642
+---------- SJF -----------
+total discount reward : 	 -4956.387695637688
+---------- Random -----------
+total discount reward : 	 -6653.3283216783175
+
+
+
+=============== 31 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6812.893090243092
+---------- SJF -----------
+total discount reward : 	 -4519.026756576756
+---------- Random -----------
+total discount reward : 	 -5038.015867465865
+
+
+
+=============== 32 ===============
+---------- Tetris -----------
+total discount reward : 	 -4463.0883116883115
+---------- SJF -----------
+total discount reward : 	 -1975.5980186480194
+---------- Random -----------
+total discount reward : 	 -2600.9459040959036
+
+
+
+=============== 33 ===============
+---------- Tetris -----------
+total discount reward : 	 -8195.654179154171
+---------- SJF -----------
+total discount reward : 	 -4706.382267732262
+---------- Random -----------
+total discount reward : 	 -6169.4815351315365
+
+
+
+=============== 34 ===============
+---------- Tetris -----------
+total discount reward : 	 -5446.18519813519
+---------- SJF -----------
+total discount reward : 	 -2456.240526140525
+---------- Random -----------
+total discount reward : 	 -3926.1280719280744
+
+
+
+=============== 35 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7402.257775557782
+---------- SJF -----------
+total discount reward : 	 -4463.708458208456
+---------- Random -----------
+total discount reward : 	 -5986.837445887454
+
+
+
+=============== 36 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7188.010256410244
+---------- SJF -----------
+total discount reward : 	 -4971.804578754579
+---------- Random -----------
+total discount reward : 	 -5923.081118881115
+
+
+
+=============== 37 ===============
+---------- Tetris -----------
+total discount reward : 	 -6742.766350316346
+---------- SJF -----------
+total discount reward : 	 -3979.1758907758926
+---------- Random -----------
+total discount reward : 	 -4579.570362970365
+
+
+
+=============== 38 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -8103.603213453209
+---------- SJF -----------
+total discount reward : 	 -4576.202747252748
+---------- Random -----------
+total discount reward : 	 -6327.436696636691
+
+
+
+=============== 39 ===============
+---------- Tetris -----------
+total discount reward : 	 -5341.516433566432
+---------- SJF -----------
+total discount reward : 	 -2585.9687812187785
+---------- Random -----------
+total discount reward : 	 -2865.68045288045
+
+
+
+=============== 40 ===============
+---------- Tetris -----------
+total discount reward : 	 -4382.441708291712
+---------- SJF -----------
+total discount reward : 	 -3553.7184482184516
+---------- Random -----------
+total discount reward : 	 -2759.182367632362
+
+
+
+=============== 41 ===============
+---------- Tetris -----------
+total discount reward : 	 -6543.388028638029
+---------- SJF -----------
+total discount reward : 	 -4121.6892607392665
+---------- Random -----------
+total discount reward : 	 -4354.644022644023
+
+
+
+=============== 42 ===============
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6831.2280386280345
+---------- SJF -----------
+total discount reward : 	 -3846.7148351648334
+---------- Random -----------
+total discount reward : 	 -4345.086163836162
+
+
+
+=============== 43 ===============
+---------- Tetris -----------
+total discount reward : 	 -3676.7737762237725
+---------- SJF -----------
+total discount reward : 	 -1372.5739926739916
+---------- Random -----------
+total discount reward : 	 -2186.441874791875
+
+
+
+=============== 44 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7517.739327339334
+Backlog is full.
+---------- SJF -----------
+total discount reward : 	 -5449.032550782552
+Backlog is full.
+---------- Random -----------
+total discount reward : 	 -6280.829886779874
+
+
+
+=============== 45 ===============
+---------- Tetris -----------
+total discount reward : 	 -6054.776873126871
+---------- SJF -----------
+total discount reward : 	 -3152.563986013983
+---------- Random -----------
+total discount reward : 	 -5251.837445887437
+
+
+
+=============== 46 ===============
+---------- Tetris -----------
+total discount reward : 	 -6031.749050949052
+---------- SJF -----------
+total discount reward : 	 -3842.672427572428
+---------- Random -----------
+total discount reward : 	 -3971.1300033300054
+
+
+
+=============== 47 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7197.082883782879
+---------- SJF -----------
+total discount reward : 	 -4626.180586080583
+---------- Random -----------
+total discount reward : 	 -5621.034848484849
+
+
+
+=============== 48 ===============
+---------- Tetris -----------
+total discount reward : 	 -5802.422211122218
+---------- SJF -----------
+total discount reward : 	 -4593.325091575098
+---------- Random -----------
+total discount reward : 	 -4929.13481518482
+
+
+
+=============== 49 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6912.3553113552925
+---------- SJF -----------
+total discount reward : 	 -4445.23265068264
+---------- Random -----------
+total discount reward : 	 -4907.115867465871
+
+
+
+=============== 50 ===============
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7063.4542624042715
+---------- SJF -----------
+total discount reward : 	 -4066.2646520146577
+---------- Random -----------
+total discount reward : 	 -4767.12835497835
+
+
+
+=============== 51 ===============
+---------- Tetris -----------
+total discount reward : 	 -3757.152314352315
+---------- SJF -----------
+total discount reward : 	 -2109.5767232767225
+---------- Random -----------
+total discount reward : 	 -2614.043273393274
+
+
+
+=============== 52 ===============
+---------- Tetris -----------
+total discount reward : 	 -6466.030602730599
+---------- SJF -----------
+total discount reward : 	 -3152.6454878454924
+---------- Random -----------
+total discount reward : 	 -3520.9779387279386
+
+
+
+=============== 53 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7496.213070263077
+Backlog is full.
+Backlog is full.
+---------- SJF -----------
+total discount reward : 	 -5825.381252081247
+Backlog is full.
+Backlog is full.
+---------- Random -----------
+total discount reward : 	 -6444.4505661005605
+
+
+
+=============== 54 ===============
+---------- Tetris -----------
+total discount reward : 	 -5629.579836829836
+---------- SJF -----------
+total discount reward : 	 -2843.003080253071
+---------- Random -----------
+total discount reward : 	 -3427.7477522477543
+
+
+
+=============== 55 ===============
+---------- Tetris -----------
+total discount reward : 	 -6579.610456210446
+---------- SJF -----------
+total discount reward : 	 -4018.9053613053634
+---------- Random -----------
+total discount reward : 	 -3985.480835830836
+
+
+
+=============== 56 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -8235.136147186142
+---------- SJF -----------
+total discount reward : 	 -5315.389443889443
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Random -----------
+total discount reward : 	 -6967.412670662668
+
+
+
+=============== 57 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6024.234282384276
+---------- SJF -----------
+total discount reward : 	 -4186.805844155845
+---------- Random -----------
+total discount reward : 	 -5365.191008991007
+
+
+
+=============== 58 ===============
+---------- Tetris -----------
+total discount reward : 	 -5558.8457042957025
+---------- SJF -----------
+total discount reward : 	 -1848.2279553779529
+---------- Random -----------
+total discount reward : 	 -3722.268398268398
+
+
+
+=============== 59 ===============
+---------- Tetris -----------
+total discount reward : 	 -4699.939294039293
+---------- SJF -----------
+total discount reward : 	 -1448.0336496836499
+---------- Random -----------
+total discount reward : 	 -2207.879903429909
+
+
+
+=============== 60 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7183.070612720602
+---------- SJF -----------
+total discount reward : 	 -6105.794322344315
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Random -----------
+total discount reward : 	 -6215.013419913424
+
+
+
+=============== 61 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6845.768331668335
+Backlog is full.
+Backlog is full.
+---------- SJF -----------
+total discount reward : 	 -4803.992041292047
+---------- Random -----------
+total discount reward : 	 -5198.8195304695355
+
+
+
+=============== 62 ===============
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6141.583166833167
+---------- SJF -----------
+total discount reward : 	 -3144.3907758907762
+---------- Random -----------
+total discount reward : 	 -4255.3535464535535
+
+
+
+=============== 63 ===============
+---------- Tetris -----------
+total discount reward : 	 -2587.7232101232134
+---------- SJF -----------
+total discount reward : 	 -1680.9361305361326
+---------- Random -----------
+total discount reward : 	 -1750.218864468865
+
+
+
+=============== 64 ===============
+---------- Tetris -----------
+total discount reward : 	 -6142.517665667656
+---------- SJF -----------
+total discount reward : 	 -3790.1876789876824
+---------- Random -----------
+total discount reward : 	 -4914.118897768886
+
+
+
+=============== 65 ===============
+---------- Tetris -----------
+total discount reward : 	 -5337.186446886449
+---------- SJF -----------
+total discount reward : 	 -3220.6594072594057
+---------- Random -----------
+total discount reward : 	 -3332.680752580754
+
+
+
+=============== 66 ===============
+---------- Tetris -----------
+total discount reward : 	 -4640.132650682647
+---------- SJF -----------
+total discount reward : 	 -1920.7566766566742
+---------- Random -----------
+total discount reward : 	 -2838.142757242759
+
+
+
+=============== 67 ===============
+---------- Tetris -----------
+total discount reward : 	 -5659.082134532138
+---------- SJF -----------
+total discount reward : 	 -3197.335547785548
+---------- Random -----------
+total discount reward : 	 -3633.339876789876
+
+
+
+=============== 68 ===============
+---------- Tetris -----------
+total discount reward : 	 -4712.640176490167
+---------- SJF -----------
+total discount reward : 	 -2211.32186147186
+---------- Random -----------
+total discount reward : 	 -2679.5794538794553
+
+
+
+=============== 69 ===============
+---------- Tetris -----------
+total discount reward : 	 -5088.301498501504
+---------- SJF -----------
+total discount reward : 	 -2825.83263403263
+---------- Random -----------
+total discount reward : 	 -3441.030486180484
+
+
+
+=============== 70 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7033.5693473193505
+---------- SJF -----------
+total discount reward : 	 -3529.9684815184755
+---------- Random -----------
+total discount reward : 	 -5227.636430236429
+
+
+
+=============== 71 ===============
+---------- Tetris -----------
+total discount reward : 	 -4729.192307692299
+---------- SJF -----------
+total discount reward : 	 -1720.1057109557103
+---------- Random -----------
+total discount reward : 	 -2293.1488344988325
+
+
+
+=============== 72 ===============
+---------- Tetris -----------
+total discount reward : 	 -2967.876939726946
+---------- SJF -----------
+total discount reward : 	 -1334.3041125541104
+---------- Random -----------
+total discount reward : 	 -2084.0051781551765
+
+
+
+=============== 73 ===============
+---------- Tetris -----------
+total discount reward : 	 -6597.931918081925
+---------- SJF -----------
+total discount reward : 	 -3560.141924741925
+---------- Random -----------
+total discount reward : 	 -4545.658075258072
+
+
+
+=============== 74 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6918.217449217442
+---------- SJF -----------
+total discount reward : 	 -4606.216500166499
+---------- Random -----------
+total discount reward : 	 -4695.485014985008
+
+
+
+=============== 75 ===============
+---------- Tetris -----------
+total discount reward : 	 -3743.9919413919433
+---------- SJF -----------
+total discount reward : 	 -1207.6519980019973
+---------- Random -----------
+total discount reward : 	 -1956.55934065934
+
+
+
+=============== 76 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -8242.48669663669
+Backlog is full.
+---------- SJF -----------
+total discount reward : 	 -5890.551548451544
+---------- Random -----------
+total discount reward : 	 -6849.789743589744
+
+
+
+=============== 77 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6643.189993339993
+---------- SJF -----------
+total discount reward : 	 -4306.536180486182
+---------- Random -----------
+total discount reward : 	 -5122.324642024645
+
+
+
+=============== 78 ===============
+---------- Tetris -----------
+total discount reward : 	 -5946.049350649351
+---------- SJF -----------
+total discount reward : 	 -2738.4306360306405
+---------- Random -----------
+total discount reward : 	 -3714.3793373293424
+
+
+
+=============== 79 ===============
+---------- Tetris -----------
+total discount reward : 	 -5017.0401931401875
+---------- SJF -----------
+total discount reward : 	 -3557.836946386944
+---------- Random -----------
+total discount reward : 	 -4233.514885114885
+
+
+
+=============== 80 ===============
+---------- Tetris -----------
+total discount reward : 	 -4350.961521811523
+---------- SJF -----------
+total discount reward : 	 -2377.6363136863074
+---------- Random -----------
+total discount reward : 	 -2993.463802863802
+
+
+
+=============== 81 ===============
+---------- Tetris -----------
+total discount reward : 	 -5759.806826506825
+---------- SJF -----------
+total discount reward : 	 -3670.323559773561
+---------- Random -----------
+total discount reward : 	 -3515.677572427576
+
+
+
+=============== 82 ===============
+---------- Tetris -----------
+total discount reward : 	 -6309.156426906418
+---------- SJF -----------
+total discount reward : 	 -2485.187296037299
+---------- Random -----------
+total discount reward : 	 -3774.514335664337
+
+
+
+=============== 83 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -8049.290992340977
+---------- SJF -----------
+total discount reward : 	 -5181.912171162169
+---------- Random -----------
+total discount reward : 	 -6381.992207792224
+
+
+
+=============== 84 ===============
+---------- Tetris -----------
+total discount reward : 	 -5912.368181818189
+---------- SJF -----------
+total discount reward : 	 -2436.049017649023
+---------- Random -----------
+total discount reward : 	 -3701.6270562770565
+
+
+
+=============== 85 ===============
+---------- Tetris -----------
+total discount reward : 	 -6337.869946719946
+---------- SJF -----------
+total discount reward : 	 -2821.5920912420893
+---------- Random -----------
+total discount reward : 	 -3297.5823842823906
+
+
+
+=============== 86 ===============
+---------- Tetris -----------
+total discount reward : 	 -4070.329070929072
+---------- SJF -----------
+total discount reward : 	 -2578.427405927407
+---------- Random -----------
+total discount reward : 	 -2692.148235098238
+
+
+
+=============== 87 ===============
+---------- Tetris -----------
+total discount reward : 	 -3834.5950382950364
+---------- SJF -----------
+total discount reward : 	 -2294.3870962370947
+---------- Random -----------
+total discount reward : 	 -2726.4543456543465
+
+
+
+=============== 88 ===============
+---------- Tetris -----------
+total discount reward : 	 -4613.970113220104
+---------- SJF -----------
+total discount reward : 	 -2171.3156343656296
+---------- Random -----------
+total discount reward : 	 -2700.9399100899072
+
+
+
+=============== 89 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -8128.808225108226
+---------- SJF -----------
+total discount reward : 	 -4897.6162504162585
+---------- Random -----------
+total discount reward : 	 -6030.823476523481
+
+
+
+=============== 90 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -7453.194638694655
+Backlog is full.
+---------- SJF -----------
+total discount reward : 	 -5365.234898434895
+Backlog is full.
+Backlog is full.
+---------- Random -----------
+total discount reward : 	 -6893.8919580419615
+
+
+
+=============== 91 ===============
+---------- Tetris -----------
+total discount reward : 	 -5949.881851481862
+---------- SJF -----------
+total discount reward : 	 -2875.797818847818
+---------- Random -----------
+total discount reward : 	 -3552.3489676989707
+
+
+
+=============== 92 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6370.504179154174
+---------- SJF -----------
+total discount reward : 	 -4519.679304029299
+---------- Random -----------
+total discount reward : 	 -5446.784915084908
+
+
+
+=============== 93 ===============
+---------- Tetris -----------
+total discount reward : 	 -4554.388544788555
+---------- SJF -----------
+total discount reward : 	 -1867.5280719280756
+---------- Random -----------
+total discount reward : 	 -2380.7144855144816
+
+
+
+=============== 94 ===============
+---------- Tetris -----------
+total discount reward : 	 -5759.679287379292
+---------- SJF -----------
+total discount reward : 	 -4012.3112887112898
+---------- Random -----------
+total discount reward : 	 -3357.876723276727
+
+
+
+=============== 95 ===============
+---------- Tetris -----------
+total discount reward : 	 -6771.108757908752
+---------- SJF -----------
+total discount reward : 	 -3434.921095571095
+---------- Random -----------
+total discount reward : 	 -3498.9341325341347
+
+
+
+=============== 96 ===============
+---------- Tetris -----------
+total discount reward : 	 -6244.946153846141
+---------- SJF -----------
+total discount reward : 	 -3038.6586080586094
+---------- Random -----------
+total discount reward : 	 -3772.5523476523476
+
+
+
+=============== 97 ===============
+---------- Tetris -----------
+total discount reward : 	 -5837.450049950051
+---------- SJF -----------
+total discount reward : 	 -2854.049850149852
+---------- Random -----------
+total discount reward : 	 -3752.259307359309
+
+
+
+=============== 98 ===============
+---------- Tetris -----------
+total discount reward : 	 -7654.916633366639
+---------- SJF -----------
+total discount reward : 	 -3751.21293706294
+---------- Random -----------
+total discount reward : 	 -4427.122360972365
+
+
+
+=============== 99 ===============
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+---------- Tetris -----------
+total discount reward : 	 -6513.432634032649
+---------- SJF -----------
+total discount reward : 	 -3516.801798201798
+---------- Random -----------
+total discount reward : 	 -4922.398285048284
+Start training...
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+
+
+
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+
+
+
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+
+
+
+
+
+
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+
+
+
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+
+
+
+
+
+
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+Backlog is full.
+
+
+
