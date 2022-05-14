@@ -72,10 +72,14 @@ div[class*="release_year"] {
         <a class="nav-link" href="/profile"> Profile <span class="sr-only">(current)</span></a>
       </li>
 
-        {% if session['isadmin'] %}
       <li class="nav-item active">
-        <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/recommend"> Recommendation <span class="sr-only">(current)</span></a>
       </li>
+
+        {% if session['isadmin'] %}
+<!--       <li class="nav-item active">
+        <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
+      </li> -->
       {% endif %}
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

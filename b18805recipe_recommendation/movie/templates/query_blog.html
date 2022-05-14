@@ -1,9 +1,14 @@
 <h3><a href="/blogs">< doc list</a></h3>
-<h1>doc detail</h1>
+<h1>recipe detail</h1>
 <div>
     <a href="/blogs/update/{{blog.id}}" id="{{blog.id}}">更新</a>
     <h3>{{blog.title}}</h3>
     <p>{{blog.text}}</p>
+
+        <figure>
+            <img src="/static/images/app_data/{{blog.id }}.png" class="img-fluid" style="height:250px;width:500px;">
+        </figure>
+        
     <a href="#" class="btn-delete" id="{{blog.id}}">删除</a>
 </div>
 
