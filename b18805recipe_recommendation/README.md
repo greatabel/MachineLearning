@@ -36,6 +36,11 @@ username: greatabel1@126.com
 password: abel
 你也可以自己注册和登录
 
+-------------------
+一般用户测试账号:
+username:test@126.com  
+password: test
+
 8.
 个人主页： http://localhost:5000/profile
 

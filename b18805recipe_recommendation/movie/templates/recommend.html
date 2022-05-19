@@ -80,8 +80,8 @@ div[class*="release_year"] {
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Recipe-Recommandation machine learning by HuaXin</h1>
-        <p>You can view/search movie on our website</p>
+        <h1>Recipe-Recommandation machine learning</h1>
+        <p>You can view/search recipe on our website</p>
       </div>
     </div>
 
@@ -96,7 +96,7 @@ div[class*="release_year"] {
 
         <img src="/static/images/demo.png" class="img-fluid" >
         Accoriding to data above, 
-        We recommend for user[Toby] such movie according by <b>Collaborative Filtering Algorithm</b>:
+        We recommend for user[Abel] such recipe according by <b>Recoomendation Algorithm</b>:
 
                   {% for c in choosed %}
 
@@ -124,12 +124,12 @@ div[class*="release_year"] {
              <form class="form-horizontal" action="/review" method="POST">
                    <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" name="movie_id" id="movie_id" placeholder="movie_id" class="form-control">
+                        <input type="text" name="recipe_id" id="recipe_id" placeholder="recipe_id" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" name="movie_name" id="movie_name" placeholder="movie_name" class="form-control">
+                        <input type="text" name="recipe_name" id="recipe_name" placeholder="recipe_name" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
