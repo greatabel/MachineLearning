@@ -174,14 +174,14 @@ div[class*="release_year"] {
 
       <div class="row">
         <div class="col-md-12">
-        <span>original map with all 订单</span> &nbsp;
-        <a href="/orginal">original map with all 订单</a>
+        <span>查看订单实时位置</span> &nbsp;
+        <a href="/advanced_path">查看订单GPS位置</a>
 
             <div name="title"> </div>  
         </div>
       </div>
 
-      <div class="row">
+<!--       <div class="row">
         <div class="col-md-12">
 
           <button type="button" class="btn btn-secondary">
@@ -198,7 +198,7 @@ div[class*="release_year"] {
  <a href="http://localhost:5000/advanced_path" style="color:inherit"> Plan Path (Network fever/sentiment)  </a>
           </button>
         </div>
-      </div>
+      </div> -->
 <hr/>
 
 <br/><br/>
@@ -211,11 +211,11 @@ div[class*="release_year"] {
       <!-- Example row of columns -->
       <div class="row">
 
-          {% for r in listing %}
+           {% for r in range(1,6) %}
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{r.id }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/app_data/{{ r }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
             <!-- <div class="release_year">{{r.release_year}}</div>  -->

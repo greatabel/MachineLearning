@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>相声详情</title>
+    <title>订单详情</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -94,7 +94,7 @@ div[class*="release_year"] {
 <h3><a href="/home">< home</a></h3>
    {% endif %} -->
 
-<h1>相声详情</h1>
+<h1>订单详情</h1>
 <br/>
 <div>
      {% if session['isadmin'] %}
@@ -110,7 +110,7 @@ div[class*="release_year"] {
 <img src="/static/images/app_data/{{blog.id // 2 }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
 <br/> -->
-<!--     <span>相声 下载url:</span>
+<!--     <span>订单 下载url:</span>
         <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
     <hr/> -->
 

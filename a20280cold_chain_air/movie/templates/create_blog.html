@@ -1,11 +1,32 @@
-<h1>Add doc</h1>
+<h1>Add 订单</h1>
 <!-- HTML表单 -->
 <form action="/blogs/create" method="POST">
     <label>title：</label>
     <input type="text" name="title">
     <br><br>
-    <label>doc content:</label>
-    <input type="text" name="text">
+    <label>content:</label>
+    <!-- <input type="text" name="text"> -->
+    <textarea rows="4" cols="70" type="text" name="text" > </textarea>
     <br><br>
+
+
+    <label>start_time:</label>
+    <input type="text" name="start_time">
+    <br><br>
+
+    <label>end_time:</label>
+    <input type="text" name="end_time">
+    <br><br>
+
+    <label><font style="color:blue;">(如果固定冰库，起点和终点保持一致) </font></label>
+    <br/>
+    <label>start_place:</label>
+    <input type="text" name="start_place">
+    <br><br>
+
+    <label>end_place:</label>
+    <input type="text" name="end_place">
+    <br><br>
+
     <input type="submit" value="create">
 </form>

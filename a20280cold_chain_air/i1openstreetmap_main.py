@@ -68,25 +68,25 @@ def folim_create(start_coords, orginal=True):
     ic1 = plugins.BeautifyIcon(
         border_color="#00ABDC",
         text_color="#00ABDC",
-        number=1,
+        number=5,
         inner_icon_style="margin-top:0;",
     )
     ic2 = plugins.BeautifyIcon(
         border_color="#00ABDC",
         text_color="#00ABDC",
-        number=2,
+        number=5,
         inner_icon_style="margin-top:0;",
     )
     ic3 = plugins.BeautifyIcon(
         border_color="#00ABDC",
         text_color="#00ABDC",
-        number=3,
+        number=5,
         inner_icon_style="margin-top:0;",
     )
     ic4 = plugins.BeautifyIcon(
         border_color="#00ABDC",
         text_color="#00ABDC",
-        number=4,
+        number=5,
         inner_icon_style="margin-top:0;",
     )
 
@@ -217,18 +217,16 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
     total_km = []
 
     lat_logs = [
-        [51.5205898, -0.1424225],
-        [51.503324, -0.119543],
-        [51.5138453, -0.0983506],
-        [51.5128019, -0.0834833],
-        [51.508929, -0.128299],
+        [31.14, 121.29],
+        [31.19, 120.37],
+        [31.16, 120.10],
+
     ]
     places = [
-        "YHA London Central Hostel",
-        "Coca-Cola London Eye",
-        "St. Paul's Cathedral",
-        "Leadenhall Market",
-        "The National Gallery",
+        "订单1起始点(上海市中心)",
+        "订单1终点(苏州市附近）",
+        "订单2(杭州市附近）",
+
     ]
     # if not "rain" in wheather_R and not "snow" in wheather_R:
     for source in lat_logs:
@@ -258,7 +256,7 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
     sorted_placenames = np.array(places)[orders]
     print("sorted_places=", sorted_places)
     print("sorted_placenames=", sorted_placenames)
-    m = folium.Map(location=start_coords, width="100%", height="70%", zoom_start=14)
+    m = folium.Map(location=start_coords, width="100%", height="95%", zoom_start=8)
 
     # line_to_new_delhi = folium.PolyLine(
     #     [
@@ -312,7 +310,8 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
             inner_icon_style="margin-top:0;",
         )
         # folium.Marker([51.5205898, -0.1424225], popup='ondon Central Hostel',tooltip=tooltip,icon=folium.Icon(color='red')).add_to(m)
-        folium.Marker([p[0], p[1]], popup=name, tooltip=tooltip, icon=myic).add_to(
+        popup = folium.Popup(f"<h5>{name}</h5>", max_width=300,min_width=300)
+        folium.Marker([p[0], p[1]], popup=popup, tooltip=tooltip, icon=myic).add_to(
             m
         )
         index += 1
@@ -320,8 +319,8 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
     # folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip,icon=ic2).add_to(m)
     # folium.Marker([51.5128019, -0.0834833], popup='Leadenhall Market',tooltip=tooltip,icon=ic3).add_to(m)
     # folium.Marker([51.508929 , -0.128299], popup='The National Gallery',tooltip=tooltip,icon=ic4).add_to(m)
-    line_to_new_delhi = folium.PolyLine(sorted_places, color="red").add_to(m)
-    plugins.PolyLineTextPath(line_to_new_delhi, "London Tour", offset=-25).add_to(m)
+    # line_to_new_delhi = folium.PolyLine(sorted_places, color="red").add_to(m)
+    # plugins.PolyLineTextPath(line_to_new_delhi, "London Tour", offset=-25).add_to(m)
 
     # line_to_hanoi = folium.PolyLine(
     #     [
@@ -338,7 +337,7 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
 
 @app.route("/orginal")
 def orginal():
-    start_coords = (51.503324, -0.119543)
+    start_coords = (51.5205898, -0.1424225)
     # folium_map = folium.Map(location=start_coords, zoom_start=14)
     folium_map = folim_create(start_coords, orginal=True)
     return folium_map._repr_html_()
@@ -354,7 +353,7 @@ def index():
 
 @app.route("/advanced_path")
 def advance_path():
-    start_coords = (51.503324, -0.119543)
+    start_coords = (31.50000,121.43333)
     # folium_map = folium.Map(location=start_coords, zoom_start=14)
     folium_map = advanced_folim_create(start_coords, additonal_information)
     return folium_map._repr_html_()
@@ -377,51 +376,34 @@ class User(db.Model):
 
 class Blog(db.Model):
     """
-    课程数据模型
+    订单数据模型
     """
 
     # 主键ID
     id = db.Column(db.Integer, primary_key=True)
-    # 课程标题
+    # 订单标题
     title = db.Column(db.String(100))
-    # 课程正文
+    # 订单正文
     text = db.Column(db.Text)
+    # 入库时间
+    start_time = db.Column(db.String(100))
+    #  出库时间
+    end_time = db.Column(db.String(100))
+    # 地点
+    start_place = db.Column(db.String(100))
+    end_place = db.Column(db.String(100))
 
-    def __init__(self, title, text):
+    def __init__(self, title, text, start_time, end_time, start_place, end_place):
         """
         初始化方法
         """
         self.title = title
         self.text = text
+        self.start_time = start_time
+        self.end_time = end_time
+        self.start_place = start_place
+        self.end_place = end_place
 
-
-# 老师当前布置作业的表
-class TeacherWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
-    detail = db.Column(db.String(500))
-    answer = db.Column(db.String(5000))
-    course_id = db.Column(db.Integer)
-
-    def __init__(self, title, detail, answer, course_id):
-        self.title = title
-        self.detail = detail
-        self.answer = answer
-        self.course_id = course_id
-
-
-class StudentWork(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.Integer)
-    answer = db.Column(db.String(5000))
-    score = db.Column(db.DECIMAL(10, 2))
-    course_id = db.Column(db.Integer)
-
-    def __init__(self, userid, answer, score, course_id):
-        self.userid = userid
-        self.answer = answer
-        self.score = score
-        self.course_id = course_id
 
 
 ### -------------start of home
@@ -485,7 +467,7 @@ def home(pagenum=1):
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建课程文章
+    创建订单item
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -495,61 +477,68 @@ def create_blog():
         title = request.form["title"]
         text = request.form["text"]
 
-        # 创建一个课程对象
-        blog = Blog(title=title, text=text)
+
+        start_time = request.form["start_time"]
+        end_time = request.form["end_time"]
+        start_place = request.form["start_place"]
+        end_place = request.form["end_place"]
+
+        # 创建一个订单对象
+        blog = Blog(title=title, text=text, start_time=start_time, end_time=end_time,
+            start_place=start_place, end_place=end_place)
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
-        # 创建完成之后重定向到课程列表页面
+        # 创建完成之后重定向到订单列表页面
         return redirect("/blogs")
 
 
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询课程列表
+    查询订单列表
     """
     blogs = Blog.query.all()
-    # 渲染课程列表页面目标文件，传入blogs参数
+    # 渲染订单列表页面目标文件，传入blogs参数
     return rt("list_blogs.html", blogs=blogs)
 
 
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新课程
+    更新订单
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询订单详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_blog.html", blog=blog)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的订单标题和正文
         title = request.form["title"]
         text = request.form["text"]
 
-        # 更新课程
+        # 更新订单
         blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到订单详情页面
         return redirect("/blogs/{id}".format(id=id))
 
 
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询课程详情、删除课程
+    查询订单详情、删除订单
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询订单详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染订单详情页面
         return rt("query_blog.html", blog=blog)
     else:
-        # 删除课程
+        # 删除订单
         blog = Blog.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -566,20 +555,20 @@ def query_note(id):
 @app.route("/profile", methods=["GET", "DELETE"])
 def query_profile():
     """
-    查询课程详情、删除课程
+    查询订单详情、删除订单
     """
 
     id = session["userid"]
 
     if request.method == "GET":
 
-        # 到数据库查询课程详情
+        # 到数据库查询订单详情
         user = User.query.filter_by(id=id).first_or_404()
         print(user.username, user.password, "#" * 5)
-        # 渲染课程详情页面
+        # 渲染订单详情页面
         return rt("profile.html", user=user)
     else:
-        # 删除课程
+        # 删除订单
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
@@ -590,21 +579,21 @@ def query_profile():
 @app.route("/profiles/update/<id>", methods=["GET", "POST"])
 def update_profile(id):
     """
-    更新课程
+    更新订单
     """
     if request.method == "GET":
-        # 根据ID查询课程详情
+        # 根据ID查询订单详情
         user = User.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
         return rt("update_profile.html", user=user)
     else:
-        # 获取请求的课程标题和正文
+        # 获取请求的订单标题和正文
         password = request.form["password"]
         nickname = request.form["nickname"]
         school_class = request.form["school_class"]
         school_grade = request.form["school_grade"]
 
-        # 更新课程
+        # 更新订单
         user = User.query.filter_by(id=id).update(
             {
                 "password": password,
@@ -615,7 +604,7 @@ def update_profile(id):
         )
         # 提交才能生效
         db.session.commit()
-        # 修改完成之后重定向到课程详情页面
+        # 修改完成之后重定向到订单详情页面
         return redirect("/profile")
 
 
@@ -625,14 +614,14 @@ def update_profile(id):
 @app.route("/course/<id>", methods=["GET"])
 def course_home(id):
     """
-    查询课程详情、删除课程
+    查询订单详情、删除订单
     """
     if request.method == "GET":
-        # 到数据库查询课程详情
+        # 到数据库查询订单详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         teacherWork = TeacherWork.query.filter_by(course_id=id).first()
         print(id, blog, "in query_blog", "@" * 20)
-        # 渲染课程详情页面
+        # 渲染订单详情页面
         return rt("course.html", blog=blog, teacherWork=teacherWork)
     else:
         return "", 204
