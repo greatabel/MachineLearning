@@ -162,12 +162,13 @@ div[class*="release_year"] {
       <div class="row">
         <div class="col-md-12">
         <span>{{ r.title }}</span> &nbsp;
-        <a href="/static/i3data_visualization/html/show0{{r.id-1}}.html">{{ r.text }}</a>
+        <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }}  </a>
 
             <div name="title"> </div>  
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
         </div>
         </div>
+        <br/>
            {% endfor %}
         
 <hr/>

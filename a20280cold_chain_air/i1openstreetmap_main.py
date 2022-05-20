@@ -25,6 +25,9 @@ from movie import create_app
 import folium
 from folium import plugins
 import numpy as np
+from datetime import datetime
+import random
+
 # from weather import wheather_R
 
 # print("#" * 20, wheather_R)
@@ -219,14 +222,14 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
     lat_logs = [
         [31.14, 121.29],
         [31.19, 120.37],
+        [31.49, 120.37],
         [31.16, 120.10],
-
     ]
     places = [
-        "订单1起始点(上海市中心)",
+        "订单1起点(上海市中心)",
         "订单1终点(苏州市附近）",
+        "订单1实时位置",
         "订单2(杭州市附近）",
-
     ]
     # if not "rain" in wheather_R and not "snow" in wheather_R:
     for source in lat_logs:
@@ -253,7 +256,7 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
     orders = np.argsort(new_values)
     print("order=", orders)
     sorted_places = np.array(lat_logs)[orders]
-    sorted_placenames = np.array(places)[orders]
+    sorted_placenames = places
     print("sorted_places=", sorted_places)
     print("sorted_placenames=", sorted_placenames)
     m = folium.Map(location=start_coords, width="100%", height="95%", zoom_start=8)
@@ -310,10 +313,8 @@ def advanced_folim_create(start_coords, additonal_information=additonal_informat
             inner_icon_style="margin-top:0;",
         )
         # folium.Marker([51.5205898, -0.1424225], popup='ondon Central Hostel',tooltip=tooltip,icon=folium.Icon(color='red')).add_to(m)
-        popup = folium.Popup(f"<h5>{name}</h5>", max_width=300,min_width=300)
-        folium.Marker([p[0], p[1]], popup=popup, tooltip=tooltip, icon=myic).add_to(
-            m
-        )
+        popup = folium.Popup(f"<h5>{name}</h5>", max_width=300, min_width=300)
+        folium.Marker([p[0], p[1]], popup=popup, tooltip=tooltip, icon=myic).add_to(m)
         index += 1
     # folium.Marker([51.503324, -0.119543], popup='Coca-Cola London Eye',tooltip=tooltip,icon=ic1).add_to(m)
     # folium.Marker([51.5138453, -0.0983506], popup="St. Paul's Cathedral",tooltip=tooltip,icon=ic2).add_to(m)
@@ -353,7 +354,7 @@ def index():
 
 @app.route("/advanced_path")
 def advance_path():
-    start_coords = (31.50000,121.43333)
+    start_coords = (31.50000, 121.43333)
     # folium_map = folium.Map(location=start_coords, zoom_start=14)
     folium_map = advanced_folim_create(start_coords, additonal_information)
     return folium_map._repr_html_()
@@ -403,7 +404,6 @@ class Blog(db.Model):
         self.end_time = end_time
         self.start_place = start_place
         self.end_place = end_place
-
 
 
 ### -------------start of home
@@ -477,15 +477,20 @@ def create_blog():
         title = request.form["title"]
         text = request.form["text"]
 
-
         start_time = request.form["start_time"]
         end_time = request.form["end_time"]
         start_place = request.form["start_place"]
         end_place = request.form["end_place"]
 
         # 创建一个订单对象
-        blog = Blog(title=title, text=text, start_time=start_time, end_time=end_time,
-            start_place=start_place, end_place=end_place)
+        blog = Blog(
+            title=title,
+            text=text,
+            start_time=start_time,
+            end_time=end_time,
+            start_place=start_place,
+            end_place=end_place,
+        )
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
@@ -512,6 +517,7 @@ def update_note(id):
         # 根据ID查询订单详情
         blog = Blog.query.filter_by(id=id).first_or_404()
         # 渲染修改笔记页面HTML模板
+
         return rt("update_blog.html", blog=blog)
     else:
         # 获取请求的订单标题和正文
@@ -526,8 +532,32 @@ def update_note(id):
         return redirect("/blogs/{id}".format(id=id))
 
 
+def time_trans(x):
+    print("x=", x)
+    if "年" not in x:
+        x = "2022年" + x
+    year = x.split("年")[0]
+    month = x.split("年")[1].split("月")[0]
+    day = x.split("年")[1].split("月")[1].split("日")[0]
+    print("y", year, "m=", month, "d=", day)
+    if len(day) >= 3:
+        day = day[0] + day[2]
+
+    # chinese_english = dict(零=0,一=1,二=2,三=3,四=4,五=5,六=6,七=7,八=8,九=9,十=10)
+    # year = "".join(str(chinese_english[i]) for i in year)
+    # month = "".join(str(chinese_english[i]) for i in month)
+    # day = "".join(str(chinese_english[i]) for i in day)
+    if len(month) == 3:
+        month = month[0] + month[2]
+    if len(day) == 3:
+        day = day[0] + day[2]
+    final_date = year + "-" + month + "-" + day + " 00:00:00"
+    return final_date
+
+
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
+
     """
     查询订单详情、删除订单
     """
@@ -536,7 +566,31 @@ def query_note(id):
         blog = Blog.query.filter_by(id=id).first_or_404()
         print(id, blog, "in query_blog", "@" * 20)
         # 渲染订单详情页面
-        return rt("query_blog.html", blog=blog)
+
+        # 从预测模型得到
+        parameters = [0.09633556, 0.25799959, 0.11092464, -0.12864146]
+
+        now = datetime.now()
+        h = None
+        if blog.start_time is not None:
+            h = datetime_object = datetime.strptime(
+                time_trans(blog.start_time), "%Y-%m-%d %H:%M:%S"
+            )
+        else:
+            h = datetime.datetime(1970, 1, 1)
+        duration = now - h
+        total = round(duration.total_seconds() / 60 * 24 * 60)
+        r = (
+            parameters[0] * total ** 3
+            + parameters[1] * total ** 2
+            + parameters[2] * total
+            + parameters[3]
+        )
+        myr = random.randint(0, blog.id)
+        r = pow(r, 1 / 8) + myr
+        print(total, "#" * 10, r, "#" * 30)
+
+        return rt("query_blog.html", blog=blog, predict=round(r, 2))
     else:
         # 删除订单
         blog = Blog.query.filter_by(id=id).delete()
