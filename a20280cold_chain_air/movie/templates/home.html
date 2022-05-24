@@ -205,7 +205,7 @@ div[class*="release_year"] {
         <tr>
 
 
-            <td>{{ r.title }}</td>
+            <td>{{ r.title|safe }}</td>
              <td>{{ r.text[:300]|safe  }}</td>
              <td> 
                 &nbsp;
