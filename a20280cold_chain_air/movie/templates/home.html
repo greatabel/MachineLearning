@@ -196,6 +196,10 @@ div[class*="release_year"] {
 
             <th>名称</th>
             <th>内容</th>
+            <th>入库时间</th>
+            <th>出库时间</th>
+            <th>入库地点</th>
+            <th>出库地点</th>
             <th>操作</th>
         <tr>
     </thead>
@@ -207,6 +211,10 @@ div[class*="release_year"] {
 
             <td>{{ r.title|safe }}</td>
              <td>{{ r.text[:300]|safe  }}</td>
+             <td>{{ r.start_time|safe  }}</td>
+             <td>{{ r.end_time|safe  }}</td>
+             <td>{{ r.start_place|safe  }}</td>
+             <td>{{ r.end_place|safe  }}</td>
              <td> 
                 &nbsp;
             <button type="button" class="btn btn-primary">
