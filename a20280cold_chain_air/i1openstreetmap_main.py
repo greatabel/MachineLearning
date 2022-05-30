@@ -27,7 +27,7 @@ from folium import plugins
 import numpy as np
 from datetime import datetime
 import random
-
+import csv
 # from weather import wheather_R
 
 # print("#" * 20, wheather_R)
@@ -608,7 +608,17 @@ def query_note(id):
         r = pow(r, 1 / 8) + myr
         print(total, "#" * 10, r, "#" * 30)
 
-        return rt("query_blog.html", blog=blog, predict=round(r, 2))
+        myrows = []
+        filename = "data/air_qualityscore_statistics.csv"
+        with open(filename, encoding="utf-8-sig") as f:  # 打开这个文件，并将结果文件对象存储在f中
+            reader = csv.reader(f)  # 创建一个阅读器reader
+            header_row = next(reader)  # 返回文件中的下一行
+            history_remain = []  # 声明新增粉丝的列表
+            for row in reader:
+                print('#'*10, row)
+                myrows.append(row)
+        print('myrows=', myrows[0])
+        return rt("query_blog.html", blog=blog, predict=round(r, 2),myrows=myrows[:10])
     else:
         # 删除订单
         blog = Blog.query.filter_by(id=id).delete()

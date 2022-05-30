@@ -112,12 +112,45 @@ div[class*="release_year"] {
        <a href="/advanced_path">查看订单GPS位置</a>
        <hr/>
     <br/>
-<!-- <br/>
+
+<table class="table" ellpadding="0" cellspacing="0" width="100%" border="1">
+    <thead>
+        <tr>
+
+            <th>pH2S</th>
+            <th>RCHO</th>
+            <th>pEtOH</th>
+            <th>Ethylene</th>
+            <th>O2</th>
+            <th>ICSC</th>
+            <th>history_time</th>
+
+        <tr>
+    </thead>
+    <tbody>
+    {% for r in myrows %}
+        <tr>
+
+
+            <th>{{ r[0] }}</th>
+            <th>{{ r[1] }}</th>
+            <th>{{ r[2] }}</th>
+            <th>{{ r[3] }}</th>
+            <th>{{ r[4] }}</th>
+            <th>{{ r[5] }}</th>
+            <th>{{ r[6] }}</th>
+        </tr>
+     {% endfor %}
+
+    </tbody>
+</table>
+
+<br/>
 
    <figure>
-<img src="/static/images/app_data/{{blog.id // 2 }}.png" class="img-fluid" style="height:250px;width:500px;">
+<img src="/static/images/predict.png" class="img-fluid" >
         </figure>
-<br/> -->
+<br/>
 <!--     <span>订单 下载url:</span>
         <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
     <hr/> -->
