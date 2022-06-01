@@ -2,17 +2,17 @@
 
 {% block content %}
 <div class="container">
-  <h1 class="my-4">会议管理系统(点击链接update)</h1>
+  <h1 class="my-4">课堂管理系统(点击链接update)</h1>
   {% if groceries|length < 1 %}
   <p>There is nothing to buy for now.</p>
   {% else %}
   <table class="table">
     <thead>
       <tr>
-        <th>会议名称</th>
+        <th>课堂名称</th>
         <th>参与者</th>
-        <th>会议主持人</th>
-        <th>会议创建时间</th>
+        <th>课堂主持人</th>
+        <th>课堂创建时间</th>
       </tr>
     </thead>
     <tbody>

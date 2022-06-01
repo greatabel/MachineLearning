@@ -37,7 +37,7 @@ app.debug = True
 signed_users = []
 
 
-# -------start 会议管理 ---------
+# -------start 课堂管理 ---------
 
 
 class Meeting(db.Model):
@@ -103,7 +103,7 @@ def meeting_update(id):
         title = "Update Data"
         return render_template('update.html', title=title, meeting=meeting)
 
-# -------end   会议管理 ---------
+# -------end   课堂管理 ---------
 
 
 # -------start 注册登录 ---------
