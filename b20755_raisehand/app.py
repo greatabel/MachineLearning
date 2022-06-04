@@ -292,6 +292,12 @@ def index():
     # print(signed_users, '#'*10, 'index')
     return render_template("index.html")
 
+@app.route("/index_hand")
+def index_hand():
+    global signed_users
+    # print(signed_users, '#'*10, 'index')
+    return render_template("index_hand.html")
+
 
 @app.route("/pichandler", methods=["post", "get"])
 def pichandler():
