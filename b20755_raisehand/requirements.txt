@@ -1,0 +1,17 @@
+termcolor==1.1.0
+pandas
+jellyfish
+Flask==1.1.2
+Flask-Script
+flask-wtf==0.14.2
+Click
+face-recognition
+face-recognition-models
+itsdangerous
+Jinja2
+MarkupSafe
+numpy
+Pillow
+Werkzeug
+sqlitedict
+Flask-Docs
