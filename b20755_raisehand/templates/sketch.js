@@ -82,6 +82,9 @@ function runDetection() {
 
 function setup() {
 	canvas = createCanvas(640, 480);
+
+
+
 	capture = createCapture(VIDEO, function() {
 		handTrack.load(modelSettings).then(lmodel => {
 			model = lmodel;

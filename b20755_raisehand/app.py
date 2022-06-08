@@ -51,6 +51,13 @@ class Meeting(db.Model):
     def __repr__(self):
         return '<Meeting %r>' % self.name
 
+    def __init__(self, name, participants, host):
+        """
+        初始化方法
+        """
+        self.name = name
+        self.participants = participants
+        self.host = host
 
 @app.route('/meetinglist', methods=['GET', 'POST'])
 def meeting_list():
@@ -58,17 +65,25 @@ def meeting_list():
         name = request.form['name']
         participants = request.form['participants']
         host = request.form['host']
+        print('meetinglist add=', name, participants, host)
         new_stuff = Meeting(name=name, participants=participants, host=host)
 
         try:
             db.session.add(new_stuff)
             db.session.commit()
             return redirect('/meetinglist')
-        except:
-            return "There was a problem adding new stuff."
+        except Exception as er:
+            print(er, 'in add new meeting')
+            return 'error in add new meeting'
 
     else:
-        groceries = Meeting.query.order_by(Meeting.created_at).all()
+        groceries = []
+        try:
+            groceries = Meeting.query.order_by(Meeting.created_at).all()
+            return render_template('list.html', groceries=groceries)
+        except:
+            print('groceries is empty')
+            return render_template('list.html', groceries=groceries)
         return render_template('list.html', groceries=groceries)
 
 
@@ -251,7 +266,7 @@ def logout():
     return redirect(url_for("home", pagenum=1))
 
 
-@app.route("/home")
+@app.route("/home", methods=["GET", "POST"])
 def home():
     historys = user_pass.get('meeting_history', None)
     return render_template("home.html", historys=historys)
@@ -413,4 +428,5 @@ def testjpg():
 
 if __name__ == "__main__":
     # app.run(host="127.0.0.1", port="5000", ssl_context="adhoc")
+    db.create_all()
     app.run(host="127.0.0.1", port=5000)
