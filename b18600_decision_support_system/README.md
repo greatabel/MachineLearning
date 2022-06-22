@@ -23,7 +23,11 @@ osx上需要：brew install graphviz
 
 
 6.
-python3 i1data_place_explore.py
+数据探索 可视化
+python3 i3data_explore.py
 
+贝叶斯推断机器学习，可视化
+python3 i4bayesian_model_experiment.py
 
-python3 i3bayes_experiment.py
+KMeans 机器学习 评论分析相似度
+i5sentence_similar.py
