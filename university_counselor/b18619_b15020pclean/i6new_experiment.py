@@ -73,6 +73,7 @@ hospital_inference.query(variables=['no_of_people'],
                            evidence={'location': 1, 'quality': 1})
 # In this case also we can simply pass the elimination order for
 # the variables.
-hospital_inference.query(variables=['no_of_people'],
+l = hospital_inference.query(variables=['no_of_people'],
                            evidence={'location': 1},
                            elimination_order=['quality', 'cost'])
+print('l=', l)
