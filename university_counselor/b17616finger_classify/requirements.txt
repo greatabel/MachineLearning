@@ -1,4 +1,4 @@
-tensorflow==1.0
+tensorflow==2.7.2
 #如果你的系统能装上gpu版本的tf，就注释掉上面第一行，然后打开下面的tensorflow-gpu
 #tensorflow-gpu==1.14.0
 
