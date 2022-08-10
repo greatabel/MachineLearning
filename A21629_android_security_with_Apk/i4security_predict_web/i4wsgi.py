@@ -216,7 +216,7 @@ def list_attendances():
 @app.route("/attendances/create", methods=["GET", "POST"])
 def create_attendance():
     """
-    创建talkshow文章
+    创建android_security_apk文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -240,7 +240,7 @@ def create_attendance():
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
     """
-    创建talkshow文章
+    创建android_security_apk文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -262,7 +262,7 @@ def create_blog():
 @app.route("/blogs", methods=["GET"])
 def list_notes():
     """
-    查询talkshow列表
+    查询android_security_apk列表
     """
     blogs = Blog.query.all()
     # 渲染ppt列表页面目标文件，传入blogs参数
@@ -272,7 +272,7 @@ def list_notes():
 @app.route("/blogs/update/<id>", methods=["GET", "POST"])
 def update_note(id):
     """
-    更新talkshow
+    更新android_security_apk
     """
     if request.method == "GET":
         # 根据ID查询ppt详情
@@ -295,7 +295,7 @@ def update_note(id):
 @app.route("/blogs/<id>", methods=["GET", "DELETE"])
 def query_note(id):
     """
-    查询talkshow详情、删除ppt
+    查询android_security_apk详情、删除
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
@@ -327,7 +327,7 @@ def list_users():
 @app.route("/users/create", methods=["GET", "POST"])
 def create_user():
     """
-    创建talkshow文章
+    创建android_security_apk文章
     """
     if request.method == "GET":
         # 如果是GET请求，则渲染创建页面
@@ -351,7 +351,7 @@ def create_user():
 @app.route("/users/<id>", methods=["GET", "DELETE"])
 def query_user(id):
     """
-    查询talkshow详情、删除ppt
+    查询android_security_apk详情、删除ppt
     """
     if request.method == "GET":
         # 到数据库查询ppt详情
