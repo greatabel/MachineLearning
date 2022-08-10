@@ -18,6 +18,13 @@ from flask import jsonify
 from flask_cors import CORS
 from movie import create_app
 
+
+import pickle
+import numpy as np
+from keras.models import load_model
+from androguard.core.bytecodes.apk import APK
+from werkzeug.utils import secure_filename
+import my_model_loader
 # import es_search
 
 # import recommandation
@@ -99,28 +106,28 @@ class Blog(db.Model):
         self.title = title
         self.text = text
 
-class Attendance(db.Model):
-    """
-    ppt数据模型
-    """
+# class Attendance(db.Model):
+#     """
+#     ppt数据模型
+#     """
 
-    # 主键ID
-    id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(80))
-    # ppt标题
-    mydate = db.Column(db.String(100))
-    # ppt正文
-    start = db.Column(db.Text)
-    end = db.Column(db.Text)
+#     # 主键ID
+#     id = db.Column(db.Integer, primary_key=True)
+#     nickname = db.Column(db.String(80))
+#     # ppt标题
+#     mydate = db.Column(db.String(100))
+#     # ppt正文
+#     start = db.Column(db.Text)
+#     end = db.Column(db.Text)
 
-    def __init__(self, nickname, mydate, start, end):
-        """
-        初始化方法
-        """
-        self.nickname = nickname
-        self.mydate = mydate
-        self.start = start
-        self.end = end
+#     def __init__(self, nickname, mydate, start, end):
+#         """
+#         初始化方法
+#         """
+#         self.nickname = nickname
+#         self.mydate = mydate
+#         self.start = start
+#         self.end = end
 
 
 
@@ -203,14 +210,14 @@ def home(pagenum=1):
 
 
 
-@app.route("/attendances", methods=["GET"])
-def list_attendances():
-    """
-    查询考勤列表
-    """
-    attendances = Attendance.query.all()
-    # 渲染ppt列表页面目标文件，传入blogs参数
-    return rt("list_attendances.html", attendances=attendances)
+# @app.route("/attendances", methods=["GET"])
+# def list_attendances():
+#     """
+#     查询考勤列表
+#     """
+#     attendances = Attendance.query.all()
+#     # 渲染ppt列表页面目标文件，传入blogs参数
+#     return rt("list_attendances.html", attendances=attendances)
 
 
 @app.route("/attendances/create", methods=["GET", "POST"])
@@ -369,56 +376,63 @@ def query_user(id):
         return "", 204
 
 ### -------------end of home
-@app.route("/recommend", methods=["GET", "DELETE"])
+
+
+
+@app.route("/recommend", methods=["GET"])
 def recommend():
     """
-    查询ppt item 推荐
+    展示已经载入平台中的apk的威胁状况
     """
     if request.method == "GET":
-        id = session["userid"]
-        user = User.query.filter_by(id=id).first_or_404()
-        print('*'*20, user.nickname, '*'*20)
-        choosed = recommandation.main(user.nickname)
-        print("给予离线交互数据进行协同推荐")
-        print(choosed, "#" * 20)
-        print("给予离线交互数据进行协同推荐")
+        choosed = []
+        from os import scandir
+        dir_entries = scandir('upload/')
+        for apk_file in dir_entries:
+            if 'DS_Store' not in apk_file.name:
+                filename = secure_filename(apk_file.name)
+                t = os.path.join('upload', filename)
+                print(apk_file, t, filename, '#'*10)
+                r = my_model_loader.classify(t)
+                print('r=', r)
+                choosed.append(r)
         return rt("recommend.html", choosed=choosed)
 
 
-@app.route("/picture_search", methods=["GET", "POST"])
-def picture_search():
-    if request.method == "POST":
-        file = request.files["query_img"]
+# @app.route("/picture_search", methods=["GET", "POST"])
+# def picture_search():
+#     if request.method == "POST":
+#         file = request.files["query_img"]
 
-        # Save query image
-        img = Image.open(file.stream)  # PIL image
-        uploaded_img_path = (
-            "movie/static/uploaded/"
-            + datetime.now().isoformat().replace(":", ".")
-            + "_"
-            + file.filename
-        )
-        img.save(uploaded_img_path)
+#         # Save query image
+#         img = Image.open(file.stream)  # PIL image
+#         uploaded_img_path = (
+#             "movie/static/uploaded/"
+#             + datetime.now().isoformat().replace(":", ".")
+#             + "_"
+#             + file.filename
+#         )
+#         img.save(uploaded_img_path)
 
-        # Run search
-        query = fe.extract(img)
-        dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
-        ids = np.argsort(dists)[:3]  # Top 10 likely
-        # print('ids=', ids)
-        # print(np.array(img_paths)[ids])
-        scores = [(dists[id], img_paths[id]) for id in ids]
-        uploaded_img_path = uploaded_img_path.replace('movie/','')
-        print('uploaded_img_path', uploaded_img_path)
-        if len(scores) > 0 and scores[0][0] >= 1:
-            print('not very similar')
-            return rt("picture_search.html")
+#         # Run search
+#         query = fe.extract(img)
+#         dists = np.linalg.norm(features - query, axis=1)  # L2 distances to features
+#         ids = np.argsort(dists)[:3]  # Top 10 likely
+#         # print('ids=', ids)
+#         # print(np.array(img_paths)[ids])
+#         scores = [(dists[id], img_paths[id]) for id in ids]
+#         uploaded_img_path = uploaded_img_path.replace('movie/','')
+#         print('uploaded_img_path', uploaded_img_path)
+#         if len(scores) > 0 and scores[0][0] >= 1:
+#             print('not very similar')
+#             return rt("picture_search.html")
                 
 
-        return rt(
-            "picture_search.html", query_path=uploaded_img_path, scores=scores
-        )
-    else:
-        return rt("picture_search.html")
+#         return rt(
+#             "picture_search.html", query_path=uploaded_img_path, scores=scores
+#         )
+#     else:
+#         return rt("picture_search.html")
 
 ### -------------start of profile
 
@@ -631,14 +645,14 @@ def upload_ppt():
     return redirect(url_for("add_ppt"))
 
 
-@app.route("/student_work", methods=["POST"])
-def student_work():
-    return redirect(url_for("student_index"))
+# @app.route("/student_work", methods=["POST"])
+# def student_work():
+#     return redirect(url_for("student_index"))
 
 
-@app.route("/student_index", methods=["GET"])
-def student_index():
-    return rt("student_index.html")
+# @app.route("/student_index", methods=["GET"])
+# def student_index():
+#     return rt("student_index.html")
 
 
 # @app.route("/", methods=["GET"])
