@@ -1,0 +1,9 @@
+<h1>Update Row</h1>
+<!-- HTML表单 -->
+<form action="/rows/update/{{csv_name}}/{{id}}" method="POST">
+    <label>row content:</label>
+
+     <textarea rows="1" cols="80" type="text" name="text"    > {{ row }} </textarea>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
