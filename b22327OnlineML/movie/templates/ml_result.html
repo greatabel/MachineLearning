@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PowerPoint-Recommandation machine learning </title>
+    <title>用户详情</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -54,11 +54,9 @@ div[class*="release_year"] {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-         {% if session['isadmin'] %}
-        <a class="nav-link" href="/blogs">back to manangment <span class="sr-only">(current)</span></a>
-         {% else %}
+
      <a class="nav-link" href="/home/1">Home <span class="sr-only">(current)</span></a>
-       {% endif %}
+
 
       </li>
 
@@ -88,66 +86,49 @@ div[class*="release_year"] {
   </div>
 </nav>
 
-<!--  {% if session['isadmin'] %}
-<h3><a href="/blogs">< doc list</a></h3>
- {% else %}
-<h3><a href="/home">< home</a></h3>
-   {% endif %} -->
 
-<h1>csv detail</h1>
-<br/>
-<div>
-     {% if session['isadmin'] %}
-    <a href="/blogs/update/{{blog.id}}" id="{{blog.id}}">Update</a>
-     {% endif %}
 
-    <h3>{{blog.title}}</h3>
-    <p>{{blog.text}}</p>
+<!-- <h3><a href="/home">< home</a></h3> -->
+<h1>ML 训练结果</h1>
+<!-- Jinja模板语法 -->
 
-<br/>
-
-   <figure>
-<img src="/static/images/app_data/{{blog.id // 4 }}.png" class="img-fluid" style="height:250px;width:500px;">
-        </figure>
-<br/>
-    
-
+<!-- <h5><a href="/users/create">添加</a></h5> -->
 
 <hr/>
+<!-- {% if users %}
+    {% for user in users%}
+        <h4><a href="/users/{{user.id}}">{{user.username}} | {{user.nickname}}</a></h4>
+        
 
-<!-- <a href="#Foo" class="btn btn-default" data-toggle="collapse">第2步: 拆分数据集</a> -->
-<button href="#Foo" class="btn btn-primary" data-toggle="collapse">第2步: 拆分数据集</button>
-<div id="Foo" class="collapse">
+    {% endfor %}
+{% else %}
+    <p>no doc, let's create doc~</p>
+    <a href="/users/create">to create doc</a>
+{% endif %} -->
+
+<h2>SVM</h2>
+<br/>
+{{ svm_r }}
+
     <br/>
-   【Test/Train】已经拆分完成
-</div>
+    <span>csv下载url:</span>
+        <a href="{{ url_for('file_download', filename='first_model.pkl') }}">svm model</a><br/>
 
 <hr/>
 
-        <a href="{{ url_for('split_dataset', csv_name=blog.title) }}"> 
-        <button href="#Foo" class="btn btn-success" data-toggle="collapse">第3步: 数据预处理</button>
-        </a>
-        <br/>
 
-    <hr/>
+<h2>Random forest Model</h2>
+{{ rfr_r }}
 
-
+    <br/>
     <span>csv下载url:</span>
-        <a href="{{ url_for('file_download', filename=blog.title) }}">{{blog.title}}</a><br/>
+        <a href="{{ url_for('file_download', filename='second_model.pkl') }}">random forest model</a><br/>
     <hr/>
 
-
-     {% if session['isadmin'] %}
-    <a href="#" class="btn-delete" id="{{blog.id}}">Delete</a>
-     {% endif %}
-</div>
-
-<!-- 先引入jquery，下面要用到-->
-<!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
 <script src="/static/jquery-3.5.1.min.js"></script>
 <script src="/static/bootstrap-4.5.2-dist/js/bootstrap.min.js"></script>
-<!--发送ajax请求删除课程 -->
 <script type="text/javascript">
+
     $('a.btn-delete').on('click',function(evt){
         // 通知浏览器不要执行与事件关联的默认动作
         evt.preventDefault();
@@ -155,14 +136,14 @@ div[class*="release_year"] {
         var blogid = $(this).attr('id');
         $.ajax({
             // 请求URL
-            url: "/blogs/" + blogid,
+            url: "/users/" + blogid,
             // 请求方法类型
             type: "DELETE",
             contentType:"application/json",
             // 删除成功响应函数
             success:function(resp){
                 // 在当前页面打开课程列表页面
-                window.open("/blogs","_self");
+                window.open("/users","_self");
             },
             // 删除失败响应函数
             error:function(resp){
@@ -171,7 +152,8 @@ div[class*="release_year"] {
             }
         })
     });
-</script>
 
+
+</script>
   </body>
 </html>

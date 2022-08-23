@@ -28,7 +28,23 @@ import logging
 
 import csv
 
-# import recommandation
+
+import shutil
+import pandas as pd
+import sklearn
+import pickle
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import classification_report, confusion_matrix
+
+from sklearn.preprocessing import LabelEncoder
+
+from sklearn.ensemble import RandomForestRegressor
+from sklearn import metrics
+
 
 # from movie.domain.model import Director, Review, Movie
 
@@ -371,20 +387,94 @@ def update_row(csv_name=None, id=None):
 ## -- edn   在线文档 ----
 
 
+#  --- machine learning部分 ----
+@app.route("/split_dataset/<csv_name>", methods=["GET"])
+def split_dataset(csv_name):
+    """
+    拆分和模型训练
+    """
+    filepath = 'upload/' + csv_name
+    # dataset_df = pd.read_csv(filepath, index_col=False, delimiter="," , quoting=csv.QUOTE_NONE, encoding='utf-8')  
+    # dataset_df = pd.read_csv(filepath, delimiter=",",  encoding='utf-8', quoting=3, error_bad_lines=False)
+    dataset_df = pd.read_csv(filepath, engine='python', error_bad_lines=False) 
+    print(len(dataset_df),  type(dataset_df), '--- here --')
+    # 去掉无关第二行，防止转换失败
+    dataset_df = dataset_df.drop([ dataset_df.index[0],dataset_df.index[1] ])
+
+    print(len(dataset_df),  type(dataset_df), '--- here --')
+
+    dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
+    dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
+
+    dataset_df['DeclareDate'] = pd.to_datetime(dataset_df['DeclareDate'])
+    dataset_df['DeclareDate'] = dataset_df['DeclareDate'].astype('int64')
+
+    dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
+    dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
+
+    dataset_df = dataset_df.apply(LabelEncoder().fit_transform)  
+
+    # 转化所有的列
+    dataset_df = dataset_df.apply(pd.to_numeric, errors='ignore')
+
+    # with pd.option_context('display.max_rows', None, 'display.max_columns', dataset_df.shape[1]):
+    #     print(dataset_df)
+    #     print('\n')
+    Y = dataset_df['IsViolated']
+    X = dataset_df.drop(['IsViolated'], axis=1)
+
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
+    print("X_train, X_test=======>", len(X_train), len(X_test))
+
+    # svm model
+    param_grid = {'C': [0.1, 1, 10, 100, 1000], 
+                'gamma': [1, 0.1, 0.01, 0.001, 0.0001], 
+                'kernel': ['rbf']} 
+
+    SVC_Model = GridSearchCV(SVC(), param_grid, refit = True, verbose = 3) 
+
+     
+    SVC_Model.fit(X_train, y_train)
+
+    print(SVC_Model.best_params_) 
+    grid_predictions = SVC_Model.predict(X_test)
+
+    svm_r = classification_report(y_test, grid_predictions)
+    print(svm_r) 
+
+    pickle.dump(SVC_Model, open('upload/first_model.pkl', 'wb'))
+
+    # 随机森林部分
+    regressor = RandomForestRegressor(n_estimators=20, random_state=0)
+    regressor.fit(X_train, y_train)
+    y_pred = regressor.predict(X_test)
+
+    rfr_r =  "Mean Absolute Error:{}    ".format(metrics.mean_absolute_error(y_test, y_pred))
+    rfr_r += 'Mean Squared Error:{}  '.format(metrics.mean_squared_error(y_test, y_pred))
+    rfr_r += "Root Mean Squared Error:{}    ".format(metrics.mean_absolute_error(y_test, y_pred))
+    pickle.dump(regressor, open('upload/second_model.pkl', 'wb'))
+    # print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
+    # print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
+    # print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+
+    print(rfr_r) 
+    # print('data=', data)
+    # 渲染ppt列表页面目标文件，传入blogs参数
+    return rt("ml_result.html", svm_r=svm_r, rfr_r=rfr_r,    csv_name=csv_name)
 
 
 ### -------------end of home
-@app.route("/recommend", methods=["GET", "DELETE"])
-def recommend():
-    """
-    查询cousre item 推荐
-    """
-    if request.method == "GET":
-        choosed = recommandation.main()
-        print("给予离线交互数据进行协同推荐")
-        print(choosed, "#" * 20)
-        print("给予离线交互数据进行协同推荐")
-        return rt("recommend.html", choosed=choosed)
+# @app.route("/recommend", methods=["GET", "DELETE"])
+# def recommend():
+#     """
+#     查询cousre item 推荐
+#     """
+#     if request.method == "GET":
+#         choosed = recommandation.main()
+#         print("给予离线交互数据进行协同推荐")
+#         print(choosed, "#" * 20)
+#         print("给予离线交互数据进行协同推荐")
+#         return rt("recommend.html", choosed=choosed)
 
 
 ### -------------start of profile
