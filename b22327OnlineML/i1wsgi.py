@@ -716,6 +716,25 @@ def upload_part():  # 接收前端上传的一个分片
     task = request.form.get("task_id")  # 获取文件的唯一标识符
     chunk = request.form.get("chunk", 0)  # 获取该分片在所有分片中的序号
     filename = "%s%s" % (task, chunk)  # 构造该分片的唯一标识符
+
+
+    print("filename=", filename)
+    upload_file = request.files["file"]
+    upload_file.save("./upload/%s" % filename)  # 保存分片到本地
+    return rt("index.html")
+
+
+@app.route("/file/upload_a", methods=["POST"])
+def upload_part_A():  # 接收前端上传的一个分片
+    task = request.args.get("task_id")  # 获取文件的唯一标识符
+    chunk = request.args.get("chunk", 0)  # 获取该分片在所有分片中的序号
+    filename = "%s%s" % (task, chunk)  # 构造该分片的唯一标识符
+
+    print(request.args, '#'*20)
+    mytest_name = request.args.get("filename")
+    print('mytest_name=', mytest_name)
+
+
     print("filename=", filename)
     upload_file = request.files["file"]
     upload_file.save("./upload/%s" % filename)  # 保存分片到本地

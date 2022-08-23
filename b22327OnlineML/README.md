@@ -8,17 +8,24 @@
 3.
 可选  可以不做（创建python3虚拟目录，隔绝不同版本库之间相互影响）
 https://docs.python.org/zh-cn/3/tutorial/venv.html
+安装时候：python3 -m venv tutorial-env
+
+在Windows上，运行进入b22327OnlineML文件夹:
+cd 该文件夹
+
+tutorial-env\Scripts\activate.bat
 
 4.
 4.1
 terminal底下进入工程目录下，在requirements.txt同级目录下运行：
-pip install --upgrade -r requirements.txt
+pip3 install --upgrade -r requirements.txt
 
 5.
 模拟运行在:
 python3 i1wsgi.py
 
-
+windows上运行：
+python i1wsgi.py
 
 6.
 浏览器访问：
