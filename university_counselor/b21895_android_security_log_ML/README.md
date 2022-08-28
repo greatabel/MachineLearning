@@ -21,6 +21,9 @@ pip3 install --upgrade -r requirements.txt
 模拟运行在:
 jupyter notebook i1ML_of_android_security.ipynb
 
+开一个新的命令行：
+命令行下进入 i4security_predict_web
+python3 i4wsgi.py
 
 6.
 （可选项）
