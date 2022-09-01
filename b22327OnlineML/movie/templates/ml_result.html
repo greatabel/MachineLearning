@@ -89,7 +89,20 @@ div[class*="release_year"] {
 
 
 <!-- <h3><a href="/home">< home</a></h3> -->
-<h1>ML 训练结果</h1>
+<h1>ML Model 下载和训练结果查看</h1>
+
+<select id='purpose'>
+<option value="-1">模型选择</option>
+<option value="0">SVM</option>
+<option value="1">RandomForest</option>
+<option value="2">both</option>
+
+</select>
+
+<br/>
+<hr/>
+<br/>
+开始epoch...
 <!-- Jinja模板语法 -->
 
 <!-- <h5><a href="/users/create">添加</a></h5> -->
@@ -106,53 +119,60 @@ div[class*="release_year"] {
     <a href="/users/create">to create doc</a>
 {% endif %} -->
 
+
+<meta id="my-data" data-name="{{ svm_r }}" >
+<div id="svm" style='display:none;'>
 <h2>SVM</h2>
 <br/>
-{{ svm_r }}
 
+
+
+<pre>{{ svm_r }}</pre>
     <br/>
     <span>csv下载url:</span>
-        <a href="{{ url_for('file_download', filename='first_model.pkl') }}">svm model</a><br/>
+    <a href="{{ url_for('file_download', filename='first_model.pkl') }}">svm model</a><br/>
 
 <hr/>
+</div>
 
-
+<div id="random_forest" style='display:none;'>
 <h2>Random forest Model</h2>
-{{ rfr_r }}
 
+<pre>{{ rfr_r }}</pre>
     <br/>
     <span>csv下载url:</span>
         <a href="{{ url_for('file_download', filename='second_model.pkl') }}">random forest model</a><br/>
     <hr/>
-
+</div>
 <script src="/static/jquery-3.5.1.min.js"></script>
 <script src="/static/bootstrap-4.5.2-dist/js/bootstrap.min.js"></script>
+<!-- <script src="/static/underscore-min.js"></script>
+<script src="/static/backbone-min.js"></script> -->
+<!-- <script src="/static/pretty-json-min.js"></script> -->
 <script type="text/javascript">
 
-    $('a.btn-delete').on('click',function(evt){
-        // 通知浏览器不要执行与事件关联的默认动作
-        evt.preventDefault();
-        // 获取课程ID
-        var blogid = $(this).attr('id');
-        $.ajax({
-            // 请求URL
-            url: "/users/" + blogid,
-            // 请求方法类型
-            type: "DELETE",
-            contentType:"application/json",
-            // 删除成功响应函数
-            success:function(resp){
-                // 在当前页面打开课程列表页面
-                window.open("/users","_self");
-            },
-            // 删除失败响应函数
-            error:function(resp){
-                // 删除失败，给出错误提示
-                alert("delete doc fail！详情：" + resp.message);
-            }
-        })
+$(document).ready(function(){
+    $('#purpose').on('change', function() {
+      if ( this.value == '0')
+      //.....................^.......
+      {
+        $("#svm").show();
+        $("#random_forest").hide();
+      }
+      if ( this.value == '1')
+      {
+        $("#svm").hide();
+        $("#random_forest").show();
+      }
+       if ( this.value == '2')
+      {
+        $("#svm").show();
+        $("#random_forest").show();
+      }     
     });
+});
 
+//obj to render.
 
 </script>
   </body>

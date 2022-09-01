@@ -386,6 +386,43 @@ def update_row(csv_name=None, id=None):
         return redirect("/blogs/{id}".format(id=id))
 ## -- edn   在线文档 ----
 
+# 数据预处理
+def preprocessing(csv_name):
+    print('in preprocessing start -----')
+    filepath = 'upload/' + csv_name
+    # dataset_df = pd.read_csv(filepath, index_col=False, delimiter="," , quoting=csv.QUOTE_NONE, encoding='utf-8')  
+    # dataset_df = pd.read_csv(filepath, delimiter=",",  encoding='utf-8', quoting=3, error_bad_lines=False)
+    dataset_df = pd.read_csv(filepath, engine='python', error_bad_lines=False) 
+    print(len(dataset_df),  type(dataset_df), '--- here --')
+    # 去掉无关第二行，防止转换失败
+    dataset_df = dataset_df.drop([ dataset_df.index[0],dataset_df.index[1] ])
+
+    print(len(dataset_df),  type(dataset_df), '--- here --')
+    if 'DisposalDate' in dataset_df:
+        dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
+        dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
+    if 'DeclareDate' in dataset_df:
+        dataset_df['DeclareDate'] = pd.to_datetime(dataset_df['DeclareDate'])
+        dataset_df['DeclareDate'] = dataset_df['DeclareDate'].astype('int64')
+    if 'DisposalDate' in dataset_df:
+        dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
+        dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
+
+    dataset_df = dataset_df.apply(LabelEncoder().fit_transform)  
+
+    # 转化所有的列
+    dataset_df = dataset_df.apply(pd.to_numeric, errors='ignore')
+    dataset_df.to_csv(filepath + '_preprocessing.csv', encoding='utf-8')
+
+    Y = dataset_df['IsViolated']
+    X = dataset_df.drop(['IsViolated'], axis=1)
+
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
+    X_train.to_csv(filepath + '_train.csv', encoding='utf-8')
+    X_test.to_csv(filepath + '_test.csv', encoding='utf-8')
+    print('in preprocessing end  -----')
+
+
 
 #  --- machine learning部分 ----
 @app.route("/split_dataset/<csv_name>", methods=["GET"])
@@ -402,21 +439,22 @@ def split_dataset(csv_name):
     dataset_df = dataset_df.drop([ dataset_df.index[0],dataset_df.index[1] ])
 
     print(len(dataset_df),  type(dataset_df), '--- here --')
-
-    dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
-    dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
-
-    dataset_df['DeclareDate'] = pd.to_datetime(dataset_df['DeclareDate'])
-    dataset_df['DeclareDate'] = dataset_df['DeclareDate'].astype('int64')
-
-    dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
-    dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
+    if 'DisposalDate' in dataset_df:
+        dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
+        dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
+    if 'DeclareDate' in dataset_df:
+        dataset_df['DeclareDate'] = pd.to_datetime(dataset_df['DeclareDate'])
+        dataset_df['DeclareDate'] = dataset_df['DeclareDate'].astype('int64')
+    if 'DisposalDate' in dataset_df:
+        dataset_df['DisposalDate'] = pd.to_datetime(dataset_df['DisposalDate'])
+        dataset_df['DisposalDate'] = dataset_df['DisposalDate'].astype('int64')
 
     dataset_df = dataset_df.apply(LabelEncoder().fit_transform)  
 
     # 转化所有的列
     dataset_df = dataset_df.apply(pd.to_numeric, errors='ignore')
-
+    r = 2000
+    dataset_df = dataset_df[:r]
     # with pd.option_context('display.max_rows', None, 'display.max_columns', dataset_df.shape[1]):
     #     print(dataset_df)
     #     print('\n')
@@ -424,7 +462,7 @@ def split_dataset(csv_name):
     X = dataset_df.drop(['IsViolated'], axis=1)
 
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
-    print("X_train, X_test=======>", len(X_train), len(X_test))
+    # print("X_train, X_test=======>", len(X_train), len(X_test))
 
     # svm model
     param_grid = {'C': [0.1, 1, 10, 100, 1000], 
@@ -439,7 +477,8 @@ def split_dataset(csv_name):
     print(SVC_Model.best_params_) 
     grid_predictions = SVC_Model.predict(X_test)
 
-    svm_r = classification_report(y_test, grid_predictions)
+    svm_r = classification_report(y_test, grid_predictions, output_dict=True)
+    svm_r = json.dumps(svm_r, indent=6)
     print(svm_r) 
 
     pickle.dump(SVC_Model, open('upload/first_model.pkl', 'wb'))
@@ -448,10 +487,15 @@ def split_dataset(csv_name):
     regressor = RandomForestRegressor(n_estimators=20, random_state=0)
     regressor.fit(X_train, y_train)
     y_pred = regressor.predict(X_test)
-
-    rfr_r =  "Mean Absolute Error:{}    ".format(metrics.mean_absolute_error(y_test, y_pred))
-    rfr_r += 'Mean Squared Error:{}  '.format(metrics.mean_squared_error(y_test, y_pred))
-    rfr_r += "Root Mean Squared Error:{}    ".format(metrics.mean_absolute_error(y_test, y_pred))
+    rfr_r = {}
+    rfr_r["Mean Absolute Error"] = metrics.mean_absolute_error(y_test, y_pred)
+    rfr_r["Mean Squared Error"] = metrics.mean_squared_error(y_test, y_pred)
+    rfr_r["Root Mean Squared Error"] = metrics.mean_absolute_error(y_test, y_pred)
+    rfr_r = json.dumps(rfr_r, indent=6)
+    print('rfr_r', '-'*20, rfr_r)
+    # rfr_r =  "Mean Absolute Error:{}   ".format(metrics.mean_absolute_error(y_test, y_pred))
+    # rfr_r += 'Mean Squared Error:{}  '.format(metrics.mean_squared_error(y_test, y_pred))
+    # rfr_r += "Root Mean Squared Error:{}    \n".format(metrics.mean_absolute_error(y_test, y_pred))
     pickle.dump(regressor, open('upload/second_model.pkl', 'wb'))
     # print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
     # print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
@@ -761,7 +805,7 @@ def upload_success():  # 按序读出分片内容，并写入新文件
 
             chunk += 1
             os.remove(filename)  # 删除该分片，节约空间
-
+    preprocessing(last_upload_filename)
     return rt("index.html")
 
 
