@@ -16,3 +16,5 @@ jellyfish
 Flask==1.1.2
 flask-wtf==0.14.2
 argostranslate
+selenium
+bs4
