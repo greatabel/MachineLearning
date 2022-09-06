@@ -106,29 +106,6 @@ class Blog(db.Model):
         self.title = title
         self.text = text
 
-# class Attendance(db.Model):
-#     """
-#     ppt数据模型
-#     """
-
-#     # 主键ID
-#     id = db.Column(db.Integer, primary_key=True)
-#     nickname = db.Column(db.String(80))
-#     # ppt标题
-#     mydate = db.Column(db.String(100))
-#     # ppt正文
-#     start = db.Column(db.Text)
-#     end = db.Column(db.Text)
-
-#     def __init__(self, nickname, mydate, start, end):
-#         """
-#         初始化方法
-#         """
-#         self.nickname = nickname
-#         self.mydate = mydate
-#         self.start = start
-#         self.end = end
-
 
 
 ### -------------start of home
@@ -533,14 +510,14 @@ def relationship():
     print(type(d), "#" * 10, d)
     return jsonify(d)
 
-# @app.route('/index_a/')
-# def index():
-#     return rt('index-A.html')
+@app.route('/index_a/')
+def index():
+    return rt('index-A.html')
        
 
-# @app.route('/index_b/')
-# def index_b():
-#     return rt('index-B.html')
+@app.route('/index_b/')
+def index_b():
+    return rt('index-B.html')
         
 
 
