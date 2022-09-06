@@ -51,10 +51,7 @@ def classify(file):
         # print('myinput['+ str(x) + ']=',myinput[x])
     # print('-'*50, myinput, len(myinput))
     result = SVC.predict([myinput])
-    if result == 'benign':
-        result = 'Benign(safe)'
-    else:
-        result = 'Malware(harm)'
+
     return result, name, sdk, size
 
 

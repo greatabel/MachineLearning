@@ -24,7 +24,8 @@ import numpy as np
 from keras.models import load_model
 from androguard.core.bytecodes.apk import APK
 from werkzeug.utils import secure_filename
-import my_model_loader
+
+from sentiment import anlaysis
 # import es_search
 
 # import recommandation
@@ -34,7 +35,7 @@ import numpy as np
 from PIL import Image
 # from feature_extractor import FeatureExtractor
 from datetime import datetime
-
+import argostranslate.package, argostranslate.translate
 # from pathlib import Path
 
 # from movie.domain.model import Director, Review, Movie
@@ -120,7 +121,7 @@ def replace_html_tag(text, word):
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=4):
+    def __init__(self, data, page=1, number=10):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
@@ -197,29 +198,6 @@ def home(pagenum=1):
 #     return rt("list_attendances.html", attendances=attendances)
 
 
-@app.route("/attendances/create", methods=["GET", "POST"])
-def create_attendance():
-    """
-    创建android_security_apk文章
-    """
-    if request.method == "GET":
-        # 如果是GET请求，则渲染创建页面
-        return rt("create_ attendance.html")
-    else:
-        # 从表单请求体中获取请求数据
-        nickname = request.form["nickname"]
-        mydate = request.form["mydate"]
-        start = request.form["start"]
-        end = request.form["end"]
-
-        # 创建一个ppt对象
-        attendance = Attendance(nickname=nickname, mydate=mydate, start=start, end=end)
-        db.session.add(attendance)
-        # 必须提交才能生效
-        db.session.commit()
-        # 创建完成之后重定向到ppt列表页面
-        return redirect("/attendances")
-
 
 @app.route("/blogs/create", methods=["GET", "POST"])
 def create_blog():
@@ -233,9 +211,27 @@ def create_blog():
         # 从表单请求体中获取请求数据
         title = request.form["title"]
         text = request.form["text"]
+        # Translate
+        from_code = "zh"
+        to_code = "en"
 
+        installed_languages = argostranslate.translate.get_installed_languages()
+        from_lang = list(filter(
+                lambda x: x.code == from_code,
+                installed_languages))[0]
+        to_lang = list(filter(
+                lambda x: x.code == to_code,
+                installed_languages))[0]
+        translation = from_lang.get_translation(to_lang)
+
+        translatedText = translation.translate(title)
+        print(title,'->', translatedText)
+
+        words, sentiment_tw = anlaysis(translatedText)
+        print('words, sentiment_tw ','->'*20, words, sentiment_tw )
         # 创建一个ppt对象
         blog = Blog(title=title, text=text)
+
         db.session.add(blog)
         # 必须提交才能生效
         db.session.commit()
@@ -356,24 +352,6 @@ def query_user(id):
 
 
 
-@app.route("/recommend", methods=["GET"])
-def recommend():
-    """
-    展示已经载入平台中的apk的威胁状况
-    """
-    if request.method == "GET":
-        choosed = []
-        from os import scandir
-        dir_entries = scandir('upload/')
-        for apk_file in dir_entries:
-            if 'DS_Store' not in apk_file.name:
-                filename = secure_filename(apk_file.name)
-                t = os.path.join('upload', filename)
-                print(apk_file, t, filename, '#'*10)
-                r = my_model_loader.classify(t)
-                print('r=', r)
-                choosed.append(r)
-        return rt("recommend.html", choosed=choosed)
 
 
 # @app.route("/picture_search", methods=["GET", "POST"])
@@ -510,14 +488,7 @@ def relationship():
     print(type(d), "#" * 10, d)
     return jsonify(d)
 
-@app.route('/index_a/')
-def index():
-    return rt('index-A.html')
-       
 
-@app.route('/index_b/')
-def index_b():
-    return rt('index-B.html')
         
 
 

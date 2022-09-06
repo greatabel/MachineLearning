@@ -1,8 +1,10 @@
+argostranslate==1.7.0
 termcolor
 pandas
 tensorflow
 torch>=0.4.0
 torchvision>=0.2.1
+textblob==0.17.1
 numpy
 nltk
 keras
