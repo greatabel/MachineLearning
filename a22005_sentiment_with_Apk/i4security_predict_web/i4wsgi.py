@@ -99,13 +99,16 @@ class Blog(db.Model):
     title = db.Column(db.String(100))
     # ppt正文
     text = db.Column(db.Text)
+    sentiment = db.Column(db.Float)
 
-    def __init__(self, title, text):
+
+    def __init__(self, title, text, sentiment=0):
         """
         初始化方法
         """
         self.title = title
         self.text = text
+        self.sentiment=sentiment
 
 
 
@@ -188,15 +191,36 @@ def home(pagenum=1):
 
 
 
-# @app.route("/attendances", methods=["GET"])
-# def list_attendances():
-#     """
-#     查询考勤列表
-#     """
-#     attendances = Attendance.query.all()
-#     # 渲染ppt列表页面目标文件，传入blogs参数
-#     return rt("list_attendances.html", attendances=attendances)
+def add_blog_with_sentiment(title, text):
+    # Translate
+    from_code = "zh"
+    to_code = "en"
 
+    installed_languages = argostranslate.translate.get_installed_languages()
+    from_lang = list(filter(
+            lambda x: x.code == from_code,
+            installed_languages))[0]
+    to_lang = list(filter(
+            lambda x: x.code == to_code,
+            installed_languages))[0]
+    translation = from_lang.get_translation(to_lang)
+
+    translatedText = translation.translate(title)
+    print(title,'->', translatedText)
+
+    words, sentiment_tw = anlaysis(translatedText)
+    sentiment = 0
+    if sentiment_tw > 0.1:
+        sentiment = 1
+    if sentiment_tw < -0.3:
+        sentiment = -1
+    print('words, sentiment_tw ','->'*20, words, sentiment_tw ,'#'*5, sentiment)
+    # 创建一个ppt对象
+    blog = Blog(title=title, text=text, sentiment=sentiment)
+
+    db.session.add(blog)
+    # 必须提交才能生效
+    db.session.commit()
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])
@@ -211,30 +235,8 @@ def create_blog():
         # 从表单请求体中获取请求数据
         title = request.form["title"]
         text = request.form["text"]
-        # Translate
-        from_code = "zh"
-        to_code = "en"
 
-        installed_languages = argostranslate.translate.get_installed_languages()
-        from_lang = list(filter(
-                lambda x: x.code == from_code,
-                installed_languages))[0]
-        to_lang = list(filter(
-                lambda x: x.code == to_code,
-                installed_languages))[0]
-        translation = from_lang.get_translation(to_lang)
-
-        translatedText = translation.translate(title)
-        print(title,'->', translatedText)
-
-        words, sentiment_tw = anlaysis(translatedText)
-        print('words, sentiment_tw ','->'*20, words, sentiment_tw )
-        # 创建一个ppt对象
-        blog = Blog(title=title, text=text)
-
-        db.session.add(blog)
-        # 必须提交才能生效
-        db.session.commit()
+        add_blog_with_sentiment(title, text)
         # 创建完成之后重定向到ppt列表页面
         return redirect("/blogs")
 
@@ -593,19 +595,15 @@ def upload_ppt():
     return redirect(url_for("add_ppt"))
 
 
-# @app.route("/student_work", methods=["POST"])
-# def student_work():
-#     return redirect(url_for("student_index"))
+
+@app.route("/index_a/")
+def index():
+    return rt("index-A.html")
 
 
-# @app.route("/student_index", methods=["GET"])
-# def student_index():
-#     return rt("student_index.html")
-
-
-# @app.route("/", methods=["GET"])
-# def index():
-#     return rt("index.html")
+@app.route("/index_b/")
+def index_b():
+    return rt("index-B.html")
 
 
 @app.route("/file/upload", methods=["POST"])

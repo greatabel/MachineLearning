@@ -97,7 +97,11 @@ div[class*="release_year"] {
 <hr/>
 {% if blogs %}
     {% for blog in blogs%}
-        <h4><a href="/blogs/{{blog.id}}">{{blog.title}}</a></h4>
+        <h4><a href="/blogs/{{blog.id}}">{{blog.title}} 
+         </span> </a> 
+         &nbsp;[情感监测: <span style="color:red">{{blog.sentiment}} ]
+       </h4>
+
     {% endfor %}
 {% else %}
     <p>no doc, let's create doc~</p>

@@ -25,9 +25,8 @@ def anlaysis(text):
         if 'DS_Store' not in text_file.name:
             filename = secure_filename(text_file.name)
             t = os.path.join('upload', filename)
-            print(text_file, t, filename, '#'*10)
             r = my_model_loader.classify(t)
-            # print('r=', r)
+
 
 
     return blob.noun_phrases, total
