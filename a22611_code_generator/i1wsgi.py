@@ -548,16 +548,17 @@ def upload_code_description():
     title = request.form.get("title")
     text = request.form.get("detail")
     code_language = request.form.get("optradio")
-    # print(title, '#'*10, text, '#'*5, code_language)
-    # 创建一个ppt对象
-    # blog = Blog(title=title, text=text)
-    # db.session.add(blog)
-    # # 必须提交才能生效
-    # db.session.commit()
-    # 创建完成之后重定向到ppt列表页面
-    # return redirect("/blogs")
+    target_filename = "code_generate.txt"
+    code_text = "haha"
+    # 生成txt文件方便下周
+    with open("upload/%s" % target_filename, "wb") as target_file:  # 创建新文件
+        try:
+            target_file.write(code_text.encode('utf-8'))  
 
-    return redirect(url_for("code_generate"))
+        except IOError as msg:
+            print(msg)
+
+    return redirect(url_for("file_list"))
 
 
 # @app.route("/", methods=["GET"])
