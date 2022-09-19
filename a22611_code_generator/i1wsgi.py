@@ -18,7 +18,7 @@ from flask import jsonify
 from flask_cors import CORS
 from flask import make_response
 
-from flask_wtf.csrf import CSRFProtect
+# from flask_wtf.csrf import CSRFProtect
 from flask import flash
 
 from movie import create_app
