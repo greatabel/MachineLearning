@@ -539,6 +539,11 @@ def code_generate():
     return rt("code_generate.html")
 
 
+def generate_code(title, text, code_language):
+    code_text = ""
+    return code_text
+
+
 @app.route("/upload_code_description", methods=["POST"])
 def upload_code_description():
 
@@ -548,8 +553,20 @@ def upload_code_description():
     title = request.form.get("title")
     text = request.form.get("detail")
     code_language = request.form.get("optradio")
+
+    code_text = "## 代码生成开始 ##"
+    code = generate_code(title, text, code_language)
+    code_text += code
+    code_text += "## 代码结束 ##"
+
     target_filename = "code_generate.txt"
-    code_text = "haha"
+
+    # 删除旧文件
+    files = os.listdir("upload/")  # 获取文件目录
+    # print(type(files))
+    files.remove(target_filename)
+
+
     # 生成txt文件方便下周
     with open("upload/%s" % target_filename, "wb") as target_file:  # 创建新文件
         try:
