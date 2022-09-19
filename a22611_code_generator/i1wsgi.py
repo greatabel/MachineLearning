@@ -534,14 +534,30 @@ def upload_ppt():
     return redirect(url_for("add_ppt"))
 
 
-@app.route("/student_work", methods=["POST"])
-def student_work():
-    return redirect(url_for("student_index"))
+@app.route("/code_generate", methods=["GET"])
+def code_generate():
+    return rt("code_generate.html")
 
 
-@app.route("/student_index", methods=["GET"])
-def student_index():
-    return rt("student_index.html")
+@app.route("/upload_code_description", methods=["POST"])
+def upload_code_description():
+
+    # detail = request.form.get("detail")
+    # 从表单请求体中获取请求数据
+
+    title = request.form.get("title")
+    text = request.form.get("detail")
+    code_language = request.form.get("optradio")
+    # print(title, '#'*10, text, '#'*5, code_language)
+    # 创建一个ppt对象
+    # blog = Blog(title=title, text=text)
+    # db.session.add(blog)
+    # # 必须提交才能生效
+    # db.session.commit()
+    # 创建完成之后重定向到ppt列表页面
+    # return redirect("/blogs")
+
+    return redirect(url_for("code_generate"))
 
 
 # @app.route("/", methods=["GET"])
