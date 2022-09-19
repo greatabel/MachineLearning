@@ -23,7 +23,7 @@ from flask import flash
 
 from movie import create_app
 
-import es_search
+import time
 import logging
 
 
@@ -31,8 +31,11 @@ import logging
 
 # from movie.domain.model import Director, Review, Movie
 
-# from html_similarity import style_similarity, structural_similarity, similarity
+import jellyfish
 # from common import set_js_file
+import argostranslate.package, argostranslate.translate
+from pathlib import Path
+
 
 app = create_app()
 app.secret_key = "ABCabc123"
@@ -40,7 +43,8 @@ app.debug = True
 
 
 handler = logging.FileHandler('flask.log', encoding='UTF-8')
-handler.setLevel(logging.DEBUG) # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
+handler.setLevel(logging.DEBUG)
+ # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
 logging_format = logging.Formatter(
     '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
 handler.setFormatter(logging_format)
@@ -102,33 +106,7 @@ class Blog(db.Model):
         self.text = text
 
 
-# # 老师当前布置作业的表
-# class TeacherWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(80), unique=True)
-#     detail = db.Column(db.String(500))
-#     answer = db.Column(db.String(5000))
-#     course_id = db.Column(db.Integer)
 
-#     def __init__(self, title, detail, answer, course_id):
-#         self.title = title
-#         self.detail = detail
-#         self.answer = answer
-#         self.course_id = course_id
-
-
-# class StudentWork(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     userid = db.Column(db.Integer)
-#     answer = db.Column(db.String(5000))
-#     score = db.Column(db.DECIMAL(10, 2))
-#     course_id = db.Column(db.Integer)
-
-#     def __init__(self, userid, answer, score, course_id):
-#         self.userid = userid
-#         self.answer = answer
-#         self.score = score
-#         self.course_id = course_id
 
 
 ### -------------start of home
@@ -540,7 +518,100 @@ def code_generate():
 
 
 def generate_code(title, text, code_language):
+
     code_text = ""
+    code_type = ".py"
+    if code_language == "java":
+        code_type = ".java"
+    if code_language == "c":
+        code_type = ".c"
+
+    description_list = []
+    choosed_list = []
+    if text is not None:
+        description_list = text.split('#')
+        print(len(description_list), '>'*20)
+
+    files = os.listdir("data/"+code_language)  # 获取ai素材目录
+    files.remove(".DS_Store")
+    print(files)
+
+
+    print('1---------------')
+    from_code = "zh"
+    to_code = "en"
+
+    # Download and install Argos Translate package
+    # 使用语言归一化
+    available_packages = argostranslate.package.get_available_packages()
+    print('available_packages=', available_packages)
+    available_package = list(
+        filter(
+            lambda x: x.from_code == from_code and x.to_code == to_code, available_packages
+        )
+    )[0]
+    print('2 available_package=', available_package)
+    download_path = available_package.download()
+    print('download_path=', download_path)
+    argostranslate.package.install_from_path(download_path)
+
+    # Translate
+    installed_languages = argostranslate.translate.get_installed_languages()
+    from_lang = list(filter(
+            lambda x: x.code == from_code,
+            installed_languages))[0]
+    to_lang = list(filter(
+            lambda x: x.code == to_code,
+            installed_languages))[0]
+    translation = from_lang.get_translation(to_lang)
+    
+    translatedText = translation.translate(title)
+    print(title,'->', translatedText)
+
+    print('2---------------')
+    sname = translatedText
+    for tname in files:
+        c0 = jellyfish.levenshtein_distance(sname, tname)
+        c1 = jellyfish.jaro_distance(sname, tname)
+        c1 = round(c1, 4)
+        c2 = jellyfish.damerau_levenshtein_distance(sname, tname)
+        # https://en.wikipedia.org/wiki/Hamming_distance
+        c3 = jellyfish.hamming_distance(sname, tname)
+        print(sname, '#'*5, tname, ' => ')
+        print(c0, c1, c2, c3)
+        if c1 > 0.5:
+            print('#'*20, sname, tname)
+            # 通过ai相似度和翻译共同找到
+            # 找到合适的分类
+            print('3---------------')
+            mpath = "data/"+code_language + "/"+tname
+            
+
+            pathlist = Path(mpath).glob('**/*'+code_type)
+            mypicklist = []
+            for path in pathlist:
+                 # because path is object not string
+                 path_in_str = str(path)
+
+                 print(path_in_str)
+                 if random.randint(1, 9) > 4:
+                    mypicklist.append(path_in_str)
+    print('4---------------')
+    index = 0
+    for source_file in mypicklist:
+
+        with open(source_file, "r") as target_file:
+            content = target_file.read()
+            print('len(countent)=', len(content))
+            code_text += content
+
+        if len(description_list) > 0 and index < len(description_list):
+            choosed = description_list[index]
+            if choosed not in choosed_list:
+                print('>'*20, index)
+                code_text += choosed
+                choosed_list.append(choosed)
+                index += 1
     return code_text
 
 
@@ -574,7 +645,7 @@ def upload_code_description():
 
         except IOError as msg:
             print(msg)
-
+    time.sleep(1)
     return redirect(url_for("file_list"))
 
 
