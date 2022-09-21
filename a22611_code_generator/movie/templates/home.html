@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>code生成系统</title>
+    <title>Docs_Platform</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -40,12 +40,6 @@ div[class*="release_year"] {
   margin-right: 3px;
 }
 
-.bg_rgba {
-  background-image: url(/static/images/bg.png);
-  background-color: rgba(255, 255, 255, 0.886);
-  background-blend-mode: overlay;
-
-}
 
     </style>
     <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
@@ -59,7 +53,7 @@ div[class*="release_year"] {
     <![endif]-->
 
   </head>
-<body class="bg_rgba">
+  <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
@@ -77,22 +71,20 @@ div[class*="release_year"] {
       <li class="nav-item active">
         <a class="nav-link" href="/profile"> Profile <span class="sr-only">(current)</span></a>
       </li>
+
+
+        {% if session['isadmin'] %}
+
+
+
+                <li class="nav-item active">
+        <a class="nav-link" href="/users"> 管理用户 <span class="sr-only">(current)</span></a>
+      </li>
+      
+
       <li class="nav-item active">
         <a class="nav-link" href="/code_generate"> 代码生成 <span class="sr-only">(current)</span></a>
       </li>
-<!-- 
-      <li class="nav-item active">
-        <a class="nav-link" href="/add_ppt"> 添加代码生成项目 <span class="sr-only">(current)</span></a>
-      </li>
-        {% if session['isadmin'] %}
-
-          <li class="nav-item active">
-        <a class="nav-link" href="/blogs"> 管理代码生成 <span class="sr-only">(current)</span></a>
-      </li> -->
-
-<!--       <li class="nav-item active">
-        <a class="nav-link" href="/assignwork"> place_graph <span class="sr-only">(current)</span></a>
-      </li> -->
 
 
       {% endif %}
@@ -101,8 +93,7 @@ div[class*="release_year"] {
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
       <li class="nav-item active">
         <form class="form-inline my-2 my-lg-0 navbar-right" action="/home" method="POST">
@@ -116,7 +107,15 @@ div[class*="release_year"] {
       </li>
 
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+           {% if session['logged_in'] %}
+      <li class="nav-item active">
+         <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
+        </li>
+ <!--       <li class="nav-item active">
+         <a class="nav-link" href="/review">review <span class="sr-only">(current)</span></a>
+      </li> -->
+    {% endif %}
+     
 
 
     </ul>
@@ -132,7 +131,6 @@ div[class*="release_year"] {
       <input type="submit" value="Sign in" class="btn btn-success">
     </form>
       {% else %}
-        <a class="nav-link" href="/logout">logout <span class="sr-only">(current)</span></a>
           <a class="nav-link" href="#">{{ user.nickname }} logined <span class="sr-only">(current)</span></a>
 
      {% endif %}
@@ -151,6 +149,7 @@ div[class*="release_year"] {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
       <div class="media-left">
         <h1 class="media-heading">代码自动</h1>
 
@@ -182,9 +181,9 @@ div[class*="release_year"] {
          <div class="col-md-3">  </div>
          <div class="col-md-3">  </div>
 <!--          <div class="col-md-3">  
-          <a href="/recommend"><font color="red">course Recommendation </font> </a>
-          </div> -->
-         <!-- <div class="col-md-3">  <a href="/index_a"><font color="green">  Knowledge-Graph </font> </a> </div> -->
+          <a href="/recommend"><font color="red">Docs Recommendation </font> </a>
+          </div>
+         <div class="col-md-3">  <a href="/index_a"><font color="green">  Knowledge-Graph </font> </a> </div> -->
 
          </div>
        </div>
@@ -205,7 +204,7 @@ div[class*="release_year"] {
         </div>
         <div class="col-md-3">
         <figure>
-            <img src="/static/images/ppt_cover/{{ r.id % 10 }}.jpeg" class="img-fluid" style="height:150px;width:200px;">
+            <img src="/static/images/ppt_cover/{{ range(1, 10) | random }}.jpeg" class="img-fluid" style="height:150px;width:200px;">
         </figure>
         </div>
         </div>
@@ -216,7 +215,7 @@ div[class*="release_year"] {
 <br/><br/>
 
       <div class="row">
-       <div class="col-md-12"> <div class="release_year">代码生成器介绍</div>
+       <div class="col-md-12"> <div class="release_year">online-docs introduction</div>
        </div>
        </div>
       <!-- Example row of columns -->
@@ -226,7 +225,7 @@ div[class*="release_year"] {
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{ r % 10 }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/app_data/{{ range(1, 10) | random }}.png" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
             <!-- <div class="release_year">{{r.release_year}}</div>  -->

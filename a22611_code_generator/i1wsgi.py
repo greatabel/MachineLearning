@@ -18,7 +18,7 @@ from flask import jsonify
 from flask_cors import CORS
 from flask import make_response
 
-# from flask_wtf.csrf import CSRFProtect
+
 from flask import flash
 
 from movie import create_app
@@ -263,6 +263,61 @@ def query_note(id):
     else:
         # 删除ppt
         blog = Blog.query.filter_by(id=id).delete()
+        # 提交才能生效
+        db.session.commit()
+        # 返回204正常响应，否则页面ajax会报错
+        return "", 204
+
+
+
+@app.route("/users", methods=["GET"])
+def list_users():
+    """
+    查询用户列表
+    """
+    users = User.query.all()
+    print('users=', users)
+    # 渲染ppt列表页面目标文件，传入blogs参数
+    return rt("list_users.html", users=users)
+
+
+@app.route("/users/create", methods=["GET", "POST"])
+def create_user():
+    """
+    创建talkshow文章
+    """
+    if request.method == "GET":
+        # 如果是GET请求，则渲染创建页面
+        return rt("create_user.html")
+    else:
+        # 从表单请求体中获取请求数据
+        username = request.form["username"]
+        nickname = request.form["nickname"]
+        password = request.form["password"]
+
+        # 创建一个ppt对象
+        user = User(username=username, nickname=nickname,password=password)
+        db.session.add(user)
+        # 必须提交才能生效
+        db.session.commit()
+        # 创建完成之后重定向到ppt列表页面
+        return redirect("/users")
+
+@app.route("/users/<id>", methods=["GET", "DELETE"])
+def query_user(id):
+    """
+    查询talkshow详情、删除ppt
+    """
+    if request.method == "GET":
+        # 到数据库查询ppt详情
+        user = User.query.filter_by(id=id).first_or_404()
+        print(id, user, "in query_user", "@" * 20)
+        # 渲染ppt详情页面
+        return rt("query_user.html", user=user)
+    else:
+        print('delete user')
+        # 删除ppt
+        user = User.query.filter_by(id=id).delete()
         # 提交才能生效
         db.session.commit()
         # 返回204正常响应，否则页面ajax会报错
