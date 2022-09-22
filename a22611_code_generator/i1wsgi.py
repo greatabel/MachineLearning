@@ -580,6 +580,10 @@ def generate_code(title, text, code_language):
         code_type = ".java"
     if code_language == "c":
         code_type = ".c"
+    if code_language == "python":
+        code_type = ".py"
+    if code_language == "c#":
+        code_type = ".cs"
 
     description_list = []
     choosed_list = []
