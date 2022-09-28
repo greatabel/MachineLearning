@@ -534,6 +534,10 @@ def login():
     return redirect(url_for("home", pagenum=1))
 
 
+@app.route("/single_login", methods=["POST","GET"])
+def single_login():
+    return rt("single_login.html")
+
 @app.route("/register", methods=["POST"])
 def register():
     email = request.form.get("email")
