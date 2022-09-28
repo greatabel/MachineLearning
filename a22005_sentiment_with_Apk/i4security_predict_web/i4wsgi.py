@@ -214,7 +214,7 @@ def add_blog_with_sentiment(title, text):
         sentiment = 1
     if sentiment_tw < -0.3:
         sentiment = -1
-        
+
     # 买家加的强规则，如果灾难名次，需要变负面
     for bad_word in bad_news:
         if bad_word in title:
@@ -512,6 +512,8 @@ def load_user(email):
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
+    fr = request.args.get('fr', default = 'pc', type = str)
+    print('fr=', fr)
     try:
         data = User.query.filter_by(username=email, password=password).first()
         print(data, "@" * 10)
@@ -532,6 +534,9 @@ def login():
             #     session['title'] = w.title
             #     session['detail'] = w.detail
             #     session['answer'] = w.answer
+            if fr == "mobile":
+                print('jump to blogs', '#'*10)
+                return redirect("/blogs")
 
             return redirect(url_for("home", pagenum=1))
         else:
@@ -539,12 +544,19 @@ def login():
     except Exception as e:
         print(e)
         return "Not Login"
+
+
     return redirect(url_for("home", pagenum=1))
 
 
 @app.route("/single_login", methods=["POST","GET"])
 def single_login():
     return rt("single_login.html")
+
+@app.route("/mobile_single_login", methods=["POST","GET"])
+def mobile_single_login():
+    return rt("mobile_single_login.html")
+
 
 @app.route("/register", methods=["POST"])
 def register():

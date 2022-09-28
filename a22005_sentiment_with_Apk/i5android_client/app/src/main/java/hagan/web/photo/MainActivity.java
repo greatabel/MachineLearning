@@ -104,7 +104,9 @@ public class MainActivity extends AppCompatActivity implements OpenFileChooserCa
         });
 
         setWebViewInitialScale();
-        webView.loadUrl("file:///android_asset/test.html");
+//        webView.loadUrl("file:///android_asset/test.html");
+
+        webView.loadUrl("http:///10.0.2.2:5000/mobile_single_login");
 
     }
 
