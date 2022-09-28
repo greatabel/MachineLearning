@@ -190,7 +190,7 @@ def home(pagenum=1):
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
-
+bad_news = ['台风', '山火', '地震']
 def add_blog_with_sentiment(title, text):
     # Translate
     from_code = "zh"
@@ -214,6 +214,12 @@ def add_blog_with_sentiment(title, text):
         sentiment = 1
     if sentiment_tw < -0.3:
         sentiment = -1
+        
+    # 买家加的强规则，如果灾难名次，需要变负面
+    for bad_word in bad_news:
+        if bad_word in title:
+            sentiment = -1
+
     print('words, sentiment_tw ','->'*20, words, sentiment_tw ,'#'*5, sentiment)
     # 创建一个ppt对象
     blog = Blog(title=title, text=text, sentiment=sentiment)
@@ -265,9 +271,11 @@ def update_note(id):
         # 获取请求的ppt标题和正文
         title = request.form["title"]
         text = request.form["text"]
+        if request.form["sentiment"] is not None:
+            sentiment = float(request.form["sentiment"])
 
         # 更新ppt
-        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
+        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text, "sentiment": sentiment})
         # 提交才能生效
         db.session.commit()
         # 修改完成之后重定向到ppt详情页面

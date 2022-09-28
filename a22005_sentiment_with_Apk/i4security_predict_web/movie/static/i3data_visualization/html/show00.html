@@ -60,8 +60,8 @@
     }
 
     var widget = SimpleWidget({color: "#6495ed"})
-            .headline("record history Data-visiualization")
-            .description("record data mining and visualization");
+            .headline("web记录数据探索和可视化")
+            .description("小规律的统计分析");
     widget.render();
 
 
@@ -112,7 +112,7 @@ svg.append("text")
     .attr("x", width*4/7)
     .attr("y", 0 - (margin.top / 2))
     .attr("text-anchor", "middle")
-    .text("record time visualization");  
+    .text("记录中数据时间规律");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)
@@ -205,7 +205,7 @@ svg
   .data(data_ready)
   .enter()
   .append('text')
-  .text(function(d){ return "attitude: " + d.data.key})
+  .text(function(d){ return "态度: " + d.data.key})
   .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
   .style("text-anchor", "middle")
   .style("font-size", 17)
@@ -215,7 +215,7 @@ svg.append("text")
     .attr("x", width*2/7)
     .attr("y", 0 - 50)
     .attr("text-anchor", "middle")
-    .text("attitude（"+ inputdata.total_sentiment_polarity + ")");  
+    .text("态度汇总度量（"+ inputdata.total_sentiment_polarity + ")");  
 
   
 }
@@ -265,7 +265,7 @@ svg.append("text")
     .attr("x", width*3/7)
     .attr("y", 0 - (margin.top / 3))
     .attr("text-anchor", "middle")
-    .text("record-visual Related-Words");  
+    .text("记录中相关词");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)
@@ -343,7 +343,7 @@ svg.append("text")
     .attr("x", width*3/7)
     .attr("y", 0 - (margin.top * 4/ 7))
     .attr("text-anchor", "middle")
-    .text("record-visual Who Tweets Most");  
+    .text("记录中转发用户分析");  
 // Create rectangles
 let bars = svg.selectAll('.bar')
     .data(sourceNames)

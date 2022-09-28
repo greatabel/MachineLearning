@@ -30,6 +30,9 @@ username: greatabel1@126.com
 password: abel
 你也可以自己注册和登录
 
+如果想访问单独的登陆页，可以访问：
+http://localhost:5000/single_login
+
 # ------------ ------------ ------------ ------------ 
 
 7.
