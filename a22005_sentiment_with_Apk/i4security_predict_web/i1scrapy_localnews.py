@@ -4,7 +4,7 @@ from lxml import etree
 import time
 
 from i4wsgi import add_blog_with_sentiment
-data_folder = "../data"
+data_folder = "data"
 
 
 # headers = {
