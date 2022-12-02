@@ -20,14 +20,10 @@ pip3 install --upgrade -r requirements.txt
 （可选：如果自己有gpu，可以根据requirements.txt中提示，修改requirements.txt)
 
 5.
-(可选项) 不加新数据集，可以不用进行本步操作
-python3 i0image_preprocessing.py
-
-6.
 进行数据探索和展示
 python3 i1data_explore.py
 
-7.
+6.
 (先导步骤：需要重新执行第四步，或者单独安装jupyter：pip install jupyter)
 查看残差深度神经网络的工程可以，另外新建一个窗口，然后执行：
-jupyter notebook i2ml_calassify_finger_resnets.ipynb
+jupyter notebook i2ml_calassify_asphalt_resnets.ipynb
