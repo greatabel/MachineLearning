@@ -26,7 +26,7 @@ from androguard.core.bytecodes.apk import APK
 from werkzeug.utils import secure_filename
 
 from sentiment import anlaysis
-# import es_search
+import es_search
 
 # import recommandation
 
@@ -158,6 +158,7 @@ def home(pagenum=1):
         search_list = []
         keyword = request.form["keyword"]
         print("keyword=", keyword, "-" * 10)
+        print('from Elasticsearch', '#'*20)
         if keyword is not None:
             for blog in blogs:
                 if keyword in blog.title or keyword in blog.text:
@@ -170,6 +171,7 @@ def home(pagenum=1):
             if len(search_list) == 0 and keyword in ['天气', '心情']:
                 es_content = es_search.mysearch(keyword)
                 search_list.append(es_content)
+
             # for movie in notice_list:
             #     if movie.director.director_full_name == keyword:
             #         search_list.append(movie)
