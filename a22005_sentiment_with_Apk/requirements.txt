@@ -20,3 +20,4 @@ flask-wtf==0.14.2
 argostranslate
 selenium
 bs4
+wordcloud>=1.8.1

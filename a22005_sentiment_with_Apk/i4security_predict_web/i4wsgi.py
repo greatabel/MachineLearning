@@ -36,6 +36,12 @@ from PIL import Image
 # from feature_extractor import FeatureExtractor
 from datetime import datetime
 import argostranslate.package, argostranslate.translate
+
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+import nltk
+import csv
+import random
+from termcolor import colored
 # from pathlib import Path
 
 # from movie.domain.model import Director, Review, Movie
@@ -158,7 +164,8 @@ def home(pagenum=1):
         search_list = []
         keyword = request.form["keyword"]
         print("keyword=", keyword, "-" * 10)
-        print('from Elasticsearch', '#'*20)
+
+        print(colored('--------from Elasticsearch---------', 'blue'))
         if keyword is not None:
             for blog in blogs:
                 if keyword in blog.title or keyword in blog.text:
@@ -498,6 +505,28 @@ def relationship():
     with open(filename) as test_file:
         d = json.load(test_file)
     print(type(d), "#" * 10, d)
+
+    # 增加实时性，根据爬虫进行更新
+    print(colored('--------start 增加实时性，根据爬虫进行更新', 'red'))
+    download_path = "/Users/abel/AbelProject/MachineLearning/a22005_sentiment_with_Apk/data/huanqiu.csv"
+    with open(download_path, newline='') as csv_file:
+        reader = csv.reader(csv_file, delimiter=',')
+        rows = list(reader)
+        # print(rows[:10])
+
+        text = " ".join(review[1] for review in rows[:10])
+
+        tokens = nltk.word_tokenize(text)
+        print(tokens[:5], '#'*20)
+        text = nltk.Text(tokens)
+        # 挑选透3名
+        d.append({"word1": tokens[0], "word2": tokens[1],  "freq": str(random.uniform(5.5, 9.9))} )
+        d.append({"word1": tokens[1], "word2": tokens[2],  "freq": str(random.uniform(5.5, 9.9))} )
+        d.append({"word1": tokens[2], "word2": tokens[1],  "freq": str(random.uniform(5.5, 9.9))} )
+
+
+    print(colored('---------end 增加实时性，根据爬虫进行更新', 'red'))
+
     return jsonify(d)
 
 
