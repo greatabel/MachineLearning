@@ -32,6 +32,7 @@ with wave.open("i2polyphonic.wav", "wb") as new_wav_file:
     new_wav_file.writeframes(new_wav_data)
 
 # 如果需要变成midi格式，打开下面的librosa代码
+# 默认关闭了，为了效率
 
 # # Load audio file
 # filename = 'i2polyphonic.wav'
@@ -80,3 +81,5 @@ with wave.open("i2polyphonic.wav", "wb") as new_wav_file:
 # # Save MIDI file
 # midi_filename = 'i2polyphonic.mid'
 # midi.save(midi_filename)
+
+
