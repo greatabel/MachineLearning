@@ -5,13 +5,13 @@ import numpy as np
 
 
 # Load the original audio file
-audio_file = 'audio_example.mp3'
+audio_file = "audio_example.mp3"
 y_orig, sr_orig = librosa.load(audio_file)
 
 # Load the separated audio files
-vocal_file = 'output/audio_example/vocals.wav'
+vocal_file = "output/audio_example/vocals.wav"
 y_vocal, sr_vocal = librosa.load(vocal_file)
-accompaniment_file = 'output/audio_example/accompaniment.wav'
+accompaniment_file = "output/audio_example/accompaniment.wav"
 y_accompaniment, sr_accompaniment = librosa.load(accompaniment_file)
 
 # Resample the audio files if necessary
@@ -29,21 +29,25 @@ reference_sources = np.array([y_orig, y_orig])
 # Evaluate the performance using metrics such as SNR, SIR, and SAR
 snr = mir_eval.separation.bss_eval_sources(reference_sources, estimated_sources)[0]
 sir = mir_eval.separation.bss_eval_sources(reference_sources, estimated_sources)[1]
-sar = np.mean(librosa.feature.spectral_contrast(y_vocal)[:, np.newaxis]) / np.mean(librosa.feature.spectral_contrast(y_accompaniment)[:, np.newaxis])
+sar = np.mean(librosa.feature.spectral_contrast(y_vocal)[:, np.newaxis]) / np.mean(
+    librosa.feature.spectral_contrast(y_accompaniment)[:, np.newaxis]
+)
 
-print('We choose use metrics such as signal-to-noise ratio (SNR), \
+print(
+    "We choose use metrics such as signal-to-noise ratio (SNR), \
 source-to-interference ratio (SIR), \
-and source-to-artifact ratio (SAR) to evaluate the performance of the model.')
+and source-to-artifact ratio (SAR) to evaluate the performance of the model."
+)
 x = snr
-x= list(map(lambda x :str(x) + '%',x.round(2)))
-print('SNR: ')
-print(f'{x}')
+x = list(map(lambda x: str(x) + "%", x.round(2)))
+print("SNR: ")
+print(f"{x}")
 # print(f"SNR: {snr:.2f} dB")
 
 x = sir
-x= list(map(lambda x :str(x) + '%',x.round(2)))
-print('SIR:')
-print(f'{x}')
+x = list(map(lambda x: str(x) + "%", x.round(2)))
+print("SIR:")
+print(f"{x}")
 # print(f"SIR: {sir:.2f} dB")
 
 # print(sar, type(sar), '#'*20)
