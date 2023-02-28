@@ -67,8 +67,9 @@ CORS(app)
 
 
 # ---start  数据库 ---
+print('#'*20, os.path.abspath("movie/campus_data.db"), '#'*20)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath("movie/campus_data.db")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
 db = SQLAlchemy(app)
 
 last_upload_filename = None
