@@ -95,11 +95,15 @@ def picture_search():
 
 # ---start  数据库 ---
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///campus_data.db"
+
+print('#'*20, os.path.abspath("movie/campus_data.db"), '#'*20)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath("movie/campus_data.db")
+
+
 db = SQLAlchemy(app)
 
 # --- end   数据库 ---
-admin_list = ["admin@126.com"]
+admin_list = ["admin@126.com", "greatabel1@126.com"]
 
 
 class User(db.Model):
@@ -626,6 +630,7 @@ def custom_static(filename):
 
 
 if __name__ == "__main__":
-    db.create_all()
+    with app.app_context():
+        db.create_all()
 
-    app.run(host="localhost", port=5000, threaded=False)
+        app.run(host="localhost", port=5000, threaded=False)
