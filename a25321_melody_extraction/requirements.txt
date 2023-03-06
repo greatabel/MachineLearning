@@ -149,3 +149,4 @@ Werkzeug==2.0.3
 wrapt==1.12.1
 xacro==1.13.18
 zipp==3.6.0
+pretty_midi
