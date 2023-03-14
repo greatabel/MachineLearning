@@ -4,6 +4,7 @@ from lxml import etree
 import time
 
 from i4wsgi import add_blog_with_sentiment
+
 data_folder = "data"
 
 
@@ -47,119 +48,115 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import json
+
 # import xlwt
 
+
 def get_list(url):
-    
+
     # 新闻链接
-    res=requests.get(url)
-    res.encoding='utf-8'
-    
+    res = requests.get(url)
+    res.encoding = "utf-8"
+
     # 完整HTML
-    html=BeautifulSoup(res.text,'html.parser')
-    
+    html = BeautifulSoup(res.text, "html.parser")
+
     # 新闻列表
-    newList=[]
-    
-    for item in html.select('.news-item'):
+    newList = []
+
+    for item in html.select(".news-item"):
         try:
-            newObj={}
-            newObj['title']=item.select('h2 a')[0].text
-            newObj['url']=item.select('h2 a')[0].get('href')
+            newObj = {}
+            newObj["title"] = item.select("h2 a")[0].text
+            newObj["url"] = item.select("h2 a")[0].get("href")
             newList.append(newObj)
         except:
-            print('出现异常')
+            print("出现异常")
     return newList
-    
+
 
 def get_detail(url):
 
     # 新闻链接
-    res=requests.get(url)
-    res.encoding='utf-8'
-    
+    res = requests.get(url)
+    res.encoding = "utf-8"
+
     # 完整HTML
-    html=BeautifulSoup(res.text,'html.parser')
-    
+    html = BeautifulSoup(res.text, "html.parser")
+
     # 新闻对象
-    result={}
-    
+    result = {}
+
     # 新闻标题
-    result['title']=html.select('.main-title')[0].text
-    
+    result["title"] = html.select(".main-title")[0].text
+
     # 发布时间
-    timesource=html.select('.date-source span')[0].text
-    createtime=datetime.strptime(timesource,'%Y年%m月%d日 %H:%M')
-    createtime.strftime('%Y-%m-%d')
-    result['createtime']=createtime
-    
+    timesource = html.select(".date-source span")[0].text
+    createtime = datetime.strptime(timesource, "%Y年%m月%d日 %H:%M")
+    createtime.strftime("%Y-%m-%d")
+    result["createtime"] = createtime
+
     # 新闻来源
-    result['place']=html.select('.date-source a')[0].text
-    
+    result["place"] = html.select(".date-source a")[0].text
+
     # 新闻内容
-    article=[]
-    for p in html.select('#article p')[:-1]:
+    article = []
+    for p in html.select("#article p")[:-1]:
         article.append(p.text.strip())
-    articleText=' '.join(article)
-    result['article']=articleText
-    
+    articleText = " ".join(article)
+    result["article"] = articleText
+
     # 新闻作者
-    result['author']=html.select('.show_author')[0].text.strip('责任编辑：')
-    
+    result["author"] = html.select(".show_author")[0].text.strip("责任编辑：")
+
     # 新闻链接
-    result['url']=url
-    
+    result["url"] = url
+
     return result
 
 
+if __name__ == "__main__":  # 主函数
 
-
-if __name__ == "__main__":          #主函数
-
-    newList=get_list('https://news.sina.com.cn/world/')
+    newList = get_list("https://news.sina.com.cn/world/")
     # print(newList)
-    
+
     # newObj=get_detail('http://news.sina.com.cn/c/2020-10-19/doc-iiznctkc6335371.shtml')
     # print(newObj)
-    
+
     # book = xlwt.Workbook(encoding='utf-8')
     # sheet = book.add_sheet('ke_qq')
-    head = ['标题','时间','作者','链接','来源','内容'] #表头
+    head = ["标题", "时间", "作者", "链接", "来源", "内容"]  # 表头
     # for h in range(len(head)):
     #     sheet.write(0,h,head[h]) #写入表头
 
-
     db_limit = 10
     mycount = 0
-    for i,item in enumerate(newList):
+    for i, item in enumerate(newList):
         try:
-            newObj=get_detail(item['url'])
+            newObj = get_detail(item["url"])
 
             time.sleep(2.5)
             with open(data_folder + "/i1sina.txt", "a", encoding="utf-8") as c:
-                print(newObj['title'])
-                c.write(newObj['title'] + "\n\n")                
-                print(newObj['article'],'#'*20)
+                print(newObj["title"])
+                c.write(newObj["title"] + "\n\n")
+                print(newObj["article"], "#" * 20)
                 # c.write(newObj['createtime'] + "\n")
                 # c.write(newObj['url'] + "\n")
                 # c.write(newObj['place'] + "\n")
 
-
-                c.write(newObj['article'] + "\n")
+                c.write(newObj["article"] + "\n")
                 c.write("------------------------\n")
-                if newObj['article'] is not None and newObj['title'] is not None:
+                if newObj["article"] is not None and newObj["title"] is not None:
                     if mycount < db_limit:
-                        add_blog_with_sentiment(newObj['title'], newObj['article'])
+                        add_blog_with_sentiment(newObj["title"], newObj["article"])
                         mycount += 1
-                        print('into db')
+                        print("into db")
                     else:
-                        print('over db limit')
+                        print("over db limit")
 
-            print (str(i),'写入成功')
-
+            print(str(i), "写入成功")
 
         except:
-            print (str(i),'出现异常')
-            
-    # book.save('F:\ke.xls')
+            print(str(i), "出现异常")
 
+    # book.save('F:\ke.xls')

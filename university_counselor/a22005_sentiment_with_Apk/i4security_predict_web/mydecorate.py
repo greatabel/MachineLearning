@@ -5,8 +5,9 @@ from sklearn.model_selection import cross_val_score
 
 
 class GeneticSelector:
-    def __init__(self, estimator, n_gen, size, n_best, n_rand,
-                 n_children, mutation_rate):
+    def __init__(
+        self, estimator, n_gen, size, n_best, n_rand, n_children, mutation_rate
+    ):
         # Estimator
         self.estimator = estimator
         # Number of generations
@@ -38,9 +39,15 @@ class GeneticSelector:
         X, y = self.dataset
         scores = []
         for chromosome in population:
-            score = -1.0 * np.mean(cross_val_score(self.estimator, X[:, chromosome], y,
-                                                   cv=5,
-                                                   scoring="neg_mean_squared_error"))
+            score = -1.0 * np.mean(
+                cross_val_score(
+                    self.estimator,
+                    X[:, chromosome],
+                    y,
+                    cv=5,
+                    scoring="neg_mean_squared_error",
+                )
+            )
             scores.append(score)
         scores, population = np.array(scores), np.array(population)
         inds = np.argsort(scores)
@@ -59,7 +66,10 @@ class GeneticSelector:
         population_next = []
         for i in range(int(len(population) / 2)):
             for j in range(self.n_children):
-                chromosome1, chromosome2 = population[i], population[len(population) - 1 - i]
+                chromosome1, chromosome2 = (
+                    population[i],
+                    population[len(population) - 1 - i],
+                )
                 child = chromosome1
                 mask = np.random.rand(len(child)) > 0.5
                 child[mask] = chromosome2[mask]
@@ -100,7 +110,7 @@ class GeneticSelector:
         population = self.initilize()
         for i in range(self.n_gen):
             population = self.generate(population)
-            print('generation:', g)
+            print("generation:", g)
             g += 1
         return self
 
@@ -109,9 +119,9 @@ class GeneticSelector:
         return self.chromosomes_best[-1]
 
     def plot_scores(self):
-        plt.plot(self.scores_best, label='Best')
-        plt.plot(self.scores_avg, label='Average')
+        plt.plot(self.scores_best, label="Best")
+        plt.plot(self.scores_avg, label="Average")
         plt.legend()
-        plt.ylabel('Scores')
-        plt.xlabel('Generation')
+        plt.ylabel("Scores")
+        plt.xlabel("Generation")
         plt.show()

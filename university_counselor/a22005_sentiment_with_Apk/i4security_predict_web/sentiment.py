@@ -4,6 +4,7 @@ import my_model_loader
 import os
 from os import scandir
 
+
 def anlaysis(text):
     total = 0
     blob = TextBlob(text)
@@ -18,16 +19,14 @@ def anlaysis(text):
         # print(sentence.sentiment.polarity)
         total += sentence.sentiment.polarity
 
-    #------
+    # ------
 
-    dir_entries = scandir('upload/')
+    dir_entries = scandir("upload/")
     for text_file in dir_entries:
-        if 'DS_Store' not in text_file.name:
+        if "DS_Store" not in text_file.name:
             filename = secure_filename(text_file.name)
-            t = os.path.join('upload', filename)
+            t = os.path.join("upload", filename)
             r = my_model_loader.classify(t)
-
-
 
     return blob.noun_phrases, total
 

@@ -36,13 +36,12 @@ import os
 
 import glob
 
-directoryPath = 'data/'
-for file_name in glob.glob(directoryPath+'*.csv'):
+directoryPath = "data/"
+for file_name in glob.glob(directoryPath + "*.csv"):
     print(file_name)
-    arr = file_name.split('/')
+    arr = file_name.split("/")
     fname = arr[1]
     b = hdfs.path.isdir("/data")
-
 
     if b == True:
         hdfs_client = hdfs.hdfs()

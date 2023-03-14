@@ -197,25 +197,30 @@ div[class*="release_year"] {
        </div>
           
 
-          {% for r in listing %}
-      <div class="row">
-        <div class="col-md-8">
-        <span>{{ r.title|safe }}</span> 
-        <br/>
-        <a href="/blogs/{{r.id}}">{{ r.text[:500]|safe  }} ... </a>
+<div class="row">
+  {% for r in listing %}
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <h5 class="card-title">
+           <a href="/blogs/{{r.id}}">  {{ r.title|safe }} </a>
 
-            <div name="title"> </div>  
-            <br/>
-            <!-- <div class="release_year">{{r.release_year}}</div>  -->
+           </h5>
+            <p class="card-text">{{ r.text[:400]|safe }} ...</p>
+          </div>
+          <a href="/blogs/{{r.id}}">
+            <img src="/static/images/ppt_cover/{{ r.id % 10 }}.jpeg" class="card-img-bottom img-fluid" style="width: 100%; height: auto;">
+          </a>
+          <!-- adjust width of image as needed -->
         </div>
-        <div class="col-md-4">
-        <figure>
-            <!-- <img src="/static/images/ppt_cover/{{r.id}}.jpeg" class="img-fluid" style="height:150px;width:200px;"> -->
-            <img src="/static/images/app_data/{{r.id  }}.png" class="img-fluid" style="height:150px;width:200px;">
-        </figure>
-        </div>
-        </div>
-           {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
         
 <br/><br/>
 <br/><br/>

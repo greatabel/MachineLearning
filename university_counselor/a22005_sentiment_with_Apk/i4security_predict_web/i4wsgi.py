@@ -33,6 +33,7 @@ import es_search
 # vgg16 image like recommend
 import numpy as np
 from PIL import Image
+
 # from feature_extractor import FeatureExtractor
 from datetime import datetime
 import argostranslate.package, argostranslate.translate
@@ -42,6 +43,7 @@ import nltk
 import csv
 import random
 from termcolor import colored
+
 # from pathlib import Path
 
 # from movie.domain.model import Director, Review, Movie
@@ -65,10 +67,12 @@ CORS(app)
 # features = np.array(features)
 
 
-
 # ---start  数据库 ---
-print('#'*20, os.path.abspath("movie/campus_data.db"), '#'*20)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath("movie/campus_data.db")
+print("#" * 20, os.path.abspath("movie/campus_data.db"), "#" * 20)
+# print("#" * 20, os.path.abspath("movie/campus_data.db"), "#" * 20)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath(
+    "movie/campus_data.db"
+)
 
 db = SQLAlchemy(app)
 
@@ -88,7 +92,7 @@ class User(db.Model):
     school_class = db.Column(db.String(80))
     school_grade = db.Column(db.String(80))
 
-    def __init__(self, username, password, nickname='',role=''):
+    def __init__(self, username, password, nickname="", role=""):
         self.username = username
         self.password = password
         self.nickname = nickname
@@ -108,15 +112,13 @@ class Blog(db.Model):
     text = db.Column(db.Text)
     sentiment = db.Column(db.Float)
 
-
     def __init__(self, title, text, sentiment=0):
         """
         初始化方法
         """
         self.title = title
         self.text = text
-        self.sentiment=sentiment
-
+        self.sentiment = sentiment
 
 
 ### -------------start of home
@@ -131,7 +133,7 @@ def replace_html_tag(text, word):
 
 
 class PageResult:
-    def __init__(self, data, page=1, number=10):
+    def __init__(self, data, page=1, number=4):
         self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
         self.full_listing = [
             self.data[i : i + number] for i in range(0, len(self.data), number)
@@ -166,7 +168,7 @@ def home(pagenum=1):
         keyword = request.form["keyword"]
         print("keyword=", keyword, "-" * 10)
 
-        print(colored('--------from Elasticsearch---------', 'blue'))
+        print(colored("--------from Elasticsearch---------", "blue"))
         if keyword is not None:
             for blog in blogs:
                 if keyword in blog.title or keyword in blog.text:
@@ -176,7 +178,7 @@ def home(pagenum=1):
 
                     search_list.append(blog)
 
-            if len(search_list) == 0 and keyword in ['天气', '心情']:
+            if len(search_list) == 0 and keyword in ["天气", "心情"]:
                 es_content = es_search.mysearch(keyword)
                 search_list.append(es_content)
 
@@ -194,29 +196,32 @@ def home(pagenum=1):
             #             search_list.append(movie)
             #             break
         print("search_list=", search_list, "=>" * 5)
-        return rt("home.html", listing=PageResult(search_list, pagenum, 10), user=user, keyword=keyword)
+        return rt(
+            "home.html",
+            listing=PageResult(search_list, pagenum, 10),
+            user=user,
+            keyword=keyword,
+        )
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
-bad_news = ['台风', '山火', '地震']
+bad_news = ["台风", "山火", "地震"]
+
+
 def add_blog_with_sentiment(title, text):
     # Translate
     from_code = "zh"
     to_code = "en"
 
     installed_languages = argostranslate.translate.get_installed_languages()
-    from_lang = list(filter(
-            lambda x: x.code == from_code,
-            installed_languages))[0]
-    to_lang = list(filter(
-            lambda x: x.code == to_code,
-            installed_languages))[0]
+    from_lang = list(filter(lambda x: x.code == from_code, installed_languages))[0]
+    to_lang = list(filter(lambda x: x.code == to_code, installed_languages))[0]
     translation = from_lang.get_translation(to_lang)
 
     translatedText = translation.translate(title)
-    print(title,'->', translatedText)
+    print(title, "->", translatedText)
 
     words, sentiment_tw = anlaysis(translatedText)
     sentiment = 0
@@ -230,7 +235,7 @@ def add_blog_with_sentiment(title, text):
         if bad_word in title:
             sentiment = -1
 
-    print('words, sentiment_tw ','->'*20, words, sentiment_tw ,'#'*5, sentiment)
+    print("words, sentiment_tw ", "->" * 20, words, sentiment_tw, "#" * 5, sentiment)
     # 创建一个ppt对象
     blog = Blog(title=title, text=text, sentiment=sentiment)
 
@@ -285,7 +290,9 @@ def update_note(id):
             sentiment = float(request.form["sentiment"])
 
         # 更新ppt
-        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text, "sentiment": sentiment})
+        blog = Blog.query.filter_by(id=id).update(
+            {"title": title, "text": text, "sentiment": sentiment}
+        )
         # 提交才能生效
         db.session.commit()
         # 修改完成之后重定向到ppt详情页面
@@ -312,14 +319,13 @@ def query_note(id):
         return "", 204
 
 
-
 @app.route("/users", methods=["GET"])
 def list_users():
     """
     查询用户列表
     """
     users = User.query.all()
-    print('users=', users)
+    print("users=", users)
     # 渲染ppt列表页面目标文件，传入blogs参数
     return rt("list_users.html", users=users)
 
@@ -341,12 +347,13 @@ def create_user():
         school_grade = request.form["school_grade"]
 
         # 创建一个ppt对象
-        user = User(username=username, nickname=nickname,password=password,role=role)
+        user = User(username=username, nickname=nickname, password=password, role=role)
         db.session.add(user)
         # 必须提交才能生效
         db.session.commit()
         # 创建完成之后重定向到ppt列表页面
         return redirect("/users")
+
 
 @app.route("/users/<id>", methods=["GET", "DELETE"])
 def query_user(id):
@@ -360,7 +367,7 @@ def query_user(id):
         # 渲染ppt详情页面
         return rt("query_user.html", user=user)
     else:
-        print('delete user')
+        print("delete user")
         # 删除ppt
         user = User.query.filter_by(id=id).delete()
         # 提交才能生效
@@ -368,10 +375,8 @@ def query_user(id):
         # 返回204正常响应，否则页面ajax会报错
         return "", 204
 
+
 ### -------------end of home
-
-
-
 
 
 # @app.route("/picture_search", methods=["GET", "POST"])
@@ -401,7 +406,7 @@ def query_user(id):
 #         if len(scores) > 0 and scores[0][0] >= 1:
 #             print('not very similar')
 #             return rt("picture_search.html")
-                
+
 
 #         return rt(
 #             "picture_search.html", query_path=uploaded_img_path, scores=scores
@@ -508,30 +513,44 @@ def relationship():
     print(type(d), "#" * 10, d)
 
     # 增加实时性，根据爬虫进行更新
-    print(colored('--------start 增加实时性，根据爬虫进行更新', 'red'))
+    print(colored("--------start 增加实时性，根据爬虫进行更新", "red"))
     download_path = "/Users/abel/AbelProject/MachineLearning/a22005_sentiment_with_Apk/data/huanqiu.csv"
-    with open(download_path, newline='') as csv_file:
-        reader = csv.reader(csv_file, delimiter=',')
+    with open(download_path, newline="") as csv_file:
+        reader = csv.reader(csv_file, delimiter=",")
         rows = list(reader)
         # print(rows[:10])
 
         text = " ".join(review[1] for review in rows[:10])
 
         tokens = nltk.word_tokenize(text)
-        print(tokens[:5], '#'*20)
+        print(tokens[:5], "#" * 20)
         text = nltk.Text(tokens)
         # 挑选透3名
-        d.append({"word1": tokens[0], "word2": tokens[1],  "freq": str(random.uniform(5.5, 9.9))} )
-        d.append({"word1": tokens[1], "word2": tokens[2],  "freq": str(random.uniform(5.5, 9.9))} )
-        d.append({"word1": tokens[2], "word2": tokens[1],  "freq": str(random.uniform(5.5, 9.9))} )
+        d.append(
+            {
+                "word1": tokens[0],
+                "word2": tokens[1],
+                "freq": str(random.uniform(5.5, 9.9)),
+            }
+        )
+        d.append(
+            {
+                "word1": tokens[1],
+                "word2": tokens[2],
+                "freq": str(random.uniform(5.5, 9.9)),
+            }
+        )
+        d.append(
+            {
+                "word1": tokens[2],
+                "word2": tokens[1],
+                "freq": str(random.uniform(5.5, 9.9)),
+            }
+        )
 
-
-    print(colored('---------end 增加实时性，根据爬虫进行更新', 'red'))
+    print(colored("---------end 增加实时性，根据爬虫进行更新", "red"))
 
     return jsonify(d)
-
-
-        
 
 
 @login_manager.user_loader
@@ -544,8 +563,8 @@ def load_user(email):
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
-    fr = request.args.get('fr', default = 'pc', type = str)
-    print('fr=', fr)
+    fr = request.args.get("fr", default="pc", type=str)
+    print("fr=", fr)
     try:
         data = User.query.filter_by(username=email, password=password).first()
         print(data, "@" * 10)
@@ -555,7 +574,7 @@ def login():
 
             if email in admin_list:
                 session["isadmin"] = True
-                print('@'*20, 'setting isadmin')
+                print("@" * 20, "setting isadmin")
             session["userid"] = data.id
 
             print("login sucess", "#" * 20, session["logged_in"])
@@ -567,7 +586,7 @@ def login():
             #     session['detail'] = w.detail
             #     session['answer'] = w.answer
             if fr == "mobile":
-                print('jump to blogs', '#'*10)
+                print("jump to blogs", "#" * 10)
                 return redirect("/blogs")
 
             return redirect(url_for("home", pagenum=1))
@@ -577,15 +596,15 @@ def login():
         print(e)
         return "Not Login"
 
-
     return redirect(url_for("home", pagenum=1))
 
 
-@app.route("/single_login", methods=["POST","GET"])
+@app.route("/single_login", methods=["POST", "GET"])
 def single_login():
     return rt("single_login.html")
 
-@app.route("/mobile_single_login", methods=["POST","GET"])
+
+@app.route("/mobile_single_login", methods=["POST", "GET"])
 def mobile_single_login():
     return rt("mobile_single_login.html")
 
@@ -651,7 +670,6 @@ def upload_ppt():
     return redirect(url_for("add_ppt"))
 
 
-
 @app.route("/index_a/")
 def index():
     return rt("index-A.html")
@@ -678,7 +696,7 @@ def upload_success():  # 按序读出分片内容，并写入新文件
     global last_upload_filename
     target_filename = request.args.get("filename")  # 获取上传文件的文件名
     last_upload_filename = target_filename
-    print('last_upload_filename=', last_upload_filename)
+    print("last_upload_filename=", last_upload_filename)
     task = request.args.get("task_id")  # 获取文件的唯一标识符
     chunk = 0  # 分片序号
     with open("./upload/%s" % target_filename, "wb") as target_file:  # 创建新文件
