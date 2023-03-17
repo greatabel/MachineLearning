@@ -171,6 +171,8 @@ def read_wav_file(file_path):
 
 
 def plot_data(one, two):
+    percentage = (one / two) * 100
+    print('percentage=', percentage)
     x_labels = ['MIDI rate', 'wav rate']
     y_values = [one ,two]
 
