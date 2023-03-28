@@ -3,27 +3,27 @@ from termcolor import colored
 
 
 def show(text):
-    return colored(text,'magenta',attrs=['reverse', 'blink'])
+    return colored(text, "magenta", attrs=["reverse", "blink"])
 
-sizes = [2,4,3]
+
+sizes = [2, 4, 3]
 biases = [np.random.randn(y, 1) for y in sizes[1:]]
-weights = [np.random.randn(y, x)
-            for x, y in zip(sizes[:-1], sizes[1:])]
+weights = [np.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]
+
 
 def sigmoid(z):
     """The sigmoid function."""
-    return 1.0/(1.0+np.exp(-z))
+    return 1.0 / (1.0 + np.exp(-z))
+
 
 def feedforward(a):
     # print('type(a)=', type(a), a)
-    print(show('feedforward network is feedforward...'))
+    print(show("feedforward network is feedforward..."))
     for b, w in zip(biases, weights):
         # print('b, w>', b, w, b.shape, w.shape)
-        a = sigmoid(np.dot(w, a)+b)
+        a = sigmoid(np.dot(w, a) + b)
     # print(show('a='), a)
     return a
-
-
 
 
 def mock_data(mock_count):
@@ -31,9 +31,10 @@ def mock_data(mock_count):
     for i in range(mock_count):
         a = np.random.randn(2, 1)
         b = np.random.randn(3, 1)
-        datas.append((a,b))
+        datas.append((a, b))
     # print('list(result[9])=',c,list(result[9]))
     return datas
+
 
 def FNN_caller(dataset):
 
@@ -46,8 +47,8 @@ def FNN_caller(dataset):
         t2 = item[1]
         # print(np.argmax(feedforward(t1)))
         test_results = [(np.argmax(feedforward(t1)), np.argmax(t2))]
-        print('test_results=', test_results)
-        hit = sum(int(x == y) for (x, y) in test_results)          
+        print("test_results=", test_results)
+        hit = sum(int(x == y) for (x, y) in test_results)
         hits += hit
     # print(show('hits='), hits)
     return hits

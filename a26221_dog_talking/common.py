@@ -2,9 +2,7 @@ from numpy import loadtxt
 
 
 def load_dataset():
-    input_lines = loadtxt(
-        "data/input_demo.txt", comments="#", unpack=False
-    )
+    input_lines = loadtxt("data/input_demo.txt", comments="#", unpack=False)
     n_sentences, p_sentences = None, None
     n_path = "data/sentences_source_n.txt"
 
