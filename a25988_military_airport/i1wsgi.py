@@ -44,16 +44,16 @@ import copy
 import uuid
 from termcolor import colored, cprint
 
-# ----  chatgpt 配置 ----
+# ----  airpoint 配置 ----
 openai.api_key = os.environ["OPENAI_API_KEY"]
 print("openai.api_key====", openai.api_key)
 # Define the model name here
-chatgpt_model_name = "gpt-3.5-turbo"
+airpoint_model_name = "gpt-3.5-turbo"
 
-# chatgpt
+# airpoint
 messages = []
 
-# ----  end of chatgpt 配置 ----
+# ----  end of airpoint 配置 ----
 
 
 # from html_similarity import style_similarity, structural_similarity, similarity
@@ -188,80 +188,6 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
-# ------------   chatgpt related ------------
-@app.route("/chatgpt")
-def chatgpt():
-    session.pop("messages", None)
-    return rt("chatgpt.html")
-
-
-@app.route("/get_response", methods=["POST"])
-@limit_by_ip
-def get_bot_response():
-    user_input = request.form["user_input"]
-    # log it
-    ip = request.remote_addr
-
-    if "session_id" not in session:
-        session["session_id"] = str(uuid.uuid4())
-
-    session_id = session["session_id"]
-
-    app.logger.info(
-        f"[{session_id}] POST request to /get_response from IP {ip} with search input '{user_input}'"
-    )
-
-    # print(user_input, '#'*20)
-
-    # 处理空输入
-    if not user_input:
-        print("not valid input")
-        return jsonify({"message": "请提供有效输入(Please provide a valid input)."}), 400
-
-    # 将用户输入截断到最大上下文长度以下，否则报错
-    max_context_length = 4097
-
-    if len(user_input) > max_context_length:
-        user_input = user_input[:max_context_length]
-        return (
-            jsonify(
-                {"message": "你的输入过长，GPT3.5 tokens长度要求 < " + str(max_context_length)}
-            ),
-            400,
-        )
-
-    session_messages = session.get("messages", [])
-    session_messages.append({"role": "user", "content": user_input})
-    session["messages"] = session_messages
-
-    # 目前使用默认模型
-    completion = openai.ChatCompletion.create(
-        model=chatgpt_model_name, messages=session_messages
-    )
-
-    ai_response = completion.choices[0].message["content"]
-    # print(ai_response)
-
-    # print(messages)
-    session_messages.append({"role": "assistant", "content": ai_response})
-    session["messages"] = session_messages
-    print(colored(f"SessionMessages length: {len(session['messages'])}", "cyan"))
-    print(f"SessionMessagesDetail: {session_messages}")
-
-    return Markup(
-        markdown.markdown(ai_response, extensions=["fenced_code", "codehilite"])
-    )
-
-
-@app.route("/reset")
-def reset():
-    # global messages
-    # messages = []
-    session.pop("messages", None)
-    return "Conversation history has been reset."
-
-
-# ------------ end of chatgpt related ------------
 
 
 def replace_html_tag(text, word):

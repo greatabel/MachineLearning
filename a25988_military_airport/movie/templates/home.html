@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>chatgpt技巧推荐平台</title>
+    <title>airpoint信息推荐平台</title>
 
     <!-- Bootstrap core CSS -->
     <style type="text/css">
@@ -52,7 +52,7 @@ div[class*="release_year"] {
 }
 
 
-a[href="/chatgpt"] {
+a[href="/airpoint"] {
   background-color: yellow;
 }
 
@@ -96,17 +96,17 @@ a[href="/chatgpt"] {
   {% if session['isadmin'] %}
 
     <li class="nav-item active">
-    <a class="nav-link" href="/blogs/create">发表chatgpt技巧 <span class="sr-only">(current)</span></a>
+    <a class="nav-link" href="/blogs/create">发表airpoint信息 <span class="sr-only">(current)</span></a>
   </li>
 
     <li class="nav-item active">
-      <a class="nav-link" href="/blogs">管理chatgpt技巧 <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="/blogs">管理airpoint信息 <span class="sr-only">(current)</span></a>
     </li>
   {% endif %}
 
     <li class="nav-item active" style="margin-right: 20px;">
-      <a class="nav-link" href="/chatgpt">
-  <strong><span style="color: red;">chatgpt</span></strong>
+      <a class="nav-link" href="/airpoint">
+  <strong><span style="color: red;">airpoint</span></strong>
   <span class="sr-only">(current)</span>
 </a>
 
@@ -166,7 +166,7 @@ a[href="/chatgpt"] {
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div class="media-left">
-        <h1 class="media-heading" style="text-align: center;">华新数创</h1>
+        <h1 class="media-heading" style="text-align: center;">太平洋西岸</h1>
     </div>
     <span class="media-left">
         <span class="media-left">
@@ -174,7 +174,7 @@ a[href="/chatgpt"] {
         </span>
     </span>
     <div class="media-body">
-        <h1 class="media-heading">Chatgpt</h1>
+        <h1 class="media-heading">军用机场分析</h1>
     </div>
 </div>
 
@@ -203,7 +203,7 @@ a[href="/chatgpt"] {
          <div class="col-md-3">  </div>
 
          <div class="col-md-3">  
-          <!-- <a href="/chatgpt" style="color: red; font-weight: bold; text-decoration: underline;">HX-Chatgpt</a> -->
+          <!-- <a href="/airpoint" style="color: red; font-weight: bold; text-decoration: underline;">HX-airpoint</a> -->
 
           </div>
 
@@ -252,7 +252,7 @@ a[href="/chatgpt"] {
             <p class="card-text">{{ r.text[:400]|safe }} ...</p>
           </div>
           <a href="/blogs/{{r.id}}">
-            <img src="/static/images/ppt_cover/{{ r.id % 10 }}.jpeg" class="card-img-bottom img-fluid" style="width: 100%; height: auto;">
+            <img src="/static/images/ppt_cover/{{ r.id %10 }}.jpg" class="card-img-bottom img-fluid" style="width: 100%; height: auto;">
           </a>
           <!-- adjust width of image as needed -->
         </div>
@@ -282,7 +282,7 @@ a[href="/chatgpt"] {
 
         <div class="col-md-4">
         <figure>
-            <img src="/static/images/app_data/{{ r % 10 }}.png" class="img-fluid" style="height:250px;width:500px;">
+            <img src="/static/images/ppt_cover/slide{{ r % 10 }}.jpg" class="img-fluid" style="height:250px;width:500px;">
         </figure>
             <div name="title"> </div>  
             <!-- <div class="release_year">{{r.release_year}}</div>  -->
