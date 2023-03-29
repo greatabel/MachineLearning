@@ -1,0 +1,723 @@
+"""App entry point."""
+import os
+import sys
+import json
+import random
+import flask_login
+from flask_cors import CORS
+
+from flask import send_from_directory
+from flask import request
+from flask import url_for
+from flask import redirect, session
+from flask import Blueprint, render_template as rt
+from flask_sqlalchemy import SQLAlchemy
+
+from flask import Flask, Response
+from flask import jsonify
+from flask_cors import CORS
+from flask import make_response
+
+# from flask_wtf.csrf import CSRFProtect
+from flask import flash
+
+from movie import create_app
+
+# import es_search
+import logging
+import math
+
+from markupsafe import Markup
+import openai
+import markdown
+import markdown.extensions.fenced_code
+import markdown.extensions.codehilite
+
+# limit ip request
+from flask import Flask, request, jsonify
+from flask_caching import Cache
+from flask import session
+
+from functools import wraps
+
+import copy
+import uuid
+from termcolor import colored, cprint
+
+# ----  chatgpt 配置 ----
+openai.api_key = os.environ["OPENAI_API_KEY"]
+print("openai.api_key====", openai.api_key)
+# Define the model name here
+chatgpt_model_name = "gpt-3.5-turbo"
+
+# chatgpt
+messages = []
+
+# ----  end of chatgpt 配置 ----
+
+
+# from html_similarity import style_similarity, structural_similarity, similarity
+# from common import set_js_file
+
+app = create_app()
+app.secret_key = "ABCabc123"
+app.debug = True
+
+
+handler = logging.FileHandler("flask.log", encoding="UTF-8")
+handler.setLevel(
+    logging.DEBUG
+)  # 设置日志记录最低级别为DEBUG，低于DEBUG级别的日志记录会被忽略，不设置setLevel()则默认为NOTSET级别。
+logging_format = logging.Formatter(
+    "%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s"
+)
+handler.setFormatter(logging_format)
+app.logger.addHandler(handler)
+
+
+CORS(app)
+
+
+cache = Cache(app, config={"CACHE_TYPE": "simple"})
+# 定义装饰器以通过 IP 地址限制请求
+def limit_by_ip(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        # Get the IP address of the requester
+        ip_address = request.remote_addr
+
+        # 如果请求来自本地 IP 地址 (127.0.0.1)，则不应用限制
+        if ip_address == "127.0.0.1":
+            return func(*args, **kwargs)
+
+        # 检查IP地址是否超过限制
+        # 在这个例子中，我们限制每分钟 5 个请求
+        # 您可以调整这些值以满足您的需要
+        limit = 5
+        period = 60
+        key = f"{ip_address}:{func.__name__}"
+        count = cache.get(key)
+        if count is not None and int(count) >= limit:
+            print("limit_by_ip 触发!", ip_address, count)
+            return jsonify({"message": "Too many requests."}), 429
+
+        # Increment the request count for the IP address
+        cache.set(key, int(count or 0) + 1, timeout=period)
+
+        # Call the decorated function
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+# 防御点3: CSRF攻击模拟 防御
+# CSRFProtect(app)
+
+# --- total requirement ----
+
+
+# ---start  数据库 ---
+
+# print("#" * 20, os.path.abspath("movie/campus_data.db"), "#" * 20)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.abspath(
+    "movie/campus_data.db"
+)
+
+app.config["UPLOAD_FOLDER"] = os.path.abspath("upload")
+# print(app.config['UPLOAD_FOLDER'] ,'@'*30)
+
+# 防御点1: 防止入sql-inject ，不实用sql注入，sqlchemy让代码ORM化，安全执行
+db = SQLAlchemy(app)
+
+last_upload_filename = None
+# --- end   数据库 ---
+admin_list = ["admin@126.com", "greatabel1@126.com", "xuxiaolu@huaxincem.com"]
+
+
+class User(db.Model):
+    """Create user table"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True)
+    password = db.Column(db.String(80))
+    nickname = db.Column(db.String(80))
+    school_class = db.Column(db.String(80))
+    school_grade = db.Column(db.String(80))
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+
+class Blog(db.Model):
+    """
+    ppt数据模型
+    """
+
+    # 主键ID
+    id = db.Column(db.Integer, primary_key=True)
+    # ppt标题
+    title = db.Column(db.String(100))
+    # ppt正文
+    text = db.Column(db.Text)
+
+    def __init__(self, title, text):
+        """
+        初始化方法
+        """
+        self.title = title
+        self.text = text
+
+
+class PageResult:
+    def __init__(self, data, page=1, number=4):
+        self.__dict__ = dict(zip(["data", "page", "number"], [data, page, number]))
+        self.full_listing = [
+            self.data[i : i + number] for i in range(0, len(self.data), number)
+        ]
+        self.totalpage = len(data) // number + (len(data) % number > 0)
+
+    def __iter__(self):
+        if self.page - 1 < len(self.full_listing):
+            for i in self.full_listing[self.page - 1]:
+                yield i
+        else:
+            return None
+
+    def __repr__(self):  # used for page linking
+        return "/home/{}".format(self.page + 1)  # view the next page
+
+
+# ------------   chatgpt related ------------
+@app.route("/chatgpt")
+def chatgpt():
+    session.pop("messages", None)
+    return rt("chatgpt.html")
+
+
+@app.route("/get_response", methods=["POST"])
+@limit_by_ip
+def get_bot_response():
+    user_input = request.form["user_input"]
+    # log it
+    ip = request.remote_addr
+
+    if "session_id" not in session:
+        session["session_id"] = str(uuid.uuid4())
+
+    session_id = session["session_id"]
+
+    app.logger.info(
+        f"[{session_id}] POST request to /get_response from IP {ip} with search input '{user_input}'"
+    )
+
+    # print(user_input, '#'*20)
+
+    # 处理空输入
+    if not user_input:
+        print("not valid input")
+        return jsonify({"message": "请提供有效输入(Please provide a valid input)."}), 400
+
+    # 将用户输入截断到最大上下文长度以下，否则报错
+    max_context_length = 4097
+
+    if len(user_input) > max_context_length:
+        user_input = user_input[:max_context_length]
+        return (
+            jsonify(
+                {"message": "你的输入过长，GPT3.5 tokens长度要求 < " + str(max_context_length)}
+            ),
+            400,
+        )
+
+    session_messages = session.get("messages", [])
+    session_messages.append({"role": "user", "content": user_input})
+    session["messages"] = session_messages
+
+    # 目前使用默认模型
+    completion = openai.ChatCompletion.create(
+        model=chatgpt_model_name, messages=session_messages
+    )
+
+    ai_response = completion.choices[0].message["content"]
+    # print(ai_response)
+
+    # print(messages)
+    session_messages.append({"role": "assistant", "content": ai_response})
+    session["messages"] = session_messages
+    print(colored(f"SessionMessages length: {len(session['messages'])}", "cyan"))
+    print(f"SessionMessagesDetail: {session_messages}")
+
+    return Markup(
+        markdown.markdown(ai_response, extensions=["fenced_code", "codehilite"])
+    )
+
+
+@app.route("/reset")
+def reset():
+    # global messages
+    # messages = []
+    session.pop("messages", None)
+    return "Conversation history has been reset."
+
+
+# ------------ end of chatgpt related ------------
+
+
+def replace_html_tag(text, word):
+    new_word = '<font color="red">' + word + "</font>"
+    len_w = len(word)
+    len_t = len(text)
+    for i in range(len_t - len_w, -1, -1):
+        if text[i : i + len_w] == word:
+            text = text[:i] + new_word + text[i + len_w :]
+    return text
+
+
+### -------------start of home
+
+
+@app.route("/home/<int:pagenum>", methods=["GET"])
+@app.route("/home", methods=["GET", "POST"])
+def home(pagenum=1):
+    print("home " * 10)
+    app.logger.info("home info log")
+
+    blogs = Blog.query.all()
+    blogs = list(reversed(blogs))
+    user = None
+    if "userid" in session:
+        user = User.query.filter_by(id=session["userid"]).first()
+    else:
+        print("userid not in session")
+    print("in home", user, "blogs=", len(blogs), "*" * 20)
+    if request.method == "POST":
+        search_list = []
+        keyword = request.form["keyword"]
+        print("keyword=", keyword, "-" * 10)
+        if keyword is not None:
+            # Create a deep copy of the blogs list
+            blogs_copy = copy.deepcopy(blogs)
+            for blog in blogs_copy:
+                if keyword in blog.title or keyword in blog.text:
+                    blog.title = replace_html_tag(blog.title, keyword)
+                    print(blog.title)
+                    blog.text = replace_html_tag(blog.text, keyword)
+
+                    search_list.append(blog)
+
+        print("search_list=", search_list, "=>" * 5)
+        return rt(
+            "home.html",
+            listing=PageResult(search_list, pagenum, 10),
+            user=user,
+            keyword=keyword,
+        )
+        # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
+
+    return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
+
+
+@app.route("/blogs/create", methods=["GET", "POST"])
+def create_blog():
+    """
+    创建ppt文章
+    """
+    if request.method == "GET":
+        # 如果是GET请求，则渲染创建页面
+        return rt("create_blog.html")
+    else:
+        # 从表单请求体中获取请求数据
+        title = request.form["title"]
+        text = request.form["text"]
+
+        # 创建一个ppt对象
+        blog = Blog(title=title, text=text)
+        db.session.add(blog)
+        # 必须提交才能生效
+        db.session.commit()
+        # 创建完成之后重定向到ppt列表页面
+        return redirect("/blogs")
+
+
+@app.route("/blogs", methods=["GET"])
+def list_notes():
+    """
+    查询ppt列表
+    """
+    blogs = Blog.query.all()
+
+    # 渲染ppt列表页面目标文件，传入blogs参数
+    return rt("list_blogs.html", blogs=blogs)
+
+
+@app.route("/blogs/update/<id>", methods=["GET", "POST"])
+def update_note(id):
+    """
+    更新tips
+    """
+    if request.method == "GET":
+        # 根据ID查询ppt详情
+        blog = Blog.query.filter_by(id=id).first_or_404()
+        # 渲染修改笔记页面HTML模板
+        return rt("update_blog.html", blog=blog)
+    else:
+        # 获取请求的ppt标题和正文
+        title = request.form["title"]
+        text = request.form["text"]
+
+        # 更新ppt
+        blog = Blog.query.filter_by(id=id).update({"title": title, "text": text})
+        # 提交才能生效
+        db.session.commit()
+        # 修改完成之后重定向到ppt详情页面
+        return redirect("/blogs/{id}".format(id=id))
+
+
+@app.route("/blogs/<id>", methods=["GET", "DELETE"])
+def query_note(id):
+    """
+    查询tips详情、删除tips
+    """
+    if request.method == "GET":
+        # 到数据库查询ppt详情
+        blog = Blog.query.filter_by(id=id).first_or_404()
+        print(id, blog, "in query_blog", "@" * 20)
+        # 渲染ppt详情页面
+        return rt("query_blog.html", blog=blog)
+    else:
+        # 删除ppt
+        blog = Blog.query.filter_by(id=id).delete()
+        # 提交才能生效
+        db.session.commit()
+        # 返回204正常响应，否则页面ajax会报错
+        return "", 204
+
+
+### -------------end of home
+
+
+### -------------start of profile
+
+
+@app.route("/profile", methods=["GET", "DELETE"])
+def query_profile():
+    """
+    查询tips详情、删除ppt
+    """
+
+    id = session["userid"]
+
+    if request.method == "GET":
+
+        # 到数据库查询ppt详情
+        user = User.query.filter_by(id=id).first_or_404()
+        print(user.username, user.password, "#" * 5)
+        # 渲染ppt详情页面
+        r = make_response(rt("profile.html", user=user))
+        # 防御点2：xss攻击，实用csp方式： https://content-security-policy.com/
+        r.headers.set(
+            "Content-Security-Policy",
+            "default-src * 'unsafe-inline'; connect-src 'self' 'nonce-987654321' ",
+        )
+        return r
+    else:
+        # 删除ppt
+        user = User.query.filter_by(id=id).delete()
+        # 提交才能生效
+        db.session.commit()
+        # 返回204正常响应，否则页面ajax会报错
+        return "", 204
+
+
+@app.route("/profiles/update/<id>", methods=["GET", "POST"])
+def update_profile(id):
+    """
+    更新ppt
+    """
+    if request.method == "GET":
+        # 根据ID查询ppt详情
+        user = User.query.filter_by(id=id).first_or_404()
+        # 渲染修改笔记页面HTML模板
+        return rt("update_profile.html", user=user)
+    else:
+        # 获取请求的ppt标题和正文
+        password = request.form["password"]
+        nickname = request.form["nickname"]
+        school_class = request.form["school_class"]
+        school_grade = request.form["school_grade"]
+
+        # 更新ppt
+        user = User.query.filter_by(id=id).update(
+            {
+                "password": password,
+                "nickname": nickname,
+                "school_class": school_class,
+                "school_grade": school_grade,
+            }
+        )
+        # 提交才能生效
+        db.session.commit()
+        # 修改完成之后重定向到ppt详情页面
+        return redirect("/profile")
+
+
+### -------------end of profile
+
+
+@app.route("/course/<id>", methods=["GET"])
+def course_home(id):
+    """
+    查询ppt详情、删除ppt
+    """
+    if request.method == "GET":
+        # 到数据库查询ppt详情
+        blog = Blog.query.filter_by(id=id).first_or_404()
+        teacherWork = TeacherWork.query.filter_by(course_id=id).first()
+        print(id, blog, "in query_blog", "@" * 20)
+        # 渲染ppt详情页面
+        return rt("course.html", blog=blog, teacherWork=teacherWork)
+    else:
+        return "", 204
+
+
+login_manager = flask_login.LoginManager(app)
+user_pass = {}
+
+
+# @app.route("/call_bash", methods=["GET"])
+# def call_bash():
+#     i0bash_caller.open_client("")
+#     return {}, 200
+
+
+@app.route("/statistics", methods=["GET"])
+def relationship():
+    # static/data/test_data.json
+    filename = os.path.join(app.static_folder, "data.json")
+    # with open(filename) as test_file:
+    with open(filename, "r", encoding="utf-8") as test_file:
+        d = json.load(test_file)
+    print(type(d), "#" * 10, d)
+    return jsonify(d)
+
+
+@app.route("/index_a/")
+def index():
+    return rt("index-A.html")
+
+
+@app.route("/index_b/")
+def index_b():
+    return rt("index-B.html")
+
+
+@login_manager.user_loader
+def load_user(email):
+    print("$" * 30)
+    return user_pass.get(email, None)
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    print("login", "#" * 20)
+    email = request.form.get("email")
+    password = request.form.get("password")
+    try:
+        data = User.query.filter_by(username=email, password=password).first()
+        print(data, "@" * 10)
+        if data is not None:
+            print("test login")
+            session["logged_in"] = True
+
+            if email in admin_list:
+                session["isadmin"] = True
+                print("@" * 20, "setting isadmin")
+            else:
+                session["isadmin"] = False
+                print("@" * 20, "setting not isadmin")
+            session["userid"] = data.id
+
+            print("login sucess", "#" * 20, session["logged_in"])
+
+            # w = TeacherWork.query.get(1)
+            # print('w=', w, w.answer, w.title)
+            # if w is not None:
+            #     session['title'] = w.title
+            #     session['detail'] = w.detail
+            #     session['answer'] = w.answer
+
+            return redirect(url_for("home", pagenum=1))
+        else:
+            return "Not Login"
+    except Exception as e:
+        print(e)
+        return "Not Login"
+    return redirect(url_for("home", pagenum=1))
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    email = request.form.get("email")
+    pw1 = request.form.get("password")
+    pw2 = request.form.get("password2")
+    if not pw1 == pw2:
+        return redirect(url_for("home", pagenum=1))
+    # if DB.get_user(email):
+    data = User.query.filter_by(username=email).first()
+    # if email in user_pass:
+    if data is not None:
+        print("already existed user")
+        flash("already existed user")
+        return redirect(url_for("home", pagenum=1))
+    # salt = PH.get_salt()
+    # hashed = PH.get_hash(pw1 + salt)
+    print("register", email, pw1)
+    new_user = User(username=email, password=pw1)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return redirect(url_for("home", pagenum=1))
+
+
+@app.route("/logout")
+def logout():
+    session["logged_in"] = False
+    session["isadmin"] = False
+    return redirect(url_for("home", pagenum=1))
+
+
+reviews = []
+
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return "Unauthorized"
+
+
+# --------------------------
+@app.route("/add_ppt", methods=["GET"])
+def add_ppt():
+    return rt("index.html")
+
+
+@app.route("/upload_ppt", methods=["POST"])
+def upload_ppt():
+
+    # detail = request.form.get("detail")
+    # 从表单请求体中获取请求数据
+
+    title = request.form.get("title")
+    text = request.form.get("detail")
+
+    # 创建一个ppt对象
+    blog = Blog(title=title, text=text)
+    db.session.add(blog)
+    # 必须提交才能生效
+    db.session.commit()
+    # 创建完成之后重定向到ppt列表页面
+    # return redirect("/blogs")
+
+    return redirect(url_for("add_ppt"))
+
+
+@app.route("/student_work", methods=["POST"])
+def student_work():
+    return redirect(url_for("student_index"))
+
+
+@app.route("/student_index", methods=["GET"])
+def student_index():
+    return rt("student_index.html")
+
+
+# @app.route("/", methods=["GET"])
+# def index():
+#     return rt("index.html")
+
+
+@app.route("/file/upload", methods=["POST"])
+def upload_part():  # 接收前端上传的一个分片
+    task = request.form.get("task_id")  # 获取文件的唯一标识符
+    chunk = request.form.get("chunk", 0)  # 获取该分片在所有分片中的序号
+    filename = "%s%s" % (task, chunk)  # 构造该分片的唯一标识符
+    print("filename=", filename)
+    upload_file = request.files["file"]
+    upload_file.save("./upload/%s" % filename)  # 保存分片到本地
+    return rt("index.html")
+
+
+@app.route("/file/merge", methods=["GET"])
+def upload_success():  # 按序读出分片内容，并写入新文件
+    global last_upload_filename
+    target_filename = request.args.get("filename")  # 获取上传文件的文件名
+    last_upload_filename = target_filename
+    print("last_upload_filename=", last_upload_filename)
+    task = request.args.get("task_id")  # 获取文件的唯一标识符
+    chunk = 0  # 分片序号
+    with open("./upload/%s" % target_filename, "wb") as target_file:  # 创建新文件
+        while True:
+            try:
+                filename = "./upload/%s%d" % (task, chunk)
+                source_file = open(filename, "rb")  # 按序打开每个分片
+                target_file.write(source_file.read())  # 读取分片内容写入新文件
+                source_file.close()
+            except IOError as msg:
+                break
+
+            chunk += 1
+            os.remove(filename)  # 删除该分片，节约空间
+
+    return rt("index.html")
+
+
+@app.route("/file/list", methods=["GET"])
+def file_list():
+    files = os.listdir("./upload/")  # 获取文件目录
+    # print(type(files))
+    files.remove(".DS_Store")
+    # files = map(lambda x: x if isinstance(x, unicode) else x.decode('utf-8'), files)  # 注意编码
+    return rt("list.html", files=files)
+
+
+@app.route("/file/download/<filename>", methods=["GET"])
+def file_download(filename):
+    def send_chunk():  # 流式读取
+        store_path = "./upload/%s" % filename
+        print("store_path=", store_path)
+        with open(store_path, "rb") as target_file:
+            while True:
+                chunk = target_file.read(20 * 1024 * 1024)
+                if not chunk:
+                    break
+                yield chunk
+
+    return Response(send_chunk(), content_type="application/octet-stream")
+
+
+# Custom static data
+@app.route("/cdn/<path:filename>")
+def custom_static(filename):
+    print("#" * 20, filename, " in custom_static", app.root_path)
+    return send_from_directory(
+        app.config["UPLOAD_FOLDER"],
+        filename,
+    )
+
+
+# --------------------------
+host = "localhost"
+env_flask = os.environ.get("FLASK_ENV")
+print("env_flask=====", env_flask)
+if env_flask == "production":
+    # Development settings
+    host = "0.0.0.0"
+
+
+if __name__ == "__main__":
+    with app.app_context():
+        app.config["JSON_AS_ASCII"] = False
+        db.create_all()
+
+        print("host =====", host)
+        app.run(host=host, port=5000, threaded=False)
