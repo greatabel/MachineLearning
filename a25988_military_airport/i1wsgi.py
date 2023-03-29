@@ -188,8 +188,6 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
-
-
 def replace_html_tag(text, word):
     new_word = '<font color="red">' + word + "</font>"
     len_w = len(word)
@@ -242,6 +240,14 @@ def home(pagenum=1):
         # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
 
     return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
+
+
+@app.route("/military_airports_map", methods=["GET"])
+def military_airports_map():
+    """ """
+
+    #
+    return rt("military_airports_map.html")
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])

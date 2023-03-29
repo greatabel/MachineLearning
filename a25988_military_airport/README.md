@@ -20,6 +20,9 @@ https://docs.python.org/zh-cn/3/tutorial/venv.html
 在虚拟环境中，命令行进入web_platform目录，执行：
 python3 i1wsgi.py
 
+新开一个cmd，执行:juypter notebook i3airpoint_anlysis.ipynb
+
+
 5. 
 本机测试
 浏览器访问首页: http://127.0.0.1:5000/home

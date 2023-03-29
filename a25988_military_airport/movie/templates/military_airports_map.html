@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c70ef673d5ed3215569459eb4f10017b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_c70ef673d5ed3215569459eb4f10017b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c70ef673d5ed3215569459eb4f10017b = L.map(
+                "map_c70ef673d5ed3215569459eb4f10017b",
+                {
+                    center: [22.9988, 123.555],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 4,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_207f5b905bf6d6b7cc8b51ef55cd0ce3 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var marker_67739d36f794c57e293b39b7d62d45f9 = L.marker(
+                [35.7474, 139.795],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_912cdbb6aca9565848386a04b713de97 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_67739d36f794c57e293b39b7d62d45f9.setIcon(icon_912cdbb6aca9565848386a04b713de97);
+        
+    
+        var popup_2ba75bd312e4bd2b544c5da8f60ec0c1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_147ba1a21f346c1ac1f5b0a25114a4af = $(`<div id="html_147ba1a21f346c1ac1f5b0a25114a4af" style="width: 100.0%; height: 100.0%;">Tokyo Military Airport<br>Country: Japan</div>`)[0];
+                popup_2ba75bd312e4bd2b544c5da8f60ec0c1.setContent(html_147ba1a21f346c1ac1f5b0a25114a4af);
+            
+        
+
+        marker_67739d36f794c57e293b39b7d62d45f9.bindPopup(popup_2ba75bd312e4bd2b544c5da8f60ec0c1)
+        ;
+
+        
+    
+    
+            var marker_7c797bf1d1829a063c888b3b04e1ae6a = L.marker(
+                [26.3558, 127.7673],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_56784d9c17fc87af23c4ebbc90c9064e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_7c797bf1d1829a063c888b3b04e1ae6a.setIcon(icon_56784d9c17fc87af23c4ebbc90c9064e);
+        
+    
+        var popup_c5bb12a1b93c8c454b41ad4fae7df597 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_22bf99cdc8ad28011f43357169f77f4a = $(`<div id="html_22bf99cdc8ad28011f43357169f77f4a" style="width: 100.0%; height: 100.0%;">Kadena Air Base<br>Country: Japan</div>`)[0];
+                popup_c5bb12a1b93c8c454b41ad4fae7df597.setContent(html_22bf99cdc8ad28011f43357169f77f4a);
+            
+        
+
+        marker_7c797bf1d1829a063c888b3b04e1ae6a.bindPopup(popup_c5bb12a1b93c8c454b41ad4fae7df597)
+        ;
+
+        
+    
+    
+            var marker_38e09e89a9169761a15e787c0933df2a = L.marker(
+                [35.8156, 139.5489],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_14baab5d7902c41e25f085f9c02b9d11 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_38e09e89a9169761a15e787c0933df2a.setIcon(icon_14baab5d7902c41e25f085f9c02b9d11);
+        
+    
+        var popup_7c612b6f39675f0866091ba0c2b38aed = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8a6cb8ae5ee0adfd0bb291865b24ad23 = $(`<div id="html_8a6cb8ae5ee0adfd0bb291865b24ad23" style="width: 100.0%; height: 100.0%;">Asaka Air Base<br>Country: Japan</div>`)[0];
+                popup_7c612b6f39675f0866091ba0c2b38aed.setContent(html_8a6cb8ae5ee0adfd0bb291865b24ad23);
+            
+        
+
+        marker_38e09e89a9169761a15e787c0933df2a.bindPopup(popup_7c612b6f39675f0866091ba0c2b38aed)
+        ;
+
+        
+    
+    
+            var marker_a594ea993526c5d3e924abe697ed1157 = L.marker(
+                [40.705, 141.3689],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_da32bf889ebe6771822386679c87bd5a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_a594ea993526c5d3e924abe697ed1157.setIcon(icon_da32bf889ebe6771822386679c87bd5a);
+        
+    
+        var popup_2e4c046f770e378145f0594da9b38e0f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0109a70c27ad6c558252cbd707dde731 = $(`<div id="html_0109a70c27ad6c558252cbd707dde731" style="width: 100.0%; height: 100.0%;">Misawa Air Base<br>Country: Japan</div>`)[0];
+                popup_2e4c046f770e378145f0594da9b38e0f.setContent(html_0109a70c27ad6c558252cbd707dde731);
+            
+        
+
+        marker_a594ea993526c5d3e924abe697ed1157.bindPopup(popup_2e4c046f770e378145f0594da9b38e0f)
+        ;
+
+        
+    
+    
+            var marker_9459c3eedc3a785f85f43efed2201cdc = L.marker(
+                [34.1439, 132.2356],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_8badda51756bb53c6b7807fe5d4e59b0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plane", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_9459c3eedc3a785f85f43efed2201cdc.setIcon(icon_8badda51756bb53c6b7807fe5d4e59b0);
+        
+    
+        var popup_8aa01aa7fabe651c4df9e85ac9f67a44 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7ec26ad84068cfae9b8f6a84208e52cb = $(`<div id="html_7ec26ad84068cfae9b8f6a84208e52cb" style="width: 100.0%; height: 100.0%;">Iwakuni Air Base<br>Country: Japan</div>`)[0];
+                popup_8aa01aa7fabe651c4df9e85ac9f67a44.setContent(html_7ec26ad84068cfae9b8f6a84208e52cb);
+            
+        
+
+        marker_9459c3eedc3a785f85f43efed2201cdc.bindPopup(popup_8aa01aa7fabe651c4df9e85ac9f67a44)
+        ;
+
+        
+    
+    
+            var marker_77312c898e624eb5d879d271d2af247a = L.marker(
+                [23.5669, 119.6275],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_7e1a62f0c7699edf55f21f086b85c6d2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fighter-jet", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_77312c898e624eb5d879d271d2af247a.setIcon(icon_7e1a62f0c7699edf55f21f086b85c6d2);
+        
+    
+        var popup_0786518ce9299d6acd0a40d752c95e53 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0b90b10a67a2019302bb390b94108442 = $(`<div id="html_0b90b10a67a2019302bb390b94108442" style="width: 100.0%; height: 100.0%;">Magong Air Base<br>Country: Taiwan</div>`)[0];
+                popup_0786518ce9299d6acd0a40d752c95e53.setContent(html_0b90b10a67a2019302bb390b94108442);
+            
+        
+
+        marker_77312c898e624eb5d879d271d2af247a.bindPopup(popup_0786518ce9299d6acd0a40d752c95e53)
+        ;
+
+        
+    
+    
+            var marker_009239388726803a446290029886fab0 = L.marker(
+                [22.5775, 120.3503],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_0977d7bfbacc465246ea87728396cb2d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fighter-jet", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_009239388726803a446290029886fab0.setIcon(icon_0977d7bfbacc465246ea87728396cb2d);
+        
+    
+        var popup_9710077d00a5169d0b714138980a2e2a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2d1b9f37cabcce6a98df0e93691e9aaa = $(`<div id="html_2d1b9f37cabcce6a98df0e93691e9aaa" style="width: 100.0%; height: 100.0%;">Kaohsiung Military Airport<br>Country: Taiwan</div>`)[0];
+                popup_9710077d00a5169d0b714138980a2e2a.setContent(html_2d1b9f37cabcce6a98df0e93691e9aaa);
+            
+        
+
+        marker_009239388726803a446290029886fab0.bindPopup(popup_9710077d00a5169d0b714138980a2e2a)
+        ;
+
+        
+    
+    
+            var marker_c14e8a75b19841e7d7548d84568626e5 = L.marker(
+                [25.0693, 121.5523],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_ea82d2fb82966fd65bb30afcc7ca7511 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fighter-jet", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c14e8a75b19841e7d7548d84568626e5.setIcon(icon_ea82d2fb82966fd65bb30afcc7ca7511);
+        
+    
+        var popup_3c847576b6c7bd0f227a2d26fb431aaa = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5f5a78f930ad315f0727d868a711ded1 = $(`<div id="html_5f5a78f930ad315f0727d868a711ded1" style="width: 100.0%; height: 100.0%;">Songshan Airport<br>Country: Taiwan</div>`)[0];
+                popup_3c847576b6c7bd0f227a2d26fb431aaa.setContent(html_5f5a78f930ad315f0727d868a711ded1);
+            
+        
+
+        marker_c14e8a75b19841e7d7548d84568626e5.bindPopup(popup_3c847576b6c7bd0f227a2d26fb431aaa)
+        ;
+
+        
+    
+    
+            var marker_baf3c8d6a913ef7ac7f379ecb22d79fb = L.marker(
+                [22.9489, 120.205],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_b573eacd9df0108ade0b42e7a07a2f94 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fighter-jet", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_baf3c8d6a913ef7ac7f379ecb22d79fb.setIcon(icon_b573eacd9df0108ade0b42e7a07a2f94);
+        
+    
+        var popup_6a49f8516f2cb706117460c478339aea = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ccbfefc8f3ec601fa4efca48484a9266 = $(`<div id="html_ccbfefc8f3ec601fa4efca48484a9266" style="width: 100.0%; height: 100.0%;">Tainan Air Base<br>Country: Taiwan</div>`)[0];
+                popup_6a49f8516f2cb706117460c478339aea.setContent(html_ccbfefc8f3ec601fa4efca48484a9266);
+            
+        
+
+        marker_baf3c8d6a913ef7ac7f379ecb22d79fb.bindPopup(popup_6a49f8516f2cb706117460c478339aea)
+        ;
+
+        
+    
+    
+            var marker_90302c575051ad8ed7025d5f6f0dff69 = L.marker(
+                [25.0677, 121.2304],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_468438ce4f0282d05c19fb844984e6c1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "fighter-jet", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_90302c575051ad8ed7025d5f6f0dff69.setIcon(icon_468438ce4f0282d05c19fb844984e6c1);
+        
+    
+        var popup_188bf27a3e0a2b8d935820f7a37b1c2f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6800320921f1e5c23e5ff89606fd0618 = $(`<div id="html_6800320921f1e5c23e5ff89606fd0618" style="width: 100.0%; height: 100.0%;">Taoyuan Air Base<br>Country: Taiwan</div>`)[0];
+                popup_188bf27a3e0a2b8d935820f7a37b1c2f.setContent(html_6800320921f1e5c23e5ff89606fd0618);
+            
+        
+
+        marker_90302c575051ad8ed7025d5f6f0dff69.bindPopup(popup_188bf27a3e0a2b8d935820f7a37b1c2f)
+        ;
+
+        
+    
+    
+            var marker_89228d5ddfd993670b719544e08b66cf = L.marker(
+                [13.5814, 144.9204],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_6e18ede76ed64de8fdea9a594a61874b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_89228d5ddfd993670b719544e08b66cf.setIcon(icon_6e18ede76ed64de8fdea9a594a61874b);
+        
+    
+        var popup_f0f8468f2fd2ed76c90bfa3f3eca9a68 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8ae08b41165ecfc6f3b4557cb93cb766 = $(`<div id="html_8ae08b41165ecfc6f3b4557cb93cb766" style="width: 100.0%; height: 100.0%;">Andersen Air Force Base<br>Country: Guam</div>`)[0];
+                popup_f0f8468f2fd2ed76c90bfa3f3eca9a68.setContent(html_8ae08b41165ecfc6f3b4557cb93cb766);
+            
+        
+
+        marker_89228d5ddfd993670b719544e08b66cf.bindPopup(popup_f0f8468f2fd2ed76c90bfa3f3eca9a68)
+        ;
+
+        
+    
+    
+            var marker_2e21936978095aa6eec0d0fa88154025 = L.marker(
+                [13.4836, 144.7975],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_370105a4187debfb83c366ae5245f0bd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_2e21936978095aa6eec0d0fa88154025.setIcon(icon_370105a4187debfb83c366ae5245f0bd);
+        
+    
+        var popup_7161d24ac42314220edcb8195381579c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b61a809b334b91e818d41e038bc619ba = $(`<div id="html_b61a809b334b91e818d41e038bc619ba" style="width: 100.0%; height: 100.0%;">Guam International Airport<br>Country: Guam</div>`)[0];
+                popup_7161d24ac42314220edcb8195381579c.setContent(html_b61a809b334b91e818d41e038bc619ba);
+            
+        
+
+        marker_2e21936978095aa6eec0d0fa88154025.bindPopup(popup_7161d24ac42314220edcb8195381579c)
+        ;
+
+        
+    
+    
+            var marker_34f2fbb737e54e39d44d8684e6fbce1e = L.marker(
+                [1.9869, -157.4869],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_9e8858afb811c79b602d0ffba62461c4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_34f2fbb737e54e39d44d8684e6fbce1e.setIcon(icon_9e8858afb811c79b602d0ffba62461c4);
+        
+    
+        var popup_24c9c8389d9f79871a67142ccdb6d385 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a6d433ae4550682631e2765dba43d857 = $(`<div id="html_a6d433ae4550682631e2765dba43d857" style="width: 100.0%; height: 100.0%;">Kiritimati Airfield<br>Country: Kiribati</div>`)[0];
+                popup_24c9c8389d9f79871a67142ccdb6d385.setContent(html_a6d433ae4550682631e2765dba43d857);
+            
+        
+
+        marker_34f2fbb737e54e39d44d8684e6fbce1e.bindPopup(popup_24c9c8389d9f79871a67142ccdb6d385)
+        ;
+
+        
+    
+    
+            var marker_1da7da8651f88923fd2f3d5bb3f2d6ce = L.marker(
+                [-14.33, -170.7106],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_79720310176bcd5b0cba6aee9929d9cb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_1da7da8651f88923fd2f3d5bb3f2d6ce.setIcon(icon_79720310176bcd5b0cba6aee9929d9cb);
+        
+    
+        var popup_eb6b2539bf1ea63e73ff9c2fc467090b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_960a818c85bfbfa2426d05123655ea0a = $(`<div id="html_960a818c85bfbfa2426d05123655ea0a" style="width: 100.0%; height: 100.0%;">Pago Pago International Airport<br>Country: American Samoa</div>`)[0];
+                popup_eb6b2539bf1ea63e73ff9c2fc467090b.setContent(html_960a818c85bfbfa2426d05123655ea0a);
+            
+        
+
+        marker_1da7da8651f88923fd2f3d5bb3f2d6ce.bindPopup(popup_eb6b2539bf1ea63e73ff9c2fc467090b)
+        ;
+
+        
+    
+    
+            var marker_08f0f95bcf9f372869d7029ffa248525 = L.marker(
+                [14.1739, 145.2431],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_ac69c10423d36ac2e15c9e13e12db7ea = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_08f0f95bcf9f372869d7029ffa248525.setIcon(icon_ac69c10423d36ac2e15c9e13e12db7ea);
+        
+    
+        var popup_be394393ce66ebd23012d92c13646748 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7bfe1a7911b6161a097f14714a4255dd = $(`<div id="html_7bfe1a7911b6161a097f14714a4255dd" style="width: 100.0%; height: 100.0%;">Rota International Airport<br>Country: Northern Mariana Islands</div>`)[0];
+                popup_be394393ce66ebd23012d92c13646748.setContent(html_7bfe1a7911b6161a097f14714a4255dd);
+            
+        
+
+        marker_08f0f95bcf9f372869d7029ffa248525.bindPopup(popup_be394393ce66ebd23012d92c13646748)
+        ;
+
+        
+    
+    
+            var marker_d1ec4c41eefd8450f122d4179b132dd5 = L.marker(
+                [14.9581, 145.6197],
+                {}
+            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+        
+    
+            var icon_f012f2ed3695e31c7b7be9aaf805858f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "green", "prefix": "glyphicon"}
+            );
+            marker_d1ec4c41eefd8450f122d4179b132dd5.setIcon(icon_f012f2ed3695e31c7b7be9aaf805858f);
+        
+    
+        var popup_11119c586cda6f25f738d43a54dcc9dc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2b6817d315fbd7e5f6ebcfc0cdc84b55 = $(`<div id="html_2b6817d315fbd7e5f6ebcfc0cdc84b55" style="width: 100.0%; height: 100.0%;">Tinian Airfield<br>Country: Northern Mariana Islands</div>`)[0];
+                popup_11119c586cda6f25f738d43a54dcc9dc.setContent(html_2b6817d315fbd7e5f6ebcfc0cdc84b55);
+            
+        
+
+        marker_d1ec4c41eefd8450f122d4179b132dd5.bindPopup(popup_11119c586cda6f25f738d43a54dcc9dc)
+        ;
+
+        
+    
+</script>
+</html>
