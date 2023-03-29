@@ -102,7 +102,7 @@ div[class*="release_year"] {
      {% endif %}
 
     <h3>{{blog.title}}</h3>
-    <p>{{blog.text}}</p>
+   <p>{{blog.text|replace('\n', '<br>')|safe}}</p>
 
 <br/>
 
