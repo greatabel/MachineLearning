@@ -28,7 +28,7 @@ import logging
 import math
 
 from markupsafe import Markup
-import openai
+
 import markdown
 import markdown.extensions.fenced_code
 import markdown.extensions.codehilite
@@ -41,19 +41,10 @@ from flask import session
 from functools import wraps
 
 import copy
-import uuid
+
 from termcolor import colored, cprint
 
-# ----  airpoint 配置 ----
-openai.api_key = os.environ["OPENAI_API_KEY"]
-print("openai.api_key====", openai.api_key)
-# Define the model name here
-airpoint_model_name = "gpt-3.5-turbo"
 
-# airpoint
-messages = []
-
-# ----  end of airpoint 配置 ----
 
 
 # from html_similarity import style_similarity, structural_similarity, similarity

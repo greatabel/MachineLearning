@@ -16,6 +16,11 @@ The hardest part is getting started
 https://docs.python.org/zh-cn/3/tutorial/venv.html
 
 
+
+terminal底下进入工程目录下，在requirements.txt同级目录下运行：
+pip3 install --upgrade -r requirements.txt
+
+
 4.
 在虚拟环境中，命令行进入web_platform目录，执行：
 python3 i1wsgi.py
