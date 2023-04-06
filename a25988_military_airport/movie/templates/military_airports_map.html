@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+
+        <!-- <link rel="stylesheet" href="/static/jsdelivr/leaflet.awesome-markers.css"/> -->
+
+    <link rel="stylesheet" href="/static/jsdelivr/leaflet.awesome.rotate.min.css"/>
     
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -45,26 +48,42 @@
 <script>
     
     
-            var map_c70ef673d5ed3215569459eb4f10017b = L.map(
-                "map_c70ef673d5ed3215569459eb4f10017b",
-                {
-                    center: [22.9988, 123.555],
-                    crs: L.CRS.EPSG3857,
-                    zoom: 4,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
+            // var map_c70ef673d5ed3215569459eb4f10017b = L.map(
+            //     "map_c70ef673d5ed3215569459eb4f10017b",
+            //     {
+            //         center: [22.9988, 123.555],
+            //         crs: L.CRS.EPSG3857,
+            //         zoom: 4,
+            //         zoomControl: true,
+            //         preferCanvas: false,
+            //     }
+            // );
 
             
 
         
     
-            var tile_layer_207f5b905bf6d6b7cc8b51ef55cd0ce3 = L.tileLayer(
-                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+            // var tile_layer_207f5b905bf6d6b7cc8b51ef55cd0ce3 = L.tileLayer(
+            //     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            //     {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            // ).addTo(map_c70ef673d5ed3215569459eb4f10017b);
         
+         var map_c70ef673d5ed3215569459eb4f10017b = L.map(
+        "map_c70ef673d5ed3215569459eb4f10017b",
+        {
+            center: [22.9988, 123.555],
+            crs: L.CRS.EPSG3857,
+            zoom: 4,
+            zoomControl: true,
+            preferCanvas: false,
+        }
+    );
+
+    var gaodeLayer = L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}', {
+        subdomains: ['1', '2', '3', '4'],
+        attribution: '&copy; <a href="https://www.amap.com/">高德地图</a>'
+    }).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+    
     
             var marker_67739d36f794c57e293b39b7d62d45f9 = L.marker(
                 [35.7474, 139.795],

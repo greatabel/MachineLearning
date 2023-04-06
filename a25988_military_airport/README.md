@@ -25,7 +25,7 @@ pip3 install --upgrade -r requirements.txt
 在虚拟环境中，命令行进入web_platform目录，执行：
 python3 i1wsgi.py
 
-新开一个cmd，执行:juypter notebook i3airpoint_anlysis.ipynb
+新开一个cmd，执行:jupyter notebook i3airpoint_anlysis.ipynb
 
 
 5. 

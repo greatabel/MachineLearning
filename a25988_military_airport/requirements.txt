@@ -17,3 +17,4 @@ markdown==3.4.1
 flask_caching==2.0.2
 Werkzeug==2.0.0
 termcolor==2.2.0
+jupyter==1.0.0
