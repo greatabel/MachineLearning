@@ -515,6 +515,55 @@
         ;
 
         
+
+        // Xianyang Airport
+var marker_xianyang = L.marker(
+    [34.445, 108.751667],
+    {}
+).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+
+var icon_xianyang = L.AwesomeMarkers.icon(
+    {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"}
+);
+marker_xianyang.setIcon(icon_xianyang);
+
+var popup_xianyang = L.popup({"maxWidth": "100%"});
+var html_xianyang = $(`<div id="html_xianyang" style="width: 100.0%; height: 100.0%;">Xianyang Airport</div>`)[0];
+popup_xianyang.setContent(html_xianyang);
+marker_xianyang.bindPopup(popup_xianyang);
+
+// Zhengzhou Airport
+var marker_zhengzhou = L.marker(
+    [34.526667, 113.841667],
+    {}
+).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+
+var icon_zhengzhou = L.AwesomeMarkers.icon(
+    {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"}
+);
+marker_zhengzhou.setIcon(icon_zhengzhou);
+
+var popup_zhengzhou = L.popup({"maxWidth": "100%"});
+var html_zhengzhou = $(`<div id="html_zhengzhou" style="width: 100.0%; height: 100.0%;">Zhengzhou Airport</div>`)[0];
+popup_zhengzhou.setContent(html_zhengzhou);
+marker_zhengzhou.bindPopup(popup_zhengzhou);
+
+// Shenyang Taoxian International Airport
+var marker_shenyang = L.marker(
+    [41.639444, 123.483056],
+    {}
+).addTo(map_c70ef673d5ed3215569459eb4f10017b);
+
+var icon_shenyang = L.AwesomeMarkers.icon(
+    {"extraClasses": "fa-rotate-0", "icon": "shield", "iconColor": "white", "markerColor": "pink", "prefix": "glyphicon"}
+);
+marker_shenyang.setIcon(icon_shenyang);
+
+var popup_shenyang = L.popup({"maxWidth": "100%"});
+var html_shenyang = $(`<div id="html_shenyang" style="width: 100.0%; height: 100.0%;">Shenyang Taoxian International Airport</div>`)[0];
+popup_shenyang.setContent(html_shenyang);
+marker_shenyang.bindPopup(popup_shenyang);
+
     
 </script>
 </html>
