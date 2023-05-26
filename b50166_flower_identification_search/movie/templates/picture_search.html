@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Simple Flower Image Search Engine</title>
+
+        <!-- Use local Bootstrap CSS -->
+        <link rel='stylesheet' href='/static/bootstrap-4.5.2-dist/css/bootstrap.min.css'>
+
+        <!-- Local CSS for additional styling -->
+        <style>
+            figure img {
+                width: 100%;
+                height: auto;
+            }
+            figure figcaption {
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container mt-5">
+            <h1 class="text-center">Simple Flower Image Search Engine</h1>
+
+            <form method="POST" enctype="multipart/form-data" class="my-4">
+                <div class="custom-file">
+                    <input type="file" name="query_img" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary mt-3">
+            </form>
+
+            <h2>Query:</h2>
+            {% if query_path %}
+                <img src="{{ query_path }}" class="img-fluid">
+            {% endif %}
+            <br/><br/>
+            <h2>Image from Flower Category: &nbsp;<mark>{{category}}</mark></h2>
+
+            <h3>Top 3 Flower categories are most likely Results:</h3>
+
+            <div class="row">
+                {% for score in scores %}
+                    <figure class="col-lg-4 col-md-6">
+                        <img src="{{ score[1] }}" class="img-fluid">
+                        <span>Image from Flowers Category:<mark>{{category}}</mark> &nbsp; {{ (score[1]|string()).rsplit('/', 1)[-1] }}</span>
+                        <figcaption>{{ score[0] }}</figcaption>
+                    </figure>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

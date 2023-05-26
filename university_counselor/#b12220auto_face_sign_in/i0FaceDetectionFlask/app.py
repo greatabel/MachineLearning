@@ -16,7 +16,7 @@ import flask_login
 from sqlitedict import SqliteDict
 
 
-from flask_script import Manager
+# from flask_script import Manager
 import train
 import face_recognition
 from model import User
