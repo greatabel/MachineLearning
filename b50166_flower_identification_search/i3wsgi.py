@@ -25,8 +25,8 @@ from datetime import datetime
 
 from pathlib import Path
 
-import i2keyframes_extract_diff
-import i1offline_train
+# import i2keyframes_extract_diff
+# import i1offline_train
 from pathlib import Path
 
 
@@ -575,12 +575,12 @@ def upload_success():  # 按序读出分片内容，并写入新文件
 
             chunk += 1
             os.remove(filename)  # 删除该分片，节约空间
-    print("1.upload_success target_filename ====>", target_filename)
-    video_name = target_filename[: target_filename.index(".")]
-    print("2. keyframe ")
-    i2keyframes_extract_diff.main(video_name)
-    print("3. offline_train")
-    i1offline_train.main()
+    # print("1.upload_success target_filename ====>", target_filename)
+    # video_name = target_filename[: target_filename.index(".")]
+    # print("2. keyframe ")
+    # i2keyframes_extract_diff.main(video_name)
+    # print("3. offline_train")
+    # i1offline_train.main()
 
     return rt("index.html")
 
@@ -621,9 +621,18 @@ def custom_static(filename):
 
 # --------------------------
 
+host = "localhost"
+env_flask = os.environ.get("FLASK_ENV")
+print("env_flask=====", env_flask)
+if env_flask == "production":
+    # Development settings
+    host = "0.0.0.0"
+
 
 if __name__ == "__main__":
     with app.app_context():
+        app.config["JSON_AS_ASCII"] = False
         db.create_all()
 
-        app.run(host="localhost", port=5000, threaded=False)
+        print("host =====", host)
+        app.run(host=host, port=5000, threaded=True)

@@ -1,6 +1,8 @@
 Pillow
 Flask
-tensorflow>=2.0.0
+#tensorflow>=2.0.0
+tensorflow-cpu>=2.0.0
+
 flask_sqlalchemy
 flask_cors
 flask_login

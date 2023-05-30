@@ -10,6 +10,7 @@
 3.
 （可选，非必须）（创建python3虚拟目录，隔绝不同版本库之间相互影响）
 https://docs.python.org/zh-cn/3/tutorial/venv.html
+source tutorial-env/bin/activate
 
 
 4.
@@ -39,6 +40,13 @@ http://localhost:5000/home
 python3 i1offine_train.py
 
 -->
+
+8. （可选)
+ssh -i my_key.pem root@8.140.52.197
+
+代码同步：
+scp -i my_key.pem -r /Users/abel/AbelProject/MachineLearning/b50166_flower_identification_search root@8.140.52.197:/root
+
 
 
 
