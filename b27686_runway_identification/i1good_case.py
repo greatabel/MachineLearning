@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import os
-
+import time
 
 def process_frame(frame, frame_counter):
     # 转换为灰度图像
@@ -23,8 +23,8 @@ def process_frame(frame, frame_counter):
         cv2.line(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
     # Save the image
-    save_path = f"images/frame_{frame_counter}.png"
-    cv2.imwrite(save_path, frame)
+    # save_path = f"images/frame_{frame_counter}.png"
+    # cv2.imwrite(save_path, frame)
 
 
 def process_video(video_path):
@@ -36,9 +36,9 @@ def process_video(video_path):
 
         if ret == True:
             frame_counter += 1
-
+            time.sleep(0.05)
             # 对每10帧进行处理
-            if frame_counter % 10 == 0:
+            if frame_counter % 5 == 0:
                 process_frame(frame, frame_counter)
                 cv2.imshow("Frame", frame)
 
