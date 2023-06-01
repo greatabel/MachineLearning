@@ -1,0 +1,1 @@
+~happy:- sunny, stay_home. ~work_well:- stay_home. happy:- stay_home. work_well:- happy.stay_home, sunny.
