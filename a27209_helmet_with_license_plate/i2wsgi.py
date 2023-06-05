@@ -28,8 +28,6 @@ import logging
 import numpy as np
 from scipy.integrate import odeint
 import pandas as pd
-import plotly.express as px
-from flask import  render_template_string
 
 
 app = create_app()
@@ -136,38 +134,6 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
-@app.route("/plot_demand/<string:material>")
-def plot_demand(material):
-    material = material.lower()
-    if material == "aggregate":
-        file_path = "data/Aggregate/predictions_2023.csv"
-        title = "Demand Prediction for 2023 (Aggregate)"
-    elif material == "concrete":
-        file_path = "data/Concrete/predictions_2023.csv"
-        title = "Demand Prediction for 2023 (Concrete)"
-    else:
-        return "Invalid material. Please choose 'aggregate' or 'concrete'."
-
-    # 从CSV文件读取预测数据
-    predictions_2023_df = pd.read_csv(file_path)
-
-    # 使用Plotly创建交互式折线图
-    fig = px.line(predictions_2023_df, x='timestamp', y='prediction', title=title)
-
-    # 将图形转换为HTML
-    plot_html = fig.to_html(full_html=False)
-
-    return render_template_string(f"""
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <title>{title}</title>
-        </head>
-        <body>
-            {plot_html}
-        </body>
-    </html>
-    """)
 
 
 
