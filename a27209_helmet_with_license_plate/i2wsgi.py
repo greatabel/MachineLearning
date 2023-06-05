@@ -30,6 +30,7 @@ from scipy.integrate import odeint
 import pandas as pd
 
 
+
 app = create_app()
 app.secret_key = "ABCabc123"
 app.debug = True
@@ -136,61 +137,38 @@ class PageResult:
 
 
 
-
-
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
-    print("home " * 10)
-    app.logger.info("home info log")
-
-    blogs = Blog.query.all()
-    blogs = list(reversed(blogs))
     user = None
     if "userid" in session:
         user = User.query.filter_by(id=session["userid"]).first()
     else:
         print("userid not in session")
-    print("in home", user, "blogs=", len(blogs), "*" * 20)
-    if request.method == "POST":
-        search_list = []
-        keyword = request.form["keyword"]
-        print("keyword=", keyword, "-" * 10)
-        if keyword is not None:
-            for blog in blogs:
-                if keyword in blog.title or keyword in blog.text:
-                    blog.title = replace_html_tag(blog.title, keyword)
-                    print(blog.title)
-                    blog.text = replace_html_tag(blog.text, keyword)
 
-                    search_list.append(blog)
+    # 从 JSON 文件中读取车牌号码和对应的图片文件名称
+    with open('license_plates.json', 'r') as file:
+        license_plates = json.load(file)
 
-            # if len(search_list) == 0 and keyword in ["天气", "心情"]:
-            #     es_content = es_search.mysearch(keyword)
-            #     search_list.append(es_content)
-            # for movie in notice_list:
-            #     if movie.director.director_full_name == keyword:
-            #         search_list.append(movie)
+    # 获取 detected_images 目录中的所有 JPEG 图像文件
+    detected_images_dir = 'movie/static/images/detected_images'
+    detected_images = [filename for filename in os.listdir(detected_images_dir) if filename.endswith('.jpg')]
+    print(detected_images)
+    # 为每个图像创建一个字典项
+    images = []
+    for image_filename in detected_images:
+        image_item = {'detected_image': os.path.join('detected_images', image_filename)}
+        
+        license_plate = license_plates.get(image_filename, '')
+        if license_plate:
+            image_item['license_image'] = os.path.join('license_images', image_filename )
+            image_item['license_text'] = license_plate
 
-            #     for actor in movie.actors:
-            #         if actor.actor_full_name == keyword:
-            #             search_list.append(movie)
-            #             break
+        images.append(image_item)
+    # images = []
+    # 将图像列表传递给模板
+    return rt("home.html", listing=images, user=user)
 
-            #     for gene in movie.genres:
-            #         if gene.genre_name == keyword:
-            #             search_list.append(movie)
-            #             break
-        print("search_list=", search_list, "=>" * 5)
-        return rt(
-            "home.html",
-            listing=PageResult(search_list, pagenum, 10),
-            user=user,
-            keyword=keyword,
-        )
-        # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
-
-    return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])

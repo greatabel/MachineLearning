@@ -33,6 +33,7 @@ macbook上面，因为没有支持macbook的GPU，所以使用CPU版本，考虑
 我采取了各种措施提高处理效率：
 python3 i0pedestrian_detection.py  --network=yolo3_mobilenet0.25_voc
 
+
 如果是带英伟达GPU的笔记本(RTX1080/RTX1080Ti/RTX2080/RTX2080Ti...)，
 可以开更强的模型，开GPU版本：
 python3 i0pedestrian_detection.py  --network=yolo3_darknet53_voc --gpu=True
