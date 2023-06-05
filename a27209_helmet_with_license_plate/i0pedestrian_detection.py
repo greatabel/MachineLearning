@@ -40,7 +40,7 @@ def parse_args():
 
 
 def image_put(q, user, pwd, ip, channel=1):
-    cap = cv2.VideoCapture("/home/abel/AbelProject/MachineLearning/a27209_helmet_with_license_plate/test1.mp4")
+    cap = cv2.VideoCapture("original/test0.mp4")
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"H264"))
     print('im image_put')
     if not cap.isOpened():
@@ -54,9 +54,18 @@ def image_put(q, user, pwd, ip, channel=1):
             print("Failed to read a frame or reached the end of the video")
             break
         
-        q.put(frame)
-        print(len(frame), 'put',count)
+        # 每25帧进入1帧
+        if count % 15 == 0:
+            q.put(frame)
+        
         count += 1
+        # 重置计数器，以便循环
+        if count == 25:
+            count = 0
+
+        # print(len(frame), 'put',count)
+
+
 
 
 # def render_as_image(a):
@@ -247,23 +256,27 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
         else:
             class_name = str(cls_id) if cls_id >= 0 else ''
         score = '{:d}%'.format(int(scores.flat[i]*100)) if scores is not None else ''
-
+        warning_signal = None
         #天蓝色
         bcolor =(0, 255, 255)
-        if scores.flat[i] > 0.41:
+        if class_name == 'person':
+            #天蓝色
+            bcolor = (12, 203, 232)
+        elif class_name == 'hat':
+             
+             # 黄色
+            bcolor = (255,255,0)
+        if class_name == 'person' and scores.flat[i] > 0.75:
             
             warning_signal = 'without-hat-in-area'
             
-            cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
+        cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
+
+        if class_name and scores.flat[i] > 0.75:
             y = ymin - 15 if ymin - 15 > 15 else ymin + 15
-
-
-
-            # cv2.rectangle(img, (xmin, ymin), (xmax, ymax), bcolor, 2)
-            # y = ymin - 15 if ymin - 15 > 15 else ymin + 15
-            cv2.putText(img, '{:s} {:s}'.format('person', score),
-                (xmin, y), cv2.FONT_HERSHEY_SIMPLEX, min(scale/2, 2),
-                bcolor, min(int(scale), 5), lineType=cv2.LINE_AA)
+            cv2.putText(img, '{:s} {:s}'.format(class_name, score),
+                        (xmin, y), cv2.FONT_HERSHEY_SIMPLEX, min(scale/2, 2),
+                        bcolor, min(int(scale), 5), lineType=cv2.LINE_AA)
                 # print('#'*20)
 
 
@@ -281,9 +294,10 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
         else:
             flag = True
 
-        if flag == True:
-            new_img = Image.fromarray(source_img, 'RGB')
-            plt.imshow(new_img)
+        if flag == True and warning_signal=='without-hat-in-area':
+            # new_img = Image.fromarray(source_img, 'RGB')
+            # plt.imshow(new_img)
+            plt.imshow(img)
             # plt.show()        
             plt.axis('off')
             plt.savefig('detected_images/'+ d_str + '.jpg',bbox_inches='tight', pad_inches=0)
@@ -331,7 +345,7 @@ def image_get(q, window_name):
     # cv2.namedWindow(window_name, flags=cv2.WINDOW_FREERATIO)
     while True:
         frame = q.get()
-        print('in get:', frame == None)
+        # print('in get:', frame == None)
         # cv2.imshow(window_name, frame)
         # cv2.waitKey(1)
 
