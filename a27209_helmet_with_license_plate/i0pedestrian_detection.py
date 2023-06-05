@@ -40,25 +40,23 @@ def parse_args():
 
 
 def image_put(q, user, pwd, ip, channel=1):
-    # 1. 调用笔记本内置摄像头，
-    # cap=cv2.VideoCapture(0)
+    cap = cv2.VideoCapture("/home/abel/AbelProject/MachineLearning/a27209_helmet_with_license_plate/test1.mp4")
+    cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"H264"))
+    print('im image_put')
+    if not cap.isOpened():
+        print("Failed to open the video file")
+        return
 
-    # 2. 调用读取视频测试
-    cap = cv2.VideoCapture("test2.mp4" )
-
-    # 3. 调取真实枪机摄像头
-    # if cap.isOpened():
-    #     print('HIKVISION')
-    # else:
-    #     cap = cv2.VideoCapture("rtsp://%s:%s@%s/cam/realmonitor?channel=%d&subtype=0" % (user, pwd, ip, channel))
-    #     print('DaHua')
     count = 0
     while True:
-        if count % 25 == 0:
-            q.put(cap.read()[1])
+        ret, frame = cap.read()
+        if not ret:
+            print("Failed to read a frame or reached the end of the video")
+            break
+        
+        q.put(frame)
+        print(len(frame), 'put',count)
         count += 1
-        # q.get() if q.qsize() > 1 else time.sleep(0.01)
-        # q.get() if q.qsize() > 5 else time.sleep(0.01)
 
 
 # def render_as_image(a):
@@ -275,8 +273,8 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
         global last_save_time
         if last_save_time != None:
             z = d - last_save_time
-            # 检测到就保存照片就太多了，15秒间隔才保存一张
-            if z.total_seconds() > 15:
+            # 检测到就保存照片就太多了，1秒间隔才保存一张
+            if z.total_seconds() > 1:
                 flag = True
             else:
                 flag = False
@@ -333,6 +331,7 @@ def image_get(q, window_name):
     # cv2.namedWindow(window_name, flags=cv2.WINDOW_FREERATIO)
     while True:
         frame = q.get()
+        print('in get:', frame == None)
         # cv2.imshow(window_name, frame)
         # cv2.waitKey(1)
 
@@ -405,12 +404,16 @@ def image_get(q, window_name):
             #         print(image.size)
             #         video_write.write(image)
             #     print('finished video_write')
+
+            #2023.6.2
             cv2.namedWindow("image", cv2.WINDOW_NORMAL)
             cv2.imshow('image', orig_img[...,::-1])
-            # print(type(orig_img[...,::-1]))
+            print(type(orig_img[...,::-1]))
+
             if cv2.waitKey(1) == 27:
                     break
-            # count += 8
+            count += 1
+            print('#count=', count)
             # cap.set(1, count)
 
         # cv2.waitKey(0)
