@@ -1,0 +1,104 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="Generator" content="EditPlus?"/>
+    <meta name="Author" content=""/>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <title>H5 attack detect</title>
+
+
+    <meta charset="UTF-8">
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->  
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">  
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->  
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>  
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->  
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>  
+
+</head>
+<body>
+
+<script>
+
+// https://stackoverflow.com/questions/40823512/file-upload-using-flask-and-jquery
+$(document).ready(function() {
+
+    $('form').on('submit', function(event) {
+        var name = $('#name').val();
+        console.log('in send file func')
+        var form = $('#upload-hc')[0]
+        var fd = new FormData(form)
+// url : 'https://10.0.2.2:5000/uploadhc',
+        $.ajax({
+          type : 'POST',
+          url : 'http:///10.0.2.2:5000/uploadhc/'+name,
+          data: fd,
+          processData: false,  // tell jQuery not to process the data
+          contentType: false   // tell jQuery not to set contentType
+        })
+
+        event.preventDefault();
+
+    });
+
+});
+
+         function previewFile1() {
+            var img = document.getElementById("preview1");
+            var file =document.getElementById("demo1").files[0];
+            var reader = new FileReader();
+            reader.addEventListener("load", function () {
+            img.src = reader.result;
+            }, false);
+
+            if (file) {
+            reader.readAsDataURL(file);
+            }
+            }
+
+            function previewFile2() {
+            var img2 = document.getElementById("preview2");
+            var file2 = document.getElementById("demo2").files[0];
+            var reader2 = new FileReader();
+            reader2.addEventListener("load", function () {
+            img2.src = reader2.result;
+            }, false);
+
+            if (file2) {
+            reader2.readAsDataURL(file2);
+            }
+            }
+
+</script>
+
+    <h2>Detect Sentiment by ML</h2>
+     <img src="demo.gif" class="img-fluid" style="width: 200px;height: 100px;" >
+    <p>
+
+     <!-- <a class="nav-link" href="http:///10.0.2.2:5000/recommend">show already uploaded apk ML results </a> -->
+<!-- 
+     <a href="http:///10.0.2.2:5000/recommend" >
+ <button type="button" class="btn btn-info">检查是否有新结果</button>
+     </a> -->
+
+    </p>
+
+    <hr/>
+        <p>
+      <a class="nav-link" href="http:///10.0.2.2:5000/blogs"> &nbsp;<button type="button" class="btn btn-primary">查看监测结果</button></a>
+    </p>
+
+        <p>
+      <a class="nav-link" href="http:///10.0.2.2:5000/picture_search"> &nbsp;<button type="button" class="btn btn-primary">花卉品种检测</button></a>
+    </p>
+    <hr/>
+
+    <p>
+
+    </p>
+    
+
+</body>
+</html>
