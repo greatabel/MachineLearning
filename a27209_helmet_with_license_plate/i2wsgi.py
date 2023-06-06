@@ -28,8 +28,7 @@ import logging
 import numpy as np
 from scipy.integrate import odeint
 import pandas as pd
-import plotly.express as px
-from flask import  render_template_string
+
 
 
 app = create_app()
@@ -136,95 +135,40 @@ class PageResult:
         return "/home/{}".format(self.page + 1)  # view the next page
 
 
-@app.route("/plot_demand/<string:material>")
-def plot_demand(material):
-    material = material.lower()
-    if material == "aggregate":
-        file_path = "data/Aggregate/predictions_2023.csv"
-        title = "Demand Prediction for 2023 (Aggregate)"
-    elif material == "concrete":
-        file_path = "data/Concrete/predictions_2023.csv"
-        title = "Demand Prediction for 2023 (Concrete)"
-    else:
-        return "Invalid material. Please choose 'aggregate' or 'concrete'."
-
-    # 从CSV文件读取预测数据
-    predictions_2023_df = pd.read_csv(file_path)
-
-    # 使用Plotly创建交互式折线图
-    fig = px.line(predictions_2023_df, x='timestamp', y='prediction', title=title)
-
-    # 将图形转换为HTML
-    plot_html = fig.to_html(full_html=False)
-
-    return render_template_string(f"""
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <title>{title}</title>
-        </head>
-        <body>
-            {plot_html}
-        </body>
-    </html>
-    """)
-
-
 
 
 @app.route("/home/<int:pagenum>", methods=["GET"])
 @app.route("/home", methods=["GET", "POST"])
 def home(pagenum=1):
-    print("home " * 10)
-    app.logger.info("home info log")
-
-    blogs = Blog.query.all()
-    blogs = list(reversed(blogs))
     user = None
     if "userid" in session:
         user = User.query.filter_by(id=session["userid"]).first()
     else:
         print("userid not in session")
-    print("in home", user, "blogs=", len(blogs), "*" * 20)
-    if request.method == "POST":
-        search_list = []
-        keyword = request.form["keyword"]
-        print("keyword=", keyword, "-" * 10)
-        if keyword is not None:
-            for blog in blogs:
-                if keyword in blog.title or keyword in blog.text:
-                    blog.title = replace_html_tag(blog.title, keyword)
-                    print(blog.title)
-                    blog.text = replace_html_tag(blog.text, keyword)
 
-                    search_list.append(blog)
+    # 从 JSON 文件中读取车牌号码和对应的图片文件名称
+    with open('license_plates.json', 'r') as file:
+        license_plates = json.load(file)
 
-            # if len(search_list) == 0 and keyword in ["天气", "心情"]:
-            #     es_content = es_search.mysearch(keyword)
-            #     search_list.append(es_content)
-            # for movie in notice_list:
-            #     if movie.director.director_full_name == keyword:
-            #         search_list.append(movie)
+    # 获取 detected_images 目录中的所有 JPEG 图像文件
+    detected_images_dir = 'movie/static/images/detected_images'
+    detected_images = [filename for filename in os.listdir(detected_images_dir) if filename.endswith('.jpg')]
+    print(detected_images)
+    # 为每个图像创建一个字典项
+    images = []
+    for image_filename in detected_images:
+        image_item = {'detected_image': os.path.join('detected_images', image_filename)}
+        
+        license_plate = license_plates.get(image_filename, '')
+        if license_plate:
+            image_item['license_image'] = os.path.join('license_images', image_filename )
+            image_item['license_text'] = license_plate
 
-            #     for actor in movie.actors:
-            #         if actor.actor_full_name == keyword:
-            #             search_list.append(movie)
-            #             break
+        images.append(image_item)
+    # images = []
+    # 将图像列表传递给模板
+    return rt("home.html", listing=images, user=user)
 
-            #     for gene in movie.genres:
-            #         if gene.genre_name == keyword:
-            #             search_list.append(movie)
-            #             break
-        print("search_list=", search_list, "=>" * 5)
-        return rt(
-            "home.html",
-            listing=PageResult(search_list, pagenum, 10),
-            user=user,
-            keyword=keyword,
-        )
-        # return rt("home.html", listing=PageResult(search_list, pagenum, 2), user=user)
-
-    return rt("home.html", listing=PageResult(blogs, pagenum), user=user)
 
 
 @app.route("/blogs/create", methods=["GET", "POST"])

@@ -1,6 +1,7 @@
 import cv2
 import pytesseract
 import os
+import json  # 导入json模块
 
 def detect_license(image_path):
     # 加载图片
@@ -31,6 +32,7 @@ def detect_license(image_path):
             plate_contour = approx
             break
 
+    license_plate = ''  # 初始化车牌号码
     # 如果找到了车牌轮廓
     if plate_contour is not None:
         # 获取车牌区域
@@ -43,22 +45,30 @@ def detect_license(image_path):
         plate = gray[y:y+h, x:x+w]
 
         # 保存截取的车牌图像
-        cv2.imwrite('resources/license_'+os.path.basename(image_path), plate)
+        cv2.imwrite('license_images/'+ os.path.basename(image_path), plate)
 
-        # 显示标记了车牌位置的原始图像
-        cv2.imshow("Marked", img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # # 显示标记了车牌位置的原始图像
+        # cv2.imshow("Marked", img)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
         # 使用 pytesseract 识别车牌号码，只识别数字
-        text = pytesseract.image_to_string(plate, config='--psm 11 --oem 3 -c tessedit_char_whitelist=0123456789')
+        license_plate = pytesseract.image_to_string(plate, config='--psm 11 --oem 3 -c tessedit_char_whitelist=0123456789')
 
-        print("车牌号码：", text)
+        print("车牌号码：", license_plate)
 
+    return license_plate
 
 if __name__ == "__main__":
-    directory = 'original'
+    # directory = 'original'
+    directory = 'detected_images'
+    license_plates = {}  # 初始化一个空字典来保存图片名称和对应的车牌号码
     for filename in os.listdir(directory):
-        if filename.endswith(".jpeg"): 
+        if filename.endswith(".jpg"): 
             print(filename, '-'*10)
-            detect_license(os.path.join(directory, filename))
+            license_plate = detect_license(os.path.join(directory, filename))
+            license_plates[filename] = license_plate  # 将识别的车牌号码保存到字典
+
+    # 将字典保存到 JSON 文件
+    with open('license_plates.json', 'w') as file:
+        json.dump(license_plates, file)

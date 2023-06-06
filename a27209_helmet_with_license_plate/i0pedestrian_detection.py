@@ -19,7 +19,12 @@ import os
 from PIL import Image
 from datetime import datetime, timedelta
 
-import i1client 
+
+
+
+from i3get_license import detect_license
+
+# import i1client 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train YOLO networks with random input shape.')
@@ -301,6 +306,17 @@ def forked_version_cv_plot_bbox(img, bboxes, scores=None, labels=None, thresh=0.
             # plt.show()        
             plt.axis('off')
             plt.savefig('detected_images/'+ d_str + '.jpg',bbox_inches='tight', pad_inches=0)
+
+
+
+            # 调用detect_license函数
+            license = detect_license('detected_images/'+ d_str + '.jpg')
+
+            # 如果detect_license返回了许可证，就保存图像
+            if license is not None:
+                plt.imshow(img)
+                plt.axis('off')
+                plt.savefig('license_images/'+ license+'.jpg',bbox_inches='tight', pad_inches=0)
             # i1client.send_file_to_server('detected_images/'+ d_str + '.jpg')
             last_save_time = d
 
