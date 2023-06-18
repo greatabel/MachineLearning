@@ -19,11 +19,16 @@ pip install --upgrade -r requirements.txt
 
 6.
 数据探索 可视化
-python3 i1good_case.py
+python3 i1ddpg_evaluate.py
 
 
-7.（可选，可以不用部署允许，已经运行出结果）
-python3 i0bad_case.py
+7.（可选，可以不用部署运行，已经运行出结果，并缓存）
+python3 i0ddpg_train.py
+
+
+
+
+
 
 
 # ---- start of requirements ------
