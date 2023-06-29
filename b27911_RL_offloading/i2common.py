@@ -32,70 +32,63 @@ def create_critic_model(state_dim, action_dim):
 
 
 class EdgeComputingEnv(gym.Env):
-    def __init__(self, bandwidth=1.0, noise_power=1.0):
+    def __init__(self, bandwidth=1.0, noise_power=1.0, num_tasks=5):
         super(EdgeComputingEnv, self).__init__()
         self.bandwidth = bandwidth  # 信道的带宽
         self.noise_power = noise_power  # 噪声的功率
+        self.num_tasks = num_tasks  # 同时处理的任务数量
         self.task_queue = []  # 任务队列
-        # 增加边缘计算修改
-        self.state_dim = 4  # 状态维度：当前任务的计算量、传输量、距离、任务大小
-        self.action_dim = 2  # 动作维度：缓存量和卸载量
+        self.state_dim = self.num_tasks * 4  # 状态维度：每个任务的计算量、传输量、距离、任务大小
+        self.action_dim = self.num_tasks * 2  # 动作维度：每个任务的缓存量和卸载量
         self.task_count = 0  # 已处理任务的数量
 
         # 动作空间和状态空间
-        self.action_space = spaces.Box(
-            low=0, high=1, shape=(self.action_dim,), dtype=np.float32
-        )
-        self.observation_space = spaces.Box(
-            low=0, high=np.inf, shape=(self.state_dim,), dtype=np.float32
-        )
+        self.action_space = spaces.Box(low=0, high=1, shape=(self.action_dim,), dtype=np.float32)
+        self.observation_space = spaces.Box(low=0, high=np.inf, shape=(self.state_dim,), dtype=np.float32)
+
 
     def step(self, action):
-        # 根据动作更新环境状态
-        cache, offload = action
-        compute, transmit, distance, task_size = self.task_queue.pop(0)
+        total_time = 0
+        for i in range(self.num_tasks):
+            # 根据动作更新环境状态
+            cache, offload = action[i*2:i*2+2]
+            compute, transmit, distance, task_size = self.task_queue.pop(0)
 
-        # 根据香浓公式计算传输速率
-        signal_power = 1.0 / (distance**2)  # 假设信号功率与距离的平方成反比
-        transmission_rate = self.bandwidth * np.log2(
-            1 + signal_power / self.noise_power
-        )
+            # 根据香农公式计算传输速率
+            signal_power = 1.0 / (distance ** 2)  # 假设信号功率与距离的平方成反比
+            transmission_rate = self.bandwidth * np.log2(1 + signal_power / self.noise_power)
 
-        compute -= cache + offload
-        transmit_time = task_size / transmission_rate  # 计算传输时间
-        time = compute + transmit_time  # 总的完成时间等于计算时间和传输时间之和
-        self.task_count += 1  # 已处理任务的数量增加
+            compute -= cache + offload
+            transmit_time = task_size / transmission_rate  # 计算传输时间
+            time = compute + transmit_time  # 总的完成时间等于计算时间和传输时间之和
+            total_time += time
+            self.task_count += 1  # 已处理任务的数量增加
 
-        # 如果任务队列为空，那么我们添加一个新的任务
-        if not self.task_queue:
-            self.task_queue.append(self._new_task())
+            # 如果任务队列为空，那么我们添加新的任务
+            while len(self.task_queue) < self.num_tasks:
+                self.task_queue.append(self._new_task())
 
-        # 下一个状态就是任务队列中的下一个任务
-        next_state = np.array(self.task_queue[0], dtype=np.float32)
+        # 下一个状态就是任务队列中的所有任务
+        next_state = np.array([task for task in self.task_queue], dtype=np.float32).flatten()
 
         # 奖励函数是负的完成时间
-        reward = -time
+        reward = -total_time
 
         # 如果已处理任务的数量超过100，那么环境结束
-        done = self.task_count >= 100
+        done = self.task_count >= 100 * self.num_tasks
 
         return next_state, reward, done, {}
 
+
+
     def reset(self):
         # 重置环境
-        self.task_queue = [self._new_task()]
-        return np.array(self.task_queue[0], dtype=np.float32)
+        self.task_queue = [self._new_task() for _ in range(self.num_tasks)]
+        return np.array([task for task in self.task_queue], dtype=np.float32).flatten()
 
     def _new_task(self):
-        # 创建一个新的任务，计算量、传输量、距离和任务大小都是随机的
-        # return [np.random.rand() * 10, np.random.rand() * 10, np.random.rand() * 100, np.random.rand() * 10]
-
         # 创建一个新的任务，计算量、传输量、距离和任务大小都是在特定范围内随机生成的
-        compute = np.random.uniform(1, 10)
-        transmit = np.random.uniform(1, 10)
-        distance = np.random.uniform(10, 100)
-        task_size = np.random.uniform(1, 5)
-        return [compute, transmit, distance, task_size]
+        return [np.random.uniform(1, 10), np.random.uniform(1, 10), np.random.uniform(10, 100), np.random.uniform(1, 5)]
 
 
 class ReplayBuffer:
