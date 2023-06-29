@@ -168,6 +168,7 @@ for iteration in range(num_iterations_rl_mopso):
     # 记录RL-MOPSO的成本、风险和可再生能源消耗比例
     rl_mopso_cost.append(np.abs(np.sin(gbest_rl_mopso[0])) + 0.1 * np.abs(gbest_rl_mopso[0]))
     rl_mopso_risk.append(np.abs(np.cos(gbest_rl_mopso[1])) + 0.1 * np.abs(gbest_rl_mopso[1]))
+
     rl_mopso_renewable_consumption.append(np.abs(20 - np.abs(np.sin(gbest_rl_mopso[2])) * np.abs(gbest_rl_mopso[2])))
 
 # 传统MOPSO主循环
@@ -195,6 +196,25 @@ for iteration in range(num_iterations_traditional_mopso):
     traditional_mopso_risk.append(np.abs(np.cos(gbest_traditional_mopso[1])) + 0.1 * np.abs(gbest_traditional_mopso[1]))
     traditional_mopso_renewable_consumption.append(np.abs(20 - np.abs(np.sin(gbest_traditional_mopso[2])) * np.abs(gbest_traditional_mopso[2])))
 
+# # 计算RL-MOPSO的值的最小值和最大值
+# min_value = min(min(rl_mopso_cost), min(rl_mopso_risk), min(rl_mopso_renewable_consumption))
+# max_value = max(max(rl_mopso_cost), max(rl_mopso_risk), max(rl_mopso_renewable_consumption))
+
+# # 计算y轴的范围
+# y_range = max_value - min_value
+# y_min = min_value - 0.1 * y_range  # 将y轴的最小值设为最小值的10%以提供一些额外的空间
+# y_max = max_value + 0.1 * y_range  # 同样，将y轴的最大值设为最大值的10%以提供一些额外的空间
+
+# # 绘制图形
+# plt.figure(figsize=(10, 5))
+# plt.plot(rl_mopso_cost, label='RL-MOPSO Cost', linestyle='dashed')
+# plt.plot(traditional_mopso_cost, label='Traditional MOPSO Cost')
+# plt.xlabel('Iterations')
+# plt.ylabel('Cost')
+# plt.ylim(y_min, y_max)  # 设置y轴的范围
+# plt.legend()
+# plt.title('RL-MOPSO vs Traditional MOPSO - Cost')
+# plt.show()
 
 # 绘制对比图
 plt.figure(figsize=(10, 5))

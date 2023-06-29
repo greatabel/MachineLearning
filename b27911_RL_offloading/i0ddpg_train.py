@@ -2,11 +2,21 @@ import tensorflow.keras.optimizers as optimizers
 from i2common import *
 
 
+def train_model(
+    env,
+    actor_model,
+    critic_model,
+    target_actor_model,
+    target_critic_model,
+    actor_optimizer,
+    critic_optimizer,
+    num_episodes=300,
+    batch_size=64,
+    gamma=0.99,
+    tau=0.001,
+):
 
-def train_model(env, actor_model, critic_model, target_actor_model, target_critic_model, actor_optimizer, critic_optimizer, 
-                num_episodes=300, batch_size=64, gamma=0.99, tau=0.001):
- 
-    print('开始训练模型')
+    print("开始训练模型")
     buffer = ReplayBuffer()
 
     for i in range(num_episodes):
@@ -35,7 +45,9 @@ def train_model(env, actor_model, critic_model, target_actor_model, target_criti
                 dones = np.array(dones)
 
                 # 更新评论者模型
-                target_q_values = critic_model.predict([next_states, actor_model.predict(next_states)])
+                target_q_values = critic_model.predict(
+                    [next_states, actor_model.predict(next_states)]
+                )
                 q_values = rewards + gamma * target_q_values * (1 - dones)
 
                 critic_loss = critic_model.train_on_batch([states, actions], q_values)
@@ -44,20 +56,25 @@ def train_model(env, actor_model, critic_model, target_actor_model, target_criti
                 with tf.GradientTape() as tape:
                     actions = actor_model(states)
                     critic_value = critic_model([states, actions])
-                    
+
                     # 使用 `-value` 是因为我们想最大化评论者模型为我们的动作给出的价值
                     actor_loss = -tf.math.reduce_mean(critic_value)
 
                 actor_grad = tape.gradient(actor_loss, actor_model.trainable_variables)
-                actor_optimizer.apply_gradients(zip(actor_grad, actor_model.trainable_variables))
+                actor_optimizer.apply_gradients(
+                    zip(actor_grad, actor_model.trainable_variables)
+                )
 
                 # 更新冻结目标模型
-                for (model_weights, target_weights) in zip(actor_model.get_weights(), target_actor_model.get_weights()):
+                for (model_weights, target_weights) in zip(
+                    actor_model.get_weights(), target_actor_model.get_weights()
+                ):
                     target_weights = tau * model_weights + (1 - tau) * target_weights
 
-                for (model_weights, target_weights) in zip(critic_model.get_weights(), target_critic_model.get_weights()):
+                for (model_weights, target_weights) in zip(
+                    critic_model.get_weights(), target_critic_model.get_weights()
+                ):
                     target_weights = tau * model_weights + (1 - tau) * target_weights
- 
 
         # 跑一段时间，打印一些信息
         if i % 100 == 0:
@@ -67,11 +84,9 @@ def train_model(env, actor_model, critic_model, target_actor_model, target_criti
     critic_model.save_weights("critic_model_weights.h5")
 
 
-
-
 def main():
     env = EdgeComputingEnv()
-    
+
     actor_model = create_actor_model(env.state_dim, env.action_dim)
     critic_model = create_critic_model(env.state_dim, env.action_dim)
     target_actor_model = create_actor_model(env.state_dim, env.action_dim)
@@ -80,10 +95,18 @@ def main():
     actor_optimizer = tf.keras.optimizers.Adam()
     critic_optimizer = tf.keras.optimizers.Adam()
 
-    critic_model.compile(loss='mse', optimizer=critic_optimizer)
-    
-    train_model(env, actor_model, critic_model, target_actor_model, target_critic_model, actor_optimizer, critic_optimizer)
+    critic_model.compile(loss="mse", optimizer=critic_optimizer)
+
+    train_model(
+        env,
+        actor_model,
+        critic_model,
+        target_actor_model,
+        target_critic_model,
+        actor_optimizer,
+        critic_optimizer,
+    )
+
 
 if __name__ == "__main__":
     main()
-
