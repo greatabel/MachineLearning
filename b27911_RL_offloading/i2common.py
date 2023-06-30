@@ -43,12 +43,18 @@ class EdgeComputingEnv(gym.Env):
         self.task_count = 0  # 已处理任务的数量
 
         # 动作空间和状态空间
-        self.action_space = spaces.Box(low=0, high=1, shape=(self.action_dim,), dtype=np.float32)
-        self.observation_space = spaces.Box(low=0, high=np.inf, shape=(self.state_dim,), dtype=np.float32)
-
+        self.action_space = spaces.Box(
+            low=0, high=1, shape=(self.action_dim,), dtype=np.float32
+        )
+        self.observation_space = spaces.Box(
+            low=0, high=np.inf, shape=(self.state_dim,), dtype=np.float32
+        )
 
     def step(self, action):
         total_time = 0
+        total_energy = 0  # 新增一个变量来存储总能耗
+        local_process_power = 0.1  # 假设本地处理的功耗为0.1
+
         for i in range(self.num_tasks):
             # 根据动作更新环境状态
             cache, offload = action[i*2:i*2+2]
@@ -58,10 +64,21 @@ class EdgeComputingEnv(gym.Env):
             signal_power = 1.0 / (distance ** 2)  # 假设信号功率与距离的平方成反比
             transmission_rate = self.bandwidth * np.log2(1 + signal_power / self.noise_power)
 
-            compute -= cache + offload
-            transmit_time = task_size / transmission_rate  # 计算传输时间
-            time = compute + transmit_time  # 总的完成时间等于计算时间和传输时间之和
+            # 考虑本地处理的部分
+            local = compute - cache - offload
+            local_time = local  # 假设本地处理的时间是线性的
+            local_energy = local_process_power * local_time  # 计算本地处理的能耗
+
+            # 卸载处理的时间
+            offload_time = offload + cache  
+            # 计算传输时间
+            transmit_time = task_size / transmission_rate  
+            # 总的完成时间等于卸载处理时间、本地处理时间和传输时间之和
+            time = offload_time + local_time + transmit_time  
+            energy = local_energy  # 总能耗等于本地处理的能耗
+
             total_time += time
+            total_energy += energy
             self.task_count += 1  # 已处理任务的数量增加
 
             # 如果任务队列为空，那么我们添加新的任务
@@ -71,15 +88,13 @@ class EdgeComputingEnv(gym.Env):
         # 下一个状态就是任务队列中的所有任务
         next_state = np.array([task for task in self.task_queue], dtype=np.float32).flatten()
 
-        # 奖励函数是负的完成时间
-        reward = -total_time
+        # 奖励函数是负的完成时间和能耗
+        reward = -total_time - total_energy
 
         # 如果已处理任务的数量超过100，那么环境结束
         done = self.task_count >= 100 * self.num_tasks
 
         return next_state, reward, done, {}
-
-
 
     def reset(self):
         # 重置环境
@@ -88,7 +103,12 @@ class EdgeComputingEnv(gym.Env):
 
     def _new_task(self):
         # 创建一个新的任务，计算量、传输量、距离和任务大小都是在特定范围内随机生成的
-        return [np.random.uniform(1, 10), np.random.uniform(1, 10), np.random.uniform(10, 100), np.random.uniform(1, 5)]
+        return [
+            np.random.uniform(1, 10),
+            np.random.uniform(1, 10),
+            np.random.uniform(10, 100),
+            np.random.uniform(1, 5),
+        ]
 
 
 class ReplayBuffer:
