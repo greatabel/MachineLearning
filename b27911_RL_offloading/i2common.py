@@ -53,7 +53,8 @@ class EdgeComputingEnv(gym.Env):
     def step(self, action):
         total_time = 0
         total_energy = 0  # 新增一个变量来存储总能耗
-        local_process_power = 0.1  # 假设本地处理的功耗为0.1
+        fi = 1.0  # 假设每个设备的计算能力为1.0，可以随机修改
+        pi = 0.1  # 假设每个设备的功耗为0.1，可以随机修改
 
         for i in range(self.num_tasks):
             # 根据动作更新环境状态
@@ -66,15 +67,18 @@ class EdgeComputingEnv(gym.Env):
 
             # 考虑本地处理的部分
             local = compute - cache - offload
-            local_time = local  # 假设本地处理的时间是线性的
-            local_energy = local_process_power * local_time  # 计算本地处理的能耗
+            if local > 0:  # 如果有部分任务在本地处理
+                # 本地处理的时间等于任务大小除以设备的计算能力
+                local_time = local / fi  
+                # 本地处理的能耗等于功耗乘以处理时间
+                local_energy = pi * local_time  
+            else:  # 如果任务被完全卸载
+                local_time = 0
+                local_energy = 0
 
-            # 卸载处理的时间
-            offload_time = offload + cache  
-            # 计算传输时间
-            transmit_time = task_size / transmission_rate  
-            # 总的完成时间等于卸载处理时间、本地处理时间和传输时间之和
-            time = offload_time + local_time + transmit_time  
+            offload_time = offload + cache  # 卸载处理的时间
+            transmit_time = task_size / transmission_rate  # 计算传输时间
+            time = offload_time + local_time + transmit_time  # 总的完成时间等于卸载处理时间、本地处理时间和传输时间之和
             energy = local_energy  # 总能耗等于本地处理的能耗
 
             total_time += time
@@ -95,6 +99,7 @@ class EdgeComputingEnv(gym.Env):
         done = self.task_count >= 100 * self.num_tasks
 
         return next_state, reward, done, {}
+
 
     def reset(self):
         # 重置环境
