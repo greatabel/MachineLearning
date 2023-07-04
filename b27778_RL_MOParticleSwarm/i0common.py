@@ -16,21 +16,30 @@ class PowerPlantEnv(gym.Env):
         self.step_counter = 0
 
     def step(self, action):
-        # 增加步数计数器
+        # 
         self.step_counter += 1
-        
-        # 根据动作更新状态
-        # 这里只是一个示例，你应该根据你的问题来定义状态更新和奖励机制
-        self.state = self.state + np.random.rand(4) - 0.5  # 修改为4维
-        
+
+        # 更新状态
+        self.state = self.state + np.random.rand(4) - 0.5  # just a placeholder for real state transition function
+
+        # 约束条件
+        lower_limit, upper_limit = 1, 9  # replace with your real limits
+        self.state[0] = np.clip(self.state[0], lower_limit, upper_limit)
+
         # 计算奖励
-        reward = -np.sum(self.state ** 2)
+        thermal_cost = self.state[0]  
+        carbon_cost = self.state[1]  
+        risk_value = self.state[2]  
+        renewable_absorption = self.state[3]  
+
+        reward = -(thermal_cost + carbon_cost + risk_value - renewable_absorption)
+
         
-        # 检查是否完成
-        done = self.step_counter >= 100  # 假设一个episode最多100步
-        
-        # 返回新状态，奖励，完成标志和额外信息
+        done = self.step_counter >= 100
+
+
         return self.state, reward, done, {}
+
 
     def reset(self):
         # 重置环境到初始状态
