@@ -1,6 +1,0 @@
-Twitter US Airline Sentiment
-
-This sentiment analysis dataset contains tweets since Feb 2015 about each of the major US airline. Each tweet is classified either positive, negative or neutral. The included features including Twitter ID, sentiment confidence score, sentiments, negative reasons, airline name, retweet count, name, tweet text, tweet coordinates, date and time of the tweet, and the location of the tweet.
-
-Your main purpose here is to identify if the tweet is positive/negative/neutral, but other paths are also possible.
-Remember to model a cost benefit analysis.

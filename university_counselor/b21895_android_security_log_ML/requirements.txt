@@ -1,7 +1,0 @@
-termcolor
-androguard
-requests
-numpy
-matplotlib
-notebook
-

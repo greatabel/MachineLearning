@@ -1,7 +1,0 @@
-ipython
-gym
-matplotlib
-numpy
-pandas
-Pillow
-Flask

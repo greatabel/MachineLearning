@@ -1,6 +1,0 @@
-[{"word1": "Django错误提示", "word2": "未发现Django库", "freq": 15.83},
-{"word1": "未发现Django库", "word2": "解决方案：pip3 install Django", "freq": 6.83},
-{"word1": "Django错误提示", "word2": "KeyError: key", "freq": 10.29},
-{"word1": "Django错误提示", "word2": "404 Not Found", "freq": 7.71},
-{"word1": "KeyError: key", "word2": " 解决方案：确保字典中存在键或使用dict.get()", "freq": 11.87},
-{"word1": "404 Not Found", "word2": "解决方案：检查路由和URL匹配", "freq": 8.61}]
