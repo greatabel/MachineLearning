@@ -2,7 +2,7 @@ import numpy as np
 import gym
 
 np.random.seed(0)
-env = gym.make('FrozenLake-v1')
+env = gym.make('FrozenLake-v1', render_mode='ansi')
 
 print('观察空间 = {}'.format(env.observation_space))
 print('动作空间 = {}'.format(env.action_space))
@@ -18,10 +18,11 @@ def play_policy(env, policy, render=False):
     state = observation[0] if isinstance(observation, tuple) else observation  # 状态解析
     while True:
         if render:
-            env.render()
+            rendered = env.render()
+            print(rendered)
         action = np.random.choice(env.action_space.n, p=policy[state])
         r = env.step(action)
-        print('r=', r)
+        # print('r=', r)
         observation, reward, done, _, _ = r
         state = observation[0] if isinstance(observation, tuple) else observation  # 更新状态
         total_reward += reward
@@ -35,5 +36,5 @@ def play_policy(env, policy, render=False):
 # 随机策略
 random_policy = np.ones((env.observation_space.n, env.action_space.n)) / env.action_space.n
 
-episode_rewards = [play_policy(env, random_policy) for _ in range(100)]
+episode_rewards = [play_policy(env, random_policy, True) for _ in range(100)]
 print("随机策略 平均奖励：{}".format(np.mean(episode_rewards)))
