@@ -1,6 +1,13 @@
 import numpy as np
 import gym
 
+from colored import fg, bg, attr
+# 使用 fg (前景色), bg (背景色) 和 attr (属性, 如重置)
+red_text = fg('red')
+green_background = bg('green')
+reset = attr('reset')
+
+
 np.random.seed(0)
 env = gym.make('FrozenLake-v1', render_mode='ansi')
 
@@ -19,11 +26,13 @@ def play_policy(env, policy, render=False):
     while True:
         if render:
             rendered = env.render()
-            print(rendered)
+            # print(rendered)
         action = np.random.choice(env.action_space.n, p=policy[state])
         r = env.step(action)
-        # print('r=', r)
+        print('r=', r)
         observation, reward, done, _, _ = r
+        if reward != 0.0:
+        	print(green_background + 'r==> ' + str(r) + reset)
         state = observation[0] if isinstance(observation, tuple) else observation  # 更新状态
         total_reward += reward
         if done:
