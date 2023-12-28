@@ -18,3 +18,9 @@ at folder "04Building Machine Learning System with Python"
 
 # 04 BuildingDeep Learning with Python
 https://book.douban.com/subject/27030685/
+
+# 05 Deep Learning with Python
+https://book.douban.com/subject/27030685/
+
+# 06 强化学习：原理与Python实现
+https://book.douban.com/subject/34478302/
